@@ -26,10 +26,12 @@ import java.util.UUID;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.craftercms.studio.commons.dto.Activity;
+import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.DeploymentChannel;
 import org.craftercms.studio.commons.dto.FormDefinition;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
+import org.craftercms.studio.commons.dto.Tenant;
 import org.craftercms.studio.commons.dto.WorkflowTransition;
 import org.craftercms.studio.commons.extractor.ItemExtractor;
 import org.craftercms.studio.commons.filter.ItemFilter;
@@ -42,11 +44,24 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(value = {"/spring/mockito-context.xml", "/spring/unit-testing-context.xml"})
-public abstract class AbstractManagerTest {
+public abstract class AbstractImplTest {
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
+    }
+
+    protected ItemId createItemIdMock() {
+        ItemId itemId = new ItemId();
+        itemId.setItemId(UUID.randomUUID().toString());
+        return itemId;
+    }
+
+    protected Context createContextMock() {
+        String ticket = RandomStringUtils.randomAlphanumeric(16);
+        Tenant tenant = new Tenant();
+        Context context = new Context(ticket, tenant);
+        return context;
     }
 
     protected List<Item> createItemListMock() {

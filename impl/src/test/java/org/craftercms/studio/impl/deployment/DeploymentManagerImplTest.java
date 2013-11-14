@@ -18,9 +18,8 @@
 package org.craftercms.studio.impl.deployment;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.NotImplementedException;
-import org.craftercms.studio.impl.AbstractManagerTest;
+import org.craftercms.studio.impl.AbstractImplTest;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Unit tests for Deployment Manager implementation
  */
-public class DeploymentManagerImplTest extends AbstractManagerTest {
+public class DeploymentManagerImplTest extends AbstractImplTest {
 
     @Autowired
     @InjectMocks
