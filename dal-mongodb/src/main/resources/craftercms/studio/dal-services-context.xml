@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="dal-mongodb-context.xml"/>
+
+    <bean name="studio.dal.properties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="fileEncoding" value="UTF-8"/>
+        <property name="locations">
+            <list>
+                <value>classpath:craftercms/studio/dal-mongodb.properties</value>
+                <value>classpath*:craftercms/extension/studio/dal-mongodb.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="studio.dal.client" class="org.craftercms.studio.impl.dal.mongodb.DALClient">
+        <property name="mongoClient" ref="studio.dal.mongodb.client"/>
+        <property name="username" value="${studio.dal.mongodb.connection.dbUser}"/>
+        <property name="password" value="${studio.dal.mongodb.connection.dbPassword}"/>
+        <property name="database" value="${studio.dal.mongodb.connection.db}"/>
+    </bean>
+
+    <bean id="studio.dal.service.parent" abstract="true" class="org.craftercms.studio.impl.dal.AbstractDALService">
+        <property name="dalClient" ref="studio.dal.client"/>
+    </bean>
+
+    <bean id="studio.dal.service.auditService" parent="studio.dal.service.parent"
+          class="org.craftercms.studio.impl.dal.audit.AuditDALServiceImpl">
+        <property name="collectionName" value="${studio.dal.mongodb.collection.audit}" />
+    </bean>
+
+</beans>

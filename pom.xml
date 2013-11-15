@@ -405,5 +405,7 @@
         <module>mock</module>
         <module>ui</module>
         <module>server</module>
+        <module>dal-api</module>
+        <module>dal-mongodb</module>
     </modules>
 </project>

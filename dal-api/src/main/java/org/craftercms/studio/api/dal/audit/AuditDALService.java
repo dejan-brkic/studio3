@@ -15,12 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+package org.craftercms.studio.api.dal.audit;
+
+import java.util.List;
+
+import org.craftercms.studio.commons.dto.Activity;
+
 /**
- * Provides the necessary definitions and transport
- * objects for audit module.
+ * Audit DAL Service.
  *
- * @since 3.0
+ * @author Dejan Brkic
  */
-package org.craftercms.studio.api.audit;
+public interface AuditDALService {
 
+    List<Activity> getActivities(String ticket, String site, List<String> filters);
 
+    Activity logActivity(String ticket, String site, Activity activity);
+}

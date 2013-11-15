@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="studio.dal.properties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="fileEncoding" value="UTF-8"/>
+        <property name="locations">
+            <list>
+                <value>classpath:craftercms/studio/dal-mongodb.properties</value>
+                <value>classpath*:craftercms/extension/studio/dal-mongodb.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="studio.dal.mongodb.server" class="com.mongodb.ServerAddress">
+        <constructor-arg value="${studio.dal.mongodb.connection.host}"/>
+        <constructor-arg value="${studio.dal.mongodb.connection.port}"/>
+    </bean>
+
+    <bean id="studio.dal.mongodb.options"
+          class="org.craftercms.studio.impl.dal.mongodb.ClientOptionsFactory">
+        <property name="autoConnectRetry" value="${studio.dal.mongodb.connection.autoConnectRetry}"/>
+        <property name="connectionsPerHost" value="${studio.dal.mongodb.connection.connectionsPerHost}"/>
+        <property name="maxAutoConnectRetryTime" value="${studio.dal.mongodb.connection.maxWaitTime}"/>
+        <property name="socketKeepAlive" value="${studio.dal.mongodb.connection.socketKeepAlive}"/>
+        <property name="threadsAllowedToBlockForConnectionMultiplier"
+                  value="${studio.dal.mongodb.connection.threadsAllowedToBlockForConnectionMultiplier}"/>
+        <property name="connectTimeout" value="${studio.dal.mongodb.connection.connectTimeout}"/>
+        <property name="writeConcern" value="${studio.dal.mongodb.connection.writeConcern}"/>
+        <property name="readPreference" value="${studio.dal.mongodb.connection.readPreference}"/>
+    </bean>
+
+    <bean id="studio.dal.mongodb.client" class="com.mongodb.MongoClient">
+        <constructor-arg>
+            <list>
+                <ref bean="studio.dal.mongodb.server"/>
+            </list>
+        </constructor-arg>
+        <constructor-arg ref="studio.dal.mongodb.options"/>
+    </bean>
+
+</beans>

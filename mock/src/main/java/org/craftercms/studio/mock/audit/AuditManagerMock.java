@@ -17,28 +17,17 @@
 
 package org.craftercms.studio.mock.audit;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.craftercms.studio.api.audit.AuditManager;
+import org.craftercms.studio.api.dal.audit.AuditManager;
 import org.craftercms.studio.commons.dto.Activity;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.NotImplementedException;
-import org.craftercms.studio.mock.content.SiteListMock;
 
 /**
  * Audit Manager Mock implementation.

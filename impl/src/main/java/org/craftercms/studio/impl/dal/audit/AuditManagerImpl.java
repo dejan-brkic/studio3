@@ -15,11 +15,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.impl.audit;
+package org.craftercms.studio.impl.dal.audit;
 
 import java.util.List;
 
-import org.craftercms.studio.api.audit.AuditManager;
+import org.craftercms.studio.api.dal.audit.AuditManager;
 import org.craftercms.studio.commons.dto.Activity;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.NotImplementedException;

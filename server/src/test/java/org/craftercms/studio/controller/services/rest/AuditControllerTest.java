@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 
-import org.craftercms.studio.api.audit.AuditManager;
+import org.craftercms.studio.api.dal.audit.AuditManager;
 import org.craftercms.studio.commons.dto.Activity;
 import org.craftercms.studio.commons.dto.Context;
 import org.hamcrest.Matchers;

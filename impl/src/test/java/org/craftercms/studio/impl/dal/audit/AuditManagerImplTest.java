@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.impl.audit;
+package org.craftercms.studio.impl.dal.audit;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.craftercms.studio.commons.exception.NotImplementedException;

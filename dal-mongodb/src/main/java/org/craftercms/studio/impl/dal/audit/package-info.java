@@ -16,8 +16,11 @@
  */
 
 /**
- * Default implementation of aduit module.
+ * Provides the necessary definitions and transport
+ * objects for audit module.
+ *
  * @since 3.0
  */
-package org.craftercms.studio.impl.audit;
+package org.craftercms.studio.impl.dal.audit;
+
 

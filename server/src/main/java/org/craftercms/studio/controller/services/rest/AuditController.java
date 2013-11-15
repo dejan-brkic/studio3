@@ -3,9 +3,8 @@ package org.craftercms.studio.controller.services.rest;
 import java.util.List;
 import javax.validation.Valid;
 
-import org.craftercms.studio.api.audit.AuditManager;
+import org.craftercms.studio.api.dal.audit.AuditManager;
 import org.craftercms.studio.commons.dto.Activity;
-import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.exceptions.ValidationException;
 import org.craftercms.studio.validation.AuditValidator;
 import org.slf4j.Logger;
