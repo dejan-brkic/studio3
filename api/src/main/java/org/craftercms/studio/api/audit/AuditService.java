@@ -14,7 +14,7 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.craftercms.studio.api.dal.audit;
+package org.craftercms.studio.api.audit;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ import org.craftercms.studio.commons.dto.Context;
  * @author Carlos Ortiz
  * @author Sumer Jabri
  */
-public interface AuditManager {
+public interface AuditService {
 
     /**
      * Get activities.

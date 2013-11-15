@@ -24,7 +24,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
-import org.craftercms.studio.api.dal.audit.AuditManager;
+import org.craftercms.studio.api.audit.AuditService;
 import org.craftercms.studio.commons.dto.Activity;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.NotImplementedException;
@@ -34,7 +34,7 @@ import org.craftercms.studio.commons.exception.NotImplementedException;
  *
  * @author Dejan Brkic
  */
-public class AuditManagerMock implements AuditManager {
+public class AuditServiceMock implements AuditService {
 
     @Override
     public List<Activity> getActivities(final Context context, final String site, final List<String> filters) {

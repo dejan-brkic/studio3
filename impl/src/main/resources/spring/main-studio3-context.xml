@@ -12,7 +12,7 @@
     <bean id="AnalyticsService" class="org.craftercms.studio.impl.analytics.AnalyticsServiceImpl">
     </bean>
 
-    <bean id="AuditManager" class="org.craftercms.studio.impl.dal.audit.AuditManagerImpl" />
+    <bean id="AuditManager" class="org.craftercms.studio.impl.audit.AuditServiceImpl" />
 
     <bean id="ConfigurationManager" class="org.craftercms.studio.impl.configuration.ConfigurationManagerImpl"/>
 
@@ -33,7 +33,7 @@
     <bean id="WorkflowManager" class="org.craftercms.studio.impl.workflow.WorkflowManagerImpl"/>
 
     <bean id="ContentManager" class="org.craftercms.studio.internal.content.impl.ContentManagerImpl">
-        <property name="contentService" ref="studio.repo.contentService"/>
+            <property name="contentService" ref="studio.repo.contentService"/>
     </bean>
 
     <import resource="classpath*:spring/*-studio3-ext-context.xml"/>
