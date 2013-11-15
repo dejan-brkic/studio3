@@ -70,7 +70,7 @@
           class="org.craftercms.studio.impl.repository.mongodb.data.JongoQueries" init-method="init">
         <property name="queryFiles">
           <list>
-              <value>classpath:/craftercms/studio/mongodb/default-queries.xml</value>
+              <value>classpath:craftercms/studio/mongodb/default-queries.xml</value>
               <value>classpath*:/craftercms/extension/studio/repo/custom-queries.xml</value>
           </list>
         </property>

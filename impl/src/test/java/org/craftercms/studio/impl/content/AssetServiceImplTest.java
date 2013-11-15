@@ -166,13 +166,14 @@ public class AssetServiceImplTest extends AbstractImplTest {
      */
     @Test
     public void testRead() throws Exception {
-        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString())).thenReturn(mock(InputStream
-            .class));
+        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString()))
+            .thenReturn(mock(Item.class));
 
-        InputStream content = contentManagerMock.read(createContextMock(), UUID.randomUUID().toString());
+        Item item = contentManagerMock.read(createContextMock(), RandomStringUtils.randomAlphabetic(10),
+            UUID.randomUUID().toString());
 
-        verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString());
-        Assert.assertNotNull(content);
+        verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+        Assert.assertNotNull(item);
     }
 
     /**
@@ -182,13 +183,14 @@ public class AssetServiceImplTest extends AbstractImplTest {
      */
     @Test(expected = StudioException.class)
     public void testReadContentNotFound() throws Exception {
-        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString())).thenThrow(new StudioException
-            ("Content not found") {
+        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString()))
+            .thenThrow(new StudioException("Content not found") {
         });
 
-        InputStream content = contentManagerMock.read(createContextMock(), UUID.randomUUID().toString());
+        Item item = contentManagerMock.read(createContextMock(), RandomStringUtils.randomAlphabetic(10),
+            UUID.randomUUID().toString());
 
-        verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString());
-        Assert.assertNull(content);
+        verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+        Assert.assertNull(item);
     }
 }
