@@ -20,6 +20,7 @@ package org.craftercms.studio.impl.audit;
 import java.util.List;
 
 import org.craftercms.studio.api.audit.AuditService;
+import org.craftercms.studio.api.dal.audit.AuditDALService;
 import org.craftercms.studio.commons.dto.Activity;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.NotImplementedException;
@@ -34,14 +35,23 @@ import org.craftercms.studio.commons.exception.NotImplementedException;
  */
 public class AuditServiceImpl implements AuditService {
 
+    private AuditDALService auditDALService;
 
     @Override
     public List<Activity> getActivities(final Context context, final String site, final List<String> filters) {
-        throw new NotImplementedException("Not implemented yet!");
+        return auditDALService.getActivities(context.getTicket(), site, filters);
     }
 
     @Override
     public Activity logActivity(final Context context, final String site, final Activity activity) {
         throw new NotImplementedException("Not implemented yet!");
+    }
+
+    public AuditDALService getAuditDALService() {
+        return auditDALService;
+    }
+
+    public void setAuditDALService(final AuditDALService auditDALService) {
+        this.auditDALService = auditDALService;
     }
 }

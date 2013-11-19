@@ -5,7 +5,9 @@ import javax.validation.Valid;
 
 import org.craftercms.studio.api.audit.AuditService;
 import org.craftercms.studio.commons.dto.Activity;
+import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.exceptions.ValidationException;
+import org.craftercms.studio.utils.RestControllerUtils;
 import org.craftercms.studio.validation.AuditValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +50,8 @@ public class AuditController {
     public List<Activity> getActivities(@PathVariable final String site,
                                         @RequestParam(required = false) final List<String> filters) {
         this.log.debug("Retrieving list of activities for {} using filters {}", site, filters);
-        return this.auditService.getActivities(null, site, filters);
+        Context context = RestControllerUtils.createMockContext();
+        return this.auditService.getActivities(context, site, filters);
     }
 
     /**

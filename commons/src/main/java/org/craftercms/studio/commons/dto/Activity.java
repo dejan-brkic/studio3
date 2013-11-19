@@ -19,6 +19,9 @@ package org.craftercms.studio.commons.dto;
 import java.util.Date;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import de.undercouch.bson4jackson.types.ObjectId;
+
 /**
  * Activity.
  *
@@ -34,6 +37,7 @@ public class Activity {
     private String type;
     private Date date;
     private String creator;
+
     private String id;
 
     public Activity() {

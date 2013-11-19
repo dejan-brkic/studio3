@@ -389,12 +389,12 @@
         <module>commons</module>
         <module>repo-api</module>
         <module>repo-mongodb</module>
+        <module>dal-api</module>
+        <module>dal-mongodb</module>
         <module>api</module>
         <module>impl</module>
         <module>mock</module>
         <module>ui</module>
         <module>server</module>
-        <module>dal-api</module>
-        <module>dal-mongodb</module>
     </modules>
 </project>

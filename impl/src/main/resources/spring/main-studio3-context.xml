@@ -4,6 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <import resource="classpath*:craftercms/studio/craftercms-mongo-repository.xml"/>
+    <import resource="classpath*:craftercms/studio/dal-services-context.xml" />
 
     <bean id="AssetService" class="org.craftercms.studio.impl.content.AssetServiceImpl">
         <property name="contentManager" ref="ContentManager"/>
@@ -12,7 +13,9 @@
     <bean id="AnalyticsService" class="org.craftercms.studio.impl.analytics.AnalyticsServiceImpl">
     </bean>
 
-    <bean id="AuditManager" class="org.craftercms.studio.impl.audit.AuditServiceImpl" />
+    <bean id="AuditManager" class="org.craftercms.studio.impl.audit.AuditServiceImpl">
+        <property name="auditDALService" ref="studio.dal.service.auditService"/>
+    </bean>
 
     <bean id="ConfigurationManager" class="org.craftercms.studio.impl.configuration.ConfigurationManagerImpl"/>
 
@@ -34,6 +37,7 @@
 
     <bean id="ContentManager" class="org.craftercms.studio.internal.content.impl.ContentManagerImpl">
             <property name="contentService" ref="studio.repo.contentService"/>
+            <property name="auditDALService" ref="studio.dal.service.auditService"/>
     </bean>
 
     <import resource="classpath*:spring/*-studio3-ext-context.xml"/>

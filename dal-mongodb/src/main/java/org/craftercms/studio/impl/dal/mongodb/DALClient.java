@@ -17,12 +17,28 @@
 
 package org.craftercms.studio.impl.dal.mongodb;
 
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.SerializerProvider;
 import com.mongodb.DB;
+import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
+import de.undercouch.bson4jackson.types.ObjectId;
 import org.apache.commons.lang.StringUtils;
 import org.jongo.Jongo;
+import org.jongo.Mapper;
 import org.jongo.MongoCollection;
+import org.jongo.Oid;
+import org.jongo.marshall.jackson.JacksonMapper;
+import org.jongo.marshall.jackson.oid.Id;
 
 /**
  * DAL client.
@@ -47,11 +63,41 @@ public class DALClient {
                 throw new MongoException("Authentication failed for database " + database);
             }
         }
-        jongo = new Jongo(db);
-    }
+
+            Mapper mapper = new JacksonMapper.Builder().addDeserializer(ObjectId.class,
+                new JsonDeserializer<ObjectId>() {
+                @Override
+                public ObjectId deserialize(final JsonParser jsonParser, final DeserializationContext
+                    deserializationContext) throws IOException, JsonProcessingException {
+                    org.bson.types.ObjectId objectId = new org.bson.types.ObjectId(Oid.withOid(jsonParser.getText()));
+                    return new ObjectId(objectId.getTimeSecond(), objectId.getMachine(), objectId.getInc());
+                }
+            })
+            .addSerializer(ObjectId.class, new JsonSerializer<ObjectId>() {
+
+                @Override
+                public void serialize(final ObjectId objectId, final JsonGenerator jsonGenerator, final SerializerProvider serializerProvider) throws IOException, JsonProcessingException {
+                    org.bson.types.ObjectId o = new org.bson.types.ObjectId(objectId.getTime(),
+                        objectId.getMachine(), objectId.getInc());
+                    jsonGenerator.writeString(o.toString());
+                }
+            }).build();
+
+            jongo=new Jongo(db);
+            }
 
     public MongoCollection getCollection(String name) {
+        MongoCollection mc = jongo.getCollection(name);
         return jongo.getCollection(name);
+    }
+
+    public DB getDb() {
+        return mongoClient.getDB(database);
+    }
+
+    public DBCollection getDBCollection(String collectionName) {
+        DB db = mongoClient.getDB(database);
+        return db.getCollection(collectionName);
     }
 
     // Getters and setters

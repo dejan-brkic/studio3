@@ -26,6 +26,11 @@
             <artifactId>studio-repo-api</artifactId>
             <version>3.0.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.craftercms</groupId>
+            <artifactId>studio-dal-api</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+        </dependency>
         <!-- Testing -->
         <dependency>
             <groupId>org.springframework</groupId>
