@@ -17,21 +17,21 @@
         <property name="auditDALService" ref="studio.dal.service.auditService"/>
     </bean>
 
-    <bean id="ConfigurationManager" class="org.craftercms.studio.impl.configuration.ConfigurationManagerImpl"/>
+    <bean id="ConfigurationManager" class="org.craftercms.studio.impl.configuration.ConfigurationServiceImpl"/>
 
     <bean id="DependencyManager" class="org.craftercms.studio.impl.dependency.DependencyManagerImpl" />
 
     <bean id="DeploymentManager" class="org.craftercms.studio.impl.deployment.DeploymentManagerImpl" />
 
-    <bean id="FormsManager" class="org.craftercms.studio.impl.forms.FormsManagerImpl" />
+    <bean id="FormsManager" class="org.craftercms.studio.impl.forms.FormServiceImpl" />
 
     <bean id="LifecycleManager" class="org.craftercms.studio.impl.lifecycle.LifecycleManagerImpl" />
 
-    <bean id="SearchManager" class="org.craftercms.studio.impl.search.SearchManagerImpl"/>
+    <bean id="SearchManager" class="org.craftercms.studio.impl.search.SearchServiceImpl"/>
 
-    <bean id="SecurityManager" class="org.craftercms.studio.impl.security.SecurityManagerImpl" />
+    <bean id="SecurityManager" class="org.craftercms.studio.impl.security.SecurityServiceImpl" />
 
-    <bean id="VersionManager" class="org.craftercms.studio.impl.content.VersionManagerImpl"/>
+    <bean id="VersionManager" class="org.craftercms.studio.impl.content.VersionServiceImpl"/>
 
     <bean id="WorkflowManager" class="org.craftercms.studio.impl.workflow.WorkflowManagerImpl"/>
 
