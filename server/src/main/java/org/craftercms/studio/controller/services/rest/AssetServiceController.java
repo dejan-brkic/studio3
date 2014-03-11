@@ -25,10 +25,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.mangofactory.swagger.annotations.ApiModel;
-import com.wordnik.swagger.annotations.ApiError;
-import com.wordnik.swagger.annotations.ApiErrors;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
+import com.wordnik.swagger.annotations.ApiResponse;
+import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.io.IOUtils;
 import org.craftercms.studio.api.content.AssetService;
 import org.craftercms.studio.commons.dto.Context;
@@ -51,8 +52,10 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author Dejan Brkic
  */
+
 @Controller
 @RequestMapping(value = "/api/1/content/asset")
+@Api(value = "Asset Service")
 public class AssetServiceController {
 
     @Autowired
@@ -70,10 +73,11 @@ public class AssetServiceController {
      * @return              item representing given asset in repository
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
+    @ApiOperation(value = "create asset")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Asset Item", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")}
     )
-    @ApiModel(type = Item.class)
     @RequestMapping(value = "/create/{site}",
         params = {"parent_id", "file_name", "mime_type"},
         method = RequestMethod.POST
@@ -120,10 +124,11 @@ public class AssetServiceController {
      * @return          asset meta data
      * @throws          StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
+    @ApiOperation(value = "read asset metadata")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")}
     )
-    @ApiModel(type = Item.class)
     @RequestMapping(value = "/read/{site}",
                     params = { "item_id" },
                     method = RequestMethod.GET
@@ -149,10 +154,11 @@ public class AssetServiceController {
      * @return          textual content of asset
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = String.class)
+    @ApiOperation(value = "read textual content of asset")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = String.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(value = "/read_text",
                     params = { "item_id" },
                     method = RequestMethod.GET)
@@ -177,10 +183,11 @@ public class AssetServiceController {
      * @param response  content
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = InputStream.class)
+    @ApiOperation(value = "read asset content")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = InputStream.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(value = "/get_content/{site}",
                     params = { "item_id" },
                     method = RequestMethod.GET)
@@ -222,10 +229,11 @@ public class AssetServiceController {
      * @return              item representing asset
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad Request")
-    )
-    @ApiModel(type = Item.class)
+    @ApiOperation(value = "update asset")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad Request")
+    })
     @RequestMapping(value = "/update/{site}",
                     params = { "item_id"},
                     method = RequestMethod.POST
@@ -263,8 +271,9 @@ public class AssetServiceController {
      * @param itemId    asset item id
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
+    @ApiOperation(value = "delete asset")
+    @ApiResponses(
+        @ApiResponse(code = 400, message = "Bad request")
     )
     @RequestMapping(value = "/delete/{site}",
                     params = { "item_id" },
@@ -290,10 +299,11 @@ public class AssetServiceController {
      * @return          list of asset items
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = Item.class, collection = true)
+    @ApiOperation(value = "find assets")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(value = "/find/{site}",
                     params = { "query" },
                     method = RequestMethod.GET)

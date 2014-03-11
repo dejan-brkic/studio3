@@ -20,11 +20,9 @@ package org.craftercms.studio.controller.services.rest;
 import java.util.List;
 import java.util.Map;
 
-import com.mangofactory.swagger.annotations.ApiModel;
-import com.mangofactory.swagger.annotations.ListType;
-import com.wordnik.swagger.annotations.ApiError;
-import com.wordnik.swagger.annotations.ApiErrors;
 import com.wordnik.swagger.annotations.ApiParam;
+import com.wordnik.swagger.annotations.ApiResponse;
+import com.wordnik.swagger.annotations.ApiResponses;
 import org.craftercms.studio.api.content.TemplateService;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
@@ -61,10 +59,10 @@ public class TemplateServiceController {
      * @return              template descriptor item
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = Item.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/create/{site}",
         method = RequestMethod.POST,
@@ -103,10 +101,10 @@ public class TemplateServiceController {
      * @return              template descriptor
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = Item.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/create/{site}",
         method = RequestMethod.POST,
@@ -142,10 +140,10 @@ public class TemplateServiceController {
      * @return          template descriptor
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = Item.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/read/{site}",
         method = RequestMethod.GET
@@ -173,10 +171,10 @@ public class TemplateServiceController {
      * @return              template descriptor
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = Item.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/update/{site}",
         method = RequestMethod.POST,
@@ -211,10 +209,10 @@ public class TemplateServiceController {
      * @return              template descriptor
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = Item.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/update/{site}",
         method = RequestMethod.POST,
@@ -246,9 +244,10 @@ public class TemplateServiceController {
      * @param itemId    template identifier
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/delete/{site}",
         method = RequestMethod.POST
@@ -273,10 +272,10 @@ public class TemplateServiceController {
      * @return          list of template descriptors
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = Item.class, collection = true, listType = ListType.List)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/find/{site}",
         method = RequestMethod.GET

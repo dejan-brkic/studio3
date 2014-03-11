@@ -45,7 +45,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public boolean validate(final Context context) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        return true;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

@@ -50,6 +50,7 @@ public class CrafterCMSExceptionResolver extends AbstractHandlerExceptionResolve
     {
         final ExceptionFormatter exceptionFormatter = this.formatterRegistry.getFormatter(ex.getClass());
         try {
+            this.log.debug("ERROR:", ex);
             response.setHeader("Content-Type", MediaType.APPLICATION_JSON.toString());
             response.setStatus(exceptionFormatter.getHttpResponseCode());
             response.getWriter().write(exceptionFormatter.getFormattedMessage(ex));
