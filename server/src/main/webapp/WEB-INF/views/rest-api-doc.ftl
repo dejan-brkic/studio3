@@ -16,56 +16,28 @@
   ~ You should have received a copy of the GNU General Public License
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
-
 <html>
 <head>
     <title>Swagger UI</title>
     <link href='https://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'/>
-    <link href="<@spring.url '/swagger-ui/css/hightlight.default.css'/>" media='screen' rel='stylesheet'
-    type='text/css'/>
+    <link href="<@spring.url '/swagger-ui/css/highlight.default.css'/>" media='screen' rel='stylesheet'
+          type='text/css'/>
     <link href="<@spring.url '/swagger-ui/css/screen.css'/>" media='screen' rel='stylesheet' type='text/css'/>
-    <script src="<@spring.url '/swagger-ui/lib/shred.bundle.js'/>" type="text/javascript" ></script>
+    <script type="text/javascript" src="<@spring.url '/swagger-ui/lib/shred.bundle.js'/>"></script>
     <script src="<@spring.url '/swagger-ui/lib/jquery-1.8.0.min.js'/>" type='text/javascript'></script>
     <script src="<@spring.url '/swagger-ui/lib/jquery.slideto.min.js'/>" type='text/javascript'></script>
     <script src="<@spring.url '/swagger-ui/lib/jquery.wiggle.min.js'/>" type='text/javascript'></script>
     <script src="<@spring.url '/swagger-ui/lib/jquery.ba-bbq.min.js'/>" type='text/javascript'></script>
-    <script src="<@spring.url '/swagger-ui/lib/handlebars-1.0.0.js' />" type='text/javascript'></script>
+    <script src="<@spring.url '/swagger-ui/lib/handlebars-1.0.0.js'/>" type='text/javascript'></script>
     <script src="<@spring.url '/swagger-ui/lib/underscore-min.js'/>" type='text/javascript'></script>
     <script src="<@spring.url '/swagger-ui/lib/backbone-min.js'/>" type='text/javascript'></script>
     <script src="<@spring.url '/swagger-ui/lib/swagger.js'/>" type='text/javascript'></script>
     <script src="<@spring.url '/swagger-ui/swagger-ui.js'/>" type='text/javascript'></script>
     <script src="<@spring.url '/swagger-ui/lib/highlight.7.3.pack.js'/>" type='text/javascript'></script>
-
-    <style type="text/css">
-        .swagger-ui-wrap {
-            max-width: 960px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .icon-btn {
-            cursor: pointer;
-        }
-
-        #message-bar {
-            min-height: 30px;
-            text-align: center;
-            padding-top: 10px;
-        }
-
-        .message-success {
-            color: #89BF04;
-        }
-
-        .message-fail {
-            color: #cc0000;
-        }
-    </style>
-
     <script type="text/javascript">
         $(function () {
             window.swaggerUi = new SwaggerUi({
-                url: "<@spring.url '/api-docs/studio-api'/>",
+                url: "<@spring.url '/api-docs'/>",
                 dom_id: "swagger-ui-container",
                 supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
                 onComplete: function(swaggerApi, swaggerUi){

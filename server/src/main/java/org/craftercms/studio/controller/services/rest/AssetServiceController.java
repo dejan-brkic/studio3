@@ -38,6 +38,7 @@ import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.utils.RestControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +56,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping(value = "/api/1/content/asset")
-@Api(value = "Asset Service")
+@Api(value = "Asset Service", description = "Asset RESTful Service")
 public class AssetServiceController {
 
     @Autowired
@@ -73,7 +74,7 @@ public class AssetServiceController {
      * @return              item representing given asset in repository
      * @throws StudioException
      */
-    @ApiOperation(value = "create asset")
+    @ApiOperation(value = "create new asset", notes = "create new asset by uploading file", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
         @ApiResponse(code = 200, message = "Asset Item", response = Item.class),
         @ApiResponse(code = 400, message = "Bad request")}
@@ -84,10 +85,11 @@ public class AssetServiceController {
     )
     @ResponseBody
     public Item create(
-            @ApiParam (name = "site", required = true, value = "String")
+            @ApiParam (name = "site", required = true, value = "String", allowableValues = "Names of existing sites")
             @PathVariable String site,
 
-            @ApiParam (name = "parent_id", required =  true, value = "String")
+            @ApiParam (name = "parent_id", required =  true, value = "String", allowableValues = "Valid paths in site" +
+                " repo")
             @RequestParam(value = "parent_id") String parentId,
 
             @ApiParam(name = "file_name", required = true, value = "String")
