@@ -20,16 +20,11 @@ package org.craftercms.studio.controller.services.rest;
 import java.util.List;
 import java.util.Map;
 
-
-import com.mangofactory.swagger.annotations.ApiModel;
-import com.mangofactory.swagger.annotations.ListType;
-import com.wordnik.swagger.annotations.ApiError;
-import com.wordnik.swagger.annotations.ApiErrors;
 import com.wordnik.swagger.annotations.ApiParam;
+import com.wordnik.swagger.annotations.ApiResponse;
+import com.wordnik.swagger.annotations.ApiResponses;
 import org.craftercms.studio.api.content.ContentTypeService;
 import org.craftercms.studio.commons.dto.ContentType;
-import org.craftercms.studio.commons.dto.Context;
-import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -69,10 +64,10 @@ public class ContentTypeServiceController {
      * @return                      content type container
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/create/{site}",
         method = RequestMethod.POST
@@ -123,10 +118,10 @@ public class ContentTypeServiceController {
      * @return                  content type container
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/update_form/{site}",
         method = RequestMethod.POST
@@ -156,10 +151,10 @@ public class ContentTypeServiceController {
      *
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "update_default_template/{site}"
     )
@@ -188,10 +183,10 @@ public class ContentTypeServiceController {
      * @return                  content type container
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/update_templates/{site}",
         method = RequestMethod.POST
@@ -221,10 +216,10 @@ public class ContentTypeServiceController {
      * @return                  content type container
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/update_thumbnail/{site}",
         method = RequestMethod.POST
@@ -254,10 +249,10 @@ public class ContentTypeServiceController {
      * @return                  content type container
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/update_permissions/{site}",
         method = RequestMethod.POST
@@ -287,10 +282,10 @@ public class ContentTypeServiceController {
      * @return                  content type container
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/update_previewable/{site}",
         method = RequestMethod.POST
@@ -320,10 +315,10 @@ public class ContentTypeServiceController {
      * @return                      content type containers
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/update_lifecycle_scripts/{site}",
         method = RequestMethod.POST
@@ -353,10 +348,10 @@ public class ContentTypeServiceController {
      * @return                  content type container
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/update_properties/{site}",
         method = RequestMethod.POST
@@ -386,10 +381,10 @@ public class ContentTypeServiceController {
      * @return                  content type container
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/duplicate/{site}",
         method = RequestMethod.POST
@@ -420,10 +415,10 @@ public class ContentTypeServiceController {
      * @return                  content type container
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/duplicate",
         method = RequestMethod.POST
@@ -455,10 +450,10 @@ public class ContentTypeServiceController {
      * @return                  content type container
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/read/{site}",
         method = RequestMethod.GET
@@ -483,9 +478,10 @@ public class ContentTypeServiceController {
      * @param contentTypeId     content type identifier
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success"),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/delete/{site}",
         method = RequestMethod.POST
@@ -510,10 +506,10 @@ public class ContentTypeServiceController {
      * @return          list of content types
      * @throws StudioException
      */
-    @ApiErrors(
-        @ApiError(code = 400, reason = "Bad request")
-    )
-    @ApiModel(type = ContentType.class, collection = true, listType = ListType.List)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = ContentType.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
     @RequestMapping(
         value = "/find/{site}",
         method = RequestMethod.GET
