@@ -17,14 +17,20 @@
 
 package org.craftercms.studio.impl.content;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.content.ContentTypeService;
+import org.craftercms.studio.api.security.SecurityService;
 import org.craftercms.studio.commons.dto.ContentType;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.internal.content.ContentManager;
 
 /**
  * ContentTypeService default implementation.
@@ -33,6 +39,8 @@ import org.craftercms.studio.commons.exception.StudioException;
  */
 public class ContentTypeServiceImpl implements ContentTypeService {
 
+    private SecurityService securityService;
+    private ContentManager contentManager;
     /**
      * Create a new content type
      *
@@ -57,7 +65,26 @@ public class ContentTypeServiceImpl implements ContentTypeService {
     @Override
     public ContentType create(final Context context, final String site, final String typeName, final String formId,
                               final String defaultTemplateId, final Map<String, String> templateIds, final byte[] thumbnail, final List<String> permissionIds, final boolean previewable, final String lifecycleScripts, final Map<String, String> properties) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+
+        if (context != null && securityService.validate(context)) {
+            Item item = createContentTypeItem(typeName);
+            InputStream content = IOUtils.toInputStream(StringUtils.EMPTY);
+            contentManager.create(context, site, formId, item, null);
+            return null;
+        } else {
+            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+        }
+
+    }
+
+    // TODO: review this function ..
+    // Content manager requires Item object to add new item to repository
+    private Item createContentTypeItem(String fileName) {
+        Item item = new Item();
+        item.setCreatedBy(RandomStringUtils.random(10));
+        item.setFileName(fileName);
+        item.setLabel(fileName);
+        return item;
     }
 
     /**
@@ -259,5 +286,13 @@ public class ContentTypeServiceImpl implements ContentTypeService {
     @Override
     public List<Item> findBy(final Context context, final String site, final String query) throws StudioException {
         throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+    }
+
+    public void setSecurityService(final SecurityService securityService) {
+        this.securityService = securityService;
+    }
+
+    public void setContentManager(final ContentManager contentManager) {
+        this.contentManager = contentManager;
     }
 }
