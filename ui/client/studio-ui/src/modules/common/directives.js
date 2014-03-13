@@ -6,8 +6,8 @@ define(['globals'], function( globals ) {
 
     var injector = angular.element(globals.dom_root).injector();
 
-    injector.invoke(['NgRegistry', '$log',
-        function(NgRegistry, $log) {
+    injector.invoke(['NgRegistry', 'StudioServices', '$log',
+        function(NgRegistry, StudioServices, $log) {
 
         NgRegistry
             .addDirective('sdoSubmit', ['$parse', '$timeout', function($parse, $timeout) {
@@ -89,8 +89,7 @@ define(['globals'], function( globals ) {
                  '$compile',
                  '$timeout',
                  '$log',
-                 'ConfigService',
-                 'Utils', function ($q, $compile, $timeout, $log, ConfigService, Utils) {
+                 'Utils', function ($q, $compile, $timeout, $log, Utils) {
 
                 return {
                     restrict: 'E',
@@ -111,10 +110,10 @@ define(['globals'], function( globals ) {
 
                             $log.log('Plugin container with id: "' + containerId + '"');
 
-                            ConfigService.getPlugins(containerId)
-                                .then( function (response) {
+                            StudioServices.Config.getPlugins(containerId)
+                                .then( function (data) {
 
-                                    var pluginList = response.data.plugins,
+                                    var pluginList = data.plugins,
                                         promiseList;
 
                                     $log.log('Plugins found for "' + containerId + '":', pluginList);
