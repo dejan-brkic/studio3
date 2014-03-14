@@ -59,7 +59,7 @@ public class RestApiDocumentationSwaggerConfig {
     });
     public static final String SWAGGER_GROUP = "studio-api";
 
-    private @Value("${documentation.service.hostUrl}") String hostUrl;
+    private @Value("${documentation.services.hostUrl}") String hostUrl;
 
     @Autowired
     private SpringSwaggerConfig springSwaggerConfig;
