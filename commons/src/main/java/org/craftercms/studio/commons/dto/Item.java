@@ -24,6 +24,8 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.wordnik.swagger.annotations.ApiModel;
+import com.wordnik.swagger.annotations.ApiModelProperty;
 
 /**
  * Content item transport object.
@@ -33,41 +35,60 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Carlos Ortiz
  */
 @JsonAutoDetect
+@ApiModel(value = "Item class")
 public class Item implements Comparable<Item> {
     // Fundamental
     /**
      * Crafter Studio item id
      */
+    @ApiModelProperty(value = "Item id")
     private ItemId id;
     /**
      * Object Version Number: Monotonically increasing number on persist
      */
+    @ApiModelProperty(value = "Object version")
     private int objectVersionNumber;
     /**
      * List of ancestors in TODO order
      */
+    @ApiModelProperty(value = "List of ancestors")
     private List<ItemId> ancestors;
 
     // Core Metadata
     /**
      * Underlying repository id.
      */
+    @ApiModelProperty(value = "Item id (in repository)")
     private String repoId;      // TODO think about this
+    @ApiModelProperty(value = "Item label")
     private String label;
+    @ApiModelProperty(value = "Item file name")
     private String fileName;
+    @ApiModelProperty(value = "Item file path")
     private String path;
+    @ApiModelProperty(value = "Created by")
     private String createdBy;
+    @ApiModelProperty(value = "Creation date")
     private Date creationDate;
+    @ApiModelProperty(value = "Modified by")
     private String modifiedBy;
+    @ApiModelProperty(value = "Modified date")
     private Date lastModifiedDate;
+    @ApiModelProperty(value = "Item type")
     private String type;        // Blueprint, Component, Page, Static Asset, Rendering Template, ...
+    @ApiModelProperty(value = "Item is folder")
     private boolean isFolder;   // TODO think about this
+    @ApiModelProperty(value = "Item state")
     private String state;       // TODO ENUM
+    @ApiModelProperty(value = "Workflow")
     private String workflow;    // TODO ASK ABOUT THIS ONE
 
     // Something something properties
+    @ApiModelProperty(value = "Item's mime type")
     private String mimeType;
+    @ApiModelProperty(value = "Item displayed in navigation menus")
     private boolean placeInNav;
+    @ApiModelProperty(value = "Item disabled")
     private boolean disabled;
 
     @JsonIgnore
@@ -85,24 +106,33 @@ public class Item implements Comparable<Item> {
     /**
      * User id of the lock owner, null if item is not locked
      */
+    @ApiModelProperty(value = "Lock owner")
     private String lockOwner;
 
     /**
      * The URL to preview this item, null if item is not previewable
      */
+    @ApiModelProperty(value = "Preview url for item")
     private String previewUrl;
 
 
     // Security Properties
+    @ApiModelProperty(value = "Security is inherited")
     private boolean securityInherited;
     //private List<ACL> acls;
 
+    @ApiModelProperty(value = "Content type")
     private String contentType;
+    @ApiModelProperty(value = "List of rendering templates")
     private List<String> renderingTemplates;
+
+    @ApiModelProperty(value = "Scheduled date")
     private Date scheduledDate;
+    @ApiModelProperty(value = "Workflow packages")
     private List<String> packages;
 
     // Additional Metadata
+    @ApiModelProperty(value = "Custom metadata")
     private Map<String, Object> properties;
 
     public Item() {

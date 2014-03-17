@@ -78,7 +78,7 @@ public class AssetServiceController {
      * @throws StudioException
      */
     @ApiOperation(value = "Create new asset", notes = "Adds new asset file to repository by uploading file",
-        produces = MediaType.APPLICATION_JSON_VALUE, position = 1)
+        produces = MediaType.APPLICATION_JSON_VALUE, position = 1, response = Item.class)
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
         @ApiResponse(code = 400, message = "Bad request")}

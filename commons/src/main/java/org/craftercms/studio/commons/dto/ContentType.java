@@ -16,6 +16,9 @@
  */
 package org.craftercms.studio.commons.dto;
 
+import com.wordnik.swagger.annotations.ApiModel;
+import com.wordnik.swagger.annotations.ApiModelProperty;
+
 /**
  * Content Type.
  *
@@ -23,15 +26,24 @@ package org.craftercms.studio.commons.dto;
  * @author Dejan Brkic
  * @author Carlos Ortiz
  */
+@ApiModel(value = "Content type class")
 public class ContentType {
 
+    @ApiModelProperty(value = "Content type id")
     private String id;
+    @ApiModelProperty(value = "Content type name")
     private String name;
+    @ApiModelProperty(value = "Site identifier")
     private String siteId;
+    @ApiModelProperty(value = "Site name")
     private String siteName;
+    @ApiModelProperty(value = "Content type path")
     private String path;
+    @ApiModelProperty(value = "Content type is previewable")
     private boolean previewable;
+    @ApiModelProperty(value = "Thumbnail image")
     private String thumbnail;
+    @ApiModelProperty(value = "Content type form")
     private Form form;
 
     public ContentType() {
