@@ -27,12 +27,14 @@ import org.craftercms.studio.api.content.DescriptorService;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -326,6 +328,7 @@ public class DescriptorServiceController {
         value = "/delete/{site}",
         method = RequestMethod.POST
     )
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(
 
             @ApiParam(name = "site", required = true, value = "String")

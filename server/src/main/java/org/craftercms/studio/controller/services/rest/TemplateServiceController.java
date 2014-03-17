@@ -20,19 +20,25 @@ package org.craftercms.studio.controller.services.rest;
 import java.util.List;
 import java.util.Map;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.craftercms.studio.api.content.TemplateService;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.documentation.configuration.DocumentationServiceOrder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -43,6 +49,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 @RequestMapping("/api/1/template")
+@Api(value = "TemplateService", description = "Template RESTful services", position = DocumentationServiceOrder.TEMPLATE_SERVICE)
 public class TemplateServiceController {
 
     @Autowired
@@ -59,6 +66,8 @@ public class TemplateServiceController {
      * @return              template descriptor item
      * @throws StudioException
      */
+    @ApiOperation(value = "Create new template", notes = "Adds new template file to repository",
+        produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
         @ApiResponse(code = 400, message = "Bad request")
@@ -252,6 +261,7 @@ public class TemplateServiceController {
         value = "/delete/{site}",
         method = RequestMethod.POST
     )
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(
 
             @ApiParam(name = "site", required = true, value = "String")

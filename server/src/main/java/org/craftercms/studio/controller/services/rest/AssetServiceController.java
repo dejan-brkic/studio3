@@ -36,8 +36,10 @@ import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.documentation.configuration.DocumentationServiceOrder;
 import org.craftercms.studio.utils.RestControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +47,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -56,7 +59,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping(value = "/api/1/content/asset")
-@Api(value = "Asset Service", description = "Asset RESTful Service")
+@Api(value = "AssetService", description = "Asset RESTful Services", position = DocumentationServiceOrder.ASSET_SERVICE)
 public class AssetServiceController {
 
     @Autowired
@@ -74,9 +77,10 @@ public class AssetServiceController {
      * @return              item representing given asset in repository
      * @throws StudioException
      */
-    @ApiOperation(value = "create new asset", notes = "create new asset by uploading file", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Create new asset", notes = "Adds new asset file to repository by uploading file",
+        produces = MediaType.APPLICATION_JSON_VALUE, position = 1)
     @ApiResponses({
-        @ApiResponse(code = 200, message = "Asset Item", response = Item.class),
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
         @ApiResponse(code = 400, message = "Bad request")}
     )
     @RequestMapping(value = "/create/{site}",
@@ -85,23 +89,22 @@ public class AssetServiceController {
     )
     @ResponseBody
     public Item create(
-            @ApiParam (name = "site", required = true, value = "String", allowableValues = "Names of existing sites")
+            @ApiParam (name = "site", required = true, value = "Site identifier", allowableValues = "Site name")
             @PathVariable String site,
 
-            @ApiParam (name = "parent_id", required =  true, value = "String", allowableValues = "Valid paths in site" +
-                " repo")
+            @ApiParam (name = "parent_id", required =  true, value = "Parent identifier")
             @RequestParam(value = "parent_id") String parentId,
 
-            @ApiParam(name = "file_name", required = true, value = "String")
+            @ApiParam(name = "file_name", required = true, value = "File name")
             @RequestParam(value = "file_name") String fileName,
 
-            @ApiParam(name = "file", required = true, value = "org.springframework.web.multipart.MultipartFile")
+            @ApiParam(name = "file", required = true, value = "Multipart file")
             @RequestParam(value = "file") MultipartFile file,
 
-            @ApiParam(name = "mime_type", required = true, value = "String")
+            @ApiParam(name = "mime_type", required = true, value = "Mime type")
             @RequestParam(value = "mime_type") String mimeType,
 
-            @ApiParam(name = "properties", required = false, value = "Map<String, String>")
+            @ApiParam(name = "properties", required = false, value = "Properties key/value map")
             @RequestParam(value = "properties", required = false) Map<String, String> properties)
 
         throws StudioException {
@@ -126,7 +129,8 @@ public class AssetServiceController {
      * @return          asset meta data
      * @throws          StudioException
      */
-    @ApiOperation(value = "read asset metadata")
+    @ApiOperation(value = "Read asset metadata", notes = "Reads asset metadata from repository for given id.",
+        position = 2)
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
         @ApiResponse(code = 400, message = "Bad request")}
@@ -156,7 +160,7 @@ public class AssetServiceController {
      * @return          textual content of asset
      * @throws StudioException
      */
-    @ApiOperation(value = "read textual content of asset")
+    @ApiOperation(value = "read textual content of asset", position = 3)
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = String.class),
         @ApiResponse(code = 400, message = "Bad request")
@@ -185,7 +189,7 @@ public class AssetServiceController {
      * @param response  content
      * @throws StudioException
      */
-    @ApiOperation(value = "read asset content")
+    @ApiOperation(value = "read asset content", position = 4)
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = InputStream.class),
         @ApiResponse(code = 400, message = "Bad request")
@@ -231,7 +235,7 @@ public class AssetServiceController {
      * @return              item representing asset
      * @throws StudioException
      */
-    @ApiOperation(value = "update asset")
+    @ApiOperation(value = "update asset", position = 5)
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
         @ApiResponse(code = 400, message = "Bad Request")
@@ -273,14 +277,16 @@ public class AssetServiceController {
      * @param itemId    asset item id
      * @throws StudioException
      */
-    @ApiOperation(value = "delete asset")
-    @ApiResponses(
+    @ApiOperation(value = "delete asset", position = 6)
+    @ApiResponses({
+        @ApiResponse(code = 204, message = "Success, no content"),
         @ApiResponse(code = 400, message = "Bad request")
-    )
+    })
     @RequestMapping(value = "/delete/{site}",
                     params = { "item_id" },
                     method = RequestMethod.POST
     )
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(
             @ApiParam(name = "site", required = true, value = "String")
             @PathVariable String site,
@@ -301,7 +307,7 @@ public class AssetServiceController {
      * @return          list of asset items
      * @throws StudioException
      */
-    @ApiOperation(value = "find assets")
+    @ApiOperation(value = "find assets", position = 7)
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
         @ApiResponse(code = 400, message = "Bad request")
