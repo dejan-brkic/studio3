@@ -76,7 +76,7 @@ public class AssetServiceImpl implements AssetService {
             sb.append(File.separator);
             sb.append(fileName);
             Item item = createAssetItem(fileName);
-            ItemId itemId = contentManager.create(context, site, sb.toString(), item, content);
+            ItemId itemId = contentManager.create(context, site, destinationPath, item, content);
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
         } else {
