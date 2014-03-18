@@ -135,7 +135,7 @@ public class RestApiDocumentationSwaggerConfig {
         //swaggerApiResourceListing.setAuthorizationContext(authorizationContext());
 
         //Every SwaggerApiResourceListing needs an ApiListingReferenceScanner to scan the spring request mappings
-        swaggerApiResourceListing.setApiListingReferenceScanner(relativeApiListingReferenceScanner());
+        swaggerApiResourceListing.setApiListingReferenceScanner(apiListingReferenceScanner());
         return swaggerApiResourceListing;
     }
 
@@ -210,12 +210,11 @@ public class RestApiDocumentationSwaggerConfig {
         apiListingReferenceScanner.setIncludePatterns(DEFAULT_INCLUDE_PATTERNS);
         return apiListingReferenceScanner;
     }
-
+      */
     private List<AuthorizationType> authorizationTypes() {
         ArrayList<AuthorizationType> authorizationTypes = new ArrayList<AuthorizationType>();
         authorizationTypes.add(new ApiKey("x-auth-token", "header"));
         return authorizationTypes;
     }
-    */
 
 }
