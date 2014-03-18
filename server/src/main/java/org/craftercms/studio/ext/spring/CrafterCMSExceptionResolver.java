@@ -18,6 +18,7 @@ package org.craftercms.studio.ext.spring;
 
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -48,15 +49,18 @@ public class CrafterCMSExceptionResolver extends AbstractHandlerExceptionResolve
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response,
                                               Object handler, Exception ex)
     {
-        final ExceptionFormatter exceptionFormatter = this.formatterRegistry.getFormatter(ex.getClass());
+        final ExceptionFormatter exceptionFormatter = formatterRegistry.getFormatter(ex.getClass());
         try {
             if (exceptionFormatter != null) {
-                this.log.debug("ERROR:", ex);
-                response.setHeader("Content-Type", MediaType.APPLICATION_JSON.toString());
+                log.debug("ERROR:", ex);
+                response.setHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE);
                 response.setStatus(exceptionFormatter.getHttpResponseCode());
-                response.getWriter().write(exceptionFormatter.getFormattedMessage(ex));
+                PrintWriter responseWriter = response.getWriter();
+                if (responseWriter != null) {
+                    responseWriter.write(exceptionFormatter.getFormattedMessage(ex));
+                }
             } else {
-                log.error("Unable to generate error message, sending raw exception");
+                log.error("Unable to generate error message, sending raw exception", ex);
                 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
                 ex.printStackTrace(response.getWriter());
             }
