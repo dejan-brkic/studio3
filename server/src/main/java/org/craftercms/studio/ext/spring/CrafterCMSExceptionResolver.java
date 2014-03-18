@@ -50,10 +50,16 @@ public class CrafterCMSExceptionResolver extends AbstractHandlerExceptionResolve
     {
         final ExceptionFormatter exceptionFormatter = this.formatterRegistry.getFormatter(ex.getClass());
         try {
-            this.log.debug("ERROR:", ex);
-            response.setHeader("Content-Type", MediaType.APPLICATION_JSON.toString());
-            response.setStatus(exceptionFormatter.getHttpResponseCode());
-            response.getWriter().write(exceptionFormatter.getFormattedMessage(ex));
+            if (exceptionFormatter != null) {
+                this.log.debug("ERROR:", ex);
+                response.setHeader("Content-Type", MediaType.APPLICATION_JSON.toString());
+                response.setStatus(exceptionFormatter.getHttpResponseCode());
+                response.getWriter().write(exceptionFormatter.getFormattedMessage(ex));
+            } else {
+                log.error("Unable to generate error message, sending raw exception");
+                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                ex.printStackTrace(response.getWriter());
+            }
         } catch (IOException e) {
             this.log.error("Unable to generate send error due a IOException ", e);
         }
