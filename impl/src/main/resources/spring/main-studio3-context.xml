@@ -15,6 +15,7 @@
     </bean>
 
     <bean id="ContentTypeService" class="org.craftercms.studio.impl.content.ContentTypeServiceImpl">
+        <property name="securityService" ref="SecurityManager"/>
     </bean>
 
     <bean id="TemplateService" class="org.craftercms.studio.impl.content.TemplateServiceImpl">

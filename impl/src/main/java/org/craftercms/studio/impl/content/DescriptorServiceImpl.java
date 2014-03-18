@@ -142,42 +142,61 @@ public class DescriptorServiceImpl implements DescriptorService {
      */
     @Override
     public Item move(final Context context, final String site, final ItemId itemId, final String parentId, final String fileName) throws StudioException {
-        Item item = contentManager.read(context, site, itemId.getItemId());
-        contentManager.move(context, item, parentId);
-        return contentManager.read(context, site, itemId.getItemId());
+        if (context != null && securityService.validate(context)) {
+            Item item = contentManager.read(context, site, itemId.getItemId());
+            contentManager.move(context, item, parentId);
+            return contentManager.read(context, site, itemId.getItemId());
+        } else {
+            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+        }
     }
 
     @Override
     public Item read(final Context context, final String site, final ItemId itemId) throws StudioException {
-
-        return contentManager.read(context, site, itemId.getItemId());
+        if (context != null && securityService.validate(context)) {
+            return contentManager.read(context, site, itemId.getItemId());
+        } else {
+            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+        }
     }
 
     @Override
     public Item update(final Context context, final String site, final ItemId itemId, final InputStream content,
                        final Map<String, String> properties) throws StudioException {
-        LockHandle lockHandle = new LockHandle();
-        contentManager.write(context, site, itemId, lockHandle, content);
-        Item item = contentManager.read(context, site, itemId.getItemId());
-        return item;
+        if (context != null && securityService.validate(context)) {
+            LockHandle lockHandle = new LockHandle();
+            contentManager.write(context, site, itemId, lockHandle, content);
+            Item item = contentManager.read(context, site, itemId.getItemId());
+            return item;
+        } else {
+            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+        }
     }
 
     @Override
     public Item update(final Context context, final String site, final ItemId itemId, final String content,
                        final Map<String, String> properties) throws StudioException {
-        LockHandle lockHandle = new LockHandle();
-        InputStream contentStream = IOUtils.toInputStream(content);
-        contentManager.write(context, site, itemId, lockHandle, contentStream);
-        Item item = contentManager.read(context, site, itemId.getItemId());
-        return item;
+        if (context != null && securityService.validate(context)) {
+            LockHandle lockHandle = new LockHandle();
+            InputStream contentStream = IOUtils.toInputStream(content);
+            contentManager.write(context, site, itemId, lockHandle, contentStream);
+            Item item = contentManager.read(context, site, itemId.getItemId());
+            return item;
+        } else {
+            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+        }
     }
 
     @Override
     public void delete(final Context context, final String site, final ItemId itemId) throws StudioException {
-        List<Item> items = new ArrayList<>();
-        Item item = contentManager.read(context, site, itemId.getItemId());
-        items.add(item);
-        contentManager.delete(context, items);
+        if (context != null && securityService.validate(context)) {
+            List<Item> items = new ArrayList<>();
+            Item item = contentManager.read(context, site, itemId.getItemId());
+            items.add(item);
+            contentManager.delete(context, items);
+        } else {
+            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+        }
     }
 
     @Override

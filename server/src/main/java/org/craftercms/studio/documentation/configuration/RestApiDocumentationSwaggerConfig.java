@@ -59,7 +59,7 @@ public class RestApiDocumentationSwaggerConfig {
     });
     public static final String SWAGGER_GROUP = "studio-api";
 
-    private @Value("${documentation.service.hostUrl}") String hostUrl;
+    private @Value("${documentation.services.hostUrl}") String hostUrl;
 
     @Autowired
     private SpringSwaggerConfig springSwaggerConfig;
@@ -123,7 +123,7 @@ public class RestApiDocumentationSwaggerConfig {
         swaggerApiResourceListing.setSwaggerGlobalSettings(swaggerGlobalSettings());
 
         //Use a custom path provider or springSwaggerConfig.defaultSwaggerPathProvider()
-        swaggerApiResourceListing.setSwaggerPathProvider(documentationPathProvider());
+        swaggerApiResourceListing.setSwaggerPathProvider(documentationRelativePathProvider());
 
         //Supply the API Info as it should appear on swagger-ui web page
         swaggerApiResourceListing.setApiInfo(apiInfo());
@@ -135,16 +135,16 @@ public class RestApiDocumentationSwaggerConfig {
         //swaggerApiResourceListing.setAuthorizationContext(authorizationContext());
 
         //Every SwaggerApiResourceListing needs an ApiListingReferenceScanner to scan the spring request mappings
-        swaggerApiResourceListing.setApiListingReferenceScanner(apiListingReferenceScanner());
+        swaggerApiResourceListing.setApiListingReferenceScanner(relativeApiListingReferenceScanner());
         return swaggerApiResourceListing;
     }
 
-    @Bean
     /**
      * The ApiListingReferenceScanner does most of the work.
      * Scans the appropriate spring RequestMappingHandlerMappings
      * Applies the correct absolute paths to the generated swagger resources
      */
+    @Bean
     public ApiListingReferenceScanner apiListingReferenceScanner() {
         ApiListingReferenceScanner apiListingReferenceScanner = new ApiListingReferenceScanner();
 
@@ -180,11 +180,42 @@ public class RestApiDocumentationSwaggerConfig {
         return documentationPathProvider;
     }
 
+    @Bean DocumentationRelativePathProvider documentationRelativePathProvider() {
+        DocumentationRelativePathProvider documentationRelativePathProvider = new DocumentationRelativePathProvider();
+        return documentationRelativePathProvider;
+    }
+
+    // Relative path will be addressed in next swagger-springmvc release (seems it is already addresses in 0.8
+    // .2-SNAPSHOT
+
+    /* Relative path example
+    @Bean
+    public SwaggerApiResourceListing swaggerApiResourceListing() {
+        SwaggerApiResourceListing swaggerApiResourceListing = new SwaggerApiResourceListing(springSwaggerConfig
+            .swaggerCache(), SWAGGER_GROUP);
+        swaggerApiResourceListing.setSwaggerGlobalSettings(swaggerGlobalSettings());
+        swaggerApiResourceListing.setSwaggerPathProvider(documentationRelativePathProvider());
+        swaggerApiResourceListing.setApiListingReferenceScanner(relativeApiListingReferenceScanner());
+        return swaggerApiResourceListing;
+    }
+
+    @Bean
+    public ApiListingReferenceScanner relativeApiListingReferenceScanner() {
+        ApiListingReferenceScanner apiListingReferenceScanner = new ApiListingReferenceScanner();
+        apiListingReferenceScanner.setRequestMappingHandlerMapping(springSwaggerConfig.swaggerRequestMappingHandlerMappings());
+        apiListingReferenceScanner.setExcludeAnnotations(springSwaggerConfig.defaultExcludeAnnotations());
+        apiListingReferenceScanner.setResourceGroupingStrategy(springSwaggerConfig.defaultResourceGroupingStrategy());
+        apiListingReferenceScanner.setSwaggerPathProvider(documentationRelativePathProvider());
+        apiListingReferenceScanner.setSwaggerGroup(SWAGGER_GROUP);
+        apiListingReferenceScanner.setIncludePatterns(DEFAULT_INCLUDE_PATTERNS);
+        return apiListingReferenceScanner;
+    }
+
     private List<AuthorizationType> authorizationTypes() {
         ArrayList<AuthorizationType> authorizationTypes = new ArrayList<AuthorizationType>();
         authorizationTypes.add(new ApiKey("x-auth-token", "header"));
         return authorizationTypes;
     }
-
+    */
 
 }
