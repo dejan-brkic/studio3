@@ -17,15 +17,21 @@
 
 package org.craftercms.studio.controller.services.rest;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
+import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.craftercms.studio.api.content.DescriptorService;
+import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
+import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.utils.RestControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -45,6 +51,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 @RequestMapping("/api/1/descriptor")
+@Api(value = "Descriptor Services", description = "Descriptor Services")
 public class DescriptorServiceController {
 
     /**
@@ -60,7 +67,7 @@ public class DescriptorServiceController {
      * @param contentTypeId     content type identifier
      * @param parentId          parent identifier
      * @param fileName          file name
-     * @param file           content stream
+     * @param file              content stream
      * @param properties        additional properties
      * @return                  item
      * @throws StudioException
@@ -72,7 +79,7 @@ public class DescriptorServiceController {
     @RequestMapping(
         value = "/create/{site}",
         method = RequestMethod.POST,
-        params = { "content_type_id", "parent_id", "file_name", "file" }
+        params = { "content_type_id", "parent_id", "file_name" }
     )
     @ResponseBody
     public Item create(
@@ -92,12 +99,18 @@ public class DescriptorServiceController {
             @ApiParam(name = "file", required = true, value = "MultipartFile")
             @RequestParam(value = "file") MultipartFile file,
 
-            @ApiParam(name = "properties", required = false, value = "Map<String, String>")
-            @RequestParam(value = "properties", required = false) Map<String,
-                String> properties
+            @ApiParam(name = "properties", required = false, value ="Map<String, String>")
+            @RequestParam(value = "properties") Map<String, String> properties
     ) throws StudioException {
-
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        InputStream content = null;
+        try {
+            content = file.getInputStream();
+        } catch (IOException e) {
+            throw new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, e);
+        }
+        Item item = descriptorService.create(context, site, contentTypeId, parentId, fileName, content, properties);
+        return item;
     }
 
     /**
@@ -143,7 +156,9 @@ public class DescriptorServiceController {
             @RequestParam(value = "properties") Map<String, String> properties
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        Item item = descriptorService.create(context, site, contentTypeId, parentId, fileName, content, properties);
+        return item;
     }
 
     /**
@@ -180,7 +195,10 @@ public class DescriptorServiceController {
             @RequestParam(value = "file_name") String fileName
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        ItemId descriptorItemId = new ItemId(itemId);
+        Item item = descriptorService.duplicate(context, site, descriptorItemId, parentId, fileName);
+        return item;
     }
 
     /**
@@ -217,7 +235,10 @@ public class DescriptorServiceController {
             @RequestParam(value = "file_name", required = true) String fileName
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        ItemId descriptorItemId = new ItemId(itemId);
+        Item item = descriptorService.move(context, site, descriptorItemId, parentId, fileName);
+        return item;
     }
 
     /**
@@ -234,6 +255,7 @@ public class DescriptorServiceController {
     })
     @RequestMapping(
         value = "/read/{site}",
+        params = { "item_id" },
         method = RequestMethod.GET
     )
     @ResponseBody
@@ -246,7 +268,10 @@ public class DescriptorServiceController {
             @RequestParam(value = "item_id", required = true) String itemId
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        ItemId descriptorItemId = new ItemId(itemId);
+        Item item = descriptorService.read(context, site, descriptorItemId);
+        return item;
     }
 
     /**
@@ -283,7 +308,16 @@ public class DescriptorServiceController {
             @RequestParam(value = "properties", required = false) Map<String, String> properties
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        ItemId descriptorItemId = new ItemId(itemId);
+        InputStream contentStream = null;
+        try {
+            contentStream = file.getInputStream();
+        } catch (IOException e) {
+            throw new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, e);
+        }
+        Item item = descriptorService.update(context, site, descriptorItemId, contentStream, properties);
+        return item;
     }
 
     /**
@@ -310,7 +344,11 @@ public class DescriptorServiceController {
             @ApiParam(name = "content", required = false, value = "Map<String, String>")
             @RequestParam(value = "properties") Map<String, String> properties
     ) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+
+        Context context = RestControllerUtils.createMockContext();
+        ItemId descriptorItemId = new ItemId(itemId);
+        Item item = descriptorService.update(context, site, descriptorItemId, content, properties);
+        return item;
     }
 
     /**
@@ -338,7 +376,9 @@ public class DescriptorServiceController {
             @RequestParam(value = "item_id", required = true) String itemId
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        ItemId descriptorItemId = new ItemId(itemId);
+        descriptorService.delete(context, site, descriptorItemId);
     }
 
     /**
