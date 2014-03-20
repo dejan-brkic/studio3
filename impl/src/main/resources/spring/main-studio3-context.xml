@@ -12,6 +12,7 @@
 
     <bean id="DescriptorService" class="org.craftercms.studio.impl.content.DescriptorServiceImpl">
         <property name="contentManager" ref="ContentManager"/>
+        <property name="securityService" ref="SecurityManager"/>
     </bean>
 
     <bean id="ContentTypeService" class="org.craftercms.studio.impl.content.ContentTypeServiceImpl">
