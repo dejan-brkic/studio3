@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <aop:aspectj-autoproxy/>
 
     <import resource="classpath*:craftercms/studio/craftercms-mongo-repository.xml"/>
 
@@ -49,6 +51,12 @@
     <bean id="ContentManager" class="org.craftercms.studio.internal.content.impl.ContentManagerImpl">
             <property name="contentService" ref="studio.repo.contentService"/>
     </bean>
+
+    <bean id="SimplePreviewDeployer" class="org.craftercms.studio.internal.content.impl.SimplePreviewDeployerAspect"
+            >
+        <property name="enabled" value="true"/>
+        <property name="previewStoreRootPath" value="preview-content"/>
+            </bean>
 
     <import resource="classpath*:spring/*-studio3-ext-context.xml"/>
     <import resource="classpath*:extension/studio3/*-studio3-ext-context.xml"/>
