@@ -100,7 +100,7 @@ public class DescriptorServiceController {
             @RequestParam(value = "file") MultipartFile file,
 
             @ApiParam(name = "properties", required = false, value ="Map<String, String>")
-            @RequestParam(value = "properties") Map<String, String> properties
+            @RequestParam(value = "properties", required = false) Map<String, String> properties
     ) throws StudioException {
         Context context = RestControllerUtils.createMockContext();
         InputStream content = null;
@@ -153,7 +153,7 @@ public class DescriptorServiceController {
             @RequestParam(value = "content", required = true) String content,
 
             @ApiParam(name = "properties", required = false, value ="Map<String, String>")
-            @RequestParam(value = "properties") Map<String, String> properties
+            @RequestParam(value = "properties", required = false) Map<String, String> properties
     ) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
