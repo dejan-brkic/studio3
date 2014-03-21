@@ -24,12 +24,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
+import org.craftercms.studio.commons.dto.ItemId;
+import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.internal.content.ContentManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Required;
@@ -44,6 +49,8 @@ public class SimplePreviewDeployerAspect {
 
     private String previewStoreRootPath;
     private boolean enabled = false;
+    private ContentManager contentManager;
+
 
 
     /*
@@ -51,7 +58,7 @@ public class SimplePreviewDeployerAspect {
      */
 
     @Before(value = "execution(* org.craftercms.studio.internal.content.ContentManager.create(..))")
-    public void deployContent(JoinPoint joinPoint) {
+    public void createContent(JoinPoint joinPoint) {
         if (!enabled) return;
         Object[] arguments = joinPoint.getArgs();
         String path = (String)arguments[2];
@@ -62,6 +69,36 @@ public class SimplePreviewDeployerAspect {
             writeFile(path, item.getFileName(), content);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /*
+    void write(Context context, String site, ItemId itemId, LockHandle lockHandle,
+               InputStream content) throws StudioException;
+     */
+    @Before(value = "execution(* org.craftercms.studio.internal.content.ContentManager.write(..))")
+    public void updateContent(JoinPoint joinPoint) {
+        if (!enabled) return;
+        Object[] arguments = joinPoint.getArgs();
+        Context context = (Context)arguments[0];
+        String site = (String)arguments[1];
+        ItemId itemId = (ItemId)arguments[2];
+        InputStream content = (InputStream)arguments[4];
+        Item item = null;
+        try {
+            item = contentManager.read(context, site, itemId.getItemId());
+        } catch (StudioException e) {
+            log.error("Unable to process update for preview sync", e);
+            return;
+        }
+        if (item != null) {
+            String path = item.getPath();
+            path = path.replace(item.getFileName(), "");
+            try {
+                writeFile(path, item.getFileName(), content);
+            } catch (IOException e) {
+                log.error("Unable to process update for preview sync", e);
+            }
         }
     }
 
@@ -106,9 +143,36 @@ public class SimplePreviewDeployerAspect {
 
     }
 
+    /*
+    void delete(Context context, List<Item> itemsToDelete) throws StudioException;
+     */
+    @Before(value = "execution(* org.craftercms.studio.internal.content.ContentManager.delete(..))")
+    public void deleteContent(JoinPoint joinPoint) {
+        if (!enabled) return;
+
+        Object[] arguments = joinPoint.getArgs();
+        List<Item> items = (List<Item>)arguments[1];
+        for (Item item : items) {
+            StringBuilder sbDeletePath = new StringBuilder(previewStoreRootPath);
+            sbDeletePath.append(File.separator);
+            sbDeletePath.append(item.getPath());
+            String deletePath = sbDeletePath.toString();
+            deletePath = deletePath.replaceAll(File.separator + "+", File.separator);
+            File file = new File(deletePath);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+    }
+
     @Required
     public void setPreviewStoreRootPath(final String previewStoreRootPath) {
         this.previewStoreRootPath = previewStoreRootPath;
+    }
+
+    @Required
+    public void setContentManager(final ContentManager contentManager) {
+        this.contentManager = contentManager;
     }
 
     public void setEnabled(final boolean enabled) {

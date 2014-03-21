@@ -52,11 +52,11 @@
             <property name="contentService" ref="studio.repo.contentService"/>
     </bean>
 
-    <bean id="SimplePreviewDeployer" class="org.craftercms.studio.internal.content.impl.SimplePreviewDeployerAspect"
-            >
+    <bean id="SimplePreviewDeployer" class="org.craftercms.studio.internal.content.impl.SimplePreviewDeployerAspect">
         <property name="enabled" value="true"/>
         <property name="previewStoreRootPath" value="preview-content"/>
-            </bean>
+        <property name="contentManager" ref="ContentManager"/>
+    </bean>
 
     <import resource="classpath*:spring/*-studio3-ext-context.xml"/>
     <import resource="classpath*:extension/studio3/*-studio3-ext-context.xml"/>
