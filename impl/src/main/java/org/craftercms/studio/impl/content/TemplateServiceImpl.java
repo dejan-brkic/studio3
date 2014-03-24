@@ -60,11 +60,8 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public Item create(final Context context, final String site, final String parentId, final String fileName, final InputStream content, final Map<String, String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            StringBuilder sb = new StringBuilder(parentId);
-            sb.append(File.separator);
-            sb.append(fileName);
             Item item = createTemplateItem(fileName);
-            ItemId itemId = contentManager.create(context, site, sb.toString(), item, content);
+            ItemId itemId = contentManager.create(context, site, parentId, item, content);
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
         } else {
@@ -96,12 +93,9 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public Item create(final Context context, final String site, final String parentId, final String fileName, final String content, final Map<String, String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            StringBuilder sb = new StringBuilder(parentId);
-            sb.append(File.separator);
-            sb.append(fileName);
             Item item = createTemplateItem(fileName);
             InputStream contentStream = IOUtils.toInputStream(content);
-            ItemId itemId = contentManager.create(context, site, sb.toString(), item, contentStream);
+            ItemId itemId = contentManager.create(context, site, parentId, item, contentStream);
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
         } else {

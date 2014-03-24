@@ -23,6 +23,7 @@
 
     <bean id="TemplateService" class="org.craftercms.studio.impl.content.TemplateServiceImpl">
         <property name="contentManager" ref="ContentManager"/>
+        <property name="securityService" ref="SecurityManager"/>
     </bean>
 
     <bean id="AnalyticsService" class="org.craftercms.studio.impl.analytics.AnalyticsServiceImpl">

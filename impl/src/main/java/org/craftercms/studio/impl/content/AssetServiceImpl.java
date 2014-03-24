@@ -101,12 +101,9 @@ public class AssetServiceImpl implements AssetService {
                        final String content, final String mimeType, final Map<String, String> properties
     ) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            StringBuilder sb = new StringBuilder(destinationPath);
-            sb.append(File.separator);
-            sb.append(fileName);
             Item item = createAssetItem(fileName);
             InputStream contentStream = IOUtils.toInputStream(content);
-            ItemId itemId = contentManager.create(context, site, sb.toString(), item, contentStream);
+            ItemId itemId = contentManager.create(context, site, destinationPath, item, contentStream);
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
         } else {
@@ -117,12 +114,9 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public Item create(final Context context, final String site, final String destinationPath, final String fileName, final byte[] content, final String mimeType, final Map<String, String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            StringBuilder sb = new StringBuilder(destinationPath);
-            sb.append(File.separator);
-            sb.append(fileName);
             Item item = createAssetItem(fileName);
             InputStream contentStream = new ByteArrayInputStream(content);
-            ItemId itemId = contentManager.create(context, site, sb.toString(), item, contentStream);
+            ItemId itemId = contentManager.create(context, site, destinationPath, item, contentStream);
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
         } else {
