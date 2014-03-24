@@ -165,7 +165,7 @@ public class AssetServiceController {
         @ApiResponse(code = 200, message = "Success", response = String.class),
         @ApiResponse(code = 400, message = "Bad request")
     })
-    @RequestMapping(value = "/read_text",
+    @RequestMapping(value = "/read_text/{site}",
                     params = { "item_id" },
                     method = RequestMethod.GET)
     @ResponseBody

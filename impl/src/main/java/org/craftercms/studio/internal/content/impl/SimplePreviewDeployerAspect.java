@@ -104,7 +104,7 @@ public class SimplePreviewDeployerAspect {
 
     protected void writeFile(String path, String filename, final InputStream content) throws IOException{
 
-        BufferedInputStream contentStream = new BufferedInputStream(content);
+        //BufferedInputStream contentStream = new BufferedInputStream(content);
         StringBuilder sbSavePath = new StringBuilder(previewStoreRootPath);
         sbSavePath.append(File.separator);
         sbSavePath.append(path);
@@ -117,7 +117,7 @@ public class SimplePreviewDeployerAspect {
         OutputStream outputStream = null;
 
         try {
-            contentStream.mark(0);
+            content.mark(0);
             // create new file if doesn't exist
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
@@ -137,7 +137,8 @@ public class SimplePreviewDeployerAspect {
             }
             throw e;
         } finally {
-            contentStream.reset();
+            content.reset();
+
             IOUtils.closeQuietly(outputStream);
         }
 
