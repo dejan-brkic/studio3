@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
@@ -272,6 +273,35 @@ public class DescriptorServiceController {
         ItemId descriptorItemId = new ItemId(itemId);
         Item item = descriptorService.read(context, site, descriptorItemId);
         return item;
+    }
+
+    /**
+     * Read textual content for given descriptor id.
+
+     * @param site      site identifier
+     * @param itemId    descriptor item identifier
+     * @return          textual content of descriptor
+     * @throws StudioException
+     */
+    @ApiOperation(value = "read textual content of descriptor", position = 3)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = String.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
+    @RequestMapping(value = "/read_text/{site}",
+        params = { "item_id" },
+        method = RequestMethod.GET)
+    @ResponseBody
+    public String getTextContent(
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable String site,
+
+        @ApiParam(name = "item_id", required = true, value = "String")
+        @RequestParam(value = "item_id") String itemId
+    ) throws StudioException {
+
+        Context context = RestControllerUtils.createMockContext();
+        return descriptorService.getTextContent(context, site, itemId);
     }
 
     /**

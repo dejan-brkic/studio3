@@ -17,6 +17,8 @@
 
 package org.craftercms.studio.controller.services.rest;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -26,9 +28,11 @@ import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.craftercms.studio.api.content.TemplateService;
+import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.documentation.configuration.DocumentationServiceOrder;
+import org.craftercms.studio.utils.RestControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -75,7 +79,7 @@ public class TemplateServiceController {
     @RequestMapping(
         value = "/create/{site}",
         method = RequestMethod.POST,
-        params = { "parent_id", "file_name", "file" }
+        params = { "parent_id", "file_name"}
     )
     @ResponseBody
     public Item create(
@@ -96,7 +100,15 @@ public class TemplateServiceController {
             @RequestParam(value = "properties", required = false) final Map<String, String> properties
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        InputStream content = null;
+        try {
+            content = file.getInputStream();
+        } catch (IOException e) {
+            throw new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, e);
+        }
+        Item item = templateService.create(context, site, parentId, fileName, content, properties);
+        return item;
     }
 
     /**
