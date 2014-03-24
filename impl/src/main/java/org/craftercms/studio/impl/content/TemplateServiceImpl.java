@@ -18,6 +18,7 @@
 package org.craftercms.studio.impl.content;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,6 +117,21 @@ public class TemplateServiceImpl implements TemplateService {
     public Item read(final Context context, final String site, final ItemId itemId) throws StudioException {
         if (context != null && securityService.validate(context)) {
             return contentManager.read(context, site, itemId.getItemId());
+        } else {
+            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+        }
+    }
+
+    @Override
+    public String getTextContent(final Context context, final String site, final ItemId itemId) throws StudioException {
+        if (context != null && securityService.validate(context)) {
+            Item item = contentManager.read(context, site, itemId.getItemId());
+            InputStream content = item.getInputStream();
+            try {
+                return IOUtils.toString(content);
+            } catch (IOException e) {
+                throw new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, e);
+            }
         } else {
             throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
         }

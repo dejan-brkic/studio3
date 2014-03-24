@@ -58,6 +58,17 @@ public interface TemplateService {
     Item read(Context context, String site, ItemId itemId) throws StudioException;
 
     /**
+     * Read textual content of a template and return it.
+     *
+     * @param context the caller's context
+     * @param site    the site to use
+     * @param itemId  the item to read
+     * @return String representing textual content
+     * @throws StudioException
+     */
+    String getTextContent(Context context, String site, ItemId itemId) throws StudioException;
+
+    /**
      * Update a template given an InputStream.
      *
      * @param context    the caller's context

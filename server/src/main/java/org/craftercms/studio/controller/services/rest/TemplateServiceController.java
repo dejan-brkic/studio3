@@ -189,6 +189,36 @@ public class TemplateServiceController {
     }
 
     /**
+     * Read textual content for given template id.
+
+     * @param site      site identifier
+     * @param itemId    template item id
+     * @return          textual content of template
+     * @throws StudioException
+     */
+    @ApiOperation(value = "read textual content of template", position = 3)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = String.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
+    @RequestMapping(value = "/read_text/{site}",
+        params = { "item_id" },
+        method = RequestMethod.GET)
+    @ResponseBody
+    public String getTextContent(
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable String site,
+
+        @ApiParam(name = "item_id", required = true, value = "String")
+        @RequestParam(value = "item_id") String itemId
+    ) throws StudioException {
+
+        Context context = RestControllerUtils.createMockContext();
+        ItemId templateItemId = new ItemId(itemId);
+        return templateService.getTextContent(context, site, templateItemId);
+    }
+
+    /**
      * Update template.
      *
      * @param site          site identifier
