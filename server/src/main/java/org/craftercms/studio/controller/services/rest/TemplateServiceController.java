@@ -30,6 +30,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 import org.craftercms.studio.api.content.TemplateService;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
+import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.documentation.configuration.DocumentationServiceOrder;
 import org.craftercms.studio.utils.RestControllerUtils;
@@ -150,7 +151,9 @@ public class TemplateServiceController {
             @RequestParam(value = "properties", required = false) final Map<String, String> properties
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        Item item = templateService.create(context, site, parentId, fileName, content, properties);
+        return item;
     }
 
     /**
@@ -179,7 +182,40 @@ public class TemplateServiceController {
             @RequestParam(value = "item_id", required = true) final String itemId
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        ItemId templateItemId = new ItemId(itemId);
+        Item item = templateService.read(context, site, templateItemId);
+        return item;
+    }
+
+    /**
+     * Read textual content for given template id.
+
+     * @param site      site identifier
+     * @param itemId    template item id
+     * @return          textual content of template
+     * @throws StudioException
+     */
+    @ApiOperation(value = "read textual content of template", position = 3)
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = String.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
+    @RequestMapping(value = "/read_text/{site}",
+        params = { "item_id" },
+        method = RequestMethod.GET)
+    @ResponseBody
+    public String getTextContent(
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable String site,
+
+        @ApiParam(name = "item_id", required = true, value = "String")
+        @RequestParam(value = "item_id") String itemId
+    ) throws StudioException {
+
+        Context context = RestControllerUtils.createMockContext();
+        ItemId templateItemId = new ItemId(itemId);
+        return templateService.getTextContent(context, site, templateItemId);
     }
 
     /**
@@ -199,7 +235,7 @@ public class TemplateServiceController {
     @RequestMapping(
         value = "/update/{site}",
         method = RequestMethod.POST,
-        params = { "item_id", "file" }
+        params = { "item_id" }
     )
     @ResponseBody
     public Item update(
@@ -217,7 +253,16 @@ public class TemplateServiceController {
             @RequestParam(value = "properties", required = false) final Map<String, String> properties
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        ItemId templateItemId = new ItemId(itemId);
+        InputStream content = null;
+        try {
+            content = file.getInputStream();
+        } catch (IOException e) {
+            throw new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, e);
+        }
+        Item item = templateService.update(context, site, templateItemId, content, properties);
+        return item;
     }
 
     /**
@@ -255,7 +300,10 @@ public class TemplateServiceController {
         @RequestParam(value = "properties", required = true) final Map<String, String> properties
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        ItemId templateItemId = new ItemId(itemId);
+        Item item = templateService.update(context, site, templateItemId, content, properties);
+        return item;
     }
 
     /**
@@ -283,7 +331,9 @@ public class TemplateServiceController {
             @RequestParam(value = "item_id", required = true) final String itemId
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        Context context = RestControllerUtils.createMockContext();
+        ItemId templateItemId = new ItemId(itemId);
+        templateService.delete(context, site, templateItemId);
     }
 
     /**

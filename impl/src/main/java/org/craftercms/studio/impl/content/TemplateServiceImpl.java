@@ -18,6 +18,7 @@
 package org.craftercms.studio.impl.content;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,11 +61,8 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public Item create(final Context context, final String site, final String parentId, final String fileName, final InputStream content, final Map<String, String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            StringBuilder sb = new StringBuilder(parentId);
-            sb.append(File.separator);
-            sb.append(fileName);
             Item item = createTemplateItem(fileName);
-            ItemId itemId = contentManager.create(context, site, sb.toString(), item, content);
+            ItemId itemId = contentManager.create(context, site, parentId, item, content);
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
         } else {
@@ -96,12 +94,9 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public Item create(final Context context, final String site, final String parentId, final String fileName, final String content, final Map<String, String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            StringBuilder sb = new StringBuilder(parentId);
-            sb.append(File.separator);
-            sb.append(fileName);
             Item item = createTemplateItem(fileName);
             InputStream contentStream = IOUtils.toInputStream(content);
-            ItemId itemId = contentManager.create(context, site, sb.toString(), item, contentStream);
+            ItemId itemId = contentManager.create(context, site, parentId, item, contentStream);
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
         } else {
@@ -122,6 +117,21 @@ public class TemplateServiceImpl implements TemplateService {
     public Item read(final Context context, final String site, final ItemId itemId) throws StudioException {
         if (context != null && securityService.validate(context)) {
             return contentManager.read(context, site, itemId.getItemId());
+        } else {
+            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+        }
+    }
+
+    @Override
+    public String getTextContent(final Context context, final String site, final ItemId itemId) throws StudioException {
+        if (context != null && securityService.validate(context)) {
+            Item item = contentManager.read(context, site, itemId.getItemId());
+            InputStream content = item.getInputStream();
+            try {
+                return IOUtils.toString(content);
+            } catch (IOException e) {
+                throw new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, e);
+            }
         } else {
             throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
         }

@@ -36,8 +36,7 @@ public class ErrorManager {
 
     public StudioException createError(String moduleId, String code, String... args) {
 
-        // TODO: initialize StudioException
-        StudioException error = null;
+        StudioException error = new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, args);
         return error;
     }
 }

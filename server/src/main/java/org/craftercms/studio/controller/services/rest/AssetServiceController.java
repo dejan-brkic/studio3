@@ -170,7 +170,8 @@ public class AssetServiceController {
                     method = RequestMethod.GET)
     @ResponseBody
     public String getTextContent(
-            @ApiParam(name = "site", required = true, value = "String")
+
+            @ApiParam(name = "site", required = true, value = "String", allowableValues = "existing site identifiers")
             @PathVariable String site,
 
             @ApiParam(name = "item_id", required = true, value = "String")
