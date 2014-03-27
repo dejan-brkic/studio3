@@ -320,7 +320,8 @@ public class DescriptorServiceController {
     })
     @RequestMapping(
         value = "/update/{site}",
-        method = RequestMethod.POST
+        method = RequestMethod.POST,
+        params = "item_id"
     )
     @ResponseBody
     public Item update(
@@ -360,6 +361,16 @@ public class DescriptorServiceController {
      * @return              item
      * @throws StudioException
      */
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
+    @RequestMapping(
+        value = "/update/{site}",
+        method = RequestMethod.POST,
+        params = { "item_id", "content" }
+    )
+    @ResponseBody
     public Item update(
 
             @ApiParam(name = "site", required = true, value = "String")
@@ -372,7 +383,7 @@ public class DescriptorServiceController {
             @RequestParam(value = "content", required = true) String content,
 
             @ApiParam(name = "content", required = false, value = "Map<String, String>")
-            @RequestParam(value = "properties") Map<String, String> properties
+            @RequestParam(value = "properties", required = false) Map<String, String> properties
     ) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
