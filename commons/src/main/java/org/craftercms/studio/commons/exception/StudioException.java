@@ -29,58 +29,29 @@ import java.util.ResourceBundle;
  */
 public class StudioException extends Exception {
 
-    private static final String EXCEPTION_BUNDLE="exception/exception";
-    protected static final ResourceBundle errorCodeFormatStrings = ResourceBundle.getBundle(EXCEPTION_BUNDLE,
-        Locale.getDefault());
     private static final long serialVersionUID = 8822403836288820982L;
 
-    private ErrorCode errorCode;
+    private String errorCode;
 
     /**
      * Construct with an error code and cause exception.
      *
-     * @param errorCode {@link org.craftercms.studio.commons.exception.StudioException.ErrorCode}
+     * @param errorCode Error code
      * @param cause     original cause exception
      */
-    public StudioException(final ErrorCode errorCode, final Throwable cause, final String... args) {
-        super(FormatErrorMessage(errorCode, args), cause);
+    public StudioException(final String errorCode, final String message, final Throwable cause) {
+        super(message, cause);
         this.errorCode = errorCode;
     }
 
     /**
      * Construct with an error code.
      *
-     * @param errorCode {@link org.craftercms.studio.commons.exception.StudioException.ErrorCode}
+     * @param errorCode
      */
-    public StudioException(final ErrorCode errorCode, final String... args) {
-        super(FormatErrorMessage(errorCode, args));
+    public StudioException(final String errorCode, final String message) {
+        super(message);
         this.errorCode = errorCode;
     }
 
-    protected static String FormatErrorMessage(final ErrorCode errorCode, final String... args) {
-        String message = errorCodeFormatStrings.getString(errorCode.toString());
-        if (args.length > 0) {
-            return String.format(message, args);
-        } else {
-            return message;
-        }
-    }
-
-    public ErrorCode getErrorCode() {
-        return errorCode;
-    }
-
-    public enum ErrorCode {
-        INVALID_CONTEXT,
-        INVALID_SITE,
-        NOT_IMPLEMENTED,
-        ITEM_NOT_FOUND,
-        ACCESS_DENIED,
-        INVALID_ACTIVITY,
-        STALE_ITEM,
-        SYSTEM_ERROR,
-        REPOSITORY_ERROR,
-        INVALID_CONTENT,
-        REPORT_ERROR
-    }
 }

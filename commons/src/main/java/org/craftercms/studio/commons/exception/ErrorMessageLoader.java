@@ -17,30 +17,33 @@
 
 package org.craftercms.studio.commons.exception;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.beans.factory.annotation.Required;
 
 /**
  * @author Dejan Brkic
  */
-public class ErrorManager {
+public class ErrorMessageLoader {
 
-    protected Map<String, String> errorMap;
+    private ErrorManager errorManager;
+    private String moduleId;
+    private String errorMessageLocation;
 
-    public void registerError(String moduleId, String messageBundleLocation) {
-        if (errorMap != null) {
-            errorMap = new HashMap<String, String>();
-        }
-        errorMap.put(moduleId, messageBundleLocation);
+    public void init() {
+        errorManager.registerError(moduleId, errorMessageLocation);
     }
 
-    public StudioException createError(String moduleId, String code, String... args) {
-        if (errorMap != null) {
-            String messageBundleLocation = errorMap.get(moduleId);
-            StudioException error = new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, args);
-            return error;
-        } else {
-            return new StudioException();
-        }
+    @Required
+    public void setErrorManager(final ErrorManager errorManager) {
+        this.errorManager = errorManager;
+    }
+
+    @Required
+    public void setModuleId(final String moduleId) {
+        this.moduleId = moduleId;
+    }
+
+    @Required
+    public void setErrorMessageLocation(final String errorMessageLocation) {
+        this.errorMessageLocation = errorMessageLocation;
     }
 }

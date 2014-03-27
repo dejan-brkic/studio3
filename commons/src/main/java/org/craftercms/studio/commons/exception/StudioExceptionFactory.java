@@ -17,30 +17,28 @@
 
 package org.craftercms.studio.commons.exception;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * @author Dejan Brkic
  */
-public class ErrorManager {
+public class StudioExceptionFactory {
 
-    protected Map<String, String> errorMap;
+    public static StudioException createStudioException(String messageBundleLocation, String errorCode,
+                                                        String... args) {
 
-    public void registerError(String moduleId, String messageBundleLocation) {
-        if (errorMap != null) {
-            errorMap = new HashMap<String, String>();
-        }
-        errorMap.put(moduleId, messageBundleLocation);
-    }
-
-    public StudioException createError(String moduleId, String code, String... args) {
-        if (errorMap != null) {
-            String messageBundleLocation = errorMap.get(moduleId);
-            StudioException error = new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, args);
-            return error;
+        StudioException exception = null;
+        ResourceBundle rb = ResourceBundle.getBundle(messageBundleLocation, Locale.getDefault());
+        if (rb != null) {
+            String message = rb.getString(errorCode);
+            if (args.length > 0) {
+                message = String.format(message, args);
+            }
+            exception = new StudioException(errorCode, message);
         } else {
-            return new StudioException();
+            exception = new StudioException("SYSTEM ERROR", "SYSTEM ERROR");
         }
+        return exception;
     }
 }
