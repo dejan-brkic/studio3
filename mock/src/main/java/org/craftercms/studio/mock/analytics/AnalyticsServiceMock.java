@@ -20,10 +20,11 @@ package org.craftercms.studio.mock.analytics;
 import java.util.Map;
 
 import org.craftercms.studio.api.analytics.AnalyticsService;
-import org.craftercms.studio.api.analytics.ReportException;
 import org.craftercms.studio.commons.dto.AnalyticsReport;
 import org.craftercms.studio.commons.dto.Context;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.mock.ModuleConstants;
 
 /**
  * Analytics Manager Mock Implementation.
@@ -35,7 +36,7 @@ public class AnalyticsServiceMock implements AnalyticsService {
 
     @Override
     public AnalyticsReport generateReport(final Context context, final String site, final String reportId, final Map
-        <String, Object> params) throws StudioException, ReportException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        <String, Object> params) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 }

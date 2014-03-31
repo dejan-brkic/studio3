@@ -24,8 +24,10 @@ import org.craftercms.studio.api.workflow.WorkflowManager;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.WorkflowPackage;
 import org.craftercms.studio.commons.dto.WorkflowTransition;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.commons.filter.WorkflowPackageFilter;
+import org.craftercms.studio.impl.ModuleConstants;
 
 /**
  * Workflow Manager Implementation.
@@ -36,32 +38,32 @@ public class WorkflowManagerImpl implements WorkflowManager {
 
     @Override
     public String start(final String packageName, final List<String> comments, final List<Item> items) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public List<Item> getPackage(final String packageId) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public List<WorkflowPackage> getPackages(final String site, final List<WorkflowPackageFilter> filters) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public List<WorkflowTransition> getTransitions(final String packageId) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public void transition(final String packageId, final WorkflowTransition transition, final Map<String,
             Object> params) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public void cancel(final String packageId) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 }

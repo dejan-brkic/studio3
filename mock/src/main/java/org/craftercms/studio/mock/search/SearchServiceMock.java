@@ -20,7 +20,9 @@ package org.craftercms.studio.mock.search;
 import org.craftercms.studio.api.search.SearchService;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.ResultSet;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.mock.ModuleConstants;
 
 /**
  * Search Manager Mock implementation.
@@ -32,11 +34,11 @@ public class SearchServiceMock implements SearchService {
 
     @Override
     public String studio_search(final Context context, final String query) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public String delivery_search() throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 }

@@ -33,7 +33,9 @@ import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.dto.LockHandle;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.ModuleConstants;
 import org.craftercms.studio.internal.content.ContentManager;
 
 /**
@@ -80,7 +82,7 @@ public class AssetServiceImpl implements AssetService {
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
         } else {
-            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.INVALID_CONTEXT.toString());
         }
     }
 
@@ -107,7 +109,7 @@ public class AssetServiceImpl implements AssetService {
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
         } else {
-            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.INVALID_CONTEXT.toString());
         }
     }
 
@@ -120,7 +122,7 @@ public class AssetServiceImpl implements AssetService {
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
         } else {
-            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.INVALID_CONTEXT.toString());
         }
     }
 
@@ -129,7 +131,7 @@ public class AssetServiceImpl implements AssetService {
         if (context != null && securityService.validate(context)) {
             return contentManager.read(context, site, itemId);
         } else {
-            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.INVALID_CONTEXT.toString());
         }
     }
 
@@ -141,10 +143,11 @@ public class AssetServiceImpl implements AssetService {
             try {
                 return IOUtils.toString(content);
             } catch (IOException e) {
-                throw new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, e);
+                throw ErrorManager.createError(ModuleConstants.MODULE_ID,
+                    ModuleConstants.ErrorCode.IO_ERROR.toString(), e);
             }
         } else {
-            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.INVALID_CONTEXT.toString());
         }
     }
 
@@ -155,7 +158,7 @@ public class AssetServiceImpl implements AssetService {
             Item item = contentManager.read(context, site, itemId.getItemId());
             return item.getInputStream();
         } else {
-            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.INVALID_CONTEXT.toString());
         }
     }
 
@@ -167,7 +170,7 @@ public class AssetServiceImpl implements AssetService {
             contentManager.write(context, site, itemId, lockHandle, content);
             return contentManager.read(context, site, itemId.getItemId());
         } else {
-            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.INVALID_CONTEXT.toString());
         }
     }
 
@@ -180,7 +183,7 @@ public class AssetServiceImpl implements AssetService {
             contentManager.write(context, site, itemId, lockHandle, contentStream);
             return contentManager.read(context, site, itemId.getItemId());
         } else {
-            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.INVALID_CONTEXT.toString());
         }
     }
 
@@ -193,7 +196,7 @@ public class AssetServiceImpl implements AssetService {
             contentManager.write(context, site, itemId, lockHandle, contentStream);
             return contentManager.read(context, site, itemId.getItemId());
         } else {
-            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.INVALID_CONTEXT.toString());
         }
     }
 
@@ -205,13 +208,13 @@ public class AssetServiceImpl implements AssetService {
             itemList.add(item);
             contentManager.delete(context, itemList);
         } else {
-            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.INVALID_CONTEXT.toString());
         }
     }
 
     @Override
     public List<Item> findBy(final Context context, final String site, final String query) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.INVALID_CONTEXT.toString());
     }
 
     // Getters and setters

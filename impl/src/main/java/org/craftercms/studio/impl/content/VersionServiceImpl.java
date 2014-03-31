@@ -22,6 +22,9 @@ import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.DiffResult;
 import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.dto.Version;
+import org.craftercms.studio.commons.exception.ErrorManager;
+import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.ModuleConstants;
 
 /**
  * Version manager implementation.
@@ -30,17 +33,17 @@ import org.craftercms.studio.commons.dto.Version;
  */
 public class VersionServiceImpl implements VersionService {
     @Override
-    public Tree<Version> history(final Context context, final String itemId) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public Tree<Version> history(final Context context, final String itemId) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public void revert(final Context context, final String itemId, final String revertVersion) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void revert(final Context context, final String itemId, final String revertVersion) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public DiffResult diff(final Context context, final String itemId, final String version1, final String version2) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public DiffResult diff(final Context context, final String itemId, final String version1, final String version2) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 }

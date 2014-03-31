@@ -29,58 +29,98 @@ import java.util.ResourceBundle;
  */
 public class StudioException extends Exception {
 
-    private static final String EXCEPTION_BUNDLE="exception/exception";
-    protected static final ResourceBundle errorCodeFormatStrings = ResourceBundle.getBundle(EXCEPTION_BUNDLE,
-        Locale.getDefault());
     private static final long serialVersionUID = 8822403836288820982L;
 
-    private ErrorCode errorCode;
+    private String errorCode;
 
     /**
      * Construct with an error code and cause exception.
      *
-     * @param errorCode {@link org.craftercms.studio.commons.exception.StudioException.ErrorCode}
+     * @param errorCode Error code
      * @param cause     original cause exception
      */
-    public StudioException(final ErrorCode errorCode, final Throwable cause, final String... args) {
-        super(FormatErrorMessage(errorCode, args), cause);
+    protected StudioException(final String errorCode, final String message, final Throwable cause) {
+        super(message, cause);
         this.errorCode = errorCode;
     }
 
     /**
      * Construct with an error code.
      *
-     * @param errorCode {@link org.craftercms.studio.commons.exception.StudioException.ErrorCode}
+     * @param errorCode
      */
-    public StudioException(final ErrorCode errorCode, final String... args) {
-        super(FormatErrorMessage(errorCode, args));
+    protected StudioException(final String errorCode, final String message) {
+        super(message);
         this.errorCode = errorCode;
     }
 
-    protected static String FormatErrorMessage(final ErrorCode errorCode, final String... args) {
-        String message = errorCodeFormatStrings.getString(errorCode.toString());
-        if (args.length > 0) {
-            return String.format(message, args);
-        } else {
-            return message;
-        }
+    /**
+     * Construct with an error code.
+     *
+     * @param errorCode
+     */
+    protected StudioException(final String errorCode, final String message, Exception exc) {
+        super(message, exc);
+        this.errorCode = errorCode;
     }
 
-    public ErrorCode getErrorCode() {
+    public String getErrorCode() {
         return errorCode;
     }
 
-    public enum ErrorCode {
-        INVALID_CONTEXT,
-        INVALID_SITE,
-        NOT_IMPLEMENTED,
-        ITEM_NOT_FOUND,
-        ACCESS_DENIED,
-        INVALID_ACTIVITY,
-        STALE_ITEM,
-        SYSTEM_ERROR,
-        REPOSITORY_ERROR,
-        INVALID_CONTENT,
-        REPORT_ERROR
+    public static StudioException createStudioException(ResourceBundle messageBundle, String errorCode) {
+
+        StudioException exception = null;
+        if (messageBundle != null) {
+            String message = messageBundle.getString(errorCode);
+            exception = new StudioException(errorCode, message);
+        } else {
+            exception = new StudioException("SYSTEM ERROR", "SYSTEM ERROR");
+        }
+        return exception;
+    }
+
+    public static StudioException createStudioException(ResourceBundle messageBundle, String errorCode, Exception exc) {
+
+        StudioException exception = null;
+        if (messageBundle != null) {
+            String message = messageBundle.getString(errorCode);
+            exception = new StudioException(errorCode, message, exc);
+        } else {
+            exception = new StudioException("SYSTEM ERROR", "SYSTEM ERROR", exc);
+        }
+        return exception;
+    }
+
+    public static StudioException createStudioException(ResourceBundle messageBundle, String errorCode,
+                                                        String... args) {
+
+        StudioException exception = null;
+        if (messageBundle != null) {
+            String message = messageBundle.getString(errorCode);
+            if (args.length > 0) {
+                message = String.format(message, args);
+            }
+            exception = new StudioException(errorCode, message);
+        } else {
+            exception = new StudioException("SYSTEM ERROR", "SYSTEM ERROR");
+        }
+        return exception;
+    }
+
+    public static StudioException createStudioException(ResourceBundle messageBundle, String errorCode, Exception exc,
+                                                        String... args) {
+
+        StudioException exception = null;
+        if (messageBundle != null) {
+            String message = messageBundle.getString(errorCode);
+            if (args.length > 0) {
+                message = String.format(message, args);
+            }
+            exception = new StudioException(errorCode, message, exc);
+        } else {
+            exception = new StudioException("SYSTEM ERROR", "SYSTEM ERROR", exc);
+        }
+        return exception;
     }
 }

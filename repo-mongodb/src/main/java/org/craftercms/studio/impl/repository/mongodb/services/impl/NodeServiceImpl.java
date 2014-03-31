@@ -27,6 +27,9 @@ import java.util.UUID;
 import javolution.util.FastList;
 import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.commons.dto.Item;
+import org.craftercms.studio.commons.exception.ErrorManager;
+import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.repository.mongodb.ModuleConstants;
 import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryQueries;
@@ -34,7 +37,6 @@ import org.craftercms.studio.impl.repository.mongodb.data.MongodbDataService;
 import org.craftercms.studio.impl.repository.mongodb.domain.CoreMetadata;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
 import org.craftercms.studio.impl.repository.mongodb.domain.NodeType;
-import org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException;
 import org.craftercms.studio.impl.repository.mongodb.services.GridFSService;
 import org.craftercms.studio.impl.repository.mongodb.services.NodeService;
 import org.slf4j.Logger;
@@ -80,7 +82,7 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public Node createFileNode(final Node parent, final String fileName, String label, final String creatorName,
-                               final InputStream content) throws MongoRepositoryException {
+                               final InputStream content) throws StudioException {
         log.debug("Validating params for creating a new Folder Node");
         if (parent == null) {
             log.error("Trying to create a node with parent null");
@@ -103,9 +105,10 @@ public class NodeServiceImpl implements NodeService {
                     throw new IllegalArgumentException("Node named " + fileName + " Already exist in given path " +
                         parent.getCore().getNodeName());
                 }
-            } catch (MongoRepositoryException e) {
+            } catch (StudioException e) {
                 log.error("Unable to save node {} because file was unable to be saved {}", newNode, e.toString());
-                throw new MongoRepositoryException(e);
+                throw ErrorManager.createError(ModuleConstants.MODULE_ID,
+                    ModuleConstants.ErrorCode.ERROR_GRIDFS_SAVE_FAILED.toString(), e);
             }
         } else {
             log.error("Parent node {} is no a folder. can't create a FileNode with out a folder", parent);
@@ -115,7 +118,7 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public Node createFolderNode(final Node parent, final String folderName, final String folderLabel,
-                                 final String creatorName) throws MongoRepositoryException {
+                                 final String creatorName) throws StudioException {
         log.debug("Validating params for creating a new Folder Node");
         if (parent == null) {
             log.error("Trying to create a node with parent null");
@@ -151,7 +154,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Iterable<Node> findNodesByParents(final List<Node> parents) throws MongoRepositoryException {
+    public Iterable<Node> findNodesByParents(final List<Node> parents) throws StudioException {
         log.debug("Finding all children of {}", parents);
         Iterable<Node> foundNodes = dataService.find(NODES_COLLECTION, Node.class,
             MongoRepositoryQueries.GET_BY_ANCESTORS, nodeListToIdList(parents));
@@ -161,7 +164,7 @@ public class NodeServiceImpl implements NodeService {
 
 
     @Override
-    public Iterable<Node> findNodeByParent(final Node node) throws MongoRepositoryException {
+    public Iterable<Node> findNodeByParent(final Node node) throws StudioException {
         log.debug("Finding all children of {}", node);
         Iterable<Node> foundNodes = dataService.find(NODES_COLLECTION, Node.class,
             MongoRepositoryQueries.GET_BY_ANCESTORS, node.getId());
@@ -170,7 +173,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Node getRootNode() throws MongoRepositoryException {
+    public Node getRootNode() throws StudioException {
 
         return dataService.findOne(NODES_COLLECTION, MongoRepositoryQueries.GET_ROOT_NODE, Node.class);
 
@@ -187,7 +190,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Node getNode(final String nodeId) throws MongoRepositoryException {
+    public Node getNode(final String nodeId) throws StudioException {
         if (StringUtils.isBlank(nodeId)) {
             log.error("Given Node Id is either null,empty or blank");
             throw new IllegalArgumentException("Node Id can't be null, empty or blank");
@@ -200,7 +203,7 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public Node findNodeByAncestorsAndName(final List<Node> ancestors, final String nodeName) throws
-        MongoRepositoryException {
+        StudioException {
         if (StringUtils.isBlank(nodeName)) {
             log.debug("Node name can't be empty or blank");
             throw new IllegalArgumentException("Can't search node with name either null ,empty or blank");
@@ -216,7 +219,7 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public Node findNodeByAncestorsIdsAndName(final List<String> ancestors,
-                                              final String nodeName) throws MongoRepositoryException {
+                                              final String nodeName) throws StudioException {
         if (StringUtils.isBlank(nodeName)) {
             log.debug("Node name can't be empty or blank");
             throw new IllegalArgumentException("Can't search node with name either null ,empty or blank");
@@ -231,12 +234,12 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Node getSiteNode(String siteName) throws MongoRepositoryException {
+    public Node getSiteNode(String siteName) throws StudioException {
         return findNodeByAncestorsAndName(Arrays.asList(getRootNode()), siteName);
     }
 
     @Override
-    public Node createFolderStructure(final String path, final String creator) throws MongoRepositoryException {
+    public Node createFolderStructure(final String path, final String creator) throws StudioException {
         String[] pathParts = path.substring(1).split(MongoRepositoryDefaults.REPO_DEFAULT_PATH_SEPARATOR_CHAR);
         Node parentNode = getRootNode();
         for (int i = 0; i < pathParts.length; i++) {
@@ -252,7 +255,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public InputStream getFile(final String fileId) throws MongoRepositoryException {
+    public InputStream getFile(final String fileId) throws StudioException {
         if (StringUtils.isBlank(fileId)) {
             log.debug("File Id can't be empty or blank");
             throw new IllegalArgumentException("Can't search file if the id either null ,empty or blank");
@@ -261,7 +264,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Iterable<Node> getChildren(final String nodeId) throws MongoRepositoryException {
+    public Iterable<Node> getChildren(final String nodeId) throws StudioException {
         if (!StringUtils.isBlank(nodeId)) {
             Node parent = getNode(nodeId);
             return findNodesByParents(Arrays.asList(parent));
@@ -270,7 +273,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public String getNodePath(Node node) throws MongoRepositoryException {
+    public String getNodePath(Node node) throws StudioException {
         //make it bigger so it will not have to resize it for a bit.
         StringBuilder builder = new StringBuilder(DEFAULT_BUILDER_SIZE);
         //First Add the Node with the given ID
@@ -290,7 +293,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public void countRootNodes() throws MongoRepositoryException {
+    public void countRootNodes() throws StudioException {
         long count = dataService.getCollection(NODES_COLLECTION).count(dataService.getQuery(MongoRepositoryQueries
             .GET_ROOT_NODE));
         if (count > 1) {
@@ -310,21 +313,22 @@ public class NodeServiceImpl implements NodeService {
     }
 
 
-    private boolean isNodeUniqueNodeInTree(Node nodeToValidate) throws MongoRepositoryException {
+    private boolean isNodeUniqueNodeInTree(Node nodeToValidate) throws StudioException {
         return dataService.findOne(NODES_COLLECTION, Node.class, MongoRepositoryQueries.GET_BY_ANCESTORS_AND_NAME,
             nodeToValidate.getId(), nodeToValidate.getCore().getNodeName()) == null;
     }
 
     private CoreMetadata createNodeMetadata(final String fileName, final String creatorName,
                                             final InputStream content, final String folderLabel) throws
-        MongoRepositoryException {
+        StudioException {
         CoreMetadata coreMetadata = createBasicMetadata(fileName, creatorName, folderLabel);
         try {
             coreMetadata.setSize(content.available());
             String savedFileId = gridFSService.createFile(fileName, content);
             coreMetadata.setFileId(savedFileId);
         } catch (IOException e) {
-            throw new MongoRepositoryException(e);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID,
+                ModuleConstants.ErrorCode.ERROR_GRIDFS_SAVE_FAILED.toString(), e);
         }
         return coreMetadata;
     }
@@ -342,7 +346,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public void updateFileNode(final String itemId, final InputStream content) throws MongoRepositoryException {
+    public void updateFileNode(final String itemId, final InputStream content) throws StudioException {
 
         Node node = getNode(itemId);
         String newFileId = gridFSService.saveFile(node.getCore().getFileId(), node.getCore().getNodeName(), content);
@@ -351,7 +355,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public void deleteFileNode(final String itemId) throws MongoRepositoryException {
+    public void deleteFileNode(final String itemId) throws StudioException {
         Node node = getNode(itemId);
         gridFSService.deleteFile(node.getCore().getFileId());
         dataService.deleteNode(NODES_COLLECTION, itemId);

@@ -17,7 +17,7 @@
 
 package org.craftercms.studio.repo.content;
 
-import org.craftercms.studio.repo.RepositoryException;
+import org.craftercms.studio.commons.exception.StudioException;
 
 /**
  * @author Sumer Jabri
@@ -32,7 +32,7 @@ public interface PathService {
      * @param path item pah
      * @return item id
      */
-    String getItemIdByPath(final String ticket, final String site,  final String path) throws RepositoryException;
+    String getItemIdByPath(final String ticket, final String site,  final String path) throws StudioException;
 
     /**
      * Get item path by item id.
@@ -42,7 +42,7 @@ public interface PathService {
      * @param itemId item id
      * @return item path
      */
-    String getPathByItemId(final String ticket, final String site, final String itemId) throws RepositoryException;
+    String getPathByItemId(final String ticket, final String site, final String itemId) throws StudioException;
 
     /**
      * Validates that the given path is valid.<br/>

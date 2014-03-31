@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2013 Crafter Software Corporation.
+ * Copyright (C) 2007-2014 Crafter Software Corporation.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,20 +15,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.impl;
-
-import org.craftercms.studio.repo.RepositoryException;
+package org.craftercms.studio.commons;
 
 /**
- * Repository Mock Exception.
- * Used in unit tests to mock repository exceptions thrown from mocked services.
- *
  * @author Dejan Brkic
  */
-public class RepositoryMockException extends RepositoryException {
-    private static final long serialVersionUID = -2878801837270010957L;
+public class ModuleConstants {
 
-    public RepositoryMockException(final Throwable cause) {
-        super(cause);
+    public static final String MODULE_ID = "commons";
+
+    public enum ErrorCode {
+
+        NOT_IMPLEMENTED("COMMON-001");
+
+        private final String code;
+
+        ErrorCode(String code) {
+            this.code = code;
+        }
+
+
+        @Override
+        public String toString() {
+            return this.code;
+        }
     }
 }

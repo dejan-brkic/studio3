@@ -17,9 +17,9 @@
 
 package org.craftercms.studio.impl.repository.mongodb.services;
 
+import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
-import org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +53,7 @@ public class ITPathServicesImpl implements ApplicationContextAware {
         Assert.assertEquals(path, "/philip_j_fry/yancy_fry_sr/yancy_fry_jr/hubert_j_farnsworth");
     }
 
-    private String createSampleNodeTree() throws MongoRepositoryException {
+    private String createSampleNodeTree() throws StudioException {
         NodeService nodeService = applicationContext.getBean(NodeService.class);
         Node a = nodeService.createFolderNode(nodeService.getRootNode(), "philip_j_fry", "Philip J. Fry", "TestUser");
         Node b = nodeService.createFolderNode(a, "yancy_fry_sr", "Yancy Fry, Sr.", "TestUser");

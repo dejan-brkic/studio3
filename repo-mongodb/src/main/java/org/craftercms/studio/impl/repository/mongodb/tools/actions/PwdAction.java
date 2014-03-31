@@ -17,7 +17,7 @@
 
 package org.craftercms.studio.impl.repository.mongodb.tools.actions;
 
-import org.craftercms.studio.repo.RepositoryException;
+import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.tools.AbstractAction;
 import org.craftercms.studio.impl.repository.mongodb.tools.RepoShellContext;
 
@@ -32,7 +32,7 @@ public class PwdAction extends AbstractAction {
     }
 
     @Override
-    public void run(final RepoShellContext context, final String[] args) throws RepositoryException {
+    public void run(final RepoShellContext context, final String[] args) throws StudioException {
         String pwd = context.getPathService().getPathByItemId("Internal", "Internal",
             context.getCurrentNode().getId());
         context.getOut().println(pwd);

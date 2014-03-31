@@ -21,10 +21,10 @@ import java.io.InputStream;
 import java.util.UUID;
 
 import org.craftercms.studio.commons.dto.Context;
+import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.data.MongodbDataService;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
 import org.craftercms.studio.impl.repository.mongodb.domain.NodeType;
-import org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException;
 import org.craftercms.studio.impl.repository.mongodb.services.impl.NodeServiceImpl;
 import org.craftercms.studio.impl.repository.mongodb.utils.TestUtils;
 import org.junit.Assert;
@@ -98,9 +98,9 @@ public class NodeServiceCreateFolderTest {
         Assert.assertTrue(nodeService.isNodeFolder(node));
     }
 
-    @Test(expected = MongoRepositoryException.class)
+    @Test(expected = StudioException.class)
     public void testCreateDataException() throws Exception {
-        doThrow(MongoRepositoryException.class).when(dataService).save(Mockito.anyString(), Mockito.any(Node.class));
+        doThrow(StudioException.class).when(dataService).save(Mockito.anyString(), Mockito.any(Node.class));
         Node parent = new Node();
         parent.setType(NodeType.FOLDER);
         Node node = nodeService.createFolderNode(parent, "TestFolder","Test Folder", "Philip J. Fry");

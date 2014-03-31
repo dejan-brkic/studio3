@@ -31,8 +31,10 @@ import org.craftercms.studio.api.content.TemplateService;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.documentation.configuration.DocumentationServiceOrder;
+import org.craftercms.studio.server.ModuleConstants;
 import org.craftercms.studio.utils.RestControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -106,7 +108,7 @@ public class TemplateServiceController {
         try {
             content = file.getInputStream();
         } catch (IOException e) {
-            throw new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, e);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.FILE_UPLOAD_IO_ERROR.toString());
         }
         Item item = templateService.create(context, site, parentId, fileName, content, properties);
         return item;
@@ -259,7 +261,7 @@ public class TemplateServiceController {
         try {
             content = file.getInputStream();
         } catch (IOException e) {
-            throw new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, e);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.FILE_UPLOAD_IO_ERROR.toString());
         }
         Item item = templateService.update(context, site, templateItemId, content, properties);
         return item;
@@ -296,8 +298,8 @@ public class TemplateServiceController {
         @ApiParam(name = "content", required = true, value = "String")
         @RequestParam(value = "content", required = true) final String content,
 
-        @ApiParam(name = "properties", required = true, value = "Map<String, String>")
-        @RequestParam(value = "properties", required = true) final Map<String, String> properties
+        @ApiParam(name = "properties", required = false, value = "Map<String, String>")
+        @RequestParam(value = "properties", required = false) final Map<String, String> properties
     ) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
@@ -361,7 +363,7 @@ public class TemplateServiceController {
             @RequestParam(value = "query", required = true) final String query
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     public void setTemplateService(final TemplateService templateService) {

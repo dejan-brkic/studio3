@@ -22,7 +22,9 @@ import java.util.List;
 import org.craftercms.studio.api.audit.AuditService;
 import org.craftercms.studio.commons.dto.Activity;
 import org.craftercms.studio.commons.dto.Context;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.ModuleConstants;
 
 
 /**
@@ -35,11 +37,11 @@ public class AuditServiceImpl implements AuditService {
 
     @Override
     public List<Activity> getActivities(final Context context, final String site, final List<String> filters) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public Activity logActivity(final Context context, final String site, final Activity activity) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 }

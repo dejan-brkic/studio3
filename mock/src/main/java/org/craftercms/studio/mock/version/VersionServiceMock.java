@@ -22,7 +22,9 @@ import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.DiffResult;
 import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.dto.Version;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.mock.ModuleConstants;
 
 /**
  * Version Manager mock implementation.
@@ -33,16 +35,16 @@ public class VersionServiceMock implements VersionService {
 
     @Override
     public Tree<Version> history(final Context context, final String itemId) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public void revert(final Context context, final String itemId, final String revertVersion) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public DiffResult diff(final Context context, final String itemId, final String version1, final String version2) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 }

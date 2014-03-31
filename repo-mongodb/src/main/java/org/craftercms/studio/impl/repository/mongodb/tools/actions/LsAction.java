@@ -17,7 +17,6 @@
 
 package org.craftercms.studio.impl.repository.mongodb.tools.actions;
 
-import org.craftercms.studio.repo.RepositoryException;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
@@ -45,13 +44,13 @@ public class LsAction extends AbstractAction {
         }
     }
 
-    private void lsFromPath(final String arg, final RepoShellContext context) throws RepositoryException {
+    private void lsFromPath(final String arg, final RepoShellContext context) throws StudioException {
 
         String id = context.getPathService().getItemIdByPath("INTERNAL", "INTERNAL", arg);
         ls(context.getNodeService().getChildren(id), context);
     }
 
-    private void lsCurrentNode(final RepoShellContext context) throws RepositoryException {
+    private void lsCurrentNode(final RepoShellContext context) throws StudioException {
         Iterable<Node> children = context.getNodeService().getChildren(context.getCurrentNode().getId());
         ls(children, context);
     }

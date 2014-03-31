@@ -25,8 +25,10 @@ import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSInputFile;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
+import org.craftercms.studio.commons.exception.ErrorManager;
+import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.repository.mongodb.ModuleConstants;
 import org.craftercms.studio.impl.repository.mongodb.data.JongoCollectionFactory;
-import org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException;
 import org.craftercms.studio.impl.repository.mongodb.services.GridFSService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,8 +55,7 @@ public class GridFSServiceImpl implements GridFSService {
      */
 
     @Override
-    public String createFile(final String fileName, final InputStream fileInputStream) throws
-        MongoRepositoryException {
+    public String createFile(final String fileName, final InputStream fileInputStream) throws StudioException {
         if (StringUtils.isBlank(fileName)) {
             log.error("Given fileInputStream name is null, empty or blank");
             throw new IllegalArgumentException("File name is either null,empty or blank");
@@ -70,24 +71,25 @@ public class GridFSServiceImpl implements GridFSService {
             return file.getId().toString();
         } catch (MongoException ex) {
             log.error("Unable to save \"" + fileName + "\"file in GridFs due a error", ex);
-            throw new MongoRepositoryException(ex);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID,
+                ModuleConstants.ErrorCode.ERROR_GRIDFS_SAVE_FAILED.toString());
         }
     }
 
     @Override
-    public String saveFile(final String fileId, final String fileName, final InputStream file) throws MongoRepositoryException {
+    public String saveFile(final String fileId, final String fileName, final InputStream file) throws StudioException {
         String newFileId = createFile(fileName, file);
         gridFs.remove(new ObjectId(fileId));
         return newFileId;
     }
 
     @Override
-    public void deleteFile(final String fileId) throws MongoRepositoryException {
+    public void deleteFile(final String fileId) throws StudioException {
         gridFs.remove(new ObjectId(fileId));
     }
 
     @Override
-    public InputStream getFile(final String fileId) throws MongoRepositoryException {
+    public InputStream getFile(final String fileId) throws StudioException {
         if (StringUtils.isBlank(fileId)) {
             log.error("Given Id for getting a fileInputStream is null, empty or blank, check if node is a Folder");
             throw new IllegalArgumentException("File id is either null,empty or blank");
@@ -107,7 +109,8 @@ public class GridFSServiceImpl implements GridFSService {
         } catch (MongoException ex) {
             log.error("Unable to get File with id {} due a MongoException {} ", fileId, ex.getMessage());
             log.error("DataAccessException is ", ex);
-            throw new MongoRepositoryException(ex);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID,
+                ModuleConstants.ErrorCode.ERROR_GRIDFS_READ_FAILED.toString(), ex);
         }
     }
 

@@ -25,7 +25,9 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.craftercms.studio.api.content.ContentTypeService;
 import org.craftercms.studio.commons.dto.ContentType;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.server.ModuleConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -108,7 +110,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "properties", required = false) final Map<String, String> properties
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -141,7 +143,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "form_id", required = true) final String formId
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -173,7 +175,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "default_template_id", required = true) final String defaultTemplateId
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -206,7 +208,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "template_ids", required = true) final List<String> templateIds
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -239,7 +241,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "thumbnail", required = true) final MultipartFile thumbnail
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -272,7 +274,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "permission_ids", required = true) final List<String> permissionIds
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -305,7 +307,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "previewable", required = true) final boolean previewable
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -338,7 +340,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "lifecycle_scripts", required = true) final String lifecycleScripts
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -371,7 +373,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "properties", required = true) final Map<String, String> properties
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -404,7 +406,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "type_name", required = true) final String typeName
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -441,7 +443,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "type_name", required = true) final String typeName
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -470,7 +472,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "content_type_id", required = true) final String contentTypeId
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -498,7 +500,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "content_type_id", required = true) final String contentTypeId
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -527,7 +529,7 @@ public class ContentTypeServiceController {
             @RequestParam(value = "query", required = true) final String query
     ) throws StudioException {
 
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     public void setContentTypeService(final ContentTypeService contentTypeService) {

@@ -20,6 +20,8 @@ package org.craftercms.studio.repo.content;
 
 import java.util.Map;
 
+import org.craftercms.studio.commons.exception.StudioException;
+
 /**
  * Meta Data Service.
  *
@@ -35,7 +37,7 @@ public interface MetaDataService {
      * @param itemId item id
      * @return map of properties
      */
-    <T> Map<String, T> getProperties(String ticket, String itemId, Class<T> type);
+    <T> Map<String, T> getProperties(String ticket, String itemId, Class<T> type) throws StudioException;
 // TODO Switch to add/remove instead of get/set
     /**
      * Set item properties.
@@ -43,7 +45,7 @@ public interface MetaDataService {
      * @param itemId item id
      * @param properties properties
      */
-    <T> void setProperties(String ticket, String itemId, Map<String, T> properties);
+    <T> void setProperties(String ticket, String itemId, Map<String, T> properties) throws StudioException;
 
     /**
      * Get item property.
@@ -53,7 +55,7 @@ public interface MetaDataService {
      * @param type property type (class)
      * @return value
      */
-    <T> T getProperty(String ticket, String itemId, String property, Class<T> type);
+    <T> T getProperty(String ticket, String itemId, String property, Class<T> type) throws StudioException;
 
     /**
      * Set item property.
@@ -62,5 +64,5 @@ public interface MetaDataService {
      * @param property property
      * @param value value
      */
-    <T> void setProperty(String ticket, String itemId, String property, T value);
+    <T> void setProperty(String ticket, String itemId, String property, T value) throws StudioException;
 }

@@ -37,10 +37,9 @@ public interface AnalyticsService {
      * @param reportId report name
      * @param params   report parameters
      * @return the analytics report <b>never null</b>
-     * @throws org.craftercms.studio.commons.exception.StudioException if report with given named is not found or site is not found.
-     * @throws ReportException       if the report can't be generated.
+     * @throws org.craftercms.studio.commons.exception.StudioException       if the report can't be generated.
      */
     AnalyticsReport generateReport(Context context, String site, String reportId, Map<String,
-            Object> params) throws StudioException, ReportException;
+            Object> params) throws StudioException;
 
 }

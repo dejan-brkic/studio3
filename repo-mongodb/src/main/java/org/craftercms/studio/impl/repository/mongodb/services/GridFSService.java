@@ -19,7 +19,7 @@ package org.craftercms.studio.impl.repository.mongodb.services;
 
 import java.io.InputStream;
 import com.mongodb.gridfs.GridFSFile;
-import org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException;
+import org.craftercms.studio.commons.exception.StudioException;
 
 /**
  * Definition of GridFS service. <br/>
@@ -37,11 +37,11 @@ public interface GridFSService {
      * @param fileName File name
      * @param file     file input Stream
      * @return the GridFSFile representing the newly save file.
-     * @throws MongoRepositoryException if something goes wrong while saving the file.
+     * @throws org.craftercms.studio.commons.exception.StudioException if something goes wrong while saving the file.
      * @throws IllegalArgumentException if filename is empty, null or blank <br/> or
      *                                  if InputStream is null.
      */
-    String createFile(String fileName, InputStream file) throws MongoRepositoryException;
+    String createFile(String fileName, InputStream file) throws StudioException;
 
     /**
      * Save file in the GridFS.
@@ -50,18 +50,18 @@ public interface GridFSService {
      * @param fileName      File name
      * @param file          File
      * @return              New file identifier
-     * @throws MongoRepositoryException
+     * @throws org.craftercms.studio.commons.exception.StudioException
      */
-    String saveFile(String fileId, String fileName, InputStream file) throws MongoRepositoryException;
+    String saveFile(String fileId, String fileName, InputStream file) throws StudioException;
 
     /**
      * Gets a saved file InputStream.
      * @param fileId Id of the saved file, can't be null, empty or blank.
      * @return the files InputStream if found<br/> null if file with that id can't be found.
      * @throws IllegalArgumentException if filename is empty, null or blank
-     * @throws MongoRepositoryException if unable to retrieve the file for store.
+     * @throws org.craftercms.studio.commons.exception.StudioException if unable to retrieve the file for store.
      */
-    InputStream getFile(String fileId) throws MongoRepositoryException;
+    InputStream getFile(String fileId) throws StudioException;
 
-    void deleteFile(String fileId) throws MongoRepositoryException;
+    void deleteFile(String fileId) throws StudioException;
 }

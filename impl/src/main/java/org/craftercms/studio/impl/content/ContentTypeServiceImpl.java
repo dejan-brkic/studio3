@@ -29,7 +29,9 @@ import org.craftercms.studio.api.security.SecurityService;
 import org.craftercms.studio.commons.dto.ContentType;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.ModuleConstants;
 import org.craftercms.studio.internal.content.ContentManager;
 
 /**
@@ -72,7 +74,8 @@ public class ContentTypeServiceImpl implements ContentTypeService {
             contentManager.create(context, site, formId, item, null);
             return null;
         } else {
-            throw new StudioException(StudioException.ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.INVALID_CONTEXT
+                .toString());
         }
 
     }
@@ -101,7 +104,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
     @Override
     public ContentType updateForm(final Context context, final String site, final String contentTypeId, final String
         formId) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -118,7 +121,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
     @Override
     public ContentType updateDefaultTemplate(final Context context, final String site, final String contentTypeId,
                                              final String defaultTemplateId) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -135,7 +138,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
     @Override
     public ContentType updateTemplates(final Context context, final String site, final String contentTypeId, final
     List<String> templateIds) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -150,7 +153,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      */
     @Override
     public ContentType updateThumbnail(final Context context, final String site, final String contentTypeId, final byte[] thumbnail) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -165,7 +168,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      */
     @Override
     public ContentType updatePermissions(final Context context, final String site, final String contentTypeId, final List<String> permissionIds) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -181,7 +184,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
     @Override
     public ContentType updatePreviewable(final Context context, final String site, final String contentTypeId, final
     boolean previewable) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -198,7 +201,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
     @Override
     public ContentType updateLifecycleScripts(final Context context, final String site, final String contentTypeId,
                                               final String lifecycleScripts) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -213,7 +216,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      */
     @Override
     public ContentType updateProperties(final Context context, final String site, final String contentTypeId, final Map<String, String> properties) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -228,7 +231,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      */
     @Override
     public ContentType duplicate(final Context context, final String site, final String contentTypeId, final String typeName) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -244,7 +247,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      */
     @Override
     public ContentType duplicate(final Context context, final String sourceSite, final String destinationSite, final String contentTypeId, final String typeName) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -258,7 +261,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      */
     @Override
     public ContentType read(final Context context, final String site, final String contentTypeId) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -271,7 +274,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      */
     @Override
     public void delete(final Context context, final String site, final String contentTypeId) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     /**
@@ -285,7 +288,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      */
     @Override
     public List<Item> findBy(final Context context, final String site, final String query) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     public void setSecurityService(final SecurityService securityService) {

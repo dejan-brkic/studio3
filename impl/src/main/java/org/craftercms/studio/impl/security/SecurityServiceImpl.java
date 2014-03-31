@@ -26,6 +26,9 @@ import org.craftercms.studio.commons.dto.SecurityGroup;
 import org.craftercms.studio.commons.dto.SecurityPermission;
 import org.craftercms.studio.commons.dto.SecurityRole;
 import org.craftercms.studio.commons.dto.User;
+import org.craftercms.studio.commons.exception.ErrorManager;
+import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.ModuleConstants;
 
 /**
  * Security manager implementation.
@@ -34,79 +37,79 @@ import org.craftercms.studio.commons.dto.User;
  */
 public class SecurityServiceImpl implements SecurityService {
     @Override
-    public Context login(final URL repositoryUrl, final String username, final String password) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public Context login(final URL repositoryUrl, final String username, final String password) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public void logout(final Context context) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void logout(final Context context) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public boolean validate(final Context context) {
-        return true;  //To change body of implemented methods use File | Settings | File Templates.
+    public boolean validate(final Context context) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public List<User> getUsers(final Context context, final String site) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public List<User> getUsers(final Context context, final String site) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public String updateUser(final Context context, final User user, final String password, final String role) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public String updateUser(final Context context, final User user, final String password, final String role) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public void removeUser(final Context context, final String user) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void removeUser(final Context context, final String user) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public List<SecurityPermission> getPermissions(final Context context, final String site, final String itemId) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public List<SecurityPermission> getPermissions(final Context context, final String site, final String itemId) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public void updatePermissions(final Context context, final String site, final String itemId, final User user,
-                                  final List<SecurityPermission> permissions, final boolean inherit) {
-        //To change body of implemented methods use File | Settings | File Templates.
+                                  final List<SecurityPermission> permissions, final boolean inherit) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public void updatePermissions(final Context context, final String site, final String itemId, final SecurityGroup
-        group, final List<SecurityPermission> permissions, final boolean inherit) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        group, final List<SecurityPermission> permissions, final boolean inherit) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public List<SecurityGroup> getGroups(final Context context, final String site) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public List<SecurityGroup> getGroups(final Context context, final String site) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public void updateGroup(final Context context, final String site, final String groupName) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void updateGroup(final Context context, final String site, final String groupName) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public void removeGroup(final Context context, final String site, final String groupName) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void removeGroup(final Context context, final String site, final String groupName) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public List<SecurityRole> getRoles(final Context context, final String site) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public List<SecurityRole> getRoles(final Context context, final String site) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public void updateRole(final Context context, final String site, final String roleName) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void updateRole(final Context context, final String site, final String roleName) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
-    public void removeRole(final Context context, final String site, final String roleName) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void removeRole(final Context context, final String site, final String roleName) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 }

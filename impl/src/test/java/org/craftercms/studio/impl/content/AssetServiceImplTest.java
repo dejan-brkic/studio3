@@ -30,8 +30,10 @@ import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.dto.LockHandle;
 import org.craftercms.studio.commons.dto.Tenant;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.AbstractServiceTest;
+import org.craftercms.studio.impl.ModuleConstants;
 import org.craftercms.studio.internal.content.ContentManager;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -197,7 +199,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
                 props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).create(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(0)).validate(Mockito.any(Context.class));
@@ -235,7 +237,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
                 props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
 
             verify(contentManagerMock, times(0)).create(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
@@ -274,7 +276,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).create(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(0)).validate(Mockito.any(Context.class));
@@ -312,7 +314,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
                 props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).create(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -350,7 +352,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
                 props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).create(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -388,7 +390,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
                 props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(expectedException.getErrorCode(), StudioException.ErrorCode.INVALID_CONTEXT);
+            assertEquals(expectedException.getErrorCode(), ModuleConstants.ErrorCode.INVALID_CONTEXT.toString());
             verify(contentManagerMock, times(0)).create(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -442,7 +444,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             Item assetItem = assetServiceSUT.read(context, site, assetId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(0)).validate(Mockito.any(Context.class));
@@ -472,7 +474,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             Item assetItem = assetServiceSUT.read(context, site, assetId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -489,7 +491,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testReadSiteNotExists() throws Exception {
         // Set up mock objects
-        doThrow(new StudioException(StudioException.ErrorCode.INVALID_SITE, "Unit test.")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.INVALID_SITE.toString(),
+            "Unit test.")).when(contentManagerMock)
             .read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
@@ -502,7 +505,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             Item assetItem = assetServiceSUT.read(context, site, assetId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.INVALID_SITE, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_SITE.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -519,7 +522,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testReadAssetNotExists() throws Exception {
         // Set up mock objects
-        doThrow(new StudioException(StudioException.ErrorCode.ITEM_NOT_FOUND, "Unit test")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(),
+            "Unit test")).when(contentManagerMock)
             .read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
@@ -532,7 +536,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             Item assetItem = assetServiceSUT.read(context, site, assetId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.ITEM_NOT_FOUND, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -586,7 +590,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             String assetContent = assetServiceSUT.getTextContent(context, site, assetId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(0)).validate(Mockito.any(Context.class));
@@ -615,7 +619,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             String assetContent = assetServiceSUT.getTextContent(context, site, assetId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -632,7 +636,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testGetTextContentSiteNotExists() throws Exception {
         // Set up mock objects
-        doThrow(new StudioException(StudioException.ErrorCode.INVALID_SITE, "Unit test.")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.INVALID_SITE.toString(), "Unit test.")).when(contentManagerMock)
             .read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
@@ -645,7 +649,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             String assetContent = assetServiceSUT.getTextContent(context, site, assetId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.INVALID_SITE, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_SITE.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -662,7 +666,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testGetTextContentItemNotExists() throws Exception {
         // Set up mock objects
-        doThrow(new StudioException(StudioException.ErrorCode.ITEM_NOT_FOUND, "Unit test.")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(),
+            "Unit test.")).when(contentManagerMock)
             .read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
@@ -675,7 +680,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             String assetContent = assetServiceSUT.getTextContent(context, site, assetId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.ITEM_NOT_FOUND, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -731,7 +736,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             InputStream assetContentStream = assetServiceSUT.getInputStream(context, site, assetItemId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(0)).validate(Mockito.any(Context.class));
@@ -762,7 +767,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             InputStream assetContentStream = assetServiceSUT.getInputStream(context, site, assetItemId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -779,7 +784,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testGetInputStreamSiteNotExists() throws Exception {
         // Set up mock objects
-        doThrow(new StudioException(StudioException.ErrorCode.INVALID_SITE, "Unit test.")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.INVALID_SITE.toString(), "Unit test.")).when(contentManagerMock)
             .read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
@@ -793,7 +798,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             InputStream assetContentStream = assetServiceSUT.getInputStream(context, site, assetItemId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.INVALID_SITE, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_SITE.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -810,7 +815,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testGetInputStreamItemNotExists() throws Exception {
         // Set up mock objects
-        doThrow(new StudioException(StudioException.ErrorCode.ITEM_NOT_FOUND, "Unit test.")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(),
+            "Unit test.")).when(contentManagerMock)
             .read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
@@ -824,7 +830,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             InputStream assetContentStream = assetServiceSUT.getInputStream(context, site, assetItemId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.ITEM_NOT_FOUND, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -978,7 +984,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             Item testItem = assetServiceSUT.update(context, site, assetItemId, fileStream, props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(0)).validate(Mockito.any(Context.class));
@@ -1020,7 +1026,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             Item testItem = assetServiceSUT.update(context, site, assetItemId, content, props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(0)).validate(Mockito.any(Context.class));
@@ -1063,7 +1069,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             Item testItem = assetServiceSUT.update(context, site, assetItemId, contentByteArray, props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(0)).validate(Mockito.any(Context.class));  return;
@@ -1104,7 +1110,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             Item testItem = assetServiceSUT.update(context, site, assetItemId, fileStream, props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -1146,7 +1152,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             Item testItem = assetServiceSUT.update(context, site, assetItemId, content, props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -1189,7 +1195,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             Item testItem = assetServiceSUT.update(context, site, assetItemId, contentByteArray, props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -1205,7 +1211,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testUpdateUsingInputStreamWithInvalidSite() throws Exception {
         // Setup mock object
-        doThrow(new StudioException(StudioException.ErrorCode.INVALID_SITE, "Unit test")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.INVALID_SITE.toString(),
+            "Unit test")).when(contentManagerMock)
             .write(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class),
                 Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
@@ -1223,7 +1230,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             Item testItem = assetServiceSUT.update(context, site, assetItemId, fileStream, props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_SITE, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_SITE.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -1241,7 +1248,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testUpdateUsingContentStringWithInvalidSite() throws Exception {
         // Setup mock object
-        doThrow(new StudioException(StudioException.ErrorCode.INVALID_SITE, "Unit test")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.INVALID_SITE.toString(), "Unit test")).when(contentManagerMock)
             .write(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class),
                 Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
@@ -1259,7 +1266,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             Item testItem = assetServiceSUT.update(context, site, assetItemId, content, props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_SITE, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_SITE.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -1277,7 +1284,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testUpdateUsingByteArrayWithInvalidSite() throws Exception {
         // Setup mock object
-        doThrow(new StudioException(StudioException.ErrorCode.INVALID_SITE, "Unit test")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.INVALID_SITE.toString(), "Unit test")).when(contentManagerMock)
             .write(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class),
                 Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
@@ -1296,7 +1303,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             Item testItem = assetServiceSUT.update(context, site, assetItemId, contentByteArray, props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.INVALID_SITE, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_SITE.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -1314,7 +1321,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testUpdateUsingInputStreamWithInvalidItem() throws Exception {
         // Setup mock object
-        doThrow(new StudioException(StudioException.ErrorCode.ITEM_NOT_FOUND, "Unit test")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(),
+            "Unit test")).when(contentManagerMock)
             .write(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class),
                 Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
@@ -1332,7 +1340,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             Item testItem = assetServiceSUT.update(context, site, assetItemId, fileStream, props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.ITEM_NOT_FOUND, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -1350,7 +1358,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testUpdateUsingContentStringWithInvalidItem() throws Exception {
         // Setup mock object
-        doThrow(new StudioException(StudioException.ErrorCode.ITEM_NOT_FOUND, "Unit test")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(),
+            "Unit test")).when(contentManagerMock)
             .write(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class),
                 Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
@@ -1368,7 +1377,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             Item testItem = assetServiceSUT.update(context, site, assetItemId, content, props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.ITEM_NOT_FOUND, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -1386,7 +1395,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testUpdateUsingByteArrayWithInvalidItem() throws Exception {
         // Setup mock object
-        doThrow(new StudioException(StudioException.ErrorCode.ITEM_NOT_FOUND, "Unit test")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(),
+            "Unit test")).when(contentManagerMock)
             .write(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class),
                 Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
@@ -1405,7 +1415,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             Item testItem = assetServiceSUT.update(context, site, assetItemId, contentByteArray, props);
         } catch (StudioException expectedException) {
             // assert and verify
-            assertEquals(StudioException.ErrorCode.ITEM_NOT_FOUND, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
@@ -1473,7 +1483,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             assetServiceSUT.delete(context, site, assetItemId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).delete(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
             verify(securityServiceMock, times(0)).validate(Mockito.any(Context.class));
             return;
@@ -1509,7 +1519,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             assetServiceSUT.delete(context, site, assetItemId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.INVALID_CONTEXT, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).delete(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
             return;
@@ -1525,7 +1535,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testDeleteSiteNotExists() throws Exception {
         // Set up mock objects
-        doThrow(new StudioException(StudioException.ErrorCode.INVALID_SITE, "Unit test.")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.INVALID_SITE.toString(),
+            "Unit test.")).when(contentManagerMock)
             .delete(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
@@ -1539,7 +1550,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             assetServiceSUT.delete(context, site, assetItemId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.INVALID_SITE, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.INVALID_SITE.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).delete(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
             return;
@@ -1555,7 +1566,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Test
     public void testDeleteItemNotExists() throws Exception {
         // Set up mock objects
-        doThrow(new StudioException(StudioException.ErrorCode.ITEM_NOT_FOUND, "Unit test.")).when(contentManagerMock)
+        doThrow(ErrorManager.createError(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(),
+            "Unit test.")).when(contentManagerMock)
             .delete(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
@@ -1569,7 +1581,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             assetServiceSUT.delete(context, site, assetItemId);
         } catch (StudioException expectedException) {
-            assertEquals(StudioException.ErrorCode.ITEM_NOT_FOUND, expectedException.getErrorCode());
+            assertEquals(ModuleConstants.ErrorCode.ITEM_NOT_FOUND.toString(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).delete(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
             return;
