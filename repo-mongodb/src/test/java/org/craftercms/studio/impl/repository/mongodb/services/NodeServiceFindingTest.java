@@ -19,9 +19,9 @@ package org.craftercms.studio.impl.repository.mongodb.services;
 
 import java.util.UUID;
 
+import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.data.MongodbDataService;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
-import org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException;
 import org.craftercms.studio.impl.repository.mongodb.services.impl.NodeServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -77,10 +77,10 @@ public class NodeServiceFindingTest {
         Assert.assertNull(n);
     }
 
-    @Test(expected = MongoRepositoryException.class)
+    @Test(expected = StudioException.class)
     public void testFindNodeDataAccessException() throws Exception {
         when(mongodbDataService.findById(Mockito.anyString(), Mockito.anyString(), Mockito.any(Class.class))).thenThrow
-            (MongoRepositoryException.class);
+            (StudioException.class);
         nodeService.getNode(UUID.randomUUID().toString());
     }
 

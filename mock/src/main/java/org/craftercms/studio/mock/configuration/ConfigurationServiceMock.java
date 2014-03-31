@@ -19,7 +19,9 @@ package org.craftercms.studio.mock.configuration;
 
 import org.craftercms.studio.api.configuration.ConfigurationService;
 import org.craftercms.studio.commons.dto.Context;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.mock.ModuleConstants;
 
 /**
  * Configuration Manager Mock implementation.
@@ -30,11 +32,11 @@ public class ConfigurationServiceMock implements ConfigurationService {
 
     @Override
     public String read(final Context context, final String site, final String urn) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public void write(final Context context, final String site, final String urn, final String configuration) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 }

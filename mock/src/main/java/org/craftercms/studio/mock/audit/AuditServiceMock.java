@@ -27,7 +27,9 @@ import javax.xml.bind.Unmarshaller;
 import org.craftercms.studio.api.audit.AuditService;
 import org.craftercms.studio.commons.dto.Activity;
 import org.craftercms.studio.commons.dto.Context;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.mock.ModuleConstants;
 
 /**
  * Audit Manager Mock implementation.
@@ -55,7 +57,7 @@ public class AuditServiceMock implements AuditService {
 
     @Override
     public Activity logActivity(final Context context, final String site, final Activity activity) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 }
 

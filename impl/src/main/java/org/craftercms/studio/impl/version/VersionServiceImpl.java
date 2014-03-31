@@ -25,7 +25,9 @@ import org.craftercms.studio.commons.dto.DiffResult;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.dto.Version;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.ModuleConstants;
 
 /**
  * Version manager implementation.
@@ -38,7 +40,7 @@ public class VersionServiceImpl implements VersionService {
 
     @Override
     public Tree<Version> history(final Context context, final String itemId) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
         /*if (StringUtils.isEmpty(itemId)) {
             throw new IllegalArgumentException("Item id cannot be empty");
         }
@@ -46,18 +48,17 @@ public class VersionServiceImpl implements VersionService {
         return createVersionTree(versions);*/
     }
 
-    private Tree<Version> createVersionTree(final List<Item> versions) {
-        //TODO: implement create version tree from list of items.
-        return null;  //To change body of created methods use File | Settings | File Templates.
+    private Tree<Version> createVersionTree(final List<Item> versions) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public void revert(final Context context, final String itemId, final String revertVersion) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public DiffResult diff(final Context context, final String itemId, final String version1, final String version2) throws StudioException {
-        throw new StudioException(StudioException.ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 }

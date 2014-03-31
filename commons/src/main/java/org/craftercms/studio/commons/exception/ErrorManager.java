@@ -18,29 +18,92 @@
 package org.craftercms.studio.commons.exception;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * @author Dejan Brkic
  */
 public class ErrorManager {
 
-    protected Map<String, String> errorMap;
+    private static ErrorManager instance;
+    protected Map<String, ResourceBundle> errorMap;
 
-    public void registerError(String moduleId, String messageBundleLocation) {
-        if (errorMap != null) {
-            errorMap = new HashMap<String, String>();
-        }
-        errorMap.put(moduleId, messageBundleLocation);
+    private ErrorManager() {
+        errorMap = new HashMap<String, ResourceBundle>();
     }
 
-    public StudioException createError(String moduleId, String code, String... args) {
-        if (errorMap != null) {
-            String messageBundleLocation = errorMap.get(moduleId);
-            StudioException error = new StudioException(StudioException.ErrorCode.SYSTEM_ERROR, args);
-            return error;
+    public Map<String, ResourceBundle> getErrorMap() {
+        return errorMap;
+    }
+
+    public static void registerError(String moduleId, String messageBundleLocation) {
+        if (instance != null) {
+            instance = new ErrorManager();
+        }
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(messageBundleLocation, Locale.getDefault());
+        Map<String, ResourceBundle> errorMap = instance.getErrorMap();
+        errorMap.put(moduleId, resourceBundle);
+    }
+
+    public static StudioException createError(String moduleId, String code) {
+        if (instance != null) {
+            Map<String, ResourceBundle> errorMap = instance.getErrorMap();
+            if (errorMap != null) {
+                ResourceBundle messageBundle = errorMap.get(moduleId);
+                StudioException error = StudioException.createStudioException(messageBundle, code);
+                return error;
+            } else {
+                return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
+            }
         } else {
-            return new StudioException();
+            return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
+        }
+    }
+
+    public static StudioException createError(String moduleId, String code, Exception exc) {
+        if (instance != null) {
+            Map<String, ResourceBundle> errorMap = instance.getErrorMap();
+            if (errorMap != null) {
+                ResourceBundle messageBundle = errorMap.get(moduleId);
+                StudioException error = StudioException.createStudioException(messageBundle, code, exc);
+                return error;
+            } else {
+                return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
+            }
+        } else {
+            return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
+        }
+    }
+
+    public static StudioException createError(String moduleId, String code, String... args) {
+        if (instance != null) {
+            Map<String, ResourceBundle> errorMap = instance.getErrorMap();
+            if (errorMap != null) {
+                ResourceBundle messageBundle = errorMap.get(moduleId);
+                StudioException error = StudioException.createStudioException(messageBundle, code, args);
+                return error;
+            } else {
+                return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
+            }
+        } else {
+            return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
+        }
+    }
+
+    public static StudioException createError(String moduleId, String code, Exception exc, String... args) {
+        if (instance != null) {
+            Map<String, ResourceBundle> errorMap = instance.getErrorMap();
+            if (errorMap != null) {
+                ResourceBundle messageBundle = errorMap.get(moduleId);
+                StudioException error = StudioException.createStudioException(messageBundle, code, exc, args);
+                return error;
+            } else {
+                return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
+            }
+        } else {
+            return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
         }
     }
 }

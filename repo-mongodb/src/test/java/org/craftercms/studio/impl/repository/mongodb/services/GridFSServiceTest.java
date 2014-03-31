@@ -24,8 +24,8 @@ import com.mongodb.gridfs.GridFS;
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSFile;
 import com.mongodb.gridfs.GridFSInputFile;
+import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.data.JongoCollectionFactory;
-import org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException;
 import org.craftercms.studio.impl.repository.mongodb.services.impl.GridFSServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
@@ -83,12 +83,12 @@ public class GridFSServiceTest {
         gridFSService.createFile(FILE_NAME, null);
     }
 
-    @Test(expected = MongoRepositoryException.class)
+    @Test(expected = StudioException.class)
     @Ignore
     public void testSaveFailDataAccess() throws Exception {
 
         when(gridFS.createFile((InputStream)Mockito.any(),Mockito.anyString(),
-            Mockito.anyBoolean())).thenThrow(MongoRepositoryException
+            Mockito.anyBoolean())).thenThrow(StudioException
             .class);
         InputStream inputStream = this.getClass().getResourceAsStream("/files/index.xml");
         Assert.assertNotNull("Test Input Stream is null", inputStream); //make sure we read the file.

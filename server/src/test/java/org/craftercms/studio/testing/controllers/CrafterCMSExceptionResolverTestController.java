@@ -1,6 +1,8 @@
 package org.craftercms.studio.testing.controllers;
 
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.server.ModuleConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,7 +15,7 @@ public class CrafterCMSExceptionResolverTestController {
 
     @RequestMapping(value = "/throwUnregisterCrafterCMSException",method = RequestMethod.GET)
     public void throwUnregisterException()throws Exception{
-         throw new StudioException(StudioException.ErrorCode.SYSTEM_ERROR);
+         throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.SYSTEM_ERROR.toString());
     }
 
     @RequestMapping(value = "/throwUnregisterException",method = RequestMethod.GET)

@@ -22,8 +22,9 @@ import java.util.List;
 import javax.activation.MimetypesFileTypeMap;
 
 import org.apache.commons.lang3.StringUtils;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.repo.RepositoryException;
+import org.craftercms.studio.impl.repository.mongodb.ModuleConstants;
 import org.craftercms.studio.repo.content.ContentService;
 import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.commons.dto.Item;
@@ -33,7 +34,6 @@ import org.craftercms.studio.commons.dto.TreeNode;
 import org.craftercms.studio.commons.filter.Filter;
 import org.craftercms.studio.impl.repository.mongodb.domain.CoreMetadata;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
-import org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException;
 import org.craftercms.studio.impl.repository.mongodb.services.NodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +62,7 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public Item create(final String ticket, final String site, final String path, final Item item,
-                       final InputStream content) throws RepositoryException {
+                       final InputStream content) throws StudioException {
         //Validates that all inputs are ok
         if (StringUtils.isBlank(ticket)) {
             throw new IllegalArgumentException("Ticket can't be null empty or whitespace");
@@ -89,7 +89,8 @@ public class ContentServiceImpl implements ContentService {
             return nodeToItem(newFileNode, ticket, site, null);
         } else {
             log.error("Folder node was not created ");
-            throw new MongoRepositoryException();
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_FOLDER_NOT_CREATED
+                .toString());
         }
 
     }
@@ -104,11 +105,11 @@ public class ContentServiceImpl implements ContentService {
      * @param path   Path to check or create
      * @param mkdirs if True creates directories, if false throws a Error.
      * @return the Node of the given path.
-     * @throws MongoRepositoryException           If a Error happens while r/w
+     * @throws org.craftercms.studio.commons.exception.StudioException           If a Error happens while r/w
      * @throws java.lang.IllegalArgumentException if a portion of the path does not exist and mkdirs is set to false.
      */
     private Node checkParentPath(final String ticket, final String site, final String path, final boolean mkdirs,
-                                 final String creator) throws RepositoryException {
+                                 final String creator) throws StudioException {
         String nodeId = pathService.getItemIdByPath(ticket, site, path);
         if (!StringUtils.isBlank(nodeId)) {
             return nodeService.getNode(nodeId);
@@ -126,7 +127,7 @@ public class ContentServiceImpl implements ContentService {
 
     @Override
     public Item create(final String ticket, final String site, final String path,
-                       final Item item) throws StudioException, RepositoryException {
+                       final Item item) throws StudioException {
         //Validates that all inputs are ok
         if (StringUtils.isBlank(ticket)) {
             throw new IllegalArgumentException("Ticket can't be null empty or whitespace");
@@ -151,11 +152,12 @@ public class ContentServiceImpl implements ContentService {
             return nodeToItem(createdFolder, ticket, site, null);
         } else {
             log.error("Folder node was not created ");
-            throw new MongoRepositoryException();
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_FOLDER_NOT_CREATED
+                .toString());
         }
     }
 
-    private Item nodeToItem(final Node newNode, String ticket, String site, final InputStream inputStream) throws RepositoryException {
+    private Item nodeToItem(final Node newNode, String ticket, String site, final InputStream inputStream) throws StudioException {
         CoreMetadata core = newNode.getCore();
         Item item = new Item();
         item.setPath(pathService.getPathByItemId(ticket, site, newNode.getId()));
@@ -178,8 +180,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Item read(final String ticket, final String site, final String contentId) throws RepositoryException,
-        StudioException {
+    public Item read(final String ticket, final String site, final String contentId) throws StudioException {
 
         //Validates that all inputs are ok
         if (StringUtils.isBlank(ticket)) {
@@ -204,13 +205,15 @@ public class ContentServiceImpl implements ContentService {
             // File id can't be null,empty or whitespace
             if (StringUtils.isBlank(fileId)) {
                 log.error("Node {} is broken, since file id is not a valid ID", item, fileId);
-                throw new MongoRepositoryException();
+                throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_BROKEN_NODE
+                    .toString());
             }
             InputStream fileInput = nodeService.getFile(fileId);
             // Content should exist with this id, or something is broken.
             if (fileInput == null) {
                 log.error("File with Id {} is not found, node is broken", fileId);
-                throw new MongoRepositoryException();
+                throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_BROKEN_NODE
+                    .toString());
             }
             //Now  finally return it .
 
@@ -218,13 +221,14 @@ public class ContentServiceImpl implements ContentService {
         } else {
             // can't read folders
             log.debug("Content is a folder");
-            throw new StudioException(StudioException.ErrorCode.INVALID_CONTENT);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID,
+                ModuleConstants.ErrorCode.ERROR_FILE_EXPECTED_FOUND_FOLDER.toString());
         }
 
     }
 
     @Override
-    public void update(final String ticket, final Item item, final InputStream content) throws RepositoryException {
+    public void update(final String ticket, final Item item, final InputStream content) throws StudioException {
         Node nodeItem = nodeService.getNode(item.getId().getItemId());
 
         if (nodeItem == null) {
@@ -238,20 +242,21 @@ public class ContentServiceImpl implements ContentService {
             // File id can't be null,empty or whitespace
             if (StringUtils.isBlank(fileId)) {
                 log.error("Node {} is broken, since file id is not a valid ID", item, fileId);
-                throw new MongoRepositoryException();
+                throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_BROKEN_NODE
+                    .toString());
             }
             nodeService.updateFileNode(item.getId().getItemId(), content);
         }
     }
 
     @Override
-    public void delete(final String ticket, final String contentId) throws RepositoryException {
+    public void delete(final String ticket, final String contentId) throws StudioException {
         nodeService.deleteFileNode(contentId);
     }
 
     @Override
     public Tree<Item> getChildren(final String ticket, final String site, final String contentId, final int depth,
-                                  final List<Filter> filters) throws RepositoryException {
+                                  final List<Filter> filters) throws StudioException {
         if (StringUtils.isBlank(ticket)) {
             throw new IllegalArgumentException("Ticket can't be null");
         }
@@ -276,7 +281,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     private void buildChildrenTree(final TreeNode<Item> root, final int depth, final Node parent,
-                                   final String ticket, final String site) throws RepositoryException {
+                                   final String ticket, final String site) throws StudioException {
         Node templateNode = new Node();
         templateNode.setId(root.getValue().getRepoId());
         Iterable<Node> children = nodeService.findNodeByParent(templateNode);
@@ -305,7 +310,7 @@ public class ContentServiceImpl implements ContentService {
         return null;
     }
 
-    private boolean siteExists(final String ticket, final String site) throws MongoRepositoryException {
+    private boolean siteExists(final String ticket, final String site) throws StudioException {
         return nodeService.getSiteNode(site) != null;
     }
 

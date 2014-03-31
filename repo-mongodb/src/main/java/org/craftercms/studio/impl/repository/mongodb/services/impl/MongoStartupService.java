@@ -5,12 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
+import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
 import org.craftercms.studio.impl.repository.mongodb.data.MongodbDataService;
 import org.craftercms.studio.impl.repository.mongodb.domain.CoreMetadata;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
 import org.craftercms.studio.impl.repository.mongodb.domain.NodeType;
-import org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException;
 import org.craftercms.studio.impl.repository.mongodb.services.NodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,7 +74,7 @@ public class MongoStartupService implements ApplicationListener {
         // Throw exception and stop startup
         //TODO build Tools for Mongo repo (sort of fdisk)
          nodeService.countRootNodes();
-        }catch (MongoRepositoryException ex){
+        }catch (StudioException ex){
             log.error("Unable to check Repo Integrity due a MongoRepositoryException",ex);
         }
 
@@ -104,14 +104,14 @@ public class MongoStartupService implements ApplicationListener {
             log.info("Root node created");
             createSiteStructure(rootNode);
             return rootNode;
-        } catch (MongoRepositoryException ex) {
+        } catch (StudioException ex) {
             log.error("Unable to create Repository default folders");
             log.error("Error while creating Site default folders ", ex);
             throw new IllegalStateException("Unable to create basic Repository structure");
         }
     }
 
-    private void createSiteStructure(final Node root) throws MongoRepositoryException {
+    private void createSiteStructure(final Node root) throws StudioException {
         nodeService.createFolderNode(root, MongoRepositoryDefaults.REPO_DEFAULT_CONFIG_FOLDER,
             MongoRepositoryDefaults.REPO_DEFAULT_CONFIG_FOLDER, MongoRepositoryDefaults.SYSTEM_USER_NAME);
         nodeService.createFolderNode(root, MongoRepositoryDefaults.REPO_DEFAULT_CONTENT_FOLDER,

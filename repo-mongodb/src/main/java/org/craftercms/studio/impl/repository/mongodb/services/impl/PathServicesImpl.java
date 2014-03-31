@@ -20,11 +20,10 @@ package org.craftercms.studio.impl.repository.mongodb.services.impl;
 import java.util.LinkedList;
 
 import org.apache.commons.lang3.StringUtils;
-import org.craftercms.studio.repo.RepositoryException;
+import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
-import org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException;
 import org.craftercms.studio.impl.repository.mongodb.services.NodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +41,7 @@ public class PathServicesImpl implements PathService {
     private Logger log = LoggerFactory.getLogger(PathServicesImpl.class);
 
     @Override
-    public String getItemIdByPath(final String ticket, final String site, final String path) throws RepositoryException {
+    public String getItemIdByPath(final String ticket, final String site, final String path) throws StudioException {
 
         if (StringUtils.isBlank(ticket)) {
             log.debug("Given Ticket is blank or empty");
@@ -75,7 +74,7 @@ public class PathServicesImpl implements PathService {
 
     @Override
     public String getPathByItemId(final String ticket, final String site,
-                                  final String itemId) throws RepositoryException {
+                                  final String itemId) throws StudioException {
 
 
         if (StringUtils.isBlank(ticket)) {
@@ -120,7 +119,7 @@ public class PathServicesImpl implements PathService {
         return builder.toString();
     }
 
-    private Node walkDownTheTree(String[] pathToDescent) throws MongoRepositoryException {
+    private Node walkDownTheTree(String[] pathToDescent) throws StudioException {
 
         Node tempNode = nodeService.getRootNode();
         //If pathToDescent length is 0 then you are getting root path right?

@@ -24,17 +24,11 @@ import org.springframework.beans.factory.annotation.Required;
  */
 public class ErrorMessageLoader {
 
-    private ErrorManager errorManager;
     private String moduleId;
     private String errorMessageLocation;
 
     public void init() {
-        errorManager.registerError(moduleId, errorMessageLocation);
-    }
-
-    @Required
-    public void setErrorManager(final ErrorManager errorManager) {
-        this.errorManager = errorManager;
+        ErrorManager.registerError(moduleId, errorMessageLocation);
     }
 
     @Required

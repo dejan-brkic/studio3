@@ -24,7 +24,6 @@ import java.io.InputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.craftercms.studio.repo.RepositoryException;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.dto.TreeNode;
@@ -66,7 +65,7 @@ public class ExportAction extends AbstractAction {
 
     private void buildZip(final TreeNode<Item> treeNode, final ZipOutputStream zipOutputStream,
                           final RepoShellContext context, final ZipEntry parentFolder) throws IOException,
-        RepositoryException {
+        StudioException {
         NodeService nodeService = context.getNodeService();
         ZipEntry newEntry = new ZipEntry(parentFolder.getName() + treeNode.getValue().getFileName()+File.separator );
         zipOutputStream.putNextEntry(newEntry);

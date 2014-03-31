@@ -21,8 +21,8 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.craftercms.studio.commons.dto.Item;
+import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
-import org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException;
 
 /**
  * Node Services in Definition.
@@ -54,11 +54,11 @@ public interface NodeService {
      *                                                                                           a Folder (Node of
      *                                                                                           type Folder)</li>
      *                                                                                           </ul>
-     * @throws org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException If system was unable
+     * @throws org.craftercms.studio.commons.exception.StudioException If system was unable
      * to store de node on the repository.
      */
     Node createFileNode(Node parent, String fileName, String fileLabel ,String creatorName,
-                        InputStream content) throws MongoRepositoryException;
+                        InputStream content) throws StudioException;
 
     /**
      * Create a new Folder TypeNode.
@@ -77,11 +77,11 @@ public interface NodeService {
      *                                                                                           incompatible with a
      *                                                                                           Folder Node</li>
      *                                                                                           </ul>
-     * @throws org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException If system was unable
+     * @throws org.craftercms.studio.commons.exception.StudioException If system was unable
      * to store de node on the repository.
      */
     Node createFolderNode(Node parent, String folderName, String folderLabel,
-                          String creatorName) throws MongoRepositoryException;
+                          String creatorName) throws StudioException;
 
     /**
      * Finds all nodes for a given parent.
@@ -92,16 +92,16 @@ public interface NodeService {
      * @return Empty List if given node has no children.
      * List of all nodes that are children of the given node.
      */
-    Iterable<Node> findNodesByParents(List<Node> parent) throws MongoRepositoryException;
+    Iterable<Node> findNodesByParents(List<Node> parent) throws StudioException;
 
-    Iterable<Node> findNodeByParent(Node node) throws MongoRepositoryException;
+    Iterable<Node> findNodeByParent(Node node) throws StudioException;
 
     /**
      * Gets the Root node.
      *
      * @return the Root node , <b>Never Null</b>
      */
-    Node getRootNode() throws MongoRepositoryException;
+    Node getRootNode() throws StudioException;
 
     /**
      * Checks if the node is a Folder.
@@ -125,9 +125,9 @@ public interface NodeService {
      * @param nodeId Id of the node
      * @return The node with the given ID, null if not found.
      * @throws IllegalArgumentException If nodeId is null, empty or blank
-     * @throws MongoRepositoryException If is unable to find.
+     * @throws org.craftercms.studio.commons.exception.StudioException If is unable to find.
      */
-    Node getNode(String nodeId) throws MongoRepositoryException;
+    Node getNode(String nodeId) throws StudioException;
 
     /**
      * Finds a node by the ancestors and the node name.
@@ -136,10 +136,10 @@ public interface NodeService {
      * @param nodeName  Name of the node looking for.
      * @return The node with given ancenstors and given name. Null if nothing is found.
      */
-    Node findNodeByAncestorsAndName(List<Node> ancestors, String nodeName) throws MongoRepositoryException;
+    Node findNodeByAncestorsAndName(List<Node> ancestors, String nodeName) throws StudioException;
 
     Node findNodeByAncestorsIdsAndName(List<String> ancestors, String nodeName) throws
-        MongoRepositoryException;
+        StudioException;
 
     /**
      * Gets the site Root node, null if the site node does not exist (site haven't been created or deleted).
@@ -147,7 +147,7 @@ public interface NodeService {
      * @param siteName Site name.
      * @return the node that represents the site root, null if not found.
      */
-    Node getSiteNode(String siteName) throws MongoRepositoryException;
+    Node getSiteNode(String siteName) throws StudioException;
 
     /**
      * Creates a folder tree base on the given path, starts from the last know leaf.
@@ -157,7 +157,7 @@ public interface NodeService {
      * @return Node from representing the last leaf.
      *
      */
-    Node createFolderStructure(String path,final String creator) throws MongoRepositoryException;
+    Node createFolderStructure(String path,final String creator) throws StudioException;
 
     /**
      * Search and returns a InputStream for a file with the given Id.
@@ -167,11 +167,11 @@ public interface NodeService {
      * Null if nothing is found with that id.
      * @throws java.lang.IllegalArgumentException                                                If file id is not
      * valid (null,empty or whitespace)
-     * @throws org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException if unable to search
+     * @throws org.craftercms.studio.commons.exception.StudioException if unable to search
      *                                                                                           or retrieve the
      *                                                                                           InputStream.
      */
-    InputStream getFile(String fileId) throws MongoRepositoryException;
+    InputStream getFile(String fileId) throws StudioException;
 
     /**
      * Gets all the children nodes for the given node<br/>
@@ -180,17 +180,17 @@ public interface NodeService {
      * @param nodeId Node id of the parent
      * @return A List of nodes that are children of
      */
-    Iterable<Node> getChildren(String nodeId) throws MongoRepositoryException;
+    Iterable<Node> getChildren(String nodeId) throws StudioException;
 
-    String getNodePath(Node node) throws MongoRepositoryException;
+    String getNodePath(Node node) throws StudioException;
 
     /**
      * Counts how many Root nodes they are.
      * if there is more that 1, throw a Execution
      */
-    void countRootNodes() throws MongoRepositoryException;
+    void countRootNodes() throws StudioException;
 
-    void updateFileNode(String itemId, InputStream content) throws MongoRepositoryException;
+    void updateFileNode(String itemId, InputStream content) throws StudioException;
 
-    void deleteFileNode(String itemId) throws MongoRepositoryException;
+    void deleteFileNode(String itemId) throws StudioException;
 }

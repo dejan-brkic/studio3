@@ -6,10 +6,11 @@ import com.mongodb.MongoException;
 import com.mongodb.WriteResult;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.repository.mongodb.ModuleConstants;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryQueries;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
-import org.craftercms.studio.impl.repository.mongodb.exceptions.MongoRepositoryException;
 import org.jongo.MongoCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,10 +45,10 @@ public class MongodbDataService {
      * @param collectionName Collection where the Pojo will be save.
      * @param toSave         Object in the given collection.
      * @param <T>            Type of the Object (should be a simple POJO.
-     * @throws MongoRepositoryException If any error happen while saving or if
+     * @throws org.craftercms.studio.commons.exception.StudioException If any error happen while saving or if
      *                                  CommandResult.ok return false.
      */
-    public <T> void save(final String collectionName, final T toSave) throws MongoRepositoryException {
+    public <T> void save(final String collectionName, final T toSave) throws StudioException {
         try {
             log.debug("About to save {} in to collection {}", toSave, collectionName);
             WriteResult writeResult = jongoCollectionFactory.getCollection(collectionName).save(toSave);
@@ -55,7 +56,7 @@ public class MongodbDataService {
             checkComandResult(writeResult.getLastError());
         } catch (MongoException ex) {
             log.debug("Something went wrong while trying to save into mongodb ", ex);
-            throw new MongoRepositoryException(ex);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_SAVE.toString(), ex);
         }
     }
 
@@ -73,10 +74,10 @@ public class MongodbDataService {
      * @param collectionName Collection where the json string will be save
      * @param queryName      Name of the Query to be look in default-queries.xml or custom-queries.properties
      * @param params         Params of the json.
-     * @throws MongoRepositoryException
+     * @throws org.craftercms.studio.commons.exception.StudioException
      */
     public void save(String collectionName, final String queryName, final Object... params) throws
-        MongoRepositoryException {
+        StudioException {
         try {
 
             log.debug("About to save {} in to collection {}", queryName, collectionName);
@@ -85,7 +86,7 @@ public class MongodbDataService {
             checkComandResult(writeResult.getLastError());
         } catch (MongoException ex) {
             log.debug("Something went wrong while trying to save into mongodb ", ex);
-            throw new MongoRepositoryException(ex);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_SAVE.toString(), ex);
         }
     }
 
@@ -102,9 +103,9 @@ public class MongodbDataService {
      * @param clazz          Class in which documents will be map to.
      * @param <T>            Type of the expected result.
      * @return A Iterable Instance of all the documents.<b>This is lazy loaded</b>
-     * @throws MongoRepositoryException If couldn't search for the documents. or a mapping exception happen.
+     * @throws org.craftercms.studio.commons.exception.StudioException If couldn't search for the documents. or a mapping exception happen.
      */
-    public <T> Iterable<T> findAll(final String collectionName, final Class<T> clazz) throws MongoRepositoryException {
+    public <T> Iterable<T> findAll(final String collectionName, final Class<T> clazz) throws StudioException {
         return internalFind(collectionName, clazz, null);
     }
 
@@ -116,10 +117,10 @@ public class MongodbDataService {
      * @param clazz          Class in which documents will be map to.
      * @param <T>            Type of the expected result.
      * @return A Iterable Instance of all the documents that match the queryName.<b>This is lazy loaded</b>
-     * @throws MongoRepositoryException
+     * @throws org.craftercms.studio.commons.exception.StudioException
      */
     public <T> Iterable<T> find(final String collectionName, final String queryName,
-                                final Class<T> clazz) throws MongoRepositoryException {
+                                final Class<T> clazz) throws StudioException {
         return internalFind(collectionName, clazz, queryName);
     }
 
@@ -135,10 +136,10 @@ public class MongodbDataService {
      * @param clazz          Class in which documents will be map to.
      * @param <T>            Type of the expected result.
      * @return A Iterable Instance of all the documents.<b>This is lazy loaded</b>
-     * @throws MongoRepositoryException If couldn't search for the documents. or a mapping exception happen.
+     * @throws org.craftercms.studio.commons.exception.StudioException If couldn't search for the documents. or a mapping exception happen.
      */
     public <T> Iterable<T> find(final String collectionName, final Class<T> clazz, final String queryName,
-                                Object... params) throws MongoRepositoryException {
+                                Object... params) throws StudioException {
         return internalFind(collectionName, clazz, queryName, params);
     }
 
@@ -150,15 +151,15 @@ public class MongodbDataService {
      *                       .properties
      * @param clazz          Class in which documents will be map to.
      * @return A instance of the given class. Null if nothing is found.
-     * @throws MongoRepositoryException If couldn't search for the documents. or a mapping exception happen.
+     * @throws org.craftercms.studio.commons.exception.StudioException If couldn't search for the documents. or a mapping exception happen.
      */
     public Node findOne(final String collectionName, final Class<Node> clazz, final String queryName,
-                        Object... params) throws MongoRepositoryException {
+                        Object... params) throws StudioException {
         try {
             return jongoCollectionFactory.getCollection(collectionName).findOne(getQuery(queryName), params).as(clazz);
         } catch (MongoException ex) {
             log.error("Unable to find one with queryName {}", queryName);
-            throw new MongoRepositoryException(ex);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_FIND_ONE.toString(), ex);
         }
     }
 
@@ -170,15 +171,15 @@ public class MongodbDataService {
      *                       .properties
      * @param clazz          Class in which documents will be map to.
      * @return A instance of the given class. Null if nothing is found.
-     * @throws MongoRepositoryException If couldn't search for the documents. or a mapping exception happen.
+     * @throws org.craftercms.studio.commons.exception.StudioException If couldn't search for the documents. or a mapping exception happen.
      */
     public Node findOne(final String collectionName, final String queryName, final Class<Node> clazz) throws
-        MongoRepositoryException {
+        StudioException {
         try {
             return jongoCollectionFactory.getCollection(collectionName).findOne(getQuery(queryName)).as(clazz);
         } catch (MongoException ex) {
             log.error("Unable to find one with queryName {}", queryName);
-            throw new MongoRepositoryException(ex, queryName);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_FIND_ONE.toString(), ex);
         }
     }
 
@@ -190,15 +191,15 @@ public class MongodbDataService {
      * @param objectId       objectId of the object to be retrieve from the collection.
      * @param clazz          Class in which documents will be map to.
      * @return A instance of the given class. Null if nothing is found.
-     * @throws MongoRepositoryException If couldn't search for the documents. or a mapping exception happen.
+     * @throws org.craftercms.studio.commons.exception.StudioException If couldn't search for the documents. or a mapping exception happen.
      */
     public Node findByObjectId(final String collectionName, final String objectId,
-                               final Class<Node> clazz) throws MongoRepositoryException {
+                               final Class<Node> clazz) throws StudioException {
         try {
             return jongoCollectionFactory.getCollection(collectionName).findOne(new ObjectId(objectId)).as(clazz);
         } catch (MongoException ex) {
             log.error("Unable to find one with queryName {}", objectId);
-            throw new MongoRepositoryException(ex);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_FIND_ONE.toString(), ex);
         }
     }
 
@@ -210,16 +211,16 @@ public class MongodbDataService {
      * @param id             Gid of the object to be retrieve from the collection.
      * @param clazz          Class in which documents will be map to.
      * @return A instance of the given class. Null if nothing is found.
-     * @throws MongoRepositoryException If couldn't search for the documents. or a mapping exception happen.
+     * @throws org.craftercms.studio.commons.exception.StudioException If couldn't search for the documents. or a mapping exception happen.
      */
     public Node findById(final String collectionName, final String id, final Class<Node> clazz) throws
-        MongoRepositoryException {
+        StudioException {
         try {
             return jongoCollectionFactory.getCollection(collectionName).findOne(getQuery(MongoRepositoryQueries
                 .GET_BY_GEN_ID), id).as(clazz);
         } catch (MongoException ex) {
             log.error("Unable to find one with queryName {}", id);
-            throw new MongoRepositoryException(ex, id);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_FIND_ONE.toString(), ex);
         }
     }
 
@@ -239,10 +240,10 @@ public class MongodbDataService {
      *                       params are not named, therefor they have to be send multiple times if needed</b>
      * @param <T>            Type of the expected result.
      * @return A Iterable Instance of all the documents.<b>This is lazy loaded</b>
-     * @throws MongoRepositoryException If couldn't search for the documents. or a mapping exception happen.
+     * @throws org.craftercms.studio.commons.exception.StudioException If couldn't search for the documents. or a mapping exception happen.
      */
     protected <T> Iterable<T> internalFind(final String collectionName, final Class<T> clazz, final String queryName,
-                                           final Object... params) throws MongoRepositoryException {
+                                           final Object... params) throws StudioException {
         try {
             MongoCollection collection = jongoCollectionFactory.getCollection(collectionName);
             if (StringUtils.isBlank(queryName)) {
@@ -254,18 +255,18 @@ public class MongodbDataService {
             }
         } catch (MongoException ex) {
             log.debug("Unable to search due a error ", ex);
-            throw new MongoRepositoryException(ex);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_FIND.toString(), ex);
         }
     }
 
 
     public <T> Iterable<T> aggregation(final String collectionName, final Class<T> clazz, final String queryName,
-                                       final String sortQuery, final Object... params) throws MongoRepositoryException {
+                                       final String sortQuery, final Object... params) throws StudioException {
         try {
             MongoCollection collection = jongoCollectionFactory.getCollection(collectionName);
             return collection.aggregate(getQuery(queryName), params).and(getQuery(sortQuery)).as(clazz);
         } catch (MongoException ex) {
-            throw new MongoRepositoryException(ex);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_AGGREGATION_QUERY.toString(), ex);
         }
 
     }
@@ -276,29 +277,31 @@ public class MongodbDataService {
      * message given by CommandResult#getErrorMessage as the exception  message.
      *
      * @param lastError Command to be check.
-     * @throws MongoRepositoryException if CommandResult#Ok is false.
+     * @throws org.craftercms.studio.commons.exception.StudioException if CommandResult#Ok is false.
      */
-    private void checkComandResult(final CommandResult lastError) throws MongoRepositoryException {
+    private void checkComandResult(final CommandResult lastError) throws StudioException {
         log.debug("Saving send to mongodb checking result");
         log.debug("Result is {}", lastError.ok()? "OK": lastError.getErrorMessage());
         if (!lastError.ok()) {
             log.error("Unable to save into mongodb due " + lastError.getErrorMessage(), lastError.getException());
-            throw new MongoRepositoryException(lastError.getException());
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.LAST_ERROR_MESSAGE
+                .toString(), lastError.getErrorMessage());
         }
 
     }
 
-    public String getQuery(String queryName) throws MongoRepositoryException {
+    public String getQuery(String queryName) throws StudioException {
         String query = jongoQueries.get(queryName);
         if (StringUtils.isBlank(query)) {
             log.debug("Query with name {} can't be found or is empty", queryName);
-            throw new MongoRepositoryException("Query not found " + queryName);
+            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_QUERY_NOT_FOUND
+                .toString());
         } else {
             return query.trim();
         }
     }
 
-    public void deleteNode(String collectionName, String itemId) throws MongoRepositoryException{
+    public void deleteNode(String collectionName, String itemId) throws StudioException{
         MongoCollection collection = jongoCollectionFactory.getCollection(collectionName);
         String query = getQuery(MongoRepositoryQueries.GET_BY_GEN_ID);
         collection.remove(query, itemId);

@@ -3,10 +3,11 @@ package org.craftercms.studio.impl.analytics;
 import java.util.Map;
 
 import org.craftercms.studio.api.analytics.AnalyticsService;
-import org.craftercms.studio.api.analytics.ReportException;
 import org.craftercms.studio.commons.dto.AnalyticsReport;
 import org.craftercms.studio.commons.dto.Context;
+import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.ModuleConstants;
 
 /**
  * {@link AnalyticsService} default implementation.
@@ -20,15 +21,15 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 
     //@Override
     public AnalyticsReport report(final Context context, final String site,
-                                  final String report, final Map<String, Object> params)
+                                  final String report, final Map<String, Object> params) throws StudioException
     {
-        return null;
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 
     @Override
     public AnalyticsReport generateReport(final Context context, final String site, final String reportId, final
-    Map<String, Object> params) throws StudioException, ReportException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    Map<String, Object> params) throws StudioException {
+        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
     }
 }
 

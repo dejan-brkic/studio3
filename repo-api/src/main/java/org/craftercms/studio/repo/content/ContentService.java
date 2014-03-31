@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.repo.RepositoryException;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.filter.Filter;
@@ -44,7 +43,7 @@ public interface ContentService {
      * @param content content
      * @return content id
      */
-    Item create(String ticket, String site, String path, Item item, InputStream content) throws RepositoryException;
+    Item create(String ticket, String site, String path, Item item, InputStream content) throws StudioException;
 
     /**
      * Create new folder into repository.
@@ -54,7 +53,7 @@ public interface ContentService {
      * @param path   path
      * @return content id
      */
-    Item create(String ticket, String site, String path, Item item) throws StudioException, RepositoryException;
+    Item create(String ticket, String site, String path, Item item) throws StudioException;
 
     /**
      * Read content from repository.
@@ -63,14 +62,13 @@ public interface ContentService {
      * @param contentId content id
      * @param site      Site
      * @return content item
-     * @throws org.craftercms.studio.repo.RepositoryException                   If unable to get the actual content.
      * @throws org.craftercms.studio.commons.exception.StudioException         if there is no content for that file
      *                                                                         id (must likely given id is a folder
      *                                                                         not a file)
      * @throws org.craftercms.studio.commons.exception.StudioException If the node is a File but don't have
      *                                                                         an inputstream (repo may be broken)
      */
-    Item read(String ticket, String site, String contentId) throws RepositoryException, StudioException;
+    Item read(String ticket, String site, String contentId) throws StudioException;
 
     /**
      * Update content in repository.
@@ -79,7 +77,7 @@ public interface ContentService {
      * @param item      item
      * @param content   content
      */
-    void update(String ticket, Item item, InputStream content) throws RepositoryException;
+    void update(String ticket, Item item, InputStream content) throws StudioException;
 
     /**
      * Delete content from repository.
@@ -87,7 +85,7 @@ public interface ContentService {
      * @param ticket    security ticket
      * @param contentId content id
      */
-    void delete(String ticket, String contentId) throws RepositoryException;
+    void delete(String ticket, String contentId) throws StudioException;
 
     /**
      * Get children tree.
@@ -100,7 +98,7 @@ public interface ContentService {
      * @return children tree
      */
     Tree<Item> getChildren(String ticket, String site, String contentId, int depth,
-                           List<Filter> filters) throws RepositoryException;
+                           List<Filter> filters) throws StudioException;
 
     /**
      * Move content from source to destination.
