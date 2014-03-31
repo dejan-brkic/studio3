@@ -48,7 +48,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public boolean validate(final Context context) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        return true;
     }
 
     @Override
