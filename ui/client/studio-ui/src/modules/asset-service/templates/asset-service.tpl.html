@@ -1,0 +1,210 @@
+<div class="test-asset" ng-controller="AssetCtrl">
+
+    <div class="side-column">
+        <div class="list-actions">
+            <h2>Actions</h2>
+            <div class="btn-group-vertical">
+                <button class="btn btn-primary"
+                        ng-class="{active:flags.action.insert}"
+                        ng-click="setFlag('action','insert')">Write/Edit</button>
+                <button class="btn btn-primary"
+                        ng-class="{active:flags.action.upload}"
+                        ng-click="setFlag('action','upload')">Upload</button>
+            </div>
+        </div>
+        <div class="list-assets">
+            <h2>Assets</h2>
+            <ul>
+                <li class="asset-link" ng-repeat="asset in assetList">
+                    <a class="button" ng-click="readItem('asset', asset.id)">{{asset.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="list-desc">
+            <h2>Descriptors</h2>
+            <ul>
+                <li class="desc-link" ng-repeat="desc in descList">
+                    <a class="button" ng-click="readItem('descriptor', desc.id)">{{desc.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="list-tmpl">
+            <h2>Templates</h2>
+            <ul>
+                <li class="tmpl-link" ng-repeat="tmpl in tmplList">
+                    <a class="button" ng-click="readItem('template', tmpl.id)">{{tmpl.name}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-column">
+        <div class="upload" ng-show="flags.action.upload">
+            <h1>Upload</h1>
+            <div class="btn-group">
+                <button class="btn btn-primary"
+                        ng-class="{active:flags.upload.asset}"
+                        ng-click="setFlag('upload','asset')">Asset</button>
+
+                <button class="btn btn-primary"
+                        ng-class="{active:flags.upload.xml}"
+                        ng-click="setFlag('upload','xml')">Descriptor</button>
+
+                <button class="btn btn-primary"
+                        ng-class="{active:flags.upload.ftl}"
+                        ng-click="setFlag('upload','ftl')">Template</button>
+
+            </div>
+
+            <form   name="uploadAssetForm"
+                    novalidate
+                    role="form"
+                    ng-submit="uploadAsset(asset)"
+                    ng-show="flags.upload.asset">
+
+                <div class="form-group">
+                    <input  type="text"
+                            class="form-control input-sm"
+                            name="assetPath"
+                            ng-model="asset.path"
+                            placeholder="Parent ID"
+                            required />
+
+                    <input  type="text"
+                            class="form-control input-sm"
+                            name="assetName"
+                            ng-model="asset.name"
+                            placeholder="File name"
+                            required />
+
+                    <input  type="file"
+                            class="form-control input-sm"
+                            name="assetContent"
+                            sdo-file-select="onFileSelect($files)"
+                            required />
+
+                </div>
+
+                <div class="form-group">
+                    <button type="submit"
+                            class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+            <form   name="uploadDescriptorForm"
+                    novalidate
+                    role="form"
+                    ng-submit="uploadDescriptor(descriptor)"
+                    ng-show="flags.upload.xml">
+
+                <div class="form-group">
+                    <input  type="text"
+                            class="form-control input-sm"
+                            name="descContentTypeId"
+                            ng-model="descriptor.content_type_id"
+                            placeholder="Content Type ID"
+                            required />
+
+                    <input  type="text"
+                            class="form-control input-sm"
+                            name="descPath"
+                            ng-model="descriptor.path"
+                            placeholder="Parent ID"
+                            required />
+
+                    <input  type="text"
+                            class="form-control input-sm"
+                            name="descName"
+                            ng-model="descriptor.name"
+                            placeholder="File name"
+                            required />
+
+                    <input  type="file"
+                            class="form-control input-sm"
+                            name="descContent"
+                            sdo-file-select="onFileSelect($files)"
+                            required />
+
+                </div>
+
+                <div class="form-group">
+                    <button type="submit"
+                            class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+            <form   name="uploadTemplateForm"
+                    novalidate
+                    role="form"
+                    ng-submit="uploadTemplate(template)"
+                    ng-show="flags.upload.ftl">
+
+                <div class="form-group">
+                    <input  type="text"
+                            class="form-control input-sm"
+                            name="tmplPath"
+                            ng-model="template.path"
+                            placeholder="Parent ID"
+                            required />
+
+                    <input  type="text"
+                            class="form-control input-sm"
+                            name="tmplName"
+                            ng-model="template.name"
+                            placeholder="File name"
+                            required />
+
+                    <input  type="file"
+                            class="form-control input-sm"
+                            name="tmplContent"
+                            sdo-file-select="onFileSelect($files)"
+                            required />
+
+                </div>
+
+                <div class="form-group">
+                    <button type="submit"
+                            class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="editor" ng-show="flags.action.insert">
+            <h1>Write/Edit</h1>
+            <div class="sample-buttons">
+
+                <div class="btn-group">
+                    <button class="btn btn-primary"
+                            ng-class="{active:flags.code.xml}"
+                            ng-click="setFlag('code','xml')">XML</button>
+
+                    <button class="btn btn-primary"
+                            ng-class="{active:flags.code.ftl}"
+                            ng-click="setFlag('code','ftl')">FTL</button>
+
+                    <button class="btn btn-primary"
+                            ng-class="{active:flags.code.asset}"
+                            ng-click="setFlag('code','asset')">Asset</button>
+                </div>
+
+                <button class="btn btn-primary"
+                        ng-click="insertCode(flags.code)"
+                        ng-show="flags.code.xml || flags.code.ftl">Insert Sample Code</button>
+            </div>
+            <form   name="addCode"
+                    novalidate
+                    role="form"
+                    ng-submit="submitCode(flags.code)">
+
+                <pre id="code-editor" name="code-editor"></pre>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-primary" ng-click="reset()">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

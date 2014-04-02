@@ -4,22 +4,34 @@ module.exports = function(grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
-    // configurable paths
-    var appConfig = {
-        output: {
-            dev: 'dev',
-            build: 'target'
-        },
-        root: './client',
-        path: {
-            app: '/studio-ui/src/app',
-            modules: '/studio-ui/src/modules',
-            plugins: '/studio-ui/src/plugins',
-            images: '/studio-ui/images',
-            lib: '/studio-ui/lib',
-            build: '/META-INF/resources'
-        }
-    };
+    function getAppBanner( bannerTplFile ) {
+
+        var banner = grunt.file.read(bannerTplFile),
+            pkg = grunt.file.readJSON('package.json');
+
+        banner = banner.replace(/@@YEAR/, grunt.template.today('yyyy'));
+        return banner.replace(/@@VERSION/, pkg.version);
+    }
+
+    var bannerTplFile = '.banner',
+
+        // configurable paths
+        appConfig = {
+            output: {
+                dev: 'dev',
+                build: 'target'
+            },
+            root: './client',
+            path: {
+                app: '/studio-ui/src/app',
+                modules: '/studio-ui/src/modules',
+                plugins: '/studio-ui/src/plugins',
+                images: '/studio-ui/images',
+                lib: '/studio-ui/lib',
+                build: '/META-INF/resources',
+                components: '/components'
+            }
+        };
 
     grunt.initConfig({
         sdo: appConfig,
@@ -37,7 +49,9 @@ module.exports = function(grunt) {
         clean: {
             dev: '<%= sdo.output.dev %>',
             build: '<%= sdo.output.build %>',
-            dist: '<%= clean.build %>'
+            dist: '<%= clean.build %>',
+            services: ['<%= sdo.root %><%= sdo.path.components %>/studio-js-services',
+                       '<%= sdo.root %><%= sdo.path.lib %>/studio-js-services']
         },
 
         copy: {
@@ -71,6 +85,12 @@ module.exports = function(grunt) {
                 }]
             },
             js: {
+                options: {
+                    process: function (content, srcpath) {
+                        var src = getAppBanner(bannerTplFile);
+                        return src.concat(content);
+                    }
+                },
                 files: [{
                     src: '<%= sdo.output.build %><%= sdo.path.build %>/studio-ui/studio.js',
                     dest: '<%= sdo.output.build %><%= sdo.path.build %>/studio-ui/studio.src.js'
@@ -231,7 +251,8 @@ module.exports = function(grunt) {
             options: {
                 preserveComments: false,
                 report: 'min',
-                sourceMap: true
+                sourceMap: true,
+                banner: getAppBanner(bannerTplFile)
             },
             build: {
                 files: [{
@@ -323,6 +344,14 @@ module.exports = function(grunt) {
     grunt.registerTask('lint',
         'Run jshint on code',
         ['newer:jshint:app']);
+
+    grunt.registerTask('services',
+        'Updates studio-js-services library',
+        ['clean:services', 'bower:install']);
+
+    grunt.registerTask('cl',
+        'Remove all development and production folders',
+        ['clean:dev', 'clean:build', 'clean:dist']);
 
     grunt.registerTask('default', ['dev']);
 };

@@ -31,7 +31,14 @@
             @@debug
             var require = {
                 paths: {
-                    studioServices: 'studio-ui/lib/studio-js-services/js/studioServices@@min'
+                    studioServices: 'studio-ui/lib/studio-js-services/js/studioServices@@min',
+                    ace: 'lib/ace',
+                    ckeditor: 'lib/ckeditor/ckeditor'
+                },
+                shim: {
+                    'ckeditor': {
+                        exports: 'CKEDITOR'
+                    }
                 }
             };
         </script>

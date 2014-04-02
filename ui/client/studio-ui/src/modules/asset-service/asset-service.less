@@ -1,0 +1,73 @@
+@import "variables.less";
+@import "mixins.less";
+
+@form-height: 400px;
+
+.test-asset {
+    margin: 15px 2em;
+
+    h1 { font-size: 22px; }
+
+    .side-column {
+        width: 270px;
+        float: left;
+
+        h2 { font-size: 18px; }
+
+        ul { padding-left: 16px; }
+
+        .list-assets ul > li > a,
+        .list-desc ul > li > a,
+        .list-tmpl ul > li > a {
+            color: @gray;
+
+            &:hover {
+                color: @gray-dark;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .main-column {
+        float: left;
+
+        .form-group {
+            width: 700px;
+
+            .form-control {
+                margin: 6px 0;
+            }
+        }
+
+        .editor {
+            form {
+                position: relative;
+                height: @form-height;
+            }
+
+            .sample-buttons {
+                margin-bottom: 15px;
+            }
+
+            .form-group {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+            }
+        }
+    }
+
+    .view-section {
+        clear: both;
+        width: 1000px;
+    }
+
+    #code-editor {
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: @form-height - 65px;
+        width: 800px;
+    }
+}
