@@ -68,7 +68,8 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"/spring/mockito-context.xml", "/spring/web-context.xml", "/spring/messageFormatting-studio3-web-context.xml"})
+@ContextConfiguration(locations = {"/spring/mockito-context.xml", "/spring/web-context.xml",
+    "/spring/messageFormatting-studio3-web-context.xml"})
 public abstract class AbstractControllerTest {
 
     @Autowired

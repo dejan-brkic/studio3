@@ -9,6 +9,7 @@ import org.craftercms.studio.commons.dto.Activity;
 import org.craftercms.studio.commons.dto.Context;
 import org.hamcrest.Matchers;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -85,6 +86,7 @@ public class AuditControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testSaveActivityInvalid() throws Exception {
         final String saveId=UUID.randomUUID().toString();
         when(this.auditService.logActivity(Mockito.any(Context.class), Mockito.anyString(),

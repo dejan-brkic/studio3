@@ -45,7 +45,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.mockito.Mockito.reset;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(value = {"/spring/unit-testing-context.xml"})
+@ContextConfiguration(value = {"/spring/unit-testing-context.xml",
+    "classpath*:/craftercms/studio/impl/exception/error-messages-context.xml",
+    "classpath*:/craftercms/studio/commons/exception/error-messages-context.xml"})
 public abstract class AbstractServiceTest {
 
     @Before

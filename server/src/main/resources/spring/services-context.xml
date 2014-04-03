@@ -4,5 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <import resource="main-studio3-context.xml" />
+    <import resource="classpath*:/craftercms/studio/server/exception/error-messages-context.xml"/>
 
 </beans>

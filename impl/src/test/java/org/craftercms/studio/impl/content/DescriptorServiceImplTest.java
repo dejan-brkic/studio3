@@ -391,7 +391,7 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         try {
             Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, content, props);
         } catch (StudioException expectedException) {
-            assertEquals(ErrorCode.INVALID_CONTENT, expectedException.getErrorCode());
+            assertEquals(ErrorCode.INVALID_CONTENT.getCode(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(1)).validate(context);
@@ -1026,7 +1026,7 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         try {
             Item testItem = descriptorServiceSUT.read(context, site, readItemId);
         } catch (StudioException expectedException) {
-            assertEquals(ErrorCode.ITEM_NOT_FOUND.toString(), expectedException.getErrorCode());
+            assertEquals(ErrorCode.ITEM_NOT_FOUND.getCode(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(), eq(itemId));
             verify(securityServiceMock, times(1)).validate(context);
             return;
@@ -1545,7 +1545,7 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         try {
             descriptorServiceSUT.delete(context, site, descriptorItemId);
         } catch (StudioException expectedException) {
-            assertEquals(ErrorCode.INVALID_SITE, expectedException.getErrorCode());
+            assertEquals(ErrorCode.INVALID_SITE.getCode(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).delete(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
             return;
