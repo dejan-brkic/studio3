@@ -29,7 +29,7 @@ import org.craftercms.studio.commons.dto.Activity;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.mock.ModuleConstants;
+import org.craftercms.studio.mock.exception.ErrorCode;
 
 /**
  * Audit Manager Mock implementation.
@@ -57,7 +57,7 @@ public class AuditServiceMock implements AuditService {
 
     @Override
     public Activity logActivity(final Context context, final String site, final Activity activity) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 }
 

@@ -15,36 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.impl;
+package org.craftercms.studio.mock.exception;
 
 /**
  * @author Dejan Brkic
  */
-public class ModuleConstants {
+public class ErrorCode extends org.craftercms.studio.commons.exception.ErrorCode {
 
-
-    public static final String MODULE_ID = "studio-impl";
-
-    public enum ErrorCode {
-
-        NOT_IMPLEMENTED("STUDIO_IMPL-001"),
-        INVALID_CONTEXT("STUDIO_IMPL-002"),
-        IO_ERROR("STUDIO_IMPL-003"),
-        INVALID_SITE("STUDIO_IMPL-003"),
-        ITEM_NOT_FOUND("STUDIO_IMPL-004"),
-        INVALID_CONTENT("STUDIO_IMPL-005")
-        ;
-
-        private final String code;
-
-        ErrorCode(String code) {
-            this.code = code;
-        }
-
-
-        @Override
-        public String toString() {
-            return this.code;
-        }
-    }
+    public static final String MODULE_ID = "studio-mock" ;
 }

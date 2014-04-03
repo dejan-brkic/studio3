@@ -34,7 +34,7 @@ import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.documentation.configuration.DocumentationServiceOrder;
-import org.craftercms.studio.server.ModuleConstants;
+import org.craftercms.studio.exceptions.ErrorCode;
 import org.craftercms.studio.utils.RestControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -108,7 +108,7 @@ public class TemplateServiceController {
         try {
             content = file.getInputStream();
         } catch (IOException e) {
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.FILE_UPLOAD_IO_ERROR.toString());
+            throw ErrorManager.createError(ErrorCode.FILE_UPLOAD_IO_ERROR);
         }
         Item item = templateService.create(context, site, parentId, fileName, content, properties);
         return item;
@@ -261,7 +261,7 @@ public class TemplateServiceController {
         try {
             content = file.getInputStream();
         } catch (IOException e) {
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.FILE_UPLOAD_IO_ERROR.toString());
+            throw ErrorManager.createError(ErrorCode.FILE_UPLOAD_IO_ERROR);
         }
         Item item = templateService.update(context, site, templateItemId, content, properties);
         return item;
@@ -363,7 +363,7 @@ public class TemplateServiceController {
             @RequestParam(value = "query", required = true) final String query
     ) throws StudioException {
 
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     public void setTemplateService(final TemplateService templateService) {

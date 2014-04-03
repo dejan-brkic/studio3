@@ -27,7 +27,7 @@ import org.craftercms.studio.commons.dto.WorkflowTransition;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.commons.filter.WorkflowPackageFilter;
-import org.craftercms.studio.mock.ModuleConstants;
+import org.craftercms.studio.mock.exception.ErrorCode;
 
 /**
  * Workflow Manager Mock implementation.
@@ -39,32 +39,32 @@ public class WorkflowManagerMock implements WorkflowManager {
 
     @Override
     public String start(final String packageName, final List<String> comments, final List<Item> items) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public List<Item> getPackage(final String packageId) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public List<WorkflowPackage> getPackages(final String site, final List<WorkflowPackageFilter> filters) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public List<WorkflowTransition> getTransitions(final String packageId) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void transition(final String packageId, final WorkflowTransition transition, final Map<String, Object>
         params) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void cancel(final String packageId) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 }

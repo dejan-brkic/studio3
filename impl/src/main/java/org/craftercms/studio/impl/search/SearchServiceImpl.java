@@ -19,10 +19,9 @@ package org.craftercms.studio.impl.search;
 
 import org.craftercms.studio.api.search.SearchService;
 import org.craftercms.studio.commons.dto.Context;
-import org.craftercms.studio.commons.dto.ResultSet;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.ModuleConstants;
+import org.craftercms.studio.impl.exception.ErrorCode;
 
 /**
  * Search Manager implementation.
@@ -34,11 +33,11 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public String studio_search(final Context context, final String query) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public String delivery_search() throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 }

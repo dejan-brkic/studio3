@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.repository.mongodb.ModuleConstants;
+import org.craftercms.studio.impl.repository.mongodb.exception.ErrorCode;
 import org.craftercms.studio.repo.content.MetaDataService;
 
 /**
@@ -31,22 +31,22 @@ public class MetadataServiceImpl implements MetaDataService {
 
     @Override
     public <T> Map<String, T> getProperties(final String ticket, final String itemId, final Class<T> type) throws StudioException{
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public <T> void setProperties(final String ticket, final String itemId, final Map<String, T> properties) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public <T> T getProperty(final String ticket, final String itemId, final String property, final Class<T> type) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public <T> void setProperty(final String ticket, final String itemId, final String property, final T value) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
 
