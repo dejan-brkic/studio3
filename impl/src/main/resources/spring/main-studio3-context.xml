@@ -7,6 +7,18 @@
 
     <import resource="classpath*:craftercms/studio/craftercms-mongo-repository.xml"/>
 
+    <bean name="studio.impl.properties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="fileEncoding" value="UTF-8"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath*:/craftercms/studio/studio-impl-config.properties</value>
+                <value>classpath*:/extension/studio3/studio-impl-config.properties</value>
+            </list>
+        </property>
+    </bean>
+
     <bean id="AssetService" class="org.craftercms.studio.impl.content.AssetServiceImpl">
         <property name="contentManager" ref="ContentManager"/>
         <property name="securityService" ref="SecurityManager" />
@@ -55,10 +67,12 @@
 
     <bean id="SimplePreviewDeployer" class="org.craftercms.studio.internal.content.impl.SimplePreviewDeployerAspect">
         <property name="enabled" value="true"/>
-        <property name="previewStoreRootPath" value="preview-content"/>
+        <property name="previewStoreRootPath" value="${deployer.root}"/>
         <property name="contentManager" ref="ContentManager"/>
     </bean>
 
+    <import resource="classpath*:craftercms/studio/commons/exception/error-messages-context.xml"/>
+    <import resource="classpath*:craftercms/studio/impl/exception/error-messages-context.xml"/>
     <import resource="classpath*:spring/*-studio3-ext-context.xml"/>
     <import resource="classpath*:extension/studio3/*-studio3-ext-context.xml"/>
 

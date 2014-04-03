@@ -617,7 +617,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         try {
             String assetContent = assetServiceSUT.getTextContent(context, site, assetId);
         } catch (StudioException expectedException) {
-            assertEquals(ErrorCode.INVALID_CONTEXT.toString(), expectedException.getErrorCode());
+            assertEquals(ErrorCode.INVALID_CONTEXT.getCode(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).read(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString());
             verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));

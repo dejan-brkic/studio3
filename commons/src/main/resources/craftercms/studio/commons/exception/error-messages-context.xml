@@ -20,9 +20,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="commonMessagesLoader" class="org.craftercms.studio.commons.exception.ErrorMessageLoader">
+    <bean id="commonMessagesLoader" class="org.craftercms.studio.commons.exception.ErrorMessageLoader" init-method="init">
         <property name="errorMessageLocation"
-                  value="classpath*:craftercms/studio/commons/exception/error_messages.properties" />
+                  value="craftercms.studio.commons.exception.error_messages" />
         <property name="moduleId" value="commons"/>
     </bean>
 

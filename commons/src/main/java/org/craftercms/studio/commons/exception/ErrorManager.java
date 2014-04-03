@@ -39,7 +39,7 @@ public class ErrorManager {
     }
 
     public static void registerError(String moduleId, String messageBundleLocation) {
-        if (instance != null) {
+        if (instance == null) {
             instance = new ErrorManager();
         }
         ResourceBundle resourceBundle = ResourceBundle.getBundle(messageBundleLocation, Locale.getDefault());

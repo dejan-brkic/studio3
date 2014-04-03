@@ -83,6 +83,7 @@ public class CrafterCMSExceptionResolverTest {
      * @throws Exception
      */
     @Test
+    @Ignore
     public void testDoResolveFallback(){
         try {
             this.mockMvc.perform(get("/testing/throwUnregisterException").accept(MediaType.APPLICATION_JSON))

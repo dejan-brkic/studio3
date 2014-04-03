@@ -16,10 +16,10 @@ public class CrafterCMSExceptionResolverTestController {
     public void throwUnregisterException()throws Exception{
          throw ErrorManager.createError(ErrorCode.SYSTEM_ERROR);
     }
-
+    /*
     @RequestMapping(value = "/throwUnregisterException",method = RequestMethod.GET)
     public void throwKnownException()throws Exception{
         throw new Exception(EXCEPTION_MSG);
-    }
+    } */
 
 }

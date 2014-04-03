@@ -23,6 +23,7 @@
     <bean name="studio.repo.properties"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="fileEncoding" value="UTF-8"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
         <property name="locations">
             <list>
                 <value>classpath:craftercms/studio/studio-mongodb-repository.properties</value>
