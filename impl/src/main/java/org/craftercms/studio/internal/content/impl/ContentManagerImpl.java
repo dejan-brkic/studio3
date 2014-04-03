@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.craftercms.studio.commons.dto.LockHandle;
 import org.craftercms.studio.commons.exception.ErrorManager;
-import org.craftercms.studio.impl.ModuleConstants;
+import org.craftercms.studio.impl.exception.ErrorCode;
 import org.craftercms.studio.repo.content.ContentService;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
@@ -52,13 +52,13 @@ public class ContentManagerImpl implements ContentManager {
 
     @Override
     public void move(final Context context, final Item item, final String destinationPath) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void move(final Context context, final List<Item> itemsToMove, final String destinationPath) throws
         StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     // Getters and setters

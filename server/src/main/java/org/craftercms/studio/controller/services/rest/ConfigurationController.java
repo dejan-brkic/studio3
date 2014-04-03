@@ -17,9 +17,7 @@
 
 package org.craftercms.studio.controller.services.rest;
 
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -27,11 +25,10 @@ import javax.validation.Valid;
 import org.apache.commons.io.IOUtils;
 import org.craftercms.studio.api.configuration.ConfigurationService;
 import org.craftercms.studio.commons.dto.Configuration;
-import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.controller.services.rest.dto.ConfigurationWriteRequest;
-import org.craftercms.studio.server.ModuleConstants;
+import org.craftercms.studio.exceptions.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,20 +56,20 @@ public class ConfigurationController {
     @ResponseBody
     public Configuration configuration(@PathVariable final String site,
                                              @RequestParam(required = true) final String module) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @RequestMapping(value = "/configure/{site}", method = RequestMethod.POST)
     @ResponseBody
     public void configure(@PathVariable final String site, @RequestParam(required = true) final String module,
                           @Valid @RequestBody final Configuration moduleConfiguration) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @RequestMapping(value = "/content/{site}", method = RequestMethod.GET)
     public void content(@PathVariable final String site, @RequestParam(required = true) final String object,
                         final HttpServletRequest request, HttpServletResponse response) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
 
     }
 
@@ -81,6 +78,6 @@ public class ConfigurationController {
     public void write(@PathVariable final String site, @RequestParam(required = true) final String object,
                       @Valid @RequestBody(required = true) final ConfigurationWriteRequest writeRequest) throws StudioException {
         InputStream contentStream = IOUtils.toInputStream(writeRequest.getContent());
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 }

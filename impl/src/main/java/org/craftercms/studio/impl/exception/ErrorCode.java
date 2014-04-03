@@ -15,32 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.server;
+package org.craftercms.studio.impl.exception;
 
 /**
  * @author Dejan Brkic
  */
-public class ModuleConstants {
+public class ErrorCode extends org.craftercms.studio.commons.exception.ErrorCode {
 
-    public static final String MODULE_ID = "server";
-
-    public enum ErrorCode {
-
-        FILE_UPLOAD_IO_ERROR("SERVER-001"),
-        SYSTEM_ERROR("SERVER-002"),
-        VALIDATION_ERROR("SERVER-003"),
-        NOT_IMPLEMENTED("SERVER-004");
-
-        private final String code;
-
-        ErrorCode(String code) {
-            this.code = code;
-        }
+    public static final String MODULE_ID = "studio-impl";
 
 
-        @Override
-        public String toString() {
-            return this.code;
-        }
-    }
+
 }

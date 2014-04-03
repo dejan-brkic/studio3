@@ -26,10 +26,9 @@ import java.util.UUID;
 
 import javolution.util.FastList;
 import org.apache.commons.lang.StringUtils;
-import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.repository.mongodb.ModuleConstants;
+import org.craftercms.studio.impl.repository.mongodb.exception.ErrorCode;
 import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryQueries;
@@ -107,8 +106,7 @@ public class NodeServiceImpl implements NodeService {
                 }
             } catch (StudioException e) {
                 log.error("Unable to save node {} because file was unable to be saved {}", newNode, e.toString());
-                throw ErrorManager.createError(ModuleConstants.MODULE_ID,
-                    ModuleConstants.ErrorCode.ERROR_GRIDFS_SAVE_FAILED.toString(), e);
+                throw ErrorManager.createError(ErrorCode.ERROR_GRIDFS_SAVE_FAILED, e);
             }
         } else {
             log.error("Parent node {} is no a folder. can't create a FileNode with out a folder", parent);
@@ -327,8 +325,7 @@ public class NodeServiceImpl implements NodeService {
             String savedFileId = gridFSService.createFile(fileName, content);
             coreMetadata.setFileId(savedFileId);
         } catch (IOException e) {
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID,
-                ModuleConstants.ErrorCode.ERROR_GRIDFS_SAVE_FAILED.toString(), e);
+            throw ErrorManager.createError(ErrorCode.ERROR_GRIDFS_SAVE_FAILED, e);
         }
         return coreMetadata;
     }

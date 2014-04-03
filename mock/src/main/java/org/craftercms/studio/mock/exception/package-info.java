@@ -15,29 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.commons;
-
 /**
  * @author Dejan Brkic
  */
-public class ModuleConstants {
-
-    public static final String MODULE_ID = "commons";
-
-    public enum ErrorCode {
-
-        NOT_IMPLEMENTED("COMMON-001");
-
-        private final String code;
-
-        ErrorCode(String code) {
-            this.code = code;
-        }
-
-
-        @Override
-        public String toString() {
-            return this.code;
-        }
-    }
-}
+package org.craftercms.studio.mock.exception;
