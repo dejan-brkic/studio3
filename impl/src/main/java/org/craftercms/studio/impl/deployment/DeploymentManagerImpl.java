@@ -25,7 +25,7 @@ import org.craftercms.studio.commons.dto.DeploymentChannel;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.ModuleConstants;
+import org.craftercms.studio.impl.exception.ErrorCode;
 
 /**
  * Deployment Manager Implementation.
@@ -36,41 +36,41 @@ public class DeploymentManagerImpl implements DeploymentManager {
 
     @Override
     public List<Item> history(final Context context, final String site, final List<String> filters) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public List<DeploymentChannel> channels(final Context context, final String site, final String environment) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void updateChannel(final Context context, final String site, final DeploymentChannel channel) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void removeChannel(final Context context, final String site, final DeploymentChannel channel) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void deploy(final Context context, final String site, final List<String> itemIds) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public String status(final Context context, final String site, final DeploymentChannel channel) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public long version(final Context context, final String site, final DeploymentChannel channel) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void abort(final Context context, final String site, final DeploymentChannel channel) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 }

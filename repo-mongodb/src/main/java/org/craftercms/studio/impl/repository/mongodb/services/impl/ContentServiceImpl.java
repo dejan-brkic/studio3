@@ -24,7 +24,7 @@ import javax.activation.MimetypesFileTypeMap;
 import org.apache.commons.lang3.StringUtils;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.repository.mongodb.ModuleConstants;
+import org.craftercms.studio.impl.repository.mongodb.exception.ErrorCode;
 import org.craftercms.studio.repo.content.ContentService;
 import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.commons.dto.Item;
@@ -89,8 +89,7 @@ public class ContentServiceImpl implements ContentService {
             return nodeToItem(newFileNode, ticket, site, null);
         } else {
             log.error("Folder node was not created ");
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_FOLDER_NOT_CREATED
-                .toString());
+            throw ErrorManager.createError(ErrorCode.ERROR_FOLDER_NOT_CREATED);
         }
 
     }
@@ -152,8 +151,7 @@ public class ContentServiceImpl implements ContentService {
             return nodeToItem(createdFolder, ticket, site, null);
         } else {
             log.error("Folder node was not created ");
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_FOLDER_NOT_CREATED
-                .toString());
+            throw ErrorManager.createError(ErrorCode.ERROR_FOLDER_NOT_CREATED);
         }
     }
 
@@ -205,15 +203,13 @@ public class ContentServiceImpl implements ContentService {
             // File id can't be null,empty or whitespace
             if (StringUtils.isBlank(fileId)) {
                 log.error("Node {} is broken, since file id is not a valid ID", item, fileId);
-                throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_BROKEN_NODE
-                    .toString());
+                throw ErrorManager.createError(ErrorCode.ERROR_BROKEN_NODE);
             }
             InputStream fileInput = nodeService.getFile(fileId);
             // Content should exist with this id, or something is broken.
             if (fileInput == null) {
                 log.error("File with Id {} is not found, node is broken", fileId);
-                throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_BROKEN_NODE
-                    .toString());
+                throw ErrorManager.createError(ErrorCode.ERROR_BROKEN_NODE);
             }
             //Now  finally return it .
 
@@ -221,8 +217,7 @@ public class ContentServiceImpl implements ContentService {
         } else {
             // can't read folders
             log.debug("Content is a folder");
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID,
-                ModuleConstants.ErrorCode.ERROR_FILE_EXPECTED_FOUND_FOLDER.toString());
+            throw ErrorManager.createError(ErrorCode.ERROR_FILE_EXPECTED_FOUND_FOLDER);
         }
 
     }
@@ -242,8 +237,7 @@ public class ContentServiceImpl implements ContentService {
             // File id can't be null,empty or whitespace
             if (StringUtils.isBlank(fileId)) {
                 log.error("Node {} is broken, since file id is not a valid ID", item, fileId);
-                throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_BROKEN_NODE
-                    .toString());
+                throw ErrorManager.createError(ErrorCode.ERROR_BROKEN_NODE);
             }
             nodeService.updateFileNode(item.getId().getItemId(), content);
         }

@@ -93,6 +93,7 @@
     </beans:bean>
 
     <beans:import resource="classpath*:/spring/rest-api-documentation-context.xml"/>
+    <beans:import resource="classpath*:/crafter/studio/server/exception/error-messages-context.xml"/>
 
     <beans:import resource="classpath*:/spring/*-studio3-web-context.xml"/>
     <beans:import resource="classpath*:/extension/studio3/*-studio3-web-context.xml"/>

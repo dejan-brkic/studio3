@@ -8,9 +8,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.repository.mongodb.ModuleConstants;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryQueries;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
+import org.craftercms.studio.impl.repository.mongodb.exception.ErrorCode;
 import org.jongo.MongoCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,7 +56,7 @@ public class MongodbDataService {
             checkComandResult(writeResult.getLastError());
         } catch (MongoException ex) {
             log.debug("Something went wrong while trying to save into mongodb ", ex);
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_SAVE.toString(), ex);
+            throw ErrorManager.createError(ErrorCode.ERROR_ON_SAVE, ex);
         }
     }
 
@@ -86,7 +86,7 @@ public class MongodbDataService {
             checkComandResult(writeResult.getLastError());
         } catch (MongoException ex) {
             log.debug("Something went wrong while trying to save into mongodb ", ex);
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_SAVE.toString(), ex);
+            throw ErrorManager.createError(ErrorCode.ERROR_ON_SAVE, ex);
         }
     }
 
@@ -159,7 +159,7 @@ public class MongodbDataService {
             return jongoCollectionFactory.getCollection(collectionName).findOne(getQuery(queryName), params).as(clazz);
         } catch (MongoException ex) {
             log.error("Unable to find one with queryName {}", queryName);
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_FIND_ONE.toString(), ex);
+            throw ErrorManager.createError(ErrorCode.ERROR_ON_FIND_ONE, ex);
         }
     }
 
@@ -179,7 +179,7 @@ public class MongodbDataService {
             return jongoCollectionFactory.getCollection(collectionName).findOne(getQuery(queryName)).as(clazz);
         } catch (MongoException ex) {
             log.error("Unable to find one with queryName {}", queryName);
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_FIND_ONE.toString(), ex);
+            throw ErrorManager.createError(ErrorCode.ERROR_ON_FIND_ONE, ex);
         }
     }
 
@@ -199,7 +199,7 @@ public class MongodbDataService {
             return jongoCollectionFactory.getCollection(collectionName).findOne(new ObjectId(objectId)).as(clazz);
         } catch (MongoException ex) {
             log.error("Unable to find one with queryName {}", objectId);
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_FIND_ONE.toString(), ex);
+            throw ErrorManager.createError(ErrorCode.ERROR_ON_FIND_ONE, ex);
         }
     }
 
@@ -220,7 +220,7 @@ public class MongodbDataService {
                 .GET_BY_GEN_ID), id).as(clazz);
         } catch (MongoException ex) {
             log.error("Unable to find one with queryName {}", id);
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_FIND_ONE.toString(), ex);
+            throw ErrorManager.createError(ErrorCode.ERROR_ON_FIND_ONE, ex);
         }
     }
 
@@ -255,7 +255,7 @@ public class MongodbDataService {
             }
         } catch (MongoException ex) {
             log.debug("Unable to search due a error ", ex);
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_FIND.toString(), ex);
+            throw ErrorManager.createError(ErrorCode.ERROR_ON_FIND, ex);
         }
     }
 
@@ -266,7 +266,7 @@ public class MongodbDataService {
             MongoCollection collection = jongoCollectionFactory.getCollection(collectionName);
             return collection.aggregate(getQuery(queryName), params).and(getQuery(sortQuery)).as(clazz);
         } catch (MongoException ex) {
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_ON_AGGREGATION_QUERY.toString(), ex);
+            throw ErrorManager.createError(ErrorCode.ERROR_ON_AGGREGATION_QUERY, ex);
         }
 
     }
@@ -284,8 +284,7 @@ public class MongodbDataService {
         log.debug("Result is {}", lastError.ok()? "OK": lastError.getErrorMessage());
         if (!lastError.ok()) {
             log.error("Unable to save into mongodb due " + lastError.getErrorMessage(), lastError.getException());
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.LAST_ERROR_MESSAGE
-                .toString(), lastError.getErrorMessage());
+            throw ErrorManager.createError(ErrorCode.LAST_ERROR_MESSAGE, lastError.getErrorMessage());
         }
 
     }
@@ -294,8 +293,7 @@ public class MongodbDataService {
         String query = jongoQueries.get(queryName);
         if (StringUtils.isBlank(query)) {
             log.debug("Query with name {} can't be found or is empty", queryName);
-            throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.ERROR_QUERY_NOT_FOUND
-                .toString());
+            throw ErrorManager.createError(ErrorCode.ERROR_QUERY_NOT_FOUND);
         } else {
             return query.trim();
         }

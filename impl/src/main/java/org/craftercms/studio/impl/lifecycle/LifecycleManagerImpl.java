@@ -24,7 +24,7 @@ import org.craftercms.studio.api.lifecycle.LifecycleManager;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.ModuleConstants;
+import org.craftercms.studio.impl.exception.ErrorCode;
 
 /**
  * Lifecycle Manager implementation.
@@ -35,6 +35,6 @@ public class LifecycleManagerImpl implements LifecycleManager {
 
     @Override
     public List<Action> getPossibleActions(final Context context, final String site, final List<String> itemIds) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 }

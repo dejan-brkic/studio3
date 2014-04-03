@@ -17,15 +17,11 @@
 
 package org.craftercms.studio.impl.configuration;
 
-import java.io.InputStream;
-
 import org.craftercms.studio.api.configuration.ConfigurationService;
-import org.craftercms.studio.commons.dto.Configuration;
 import org.craftercms.studio.commons.dto.Context;
-import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.ModuleConstants;
+import org.craftercms.studio.impl.exception.ErrorCode;
 
 /**
  * Configuration Service implementation.
@@ -35,11 +31,11 @@ import org.craftercms.studio.impl.ModuleConstants;
 public class ConfigurationServiceImpl implements ConfigurationService {
     @Override
     public String read(final Context context, final String site, final String urn) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void write(final Context context, final String site, final String urn, final String configuration) throws StudioException {
-        throw ErrorManager.createError(ModuleConstants.MODULE_ID, ModuleConstants.ErrorCode.NOT_IMPLEMENTED.toString());
+        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 }

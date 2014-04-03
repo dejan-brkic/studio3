@@ -47,12 +47,12 @@ public class ErrorManager {
         errorMap.put(moduleId, resourceBundle);
     }
 
-    public static StudioException createError(String moduleId, String code) {
+    public static StudioException createError(ErrorCode errorCode) {
         if (instance != null) {
             Map<String, ResourceBundle> errorMap = instance.getErrorMap();
             if (errorMap != null) {
-                ResourceBundle messageBundle = errorMap.get(moduleId);
-                StudioException error = StudioException.createStudioException(messageBundle, code);
+                ResourceBundle messageBundle = errorMap.get(errorCode.getModuleId());
+                StudioException error = StudioException.createStudioException(messageBundle, errorCode.getCode());
                 return error;
             } else {
                 return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
@@ -62,12 +62,12 @@ public class ErrorManager {
         }
     }
 
-    public static StudioException createError(String moduleId, String code, Exception exc) {
+    public static StudioException createError(ErrorCode errorCode, Exception cause) {
         if (instance != null) {
             Map<String, ResourceBundle> errorMap = instance.getErrorMap();
             if (errorMap != null) {
-                ResourceBundle messageBundle = errorMap.get(moduleId);
-                StudioException error = StudioException.createStudioException(messageBundle, code, exc);
+                ResourceBundle messageBundle = errorMap.get(errorCode.getModuleId());
+                StudioException error = StudioException.createStudioException(messageBundle, errorCode.getCode(), cause);
                 return error;
             } else {
                 return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
@@ -77,12 +77,12 @@ public class ErrorManager {
         }
     }
 
-    public static StudioException createError(String moduleId, String code, String... args) {
+    public static StudioException createError(ErrorCode errorCode, String... args) {
         if (instance != null) {
             Map<String, ResourceBundle> errorMap = instance.getErrorMap();
             if (errorMap != null) {
-                ResourceBundle messageBundle = errorMap.get(moduleId);
-                StudioException error = StudioException.createStudioException(messageBundle, code, args);
+                ResourceBundle messageBundle = errorMap.get(errorCode.getModuleId());
+                StudioException error = StudioException.createStudioException(messageBundle, errorCode.getCode(), args);
                 return error;
             } else {
                 return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
@@ -92,12 +92,13 @@ public class ErrorManager {
         }
     }
 
-    public static StudioException createError(String moduleId, String code, Exception exc, String... args) {
+    public static StudioException createError(ErrorCode errorCode, Exception cause, String... args) {
         if (instance != null) {
             Map<String, ResourceBundle> errorMap = instance.getErrorMap();
             if (errorMap != null) {
-                ResourceBundle messageBundle = errorMap.get(moduleId);
-                StudioException error = StudioException.createStudioException(messageBundle, code, exc, args);
+                ResourceBundle messageBundle = errorMap.get(errorCode.getModuleId());
+                StudioException error = StudioException.createStudioException(messageBundle, errorCode.getCode(), cause,
+                    args);
                 return error;
             } else {
                 return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
