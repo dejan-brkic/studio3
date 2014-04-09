@@ -15,6 +15,27 @@ module.exports = {
         }]
     }, {
         method: 'get',
+        url: '/api/1/content/asset/list/:site',
+        mock: [{
+            arguments: {},
+            path: '/repo/list/assets'
+        }]
+    }, {
+        method: 'get',
+        url: '/api/1/descriptor/list/:site',
+        mock: [{
+            arguments: {},
+            path: '/repo/list/descriptors'
+        }]
+    }, {
+        method: 'get',
+        url: '/api/1/template/list/:site',
+        mock: [{
+            arguments: {},
+            path: '/repo/list/templates'
+        }]
+    }, {
+        method: 'get',
         url: '/api/1/config/list/:module',
         mock: [{
             arguments: { module: "crafter.studio-ui"},

@@ -1,6 +1,6 @@
 /* global requirejs */
 
-requirejs(['studioServices'], function (studioServices) {
+requirejs(['studioServices/studioServices'], function (studioServices) {
 
     'use strict';
 
@@ -15,8 +15,10 @@ requirejs(['studioServices'], function (studioServices) {
             'crafter.studio-ui.services.UserService',
             'crafter.studio-ui.NgRegistry',
             'crafter.studio-ui.Utils',
+            'angularBootstrapNavTree',
             'ui.router',
-            'ui.bootstrap'
+            'ui.bootstrap',
+            'ngAnimate'
         ])
 
         // TO-DO: Read sitename from the url. Rename 'Env' to 'API' and define as .constant
