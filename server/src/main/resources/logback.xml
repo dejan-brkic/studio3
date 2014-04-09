@@ -7,9 +7,9 @@
     </appender>
     <!--Daily rolling file appender -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>studio.log</File>
+        <File>${CATALINA_HOME}/studio.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>studio.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
+            <FileNamePattern>${CATALINA_HOME}/studio.%d{yyyy-MM-dd}.log.zip</FileNamePattern>
             <!-- keep 30 days' worth of history -->
             <maxHistory>30</maxHistory>
         </rollingPolicy>

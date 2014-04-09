@@ -21,16 +21,16 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean name="studio.repo.properties"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="fileEncoding" value="UTF-8"/>
-        <property name="ignoreUnresolvablePlaceholders" value="true"/>
-        <property name="locations">
-            <list>
-                <value>classpath:craftercms/studio/studio-mongodb-repository.properties</value>
-                <value>classpath*:craftercms/extension/studio/studio-mongodb-repository.properties</value>
-            </list>
-        </property>
-    </bean>
+                     class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="fileEncoding" value="UTF-8"/>
+    <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    <property name="locations">
+        <list>
+            <value>classpath:craftercms/studio/studio-mongodb-repository.properties</value>
+            <value>classpath*:craftercms/extension/studio/studio-mongodb-repository.properties</value>
+        </list>
+    </property>
+</bean>
 
 
     <import resource="mongodb-data-config.xml"/>

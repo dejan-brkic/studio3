@@ -17,11 +17,19 @@
 
 package org.craftercms.studio.controller.services.rest;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.craftercms.studio.api.configuration.ConfigurationService;
 import org.craftercms.studio.commons.dto.Configuration;
@@ -54,8 +62,8 @@ public class ConfigurationController {
 
     @RequestMapping(value = "/configuration/{site}", method = RequestMethod.GET)
     @ResponseBody
-    public Configuration configuration(@PathVariable final String site,
-                                             @RequestParam(required = true) final String module) throws StudioException {
+    public Configuration configuration(@PathVariable final String site, @RequestParam(required = true) final String
+        module) throws StudioException {
         throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -76,8 +84,51 @@ public class ConfigurationController {
     @RequestMapping(value = "/write/{site}", method = RequestMethod.POST)
     @ResponseBody
     public void write(@PathVariable final String site, @RequestParam(required = true) final String object,
-                      @Valid @RequestBody(required = true) final ConfigurationWriteRequest writeRequest) throws StudioException {
+                      @Valid @RequestBody(required = true) final ConfigurationWriteRequest writeRequest) throws
+        StudioException {
         InputStream contentStream = IOUtils.toInputStream(writeRequest.getContent());
         throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+    }
+
+    @RequestMapping(value = "/list/crafter.studio-ui",method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> uiConfiguration(final HttpServletRequest request)
+        throws StudioException {
+        ObjectMapper mapper = new ObjectMapper();
+        URL url = getClass().getResource("/extension/studio3/app.json");
+        Map map;
+        if (url == null) {
+            throw ErrorManager.createError(ErrorCode.IO_ERROR);
+        } else {
+            try {
+                map = mapper.readValue(Files.readAllBytes(Paths.get(url.toURI())), Map.class);
+                StringBuffer buff=request.getRequestURL();
+                String path = buff.substring(0, buff.lastIndexOf(request.getServletPath())+1);
+                map.put("base_url",path+"studio-ui");
+            } catch (URISyntaxException | IOException ex) {
+                throw ErrorManager.createError(ErrorCode.SYSTEM_ERROR, ex);
+            }
+        }
+        return map;
+    }
+
+    @RequestMapping(value = "/list/crafter.studio-ui.section.test-service",method = RequestMethod.GET,
+        produces = "application/json")
+    @ResponseBody
+    public Map<String, Object> uiConfigurationService(final HttpServletRequest request)
+        throws StudioException {
+        ObjectMapper mapper = new ObjectMapper();
+        URL url = getClass().getResource("/extension/studio3/test-service.json");
+        Map map;
+        if (url == null) {
+            throw ErrorManager.createError(ErrorCode.IO_ERROR);
+        } else {
+            try {
+                map = mapper.readValue(Files.readAllBytes(Paths.get(url.toURI())), Map.class);
+            } catch (URISyntaxException | IOException ex) {
+                throw ErrorManager.createError(ErrorCode.SYSTEM_ERROR, ex);
+            }
+        }
+        return map;
     }
 }

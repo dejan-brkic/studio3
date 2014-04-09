@@ -17,7 +17,6 @@
 
 package org.craftercms.studio.controller.web;
 
-import com.mangofactory.swagger.annotations.ApiIgnore;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,7 +36,7 @@ public class HomeController {
     public HomeController() {
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/home")
     public String index() {
         return INDEX_VIEW;
     }

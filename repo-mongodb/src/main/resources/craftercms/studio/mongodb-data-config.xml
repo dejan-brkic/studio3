@@ -17,28 +17,12 @@
   -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
-
-    <bean class="com.mongodb.MongoClient">
-        <constructor-arg>
-            <list>
-                <ref bean="studio3.repo.mongo.mainServer"/>
-            </list>
-        </constructor-arg>
-        <constructor-arg ref="studio3.repo.mongo.optionsFactory"/>
-    </bean>
-
-    <bean id="studio3.repo.mongo.mainServer" class="com.mongodb.ServerAddress">
-        <constructor-arg value="${studio.repository.mongodb.connection.host}"/>
-        <constructor-arg value="${studio.repository.mongodb.connection.port}"/>
-    </bean>
-
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
     <bean id="studio3.repo.mongo.optionsFactory"
-          class="org.craftercms.studio.impl.repository.mongodb.data.ClientOptionsFactory">
+          class="org.craftercms.studio.impl.repository.mongodb.data.ClientOptionsFactory" init-method="init">
         <property name="autoConnectRetry" value="${studio.repository.mongodb.connection.autoConnectRetry}"/>
         <property name="connectionsPerHost" value="${studio.repository.mongodb.connection.connectionsPerHost}"/>
         <property name="maxAutoConnectRetryTime" value="${studio.repository.mongodb.connection.maxWaitTime}"/>
@@ -50,17 +34,32 @@
         <property name="readPreference" value="${studio.repository.mongodb.connection.readPreference}"/>
     </bean>
 
-    <bean class="org.craftercms.studio.impl.repository.mongodb.data.JongoCollectionFactory"
-          id="studio3.repo.mongo.collectionFactory"
-          init-method="init">
-        <property name="mongo" ref="com.mongodb.MongoClient"/>
-        <property name="userName" value="${studio.repository.mongodb.connection.dbUser}"/>
-        <property name="password" value="${studio.repository.mongodb.connection.dbPassword}"/>
-        <property name="dbName" value="${studio.repository.mongodb.connection.db}" />
+    <bean class="org.craftercms.studio.impl.repository.mongodb.data.MongoClientFactory"
+          id="studio3.repo.mongo.mongoClient" depends-on="studio3.repo.mongo.optionsFactory">
+        <property name="mongoOptions" ref="studio3.repo.mongo.optionsFactory"/>
+        <property name="mongoServers">
+            <list>
+                <bean class="org.craftercms.studio.impl.repository.mongodb.data.MongoServer">
+                    <property name="host" value="${studio.repository.mongodb.connection.host}"/>
+                    <property name="port" value="${studio.repository.mongodb.connection.port}"/>
+                </bean>
+            </list>
+        </property>
     </bean>
 
 
-    <bean class="org.craftercms.studio.impl.repository.mongodb.data.MongodbDataService" id="studio3.repo.mongo.dataService">
+    <bean class="org.craftercms.studio.impl.repository.mongodb.data.JongoCollectionFactory"
+          id="studio3.repo.mongo.collectionFactory"
+          init-method="init">
+        <property name="mongo" ref="studio3.repo.mongo.mongoClient"/>
+        <property name="userName" value="${studio.repository.mongodb.connection.dbUser}"/>
+        <property name="password" value="${studio.repository.mongodb.connection.dbPassword}"/>
+        <property name="dbName" value="${studio.repository.mongodb.connection.db}"/>
+    </bean>
+
+
+    <bean class="org.craftercms.studio.impl.repository.mongodb.data.MongodbDataService"
+          id="studio3.repo.mongo.dataService">
         <property name="jongoCollectionFactory" ref="studio3.repo.mongo.collectionFactory"/>
         <property name="jongoQueries" ref="studio3.repo.mongo.defaultQueries"/>
     </bean>
@@ -69,10 +68,10 @@
     <bean id="studio3.repo.mongo.defaultQueries"
           class="org.craftercms.studio.impl.repository.mongodb.data.JongoQueries" init-method="init">
         <property name="queryFiles">
-          <list>
-              <value>classpath:/craftercms/studio/mongodb/default-queries.xml</value>
-              <value>classpath*:/craftercms/extension/studio/repo/custom-queries.xml</value>
-          </list>
+            <list>
+                <value>classpath:/craftercms/studio/mongodb/default-queries.xml</value>
+                <value>classpath*:/craftercms/extension/studio/repo/custom-queries.xml</value>
+            </list>
         </property>
 
     </bean>
