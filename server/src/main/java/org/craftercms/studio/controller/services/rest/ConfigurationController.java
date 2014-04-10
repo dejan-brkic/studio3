@@ -102,9 +102,10 @@ public class ConfigurationController {
         } else {
             try {
                 map = mapper.readValue(Files.readAllBytes(Paths.get(url.toURI())), Map.class);
-                StringBuffer buff=request.getRequestURL();
-                String path = buff.substring(0, buff.lastIndexOf(request.getServletPath())+1);
-                map.put("base_url",path+"studio-ui");
+                // Mod_proxy is killing this !!!
+                //StringBuffer buff=request.getRequestURL();
+               // String path = buff.substring(0, buff.lastIndexOf(request.getServletPath())+1);
+               // map.put("base_url",path+"studio-ui");
             } catch (URISyntaxException | IOException ex) {
                 throw ErrorManager.createError(ErrorCode.SYSTEM_ERROR, ex);
             }
