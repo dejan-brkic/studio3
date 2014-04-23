@@ -1,9 +1,13 @@
 package org.craftercms.studio.internal.content.impl;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.craftercms.studio.commons.dto.LockHandle;
+import org.craftercms.studio.commons.dto.Tree;
+import org.craftercms.studio.commons.dto.TreeNode;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.impl.exception.ErrorCode;
 import org.craftercms.studio.repo.content.ContentService;
@@ -59,6 +63,22 @@ public class ContentManagerImpl implements ContentManager {
     public void move(final Context context, final List<Item> itemsToMove, final String destinationPath) throws
         StudioException {
         throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+    }
+
+    @Override
+    public List<Item> list(final Context context, String site, final String itemId) throws StudioException {
+
+        // Get only direct children (depth=1) and no filters
+        Tree<Item> resultTree = contentService.getChildren(context.getTicket(), site, itemId, 1, null);
+        TreeNode<Item> parent = resultTree.getRootNode();
+        List<Item> toRet = new ArrayList<Item>();
+        Set<TreeNode<Item>> children = parent.getChildren();
+        if (children != null && children.size() > 0) {
+            for (TreeNode<Item> child : children) {
+                toRet.add(child.getValue());
+            }
+        }
+        return toRet;
     }
 
     // Getters and setters

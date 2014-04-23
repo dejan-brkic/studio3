@@ -222,6 +222,15 @@ public class DescriptorServiceImpl implements DescriptorService {
         throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
+    @Override
+    public List<Item> list(final Context context, final String site, final ItemId itemId) throws StudioException {
+        if (context != null && securityService.validate(context)) {
+            return contentManager.list(context, site, itemId.getItemId());
+        } else {
+            throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
+        }
+    }
+
     private Item createDescriptorItem(String fileName) {
         Item item = new Item();
         item.setCreatedBy(RandomStringUtils.random(10));

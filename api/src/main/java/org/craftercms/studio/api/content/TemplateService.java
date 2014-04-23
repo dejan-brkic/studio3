@@ -118,4 +118,14 @@ public interface TemplateService {
      * @throws StudioException
      */
     List<Item> findBy(Context context, String site, String query) throws StudioException;
+
+    /**
+     * Lists all children for given item.
+     *
+     * @param context   the caller's context
+     * @param site      the site to use
+     * @param itemId    parent item
+     * @return          list of children
+     */
+    List<Item> list(Context context, String site, ItemId itemId) throws StudioException;
 }
