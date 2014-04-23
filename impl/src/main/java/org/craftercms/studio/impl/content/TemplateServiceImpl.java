@@ -221,6 +221,15 @@ public class TemplateServiceImpl implements TemplateService {
         throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
     }
 
+    @Override
+    public List<Item> list(final Context context, final String site, final ItemId itemId) throws StudioException {
+        if (context != null && securityService.validate(context)) {
+            return contentManager.list(context, site, itemId.getItemId());
+        } else {
+            throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
+        }
+    }
+
     public void setContentManager(final ContentManager contentManager) {
         this.contentManager = contentManager;
     }

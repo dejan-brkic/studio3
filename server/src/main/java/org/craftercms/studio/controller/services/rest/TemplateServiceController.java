@@ -366,6 +366,32 @@ public class TemplateServiceController {
         throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
+    /**
+     * List children for given template item.
+     *
+     * @param site      site identifier
+     * @param itemId    parent template item id
+     * @return          list of children items
+     *
+     * @throws StudioException
+     */
+    @ApiOperation(value = "list children templates")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
+    @RequestMapping(
+        value = "/list/{site}",
+        params = { "item_id" },
+        method = RequestMethod.GET
+    )
+    @ResponseBody
+    public List<Item> list(@PathVariable String site, @RequestParam String itemId) throws StudioException {
+        Context context = RestControllerUtils.createMockContext();
+        ItemId assetItemId = new ItemId(itemId);
+        return templateService.list(context, site, assetItemId);
+    }
+
     public void setTemplateService(final TemplateService templateService) {
         this.templateService = templateService;
     }

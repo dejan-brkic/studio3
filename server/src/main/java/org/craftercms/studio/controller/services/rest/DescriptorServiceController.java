@@ -453,6 +453,32 @@ public class DescriptorServiceController {
         throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
+    /**
+     * List children for given descriptor item.
+     *
+     * @param site      site identifier
+     * @param itemId    parent descriptor item id
+     * @return          list of children items
+     *
+     * @throws StudioException
+     */
+    @ApiOperation(value = "list children descriptors")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
+    @RequestMapping(
+        value = "/list/{site}",
+        params = { "item_id" },
+        method = RequestMethod.GET
+    )
+    @ResponseBody
+    public List<Item> list(@PathVariable String site, @RequestParam String itemId) throws StudioException {
+        Context context = RestControllerUtils.createMockContext();
+        ItemId assetItemId = new ItemId(itemId);
+        return descriptorService.list(context, site, assetItemId);
+    }
+
     public void setDescriptorService(final DescriptorService descriptorService) {
         this.descriptorService = descriptorService;
     }

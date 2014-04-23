@@ -330,4 +330,30 @@ public class AssetServiceController {
         Context context = RestControllerUtils.createMockContext();
         return assetService.findBy(context, site, query);
     }
+
+    /**
+     * List children for given item.
+     *
+     * @param site      site identifier
+     * @param itemId    parent asset item id
+     * @return          list of children items
+     *
+     * @throws StudioException
+     */
+    @ApiOperation(value = "list children assets")
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "Success", response = Item.class),
+        @ApiResponse(code = 400, message = "Bad request")
+    })
+    @RequestMapping(
+        value = "/list/{site}",
+        params = { "item_id" },
+        method = RequestMethod.GET
+    )
+    @ResponseBody
+    public List<Item> list(@PathVariable String site, @RequestParam String itemId) throws StudioException {
+        Context context = RestControllerUtils.createMockContext();
+        ItemId assetItemId = new ItemId(itemId);
+        return assetService.list(context, site, assetItemId);
+    }
 }

@@ -212,6 +212,15 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
+    public List<Item> list(final Context context, final String site, final ItemId itemId) throws StudioException {
+        if (context != null && securityService.validate(context)) {
+            return contentManager.list(context, site, itemId.getItemId());
+        } else {
+            throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
+        }
+    }
+
+    @Override
     public List<Item> findBy(final Context context, final String site, final String query) throws StudioException {
         throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
     }

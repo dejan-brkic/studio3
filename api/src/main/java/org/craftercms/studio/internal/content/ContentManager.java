@@ -116,15 +116,15 @@ public interface ContentManager {
      * @param destinationPath destination path
      */
     void move(Context context, List<Item> itemsToMove, String destinationPath) throws StudioException;
-//
-//    /**
-//     * Get children.
-//     *
-//     * @param context       context
-//     * @param itemId        item id
-//     * @return children
-//     */
-//    List<Item> list(Context context, String itemId);
+
+    /**
+     * Get children.
+     *
+     * @param context       context
+     * @param itemId        item id
+     * @return children
+     */
+    List<Item> list(Context context, String site, String itemId) throws StudioException;
 //
 //    /**
 //     * Get sub-tree with given item as root.
