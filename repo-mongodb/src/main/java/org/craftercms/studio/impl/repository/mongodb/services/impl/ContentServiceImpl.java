@@ -24,6 +24,7 @@ import javax.activation.MimetypesFileTypeMap;
 import org.apache.commons.lang3.StringUtils;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
 import org.craftercms.studio.impl.repository.mongodb.exception.ErrorCode;
 import org.craftercms.studio.repo.content.ContentService;
 import org.craftercms.studio.repo.content.PathService;
@@ -306,6 +307,15 @@ public class ContentServiceImpl implements ContentService {
 
     private boolean siteExists(final String ticket, final String site) throws StudioException {
         return nodeService.getSiteNode(site) != null;
+    }
+
+    @Override
+    public Item createFolder(final String ticket, final String site, final String path, final String folderName) throws StudioException {
+        String parentId = pathService.getItemIdByPath(ticket, site, path);
+        Node parent = nodeService.getNode(parentId);
+        Node folderNode = nodeService.createFolderNode(parent, folderName, folderName,
+            MongoRepositoryDefaults.SYSTEM_USER_NAME);
+        return nodeToItem(folderNode, ticket, site, null);
     }
 
     public void setNodeServiceImpl(final NodeService nodeService) {

@@ -31,6 +31,7 @@ import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.content.AssetService;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
@@ -347,13 +348,22 @@ public class AssetServiceController {
     })
     @RequestMapping(
         value = "/list/{site}",
-        params = { "item_id" },
         method = RequestMethod.GET
     )
     @ResponseBody
-    public List<Item> list(@PathVariable String site, @RequestParam String itemId) throws StudioException {
+    public List<Item> list(
+
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable String site,
+
+        @ApiParam(name = "item_id", required = false, value = "String")
+        @RequestParam(value = "item_id", required = false) String itemId
+    ) throws StudioException {
         Context context = RestControllerUtils.createMockContext();
-        ItemId assetItemId = new ItemId(itemId);
+        ItemId assetItemId = null;
+        if (StringUtils.isNotEmpty(itemId)) {
+            assetItemId = new ItemId(itemId);
+        }
         return assetService.list(context, site, assetItemId);
     }
 }

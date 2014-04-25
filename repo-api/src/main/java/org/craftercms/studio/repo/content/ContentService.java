@@ -118,4 +118,6 @@ public interface ContentService {
      * @return list of site names
      */
     List<String> getSites(String ticket);
+
+    Item createFolder(String ticket, String site, String path, String folderName) throws StudioException;
 }

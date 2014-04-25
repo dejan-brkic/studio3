@@ -27,6 +27,7 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.content.AssetService;
 import org.craftercms.studio.api.security.SecurityService;
 import org.craftercms.studio.commons.dto.Context;
@@ -37,6 +38,7 @@ import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.exception.ErrorCode;
 import org.craftercms.studio.internal.content.ContentManager;
+import org.craftercms.studio.repo.content.PathService;
 
 /**
  * Implementation of {@link org.craftercms.studio.api.content.AssetService}.
@@ -47,6 +49,8 @@ public class AssetServiceImpl implements AssetService {
 
     private ContentManager contentManager;
     private SecurityService securityService;
+    private String repoRootPath;
+    private PathService pathService;
 
     // TODO: review this function ..
     // Content manager requires Item object to add new item to repository
@@ -214,7 +218,28 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public List<Item> list(final Context context, final String site, final ItemId itemId) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            return contentManager.list(context, site, itemId.getItemId());
+            if (itemId != null) {
+                return contentManager.list(context, site, itemId.getItemId());
+            } else {
+                String rootItemId = pathService.getItemIdByPath(context.getTicket(), site, repoRootPath);
+                if (StringUtils.isEmpty(rootItemId)) {
+                    int lastIndex = repoRootPath.lastIndexOf("/");
+                    String rootParent = "/";
+                    String folderName = repoRootPath;
+                    if (lastIndex > 0) {
+                        rootParent = repoRootPath.substring(0, lastIndex - 1);
+                        folderName = repoRootPath.substring(lastIndex + 1);
+                    } else {
+                        if (repoRootPath.startsWith("/")) {
+                            folderName = repoRootPath.substring(1);
+                        }
+                    }
+                    Item rootItem = contentManager.createFolder(context, site, rootParent, folderName);
+                    rootItemId = rootItem.getId().toString();
+                }
+                return contentManager.list(context, site, rootItemId);
+            }
+
         } else {
             throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
         }
@@ -233,5 +258,13 @@ public class AssetServiceImpl implements AssetService {
 
     public void setSecurityService(final SecurityService securityService) {
         this.securityService = securityService;
+    }
+
+    public void setRepoRootPath(final String repoRootPath) {
+        this.repoRootPath = repoRootPath;
+    }
+
+    public void setPathService(final PathService pathService) {
+        this.pathService = pathService;
     }
 }

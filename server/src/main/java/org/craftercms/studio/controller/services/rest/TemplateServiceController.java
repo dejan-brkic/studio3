@@ -27,6 +27,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
+import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.content.TemplateService;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
@@ -382,14 +383,23 @@ public class TemplateServiceController {
     })
     @RequestMapping(
         value = "/list/{site}",
-        params = { "item_id" },
         method = RequestMethod.GET
     )
     @ResponseBody
-    public List<Item> list(@PathVariable String site, @RequestParam String itemId) throws StudioException {
+    public List<Item> list(
+
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable String site,
+
+        @ApiParam(name = "item_id", required = false, value = "String")
+        @RequestParam(value = "item_id", required = false) String itemId
+    ) throws StudioException {
         Context context = RestControllerUtils.createMockContext();
-        ItemId assetItemId = new ItemId(itemId);
-        return templateService.list(context, site, assetItemId);
+        ItemId templateItemId = null;
+        if (StringUtils.isNotEmpty(itemId)) {
+            templateItemId = new ItemId(itemId);
+        }
+        return templateService.list(context, site, templateItemId);
     }
 
     public void setTemplateService(final TemplateService templateService) {
