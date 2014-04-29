@@ -16,6 +16,7 @@ import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.internal.content.ContentManager;
+import org.craftercms.studio.repo.content.PathService;
 
 /**
  * Repository Manager Implementation.
@@ -25,6 +26,7 @@ import org.craftercms.studio.internal.content.ContentManager;
 public class ContentManagerImpl implements ContentManager {
 
     private ContentService contentService;
+    private PathService pathService;
 
     @Override
     public ItemId create(final Context context, final String site, final String path, final Item item,
@@ -81,6 +83,12 @@ public class ContentManagerImpl implements ContentManager {
         return toRet;
     }
 
+    @Override
+    public Item createFolder(final Context context, final String site, final String path, final String folderName) throws StudioException {
+        String ticket = context.getTicket();
+        return contentService.createFolder(ticket, site, path, folderName);
+    }
+
     // Getters and setters
 
     public ContentService getContentService() {
@@ -89,5 +97,9 @@ public class ContentManagerImpl implements ContentManager {
 
     public void setContentService(final ContentService contentService) {
         this.contentService = contentService;
+    }
+
+    public void setPathService(final PathService pathService) {
+        this.pathService = pathService;
     }
 }

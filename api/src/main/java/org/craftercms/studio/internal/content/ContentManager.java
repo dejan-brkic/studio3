@@ -125,6 +125,17 @@ public interface ContentManager {
      * @return children
      */
     List<Item> list(Context context, String site, String itemId) throws StudioException;
+
+    /**
+     * Create new folder.
+     *
+     * @param context       caller's context
+     * @param site          site identifier
+     * @param path          path where to create folder
+     * @param folderName    folder name
+     * @return              content item representing folder
+     */
+    Item createFolder(Context context, String site, String path, String folderName) throws StudioException;
 //
 //    /**
 //     * Get sub-tree with given item as root.
