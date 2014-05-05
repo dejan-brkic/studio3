@@ -27,7 +27,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.craftercms.studio.commons.dto.Item;
+import org.craftercms.studio.commons.dto.ItemTypes;
 import org.craftercms.studio.commons.dto.Tree;
+import org.craftercms.studio.commons.dto.factory.ItemFactory;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.tools.AbstractAction;
 import org.craftercms.studio.impl.repository.mongodb.tools.RepoShellContext;
@@ -57,14 +59,14 @@ public class ImportAction extends AbstractAction {
                 while ((entry = zipInputStream.getNextEntry()) != null) {
 
                     if (entryIsFolder(entry)) {
-                        Item item = new Item();
+                        Item item = ItemFactory.createEmptyItem(ItemTypes.FOLDER);
                         String folderName = getFileName(entry.getName());
                         item.setFileName(folderName);
                         item.setLabel(folderName);
                         context.getOut().printf("Importing %s \n", folderName);
                         context.getContentService().create("INTERNAL", "INTERNAL", args[0] + entry.getName(), item);
                     } else {
-                        Item item = new Item();
+                        Item item = ItemFactory.createEmptyItem("");
                         String fileName = getFileName(entry.getName());
                         item.setFileName(fileName);
                         item.setLabel(fileName);

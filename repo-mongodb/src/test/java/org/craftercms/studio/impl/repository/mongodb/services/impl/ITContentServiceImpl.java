@@ -17,6 +17,8 @@
 
 package org.craftercms.studio.impl.repository.mongodb.services.impl;
 
+import org.craftercms.studio.commons.dto.ItemTypes;
+import org.craftercms.studio.commons.dto.factory.ItemFactory;
 import org.craftercms.studio.repo.content.ContentService;
 import org.craftercms.studio.commons.dto.Item;
 import org.junit.Assert;
@@ -44,7 +46,7 @@ public class ITContentServiceImpl implements ApplicationContextAware {
 
     @Test
     public void testCreateFolder() throws Exception {
-        Item item = new Item();
+        Item item = ItemFactory.createEmptyItem(ItemTypes.FOLDER);
         item.setLabel("Robot Hell");
         item.setFileName("robot-hell");
         item.setCreatedBy("Robo Devil");

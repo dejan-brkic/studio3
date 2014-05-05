@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
+import org.craftercms.studio.commons.dto.ItemTypes;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
 import org.craftercms.studio.impl.repository.mongodb.data.MongodbDataService;
@@ -97,6 +98,7 @@ public class MongoStartupService implements ApplicationListener {
         metadata.setCreator(MongoRepositoryDefaults.SYSTEM_USER_NAME);
         metadata.setModifier(MongoRepositoryDefaults.SYSTEM_USER_NAME);
         metadata.setSize(0);
+        metadata.setType(ItemTypes.FOLDER);
         rootNode.setCore(metadata);
         try {
             log.info("Creating Root node {}", rootNode);

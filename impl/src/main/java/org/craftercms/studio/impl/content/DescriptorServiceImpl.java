@@ -28,10 +28,14 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.content.DescriptorService;
 import org.craftercms.studio.api.security.SecurityService;
+import org.craftercms.studio.commons.constants.SecurityConstants;
 import org.craftercms.studio.commons.dto.Context;
+import org.craftercms.studio.commons.dto.DescriptorItem;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
+import org.craftercms.studio.commons.dto.ItemTypes;
 import org.craftercms.studio.commons.dto.LockHandle;
+import org.craftercms.studio.commons.dto.factory.ItemFactory;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.exception.ErrorCode;
@@ -72,7 +76,8 @@ public class DescriptorServiceImpl implements DescriptorService {
                        final String fileName, final InputStream content, final Map<String, String> properties
     ) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            Item item = createDescriptorItem(fileName);
+            String itemType = DescriptorItem.getSubType(contentTypeId);
+            Item item = ItemFactory.createItem(itemType, SecurityConstants.SYSTEM_USER, fileName, fileName);
             ItemId itemId = contentManager.create(context, site, parentId, item, content);
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
@@ -102,7 +107,8 @@ public class DescriptorServiceImpl implements DescriptorService {
 
     ) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            Item item = createDescriptorItem(fileName);
+            String itemType = DescriptorItem.getSubType(contentTypeId);
+            Item item = ItemFactory.createItem(itemType, SecurityConstants.SYSTEM_USER, fileName, fileName);
             InputStream contentStream = IOUtils.toInputStream(content);
             ItemId itemId = contentManager.create(context, site, parentId, item, contentStream);
             item = contentManager.read(context, site, itemId.getItemId());
@@ -255,14 +261,6 @@ public class DescriptorServiceImpl implements DescriptorService {
         } else {
             throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
         }
-    }
-
-    private Item createDescriptorItem(String fileName) {
-        Item item = new Item();
-        item.setCreatedBy(RandomStringUtils.random(10));
-        item.setFileName(fileName);
-        item.setLabel(fileName);
-        return item;
     }
 
     public void setContentManager(final ContentManager contentManager) {

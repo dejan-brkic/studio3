@@ -30,10 +30,15 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.content.AssetService;
 import org.craftercms.studio.api.security.SecurityService;
+import org.craftercms.studio.commons.constants.SecurityConstants;
+import org.craftercms.studio.commons.dto.AssetItem;
 import org.craftercms.studio.commons.dto.Context;
+import org.craftercms.studio.commons.dto.DescriptorItem;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
+import org.craftercms.studio.commons.dto.ItemTypes;
 import org.craftercms.studio.commons.dto.LockHandle;
+import org.craftercms.studio.commons.dto.factory.ItemFactory;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.exception.ErrorCode;
@@ -51,16 +56,6 @@ public class AssetServiceImpl implements AssetService {
     private SecurityService securityService;
     private String repoRootPath;
     private PathService pathService;
-
-    // TODO: review this function ..
-    // Content manager requires Item object to add new item to repository
-    private Item createAssetItem(String fileName) {
-        Item item = new Item();
-        item.setCreatedBy(RandomStringUtils.random(10));
-        item.setFileName(fileName);
-        item.setLabel(fileName);
-        return item;
-    }
 
     /**
      * {@link org.craftercms.studio.api.content.AssetService}
@@ -81,7 +76,7 @@ public class AssetServiceImpl implements AssetService {
             StringBuilder sb = new StringBuilder(destinationPath);
             sb.append(File.separator);
             sb.append(fileName);
-            Item item = createAssetItem(fileName);
+            Item item = ItemFactory.createItem(ItemTypes.ASSET, SecurityConstants.SYSTEM_USER, fileName, fileName);
             ItemId itemId = contentManager.create(context, site, destinationPath, item, content);
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
@@ -107,7 +102,7 @@ public class AssetServiceImpl implements AssetService {
                        final String content, final String mimeType, final Map<String, String> properties
     ) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            Item item = createAssetItem(fileName);
+            Item item = ItemFactory.createItem(ItemTypes.ASSET, SecurityConstants.SYSTEM_USER, fileName, fileName);
             InputStream contentStream = IOUtils.toInputStream(content);
             ItemId itemId = contentManager.create(context, site, destinationPath, item, contentStream);
             item = contentManager.read(context, site, itemId.getItemId());
@@ -120,7 +115,7 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public Item create(final Context context, final String site, final String destinationPath, final String fileName, final byte[] content, final String mimeType, final Map<String, String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            Item item = createAssetItem(fileName);
+            Item item = ItemFactory.createItem(ItemTypes.ASSET, SecurityConstants.SYSTEM_USER, fileName, fileName);
             InputStream contentStream = new ByteArrayInputStream(content);
             ItemId itemId = contentManager.create(context, site, destinationPath, item, contentStream);
             item = contentManager.read(context, site, itemId.getItemId());

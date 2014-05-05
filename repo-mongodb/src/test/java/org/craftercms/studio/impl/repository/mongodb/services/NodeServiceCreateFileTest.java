@@ -20,6 +20,7 @@ package org.craftercms.studio.impl.repository.mongodb.services;
 import java.io.InputStream;
 
 import org.bson.types.ObjectId;
+import org.craftercms.studio.commons.dto.ItemTypes;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.data.MongodbDataService;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
@@ -84,7 +85,7 @@ public class NodeServiceCreateFileTest {
 
         InputStream testInput = NodeServiceCreateFileTest.class.getResourceAsStream("/files/index.xml");
         Node fileNode = nodeService.createFileNode(nodeService.getRootNode(), "TestFile", "test file",
-            "Doctor John A. Zoidberg", testInput);
+            "Doctor John A. Zoidberg", testInput, ItemTypes.PAGE);
         Assert.assertNotNull(fileNode);
         Assert.assertEquals(fileNode.getCore().getCreator(), "Doctor John A. Zoidberg");
         Assert.assertEquals(fileNode.getCore().getNodeName(), "TestFile");
@@ -102,7 +103,7 @@ public class NodeServiceCreateFileTest {
             (InputStream)Mockito.any());
         InputStream testInput = NodeServiceCreateFileTest.class.getResourceAsStream("/files/index.xml");
         nodeService.createFileNode(nodeService.getRootNode(), "TestFile", "Test File", "Doctor John A. Zoidberg",
-            testInput);
+            testInput, ItemTypes.PAGE);
 
     }
 
@@ -117,13 +118,13 @@ public class NodeServiceCreateFileTest {
             .toString());
         InputStream testInput = NodeServiceCreateFileTest.class.getResourceAsStream("/files/index.xml");
         nodeService.createFileNode(nodeService.getRootNode(), "TestFile", "test File", "Doctor John A. Zoidberg",
-            testInput);
+            testInput, ItemTypes.PAGE);
 
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testParentIsNull() throws StudioException {
-        nodeService.createFileNode(null, "TestFile", "Test File", "Doctor John A. Zoidberg", null);
+        nodeService.createFileNode(null, "TestFile", "Test File", "Doctor John A. Zoidberg", null, ItemTypes.PAGE);
     }
 
 
@@ -131,7 +132,7 @@ public class NodeServiceCreateFileTest {
     public void testParentIsNotFolder() throws StudioException {
         Node file = new Node();
         file.setType(NodeType.FILE);
-        nodeService.createFileNode(file, "TestFile", "test file", "Doctor John A. Zoidberg", null);
+        nodeService.createFileNode(file, "TestFile", "test file", "Doctor John A. Zoidberg", null, ItemTypes.PAGE);
     }
 
     @Test

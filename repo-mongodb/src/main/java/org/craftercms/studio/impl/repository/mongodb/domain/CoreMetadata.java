@@ -48,6 +48,8 @@ public class CoreMetadata implements Cloneable {
      */
     private String label;
 
+    private String type;
+
     /**
      * Empty default CTOR.
      */
@@ -68,7 +70,7 @@ public class CoreMetadata implements Cloneable {
         this.size = metadata.getSize();
         this.fileId = metadata.getFileId();
         this.label = metadata.getLabel();
-
+        this.type = metadata.getType();
     }
 
     /**
@@ -116,6 +118,9 @@ public class CoreMetadata implements Cloneable {
         if (!label.equals(that.label)) {
             return false;
         }
+        if (!type.equals(that.type)) {
+            return false;
+        }
 
 
         return true;
@@ -131,6 +136,7 @@ public class CoreMetadata implements Cloneable {
         result = 31 * result + creator.hashCode();
         result = 31 * result + (int)(size ^ (size >>> 32));
         result = 31 * result + fileId.hashCode();
+        result = 31 * result + type.hashCode();
         return result;
     }
 
@@ -150,6 +156,7 @@ public class CoreMetadata implements Cloneable {
         sb.append(", creator='").append(creator).append('\'');
         sb.append(", size=").append(size);
         sb.append(", fileId='").append(fileId).append('\'');
+        sb.append(", type='").append(type).append('\'');
         sb.append('}');
         return sb.toString();
     }
@@ -216,5 +223,13 @@ public class CoreMetadata implements Cloneable {
 
     public void setLabel(final String label) {
         this.label = label;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(final String type) {
+        this.type = type;
     }
 }

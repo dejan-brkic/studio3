@@ -46,6 +46,7 @@ import org.craftercms.studio.commons.dto.User;
 import org.craftercms.studio.commons.dto.Version;
 import org.craftercms.studio.commons.dto.WorkflowPackage;
 import org.craftercms.studio.commons.dto.WorkflowTransition;
+import org.craftercms.studio.commons.dto.factory.ItemFactory;
 import org.craftercms.studio.controller.services.rest.dto.WorkflowStartRequest;
 import org.craftercms.studio.controller.services.rest.dto.WorkflowTransitionRequest;
 import org.junit.Before;
@@ -168,7 +169,7 @@ public abstract class AbstractControllerTest {
     }
 
     protected Item createItemMock() {
-        Item item = new Item();
+        Item item = ItemFactory.createEmptyItem("");
         item.setContentType(RandomStringUtils.randomAlphabetic(10));
         item.setDisabled(false);
         item.setFileName(RandomStringUtils.randomAlphanumeric(10));

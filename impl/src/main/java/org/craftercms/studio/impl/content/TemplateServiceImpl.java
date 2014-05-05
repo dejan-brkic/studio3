@@ -28,10 +28,13 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.content.TemplateService;
 import org.craftercms.studio.api.security.SecurityService;
+import org.craftercms.studio.commons.constants.SecurityConstants;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
+import org.craftercms.studio.commons.dto.ItemTypes;
 import org.craftercms.studio.commons.dto.LockHandle;
+import org.craftercms.studio.commons.dto.factory.ItemFactory;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.exception.ErrorCode;
@@ -67,7 +70,8 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public Item create(final Context context, final String site, final String parentId, final String fileName, final InputStream content, final Map<String, String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            Item item = createTemplateItem(fileName);
+            Item item = ItemFactory.createItem(ItemTypes.RENDERING_TEMPLATE, SecurityConstants.SYSTEM_USER, fileName,
+                fileName);
             ItemId itemId = contentManager.create(context, site, parentId, item, content);
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
@@ -76,13 +80,6 @@ public class TemplateServiceImpl implements TemplateService {
         }
     }
 
-    private Item createTemplateItem(String fileName) {
-        Item item = new Item();
-        item.setCreatedBy(RandomStringUtils.random(10));
-        item.setFileName(fileName);
-        item.setLabel(fileName);
-        return item;
-    }
 
     /**
      * Create new template.
@@ -100,7 +97,8 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public Item create(final Context context, final String site, final String parentId, final String fileName, final String content, final Map<String, String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
-            Item item = createTemplateItem(fileName);
+            Item item = ItemFactory.createItem(ItemTypes.RENDERING_TEMPLATE, SecurityConstants.SYSTEM_USER, fileName,
+                fileName);
             InputStream contentStream = IOUtils.toInputStream(content);
             ItemId itemId = contentManager.create(context, site, parentId, item, contentStream);
             item = contentManager.read(context, site, itemId.getItemId());

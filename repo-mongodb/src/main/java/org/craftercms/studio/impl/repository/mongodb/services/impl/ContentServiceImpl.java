@@ -22,6 +22,7 @@ import java.util.List;
 import javax.activation.MimetypesFileTypeMap;
 
 import org.apache.commons.lang3.StringUtils;
+import org.craftercms.studio.commons.dto.factory.ItemFactory;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
@@ -84,7 +85,7 @@ public class ContentServiceImpl implements ContentService {
         Node parent = checkParentPath(ticket, site, path, true /* TODO: Make this a Property */, item.getCreatedBy());
         log.debug("Saving File");
         Node newFileNode = nodeService.createFileNode(parent, item.getFileName(), item.getLabel(),
-            item.getCreatedBy(), content);
+            item.getCreatedBy(), content, item.getType());
         if (newFileNode != null) {
             log.debug("File Was created {} ", newFileNode);
             return nodeToItem(newFileNode, ticket, site, null);
@@ -158,7 +159,7 @@ public class ContentServiceImpl implements ContentService {
 
     private Item nodeToItem(final Node newNode, String ticket, String site, final InputStream inputStream) throws StudioException {
         CoreMetadata core = newNode.getCore();
-        Item item = new Item();
+        Item item = ItemFactory.createEmptyItem(core.getType());
         item.setPath(pathService.getPathByItemId(ticket, site, newNode.getId()));
         item.setId(new ItemId(newNode.getId()));
         item.setLastModifiedDate(core.getLastModifiedDate());

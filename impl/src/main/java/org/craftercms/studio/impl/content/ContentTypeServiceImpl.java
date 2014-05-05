@@ -26,9 +26,11 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.content.ContentTypeService;
 import org.craftercms.studio.api.security.SecurityService;
+import org.craftercms.studio.commons.constants.SecurityConstants;
 import org.craftercms.studio.commons.dto.ContentType;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
+import org.craftercms.studio.commons.dto.factory.ItemFactory;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.exception.ErrorCode;
@@ -82,7 +84,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
     // TODO: review this function ..
     // Content manager requires Item object to add new item to repository
     private Item createContentTypeItem(String fileName) {
-        Item item = new Item();
+        Item item = ItemFactory.createItem(null, SecurityConstants.SYSTEM_USER, fileName, fileName);
         item.setCreatedBy(RandomStringUtils.random(10));
         item.setFileName(fileName);
         item.setLabel(fileName);

@@ -26,6 +26,7 @@ import java.util.UUID;
 
 import javolution.util.FastList;
 import org.apache.commons.lang.StringUtils;
+import org.craftercms.studio.commons.dto.ItemTypes;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.exception.ErrorCode;
@@ -81,7 +82,7 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public Node createFileNode(final Node parent, final String fileName, String label, final String creatorName,
-                               final InputStream content) throws StudioException {
+                               final InputStream content, final String type) throws StudioException {
         log.debug("Validating params for creating a new Folder Node");
         if (parent == null) {
             log.error("Trying to create a node with parent null");
@@ -93,7 +94,7 @@ public class NodeServiceImpl implements NodeService {
             Node newNode = new Node(parent, NodeType.FILE);
             newNode.setId(UUID.randomUUID().toString());
             try {
-                newNode.setCore(createNodeMetadata(fileName, creatorName, content, label));
+                newNode.setCore(createNodeMetadata(fileName, creatorName, content, label, type));
                 if (isNodeUniqueNodeInTree(newNode)) {
                     dataService.save(NODES_COLLECTION, newNode);
                     log.debug("File node  {} saved ", newNode);
@@ -130,7 +131,7 @@ public class NodeServiceImpl implements NodeService {
             log.debug("Generating ID and CoreMetadata");
             Node newNode = new Node(parent, NodeType.FOLDER);
             newNode.setId(UUID.randomUUID().toString());
-            newNode.setCore(createBasicMetadata(folderName, creatorName, folderLabel));
+            newNode.setCore(createBasicMetadata(folderName, creatorName, folderLabel, ItemTypes.FOLDER));
             log.debug("Generated Id {} , and coreMetadata {}", newNode.getId(), newNode);
             log.debug("Saving Folder");
 
@@ -317,9 +318,9 @@ public class NodeServiceImpl implements NodeService {
     }
 
     private CoreMetadata createNodeMetadata(final String fileName, final String creatorName,
-                                            final InputStream content, final String folderLabel) throws
+                                            final InputStream content, final String folderLabel, String type) throws
         StudioException {
-        CoreMetadata coreMetadata = createBasicMetadata(fileName, creatorName, folderLabel);
+        CoreMetadata coreMetadata = createBasicMetadata(fileName, creatorName, folderLabel, type);
         try {
             coreMetadata.setSize(content.available());
             String savedFileId = gridFSService.createFile(fileName, content);
@@ -331,7 +332,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     private CoreMetadata createBasicMetadata(final String fileName, final String creatorName,
-                                             final String folderLabel) {
+                                             final String folderLabel, final String type) {
         CoreMetadata coreMetadata = new CoreMetadata();
         coreMetadata.setNodeName(fileName);
         coreMetadata.setCreator(creatorName);
@@ -339,6 +340,7 @@ public class NodeServiceImpl implements NodeService {
         coreMetadata.setLastModifiedDate(new Date());
         coreMetadata.setModifier(creatorName);
         coreMetadata.setLabel(folderLabel);
+        coreMetadata.setType(type);
         return coreMetadata;
     }
 

@@ -31,7 +31,9 @@ import org.craftercms.studio.commons.dto.DeploymentChannel;
 import org.craftercms.studio.commons.dto.Form;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
+import org.craftercms.studio.commons.dto.ItemTypes;
 import org.craftercms.studio.commons.dto.WorkflowTransition;
+import org.craftercms.studio.commons.dto.factory.ItemFactory;
 import org.craftercms.studio.commons.extractor.ItemExtractor;
 import org.craftercms.studio.commons.filter.ItemFilter;
 import org.craftercms.studio.commons.filter.WorkflowPackageFilter;
@@ -72,7 +74,7 @@ public abstract class AbstractServiceTest {
     }
 
     protected Item createItemMock() {
-        Item item = new Item();
+        Item item = ItemFactory.createEmptyItem(ItemTypes.PAGE);
         item.setContentType(RandomStringUtils.randomAlphabetic(10));
         item.setDisabled(false);
         item.setFileName(RandomStringUtils.randomAlphanumeric(10));

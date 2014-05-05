@@ -58,7 +58,7 @@ public interface NodeService {
      * to store de node on the repository.
      */
     Node createFileNode(Node parent, String fileName, String fileLabel ,String creatorName,
-                        InputStream content) throws StudioException;
+                        InputStream content, String type) throws StudioException;
 
     /**
      * Create a new Folder TypeNode.

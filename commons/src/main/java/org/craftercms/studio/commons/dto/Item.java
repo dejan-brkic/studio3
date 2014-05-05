@@ -36,7 +36,8 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
  */
 @JsonAutoDetect
 @ApiModel(value = "Item class")
-public class Item implements Comparable<Item> {
+public abstract class Item implements Comparable<Item> {
+
     // Fundamental
     /**
      * Crafter Studio item id
@@ -75,7 +76,7 @@ public class Item implements Comparable<Item> {
     @ApiModelProperty(value = "Modified date")
     private Date lastModifiedDate;
     @ApiModelProperty(value = "Item type")
-    private String type;        // Blueprint, Component, Page, Static Asset, Rendering Template, ...
+    protected String type;        // Blueprint, Component, Page, Static Asset, Rendering Template, ...
     @ApiModelProperty(value = "Item is folder")
     private boolean isFolder;   // TODO think about this
     @ApiModelProperty(value = "Item state")
@@ -153,6 +154,13 @@ public class Item implements Comparable<Item> {
         return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    public final <T extends Item> T castItem(Class<T> wanted){
+        if (wanted.isInstance(this)) {
+            return wanted.cast(this);
+        } else {
+            return null;
+        }
+    }
     // Getters and setters
     @JsonProperty
     public ItemId getId() {
