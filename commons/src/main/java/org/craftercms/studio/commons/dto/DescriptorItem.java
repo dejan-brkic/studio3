@@ -25,8 +25,8 @@ import java.util.regex.Pattern;
  */
 public abstract class DescriptorItem extends ContentItem {
 
-    private final static Pattern PAGE_PATTERN = Pattern.compile("^/page");
-    private final static Pattern COMPONENT_PATTERN = Pattern.compile("^/component");
+    private final static Pattern PAGE_PATTERN = Pattern.compile("^/page/.*");
+    private final static Pattern COMPONENT_PATTERN = Pattern.compile("^/component/.*");
 
     public static String getSubType(String contentType) {
         Matcher m = PAGE_PATTERN.matcher(contentType);
