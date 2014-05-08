@@ -49,17 +49,11 @@ public class DocumentationPathProvider implements SwaggerPathProvider {
     }
 
     @Override
-    public String getSwaggerDocumentationBasePath() {
-        return UriComponentsBuilder
-            .fromHttpUrl(getAppBasePath())
-            .pathSegment("api-docs/")
-            .build()
-            .toString();
-    }
-
-    @Override
-    public String getRequestMappingEndpoint(String requestMappingPattern) {
-        return defaultSwaggerPathProvider.getRequestMappingEndpoint(requestMappingPattern);
+    public String sanitizeRequestMappingPattern(final String requestMappingPattern) {
+        String result = requestMappingPattern;
+        //remove regex portion '/{businessId:\\w+}'
+        result = result.replaceAll("\\{(.*?):.*?\\}", "{$1}");
+        return result.isEmpty() ? "/" : result;
     }
 
     public void setDefaultSwaggerPathProvider(SwaggerPathProvider defaultSwaggerPathProvider) {
