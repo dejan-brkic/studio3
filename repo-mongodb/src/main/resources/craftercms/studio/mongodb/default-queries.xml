@@ -34,7 +34,7 @@
             {ancestors:#}
     </entry>
     <entry key="studio.repo.mongodb.query.getByAncestorsAndName">
-            {ancestors:#,core:{nodeName:#}}
+            {ancestors:#,'core.nodeName':#}
     </entry>
 
     <entry key="studio.repo.mongodb.query.getAncestors">
