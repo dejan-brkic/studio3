@@ -200,7 +200,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Node findNodeByAncestorsAndName(final List<Node> ancestors, final String nodeName) throws
+    public Node findNodeByAncestorsAndName(final List<String> ancestors, final String nodeName) throws
         StudioException {
         if (StringUtils.isBlank(nodeName)) {
             log.debug("Node name can't be empty or blank");
@@ -211,7 +211,7 @@ public class NodeServiceImpl implements NodeService {
                 MongoRepositoryQueries.GET_BY_ANCESTORS_AND_NAME, getRootNode().getId(), nodeName);
         } else {
             return dataService.findOne(NODES_COLLECTION, Node.class,
-                MongoRepositoryQueries.GET_BY_ANCESTORS_AND_NAME, nodeListToIdList(ancestors), nodeName);
+                MongoRepositoryQueries.GET_BY_ANCESTORS_AND_NAME, ancestors, nodeName);
         }
     }
 
@@ -233,7 +233,7 @@ public class NodeServiceImpl implements NodeService {
 
     @Override
     public Node getSiteNode(String siteName) throws StudioException {
-        return findNodeByAncestorsAndName(Arrays.asList(getRootNode()), siteName);
+        return findNodeByAncestorsAndName(Arrays.asList(getRootNode().getId()), siteName);
     }
 
     @Override
