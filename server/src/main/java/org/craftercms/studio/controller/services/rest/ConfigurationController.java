@@ -90,22 +90,18 @@ public class ConfigurationController {
         throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
     }
 
-    @RequestMapping(value = "/list/crafter.studio-ui",method = RequestMethod.GET)
+    @RequestMapping(value = "/list/{config}",method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> uiConfiguration(final HttpServletRequest request)
+    public Map<String, Object> uiConfiguration(@PathVariable(value = "config") final String config)
         throws StudioException {
         ObjectMapper mapper = new ObjectMapper();
-        URL url = getClass().getResource("/extension/studio3/app.json");
+        URL url = getClass().getResource("/extension/studio3/"+config+".json");
         Map map;
         if (url == null) {
             throw ErrorManager.createError(ErrorCode.IO_ERROR);
         } else {
             try {
                 map = mapper.readValue(Files.readAllBytes(Paths.get(url.toURI())), Map.class);
-                // Mod_proxy is killing this !!!
-                //StringBuffer buff=request.getRequestURL();
-               // String path = buff.substring(0, buff.lastIndexOf(request.getServletPath())+1);
-               // map.put("base_url",path+"studio-ui");
             } catch (URISyntaxException | IOException ex) {
                 throw ErrorManager.createError(ErrorCode.SYSTEM_ERROR, ex);
             }
@@ -113,23 +109,4 @@ public class ConfigurationController {
         return map;
     }
 
-    @RequestMapping(value = "/list/crafter.studio-ui.section.test-service",method = RequestMethod.GET,
-        produces = "application/json")
-    @ResponseBody
-    public Map<String, Object> uiConfigurationService(final HttpServletRequest request)
-        throws StudioException {
-        ObjectMapper mapper = new ObjectMapper();
-        URL url = getClass().getResource("/extension/studio3/test-service.json");
-        Map map;
-        if (url == null) {
-            throw ErrorManager.createError(ErrorCode.IO_ERROR);
-        } else {
-            try {
-                map = mapper.readValue(Files.readAllBytes(Paths.get(url.toURI())), Map.class);
-            } catch (URISyntaxException | IOException ex) {
-                throw ErrorManager.createError(ErrorCode.SYSTEM_ERROR, ex);
-            }
-        }
-        return map;
-    }
 }
