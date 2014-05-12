@@ -35,8 +35,5 @@ public class DocumentationRelativePathProvider extends DefaultSwaggerPathProvide
         return servletContext.getContextPath();
     }
 
-    @Override
-    public String getSwaggerDocumentationBasePath() {
-        return "/api-docs";
-    }
+
 }

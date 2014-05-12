@@ -24,8 +24,8 @@ import java.util.List;
 import com.mangofactory.swagger.authorization.AuthorizationContext;
 import com.mangofactory.swagger.configuration.JacksonScalaSupport;
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
-import com.mangofactory.swagger.configuration.SpringSwaggerModelConfig;
 import com.mangofactory.swagger.configuration.SwaggerGlobalSettings;
+import com.mangofactory.swagger.core.ClassOrApiAnnotationResourceGrouping;
 import com.mangofactory.swagger.core.SwaggerApiResourceListing;
 import com.mangofactory.swagger.scanners.ApiListingReferenceScanner;
 import com.wordnik.swagger.model.ApiInfo;
@@ -63,8 +63,7 @@ public class RestApiDocumentationSwaggerConfig {
 
     @Autowired
     private SpringSwaggerConfig springSwaggerConfig;
-    @Autowired
-    private SpringSwaggerModelConfig springSwaggerModelConfig;
+
 
     /**
      * Adds the jackson scala module to the MappingJackson2HttpMessageConverter registered with spring
@@ -87,10 +86,14 @@ public class RestApiDocumentationSwaggerConfig {
     public SwaggerGlobalSettings swaggerGlobalSettings() {
         SwaggerGlobalSettings swaggerGlobalSettings = new SwaggerGlobalSettings();
         swaggerGlobalSettings.setGlobalResponseMessages(springSwaggerConfig.defaultResponseMessages());
+
+        // This is where we add types to ignore (or use the default provided types)
         swaggerGlobalSettings.setIgnorableParameterTypes(springSwaggerConfig.defaultIgnorableParameterTypes());
-        swaggerGlobalSettings.setParameterDataTypes(springSwaggerModelConfig.defaultParameterDataTypes());
+        // This is where we add type substitutions (or use the default provided alternates)
+        swaggerGlobalSettings.setAlternateTypeProvider(springSwaggerConfig.defaultAlternateTypeProvider());
         return swaggerGlobalSettings;
     }
+
 
     /**
      * API Info as it appears on the swagger-ui page
@@ -123,7 +126,7 @@ public class RestApiDocumentationSwaggerConfig {
         swaggerApiResourceListing.setSwaggerGlobalSettings(swaggerGlobalSettings());
 
         //Use a custom path provider or springSwaggerConfig.defaultSwaggerPathProvider()
-        swaggerApiResourceListing.setSwaggerPathProvider(documentationRelativePathProvider());
+        swaggerApiResourceListing.setSwaggerPathProvider(documentationPathProvider());
 
         //Supply the API Info as it should appear on swagger-ui web page
         swaggerApiResourceListing.setApiInfo(apiInfo());
@@ -154,8 +157,10 @@ public class RestApiDocumentationSwaggerConfig {
         //Excludes any controllers with the supplied annotations
         apiListingReferenceScanner.setExcludeAnnotations(springSwaggerConfig.defaultExcludeAnnotations());
 
-        //
-        apiListingReferenceScanner.setResourceGroupingStrategy(springSwaggerConfig.defaultResourceGroupingStrategy());
+        //How to group request mappings to ApiResource's typically by spring controller classes. This is a hook to provide
+        // a custom implementation of the grouping strategy. By default we use SpringGroupingStrategy. An alternative is
+        // to use ClassOrApiAnnotationResourceGrouping to group using Api annotation.
+        apiListingReferenceScanner.setResourceGroupingStrategy(new ClassOrApiAnnotationResourceGrouping());
 
         //Path provider used to generate the appropriate uri's
         apiListingReferenceScanner.setSwaggerPathProvider(documentationPathProvider());
