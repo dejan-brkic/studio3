@@ -676,4 +676,5 @@ The Language service provides two methods:
 * `from`(*languageFolder*): Get the language file matching the user's current language preference. The *languageFolder* will be a path relative to the module's main file pointing to a folder with all the language files available for the module.
   
 * `changeTo`(*languageId*): Sets the user's language preference to *languageId*.
+
  -->
