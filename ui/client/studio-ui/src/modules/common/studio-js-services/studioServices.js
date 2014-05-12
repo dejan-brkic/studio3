@@ -13,11 +13,12 @@ define(function (require) {
 
     return function(customConfig) {
 
-        var utils = new Utils(customConfig),
-            asset = new Asset(utils),
-            config = new Config(utils),
-            descriptor = new Descriptor(utils),
-            template = new Template(utils);
+        var cfg = customConfig || {},
+            utils = new Utils(cfg),
+            asset = new Asset(utils, cfg.Asset),
+            config = new Config(utils, cfg.Config),
+            descriptor = new Descriptor(utils, cfg.Descriptor),
+            template = new Template(utils, cfg.Template);
 
         return Object.freeze({
             Asset: asset,

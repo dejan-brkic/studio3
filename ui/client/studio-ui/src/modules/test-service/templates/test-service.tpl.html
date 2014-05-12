@@ -1,0 +1,156 @@
+<div class="test-asset" ng-controller="AssetCtrl">
+
+    <div class="side-column">
+        <h1>Files</h1>
+
+        <sdo-tree-navigation sdo-plugin-src="tree-navigation"
+                             on-select="updateSelected(branch)"
+                             tree-control="treeNav">
+            </sdo-tree-navigation>
+
+        <h4>Language</h4>
+        <div class="btn-group">
+            <button class="btn btn-primary"
+                    ng-click="changeLanguage('en')">{{content.english}}</button>
+
+            <button class="btn btn-primary"
+                    ng-click="changeLanguage('fr')">{{content.french}}</button>
+        </div>
+
+    </div>
+
+    <div class="main-column {{fileType}}">
+        <div class="list-actions">
+            <div class="btn-group" ng-show="nodeSelected && fileType != 'asset'">
+                <button class="btn btn-primary"
+                        ng-class="{ 'active': action == 'create' }"
+                        ng-click="action = 'create'"
+                        ng-show="isFolder">Create</button>
+
+                <button class="btn btn-primary"
+                        ng-class="{ 'active': action == 'edit', 'border-left': true }"
+                        ng-click="action = 'edit'; readItem(fileType, nodeSelected.id.itemId);"
+                        ng-show="!isFolder">Edit</button>
+
+                <button class="btn btn-primary"
+                        ng-class="{ 'active': action == 'upload' }"
+                        ng-click="action = 'upload'">Upload</button>
+            </div>
+
+            <button class="btn btn-primary"
+                    ng-click="insertCode(fileType)"
+                    ng-show="action == 'create' && (fileType == 'descriptor' || fileType == 'template')">Insert Sample Code</button>
+        </div>
+
+
+        <div class="upload" ng-show="action == 'upload'">
+
+            <form   name="uploadAssetForm"
+                    novalidate
+                    role="form"
+                    ng-submit="uploadAsset(isFolder, nodeSelected, asset)"
+                    ng-show="fileType == 'asset'">
+
+                <div class="form-group">
+                    <input  type="text"
+                            class="form-control input-sm"
+                            name="assetName"
+                            ng-model="asset.name"
+                            ng-show="isFolder"
+                            placeholder="File name"
+                            required />
+
+                    <input  type="file"
+                            class="form-control input-sm"
+                            sdo-file-select="onFileSelect($files)"
+                            required />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit"
+                            class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+            <form   name="uploadDescriptorForm"
+                    novalidate
+                    role="form"
+                    ng-submit="uploadDescriptor(isFolder, nodeSelected, descriptor)"
+                    ng-show="fileType == 'descriptor'">
+
+                <div class="form-group">
+                    <input  type="text"
+                            class="form-control input-sm"
+                            name="descContentTypeId"
+                            ng-model="descriptor.content_type_id"
+                            placeholder="Content Type ID"
+                            required />
+
+                    <input  type="text"
+                            class="form-control input-sm"
+                            name="descName"
+                            ng-model="descriptor.name"
+                            ng-show="isFolder"
+                            placeholder="File name"
+                            required />
+
+                    <input  type="file"
+                            class="form-control input-sm"
+                            sdo-file-select="onFileSelect($files)"
+                            required />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit"
+                            class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+            <form   name="uploadTemplateForm"
+                    novalidate
+                    role="form"
+                    ng-submit="uploadTemplate(isFolder, nodeSelected, template)"
+                    ng-show="fileType == 'template'">
+
+                <div class="form-group">
+
+                    <input  type="text"
+                            class="form-control input-sm"
+                            name="tmplName"
+                            ng-model="template.name"
+                            ng-show="isFolder"
+                            placeholder="File name"
+                            required />
+
+                    <input  type="file"
+                            class="form-control input-sm"
+                            sdo-file-select="onFileSelect($files)"
+                            required />
+                </div>
+
+                <div class="form-group">
+                    <button type="submit"
+                            class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="editor" ng-show="action != 'upload' || fileType == 'asset'">
+            <form   name="addCode"
+                    novalidate
+                    role="form"
+                    ng-submit="submitCode(action, fileType, nodeSelected)">
+
+                <pre id="code-editor" name="code-editor" ng-hide="fileType == 'asset' && isFolder"></pre>
+
+                <div class="form-group" ng-hide="fileType == 'asset'">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-primary" ng-click="reset()">Reset</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+</div>

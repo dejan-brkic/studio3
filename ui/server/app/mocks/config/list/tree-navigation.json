@@ -1,0 +1,31 @@
+{
+    "name": "crafter.studio-ui.plugins.tree-navigation",
+    "version": "0.1.0",
+    "base_url": "sdo/tree-navigation/",
+    "main": "tree-navigation.js",
+
+    "config": {
+        "sections": [{
+            "label": "Assets",
+            "content": {
+                "type": "asset",
+                "service_provider": "LocalStudioServices",
+                "service": "Asset.list"
+            }
+        }, {
+            "label": "Descriptors",
+            "content": {
+                "type": "descriptor",
+                "service_provider": "LocalStudioServices",
+                "service": "Descriptor.list"
+            }
+        }, {
+            "label": "Templates",
+            "content": {
+                "type": "template",
+                "service_provider": "LocalStudioServices",
+                "service": "Template.list"
+            }
+        }]
+    }
+}

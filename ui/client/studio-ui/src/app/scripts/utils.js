@@ -5,8 +5,9 @@ angular.module('crafter.studio-ui.Utils', [])
     /*
      * Miscellaneous functions used all over
      */
-    .service('Utils', ['$log', '$q', '$timeout', '$rootScope', 'StudioServices',
-        function($log, $q, $timeout, $rootScope, StudioServices) {
+    .service('Utils',
+        ['$log', '$q', '$timeout', '$rootScope', 'ServiceProviders', 'DefaultServiceProvider',
+        function($log, $q, $timeout, $rootScope, ServiceProviders, DefaultServiceProvider) {
 
             // Takes a string of the form: "the {tree} is behind the {building}" and uses a
             // replace object { 'tree': 'cedar', 'building': 'National Museum'} to replace the
@@ -31,6 +32,29 @@ angular.module('crafter.studio-ui.Utils', [])
                 return array1.filter(function(el) {
                     return array2.indexOf(el) !== -1;
                 });
+            };
+
+            /*
+             * @param rootObj: an object
+             * @param dotNotationStr: A string in dot notation to a function from the previous object.
+             *             For example: "level1Obj.level2Obj.method"
+             * @return function context reference: reference to the function context
+             *             For example: "level1Obj.level2Obj.method" will return a reference to "level2Obj"
+             */
+            this.getContext = function getContext(rootObj, dotNotationStr) {
+                var fragments = dotNotationStr.split('.');
+                return fragments.splice(0, fragments.length-1).reduce(function(o, p) { return o[p]; }, rootObj);
+            };
+
+            /*
+             * @param rootObj: an object
+             * @param dotNotationStr: A string in dot notation to a function from the previous object.
+             *             For example: "level1Obj.level2Obj.method"
+             * @return function reference: reference to the object's function
+             *             For example: "level1Obj.level2Obj.method" will return a reference to "method"
+             */
+            this.getMethod = function getMethod(rootObj, dotNotationStr) {
+                return dotNotationStr.split('.').reduce(function(o, p) { return o[p]; }, rootObj);
             };
 
             /*
@@ -71,7 +95,7 @@ angular.module('crafter.studio-ui.Utils', [])
                         var dfd = $q.defer();
                         promiseList.push(dfd.promise);
 
-                        StudioServices.Config.getDescriptor(moduleName)
+                        ServiceProviders[DefaultServiceProvider].Config.getDescriptor(moduleName)
                             .then( function(descriptor) {
 
                                 var file = me.getUrl(base_url, descriptor.base_url) + descriptor.main,

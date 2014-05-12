@@ -8,10 +8,10 @@ define(function(require) {
     var requestAgent = require('request_agent'),
         validation = require('../validation');
 
-    var Item = function (name, utils, path) {
+    var Item = function (name, utils, overrideObj, path) {
         this.name = name;
         this.utils = utils;
-        this.baseUrl = utils.getBaseUrl() + path;
+        this.baseUrl = utils.getBaseUrl(overrideObj) + path;
 
         if (DEBUG) {
             this.utils.logService({
@@ -403,6 +403,12 @@ define(function(require) {
         }]);
 
         serviceUrl = this.baseUrl + '/list/' + siteName;
+
+        // Add item_id param if it's available
+        if (itemId) {
+            serviceUrl += '?item_id=' + itemId;
+        }
+
         promise = requestAgent.get(serviceUrl);
 
         if (DEBUG) {

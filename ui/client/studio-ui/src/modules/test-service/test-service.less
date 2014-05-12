@@ -6,30 +6,14 @@
 .test-asset {
     margin: 15px 2em;
 
-    h1 { font-size: 22px; }
+    h1 {
+        font-size: 20px;
+        margin-left: 10px;
+    }
 
     .side-column {
         width: 270px;
         float: left;
-
-        h2 { font-size: 18px; }
-
-        ul { padding-left: 16px; }
-
-        .list-assets ul > li > a,
-        .list-desc ul > li > a,
-        .list-tmpl ul > li > a {
-            color: @gray;
-
-            &:hover {
-                color: @gray-dark;
-                cursor: pointer;
-            }
-        }
-
-        .list-actions {
-            margin-bottom: 20px;
-        }
 
         .tree-nav {
             width:250px;
@@ -41,6 +25,20 @@
 
     .main-column {
         float: left;
+
+        &.asset .list-actions {
+            margin-bottom: 0;
+        }
+
+        .list-actions {
+            padding-top: 52px;
+            margin-bottom: 15px;
+
+            .border-left {
+                border-top-left-radius: 4px !important;
+                border-bottom-left-radius: 4px !important;
+            }
+        }
 
         .form-group {
             width: 700px;
@@ -54,10 +52,6 @@
             form {
                 position: relative;
                 height: @form-height;
-            }
-
-            .sample-buttons {
-                margin-bottom: 15px;
             }
 
             .form-group {

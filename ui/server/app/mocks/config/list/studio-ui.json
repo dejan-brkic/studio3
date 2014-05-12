@@ -1,0 +1,63 @@
+{
+    "name": "crafter.studio-ui",
+
+    "version": "0.1.0",
+
+    "base_url": "http://localhost:9000/studio-ui",
+
+    "requirejs": {
+        "map": {
+            "css": "lib/require-css/js/css",
+            "less": "lib/require-less/js/less",
+            "text": "lib/requirejs-text/js/text"
+        },
+        "module_paths": {
+            "ace": "lib/ace",
+            "ckeditor": "lib/ckeditor/ckeditor",
+            "common": "modules/common/common",
+            "directives": "modules/common/directives",
+            "domReady": "lib/requirejs-domready/js/domReady",
+            "globals": "modules/common/globals",
+            "jquery": "lib/jquery/js/jquery.min",
+            "pubsub": "lib/pubsub-js/pubsub",
+            "requirejs": "lib/requirejs/js/require"
+        }
+    },
+
+    "module_globals": {
+        "dom_root": "#studio-ui",
+        "default_state": "test",
+        "default_url": "/test-service",
+        "default_service_provider": "StudioServices",
+        "default_language": "en",
+        "unauthorized_state": "unauthorized",
+        "unauthorized_url": "/unauthorized",
+        "templates_url": "modules/common/templates",
+        "plugins_url": "plugins"
+    },
+
+    "modules": [
+        "login", "dashboard", "test-service", "authoring"
+    ],
+
+    "service_providers": [{
+        "name": "LocalStudioServices",
+        "main": "studioServices/studioServices",
+        "config": {
+            "server": {
+                "port": 9000
+            },
+            "site": "mango"
+        }
+    }, {
+        "name": "RemoteStudioServices",
+        "main": "studioServices/studioServices",
+        "config": {
+            "server": {
+                "domain": "studio3.craftercms.org",
+                "port": ""
+            },
+            "site": "coconut"
+        }
+    }]
+}

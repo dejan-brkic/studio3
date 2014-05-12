@@ -6,7 +6,7 @@ define(['globals'], function( globals ) {
 
     var injector = angular.element(globals.dom_root).injector();
 
-    injector.invoke(['NgRegistry', 'StudioServices', '$log',
+    injector.invoke(['NgRegistry', globals.default_service_provider, '$log',
         function(NgRegistry, StudioServices, $log) {
 
         NgRegistry
@@ -145,28 +145,29 @@ define(['globals'], function( globals ) {
 
                 return {
                     restrict: 'A',
+                    priority: 1000,
                     compile: function(element, attr) {
 
                         var pluginName = attr.sdoPluginSrc,
                             promiseList;
 
-                        if (!attr.sdoPluginLoaded) {
+                        // Remove this directive so it doesn't create an endless loop
+                        // since it calls on the $compile function
+                        attr.$set('sdoPluginSrc', null);
 
-                            $log.log('Loading plugin ' + pluginName + ' from directive ...');
+                        // Proceed to load the directive
+                        $log.log('Loading plugin ' + pluginName + '...');
 
-                            promiseList = Utils.loadModules([pluginName], GLOBALS.plugins_url);
+                        promiseList = Utils.loadModules([pluginName], GLOBALS.plugins_url);
 
-                            return function (scope, element, attr) {
+                        return function postLink (scope, element, attr) {
 
-                                attr.$set('sdoPluginLoaded', true);
-
-                                $q.all(promiseList).then( function() {
-                                    // after all the plugin's resources have been loaded,
-                                    // compile the plugin directive
-                                    $compile(element)(scope);
-                                });
-                            };
-                        }
+                            $q.all(promiseList).then( function() {
+                                // After all the plugin's resources have been loaded,
+                                // compile the plugin directive
+                                $compile(element)(scope);
+                            });
+                        };
                     }
                 };
             }]);
