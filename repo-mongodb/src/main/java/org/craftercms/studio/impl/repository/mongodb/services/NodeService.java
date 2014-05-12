@@ -136,7 +136,7 @@ public interface NodeService {
      * @param nodeName  Name of the node looking for.
      * @return The node with given ancenstors and given name. Null if nothing is found.
      */
-    Node findNodeByAncestorsAndName(List<Node> ancestors, String nodeName) throws StudioException;
+    Node findNodeByAncestorsAndName(List<String> ancestors, String nodeName) throws StudioException;
 
     Node findNodeByAncestorsIdsAndName(List<String> ancestors, String nodeName) throws
         StudioException;

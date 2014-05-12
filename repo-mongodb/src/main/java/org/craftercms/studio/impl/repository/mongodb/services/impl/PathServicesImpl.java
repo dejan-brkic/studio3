@@ -119,17 +119,17 @@ public class PathServicesImpl implements PathService {
         return builder.toString();
     }
 
-    private Node walkDownTheTree(String[] pathToDescent) throws StudioException {
+    private Node walkDownTheTree(final String[] pathToDescent) throws StudioException {
 
         Node tempNode = nodeService.getRootNode();
         //If pathToDescent length is 0 then you are getting root path right?
-        for (int i = 0; i < pathToDescent.length; i++) {
-            if (StringUtils.isBlank(pathToDescent[i])) {
+        for (final String aPathToDescent : pathToDescent) {
+            if (StringUtils.isBlank(aPathToDescent)) {
                 return nodeService.getRootNode();
             }
-            LinkedList<Node> ancestors = (LinkedList<Node>)tempNode.getAncestors().clone();
-            ancestors.addLast(tempNode);
-            tempNode = nodeService.findNodeByAncestorsAndName(ancestors, pathToDescent[i]);
+            LinkedList<String> ancestors = (LinkedList<String>)tempNode.getAncestors().clone();
+            ancestors.addLast(tempNode.getId());
+            tempNode = nodeService.findNodeByAncestorsAndName(ancestors, aPathToDescent);
             if (tempNode == null) {
                 break;
             }
