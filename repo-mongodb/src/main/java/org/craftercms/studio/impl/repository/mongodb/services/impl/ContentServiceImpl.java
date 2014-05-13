@@ -277,9 +277,9 @@ public class ContentServiceImpl implements ContentService {
 
     private void buildChildrenTree(final TreeNode<Item> root, final int depth, final Node parent,
                                    final String ticket, final String site) throws StudioException {
-        Node templateNode = new Node();
-        templateNode.setId(root.getValue().getRepoId());
-        Iterable<Node> children = nodeService.findNodeByParent(templateNode);
+        Node templateNode = nodeService.getNode(root.getValue().getRepoId());
+        //templateNode.setId(root.getValue().getRepoId());
+        Iterable<Node> children = nodeService.findNodeChildren(templateNode);
         if (children != null) {
             for (Node child : children) {
                 TreeNode<Item> leaf = new TreeNode<>();

@@ -33,6 +33,11 @@ public class MongoRepositoryQueries {
     public static final String GET_BY_ANCESTORS = "studio.repo.mongodb.query.getByAncestors";
 
     /**
+     * Gets Children.
+     */
+    public static final String GET_CHILDREN = "studio.repo.mongodb.query.getChildren";
+
+    /**
      * Gets Nodes with a given tree path and a name.
      */
     public static final String GET_BY_ANCESTORS_AND_NAME = "studio.repo.mongodb.query.getByAncestorsAndName";

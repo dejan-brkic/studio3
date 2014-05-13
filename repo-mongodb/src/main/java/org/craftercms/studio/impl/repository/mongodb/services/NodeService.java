@@ -96,6 +96,8 @@ public interface NodeService {
 
     Iterable<Node> findNodeByParent(Node node) throws StudioException;
 
+    Iterable<Node> findNodeChildren(Node node) throws StudioException;
+
     /**
      * Gets the Root node.
      *
