@@ -33,6 +33,9 @@
     <entry key="studio.repo.mongodb.query.getByAncestors">
             {ancestors:#}
     </entry>
+    <entry key="studio.repo.mongodb.query.getChildren">
+        {$and:[{'ancestors':#}, {'ancestors':{$size:#}}]}
+    </entry>
     <entry key="studio.repo.mongodb.query.getByAncestorsAndName">
             {ancestors:#,'core.nodeName':#}
     </entry>

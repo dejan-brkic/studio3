@@ -171,6 +171,15 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
+    public Iterable<Node> findNodeChildren(final Node node) throws StudioException {
+        log.debug("Finding all children of {}", node);
+        Iterable<Node> foundNodes = dataService.find(NODES_COLLECTION, Node.class,
+            MongoRepositoryQueries.GET_CHILDREN, node.getId(), node.getAncestors().size() + 1);
+        log.debug("Found {} children nodes ", foundNodes);
+        return foundNodes;
+    }
+
+    @Override
     public Node getRootNode() throws StudioException {
 
         return dataService.findOne(NODES_COLLECTION, MongoRepositoryQueries.GET_ROOT_NODE, Node.class);
