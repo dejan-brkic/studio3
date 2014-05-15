@@ -290,7 +290,7 @@
         <dependency>
             <groupId>org.jongo</groupId>
             <artifactId>jongo</artifactId>
-            <version>0.4</version>
+            <version>1.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>de.undercouch</groupId>

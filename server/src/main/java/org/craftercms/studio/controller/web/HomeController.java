@@ -17,12 +17,20 @@
 
 package org.craftercms.studio.controller.web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.PathParam;
+
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.multiaction.NoSuchRequestHandlingMethodException;
 
 /**
  * Controller for All Non JSON responses.
  */
+//TODO cortiz: To the index redirect Better
 @Controller
 public class HomeController {
     /**
@@ -36,9 +44,21 @@ public class HomeController {
     public HomeController() {
     }
 
-    @RequestMapping("/home")
+    @RequestMapping(value = "*", method = RequestMethod.GET)
     public String index() {
         return INDEX_VIEW;
     }
+    @RequestMapping(value = "/studio/*", method = RequestMethod.GET)
+    public String indexStudio() {
+        return INDEX_VIEW;
+    }
+
+    @ExceptionHandler(NoSuchRequestHandlingMethodException.class)
+    public String exception(HttpServletRequest request) {
+        System.out.println("ASDDSADSADSADS"+request.getRequestURL());
+        return INDEX_VIEW;
+    }
+
+
 
 }
