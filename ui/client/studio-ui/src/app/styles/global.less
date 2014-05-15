@@ -48,7 +48,7 @@
             height: inherit;
             background: transparent;
             padding: 0 @toolbar-button-padding;
-            color: lighten(#000, 70%);;
+            color: lighten(#000, 70%);
 
             &:hover, &:active, &.on {
                 background-color: @toolbar-background-top;
@@ -139,8 +139,11 @@
 
 // --- Modal Dialogs
 .modal.fade.in {
-    display: block;
-    top: 20%;
+
+    .modal-dialog {
+        margin-top: 12%;
+        width: 500px;
+    }
 
     .modal-header {
         color: @modal-header;

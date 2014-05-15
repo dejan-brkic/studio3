@@ -10,13 +10,11 @@ requirejs(['studioServices/studioServices'], function (studioServices) {
         GLOBALS, CONFIG;
 
     angular.module(init_module, [
-            'crafter.studio-ui.services.AppService',
-            'crafter.studio-ui.services.AuditService',
-            'crafter.studio-ui.services.AuthService',
-            'crafter.studio-ui.services.UserService',
+            'crafter.studio-ui.AuthService',
             'crafter.studio-ui.Language',
             'crafter.studio-ui.NgRegistry',
             'crafter.studio-ui.Utils',
+            'crafter.studio-ui.UserService',
             'angularBootstrapNavTree',
             'ui.router',
             'ui.bootstrap',
