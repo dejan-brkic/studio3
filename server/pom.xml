@@ -75,6 +75,12 @@
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
             <version>2.1.7</version>
+            <exclusions>
+            	<exclusion>
+            		<artifactId>c3p0</artifactId>
+            		<groupId>c3p0</groupId>
+            	</exclusion>
+            </exclusions>
         </dependency>
         <!--Validation -->
         <dependency>
@@ -149,12 +155,24 @@
             <artifactId>selenium-firefox-driver</artifactId>
             <version>2.33.0</version>
             <scope>test</scope>
+            <exclusions>
+            	<exclusion>
+            		<artifactId>commons-codec</artifactId>
+            		<groupId>commons-codec</groupId>
+            	</exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-server</artifactId>
             <version>2.33.0</version>
             <scope>test</scope>
+            <exclusions>
+            	<exclusion>
+            		<artifactId>commons-codec</artifactId>
+            		<groupId>commons-codec</groupId>
+            	</exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.github.detro.ghostdriver</groupId>
