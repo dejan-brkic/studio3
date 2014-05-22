@@ -1,36 +1,46 @@
 
 <!-- If this div is moved after the iframe, it won't be rendered! -->
-<div id="tools-panel" class="{{authoring.tools.state}}" style="height:{{authoring.tools.height}}%;">
-    <button type="button" class="btn-close btn btn-primary" ng-click="closeTools()">
-        <span class="glyphicon glyphicon-remove-circle"></span>
-        <span class="btn-label">Close</span>
-    </button>
+<!-- offset = the height of the footer (at the bottom of the page) -->
+<sdo-flex-panel id="tools-panel"
+                class="bottom"
+                adjacent="#iframe-container"
+                offset="50"
+                default="240"
+                hide-if="!authoring.tools.enabled">
 
-    <div id="component-navigator">
+    <div class="sdo-divider" min="100"></div>
+    <div>
+        <button type="button" class="btn-close btn btn-primary" ng-click="authoring.tools.enabled=false">
+            <span class="glyphicon glyphicon-remove-circle"></span>
+            <span class="btn-label">Close</span>
+        </button>
 
-    </div>
-    <div id="tools-area">
-        <div class="tabbable">
-            <ul class="nav nav-tabs">
-                <li ng-repeat="tab in authoring.tools.tabs"
-                    ng-class="{active: authoring.tools.activeTab == tab.name }">
-                    <a ng-click="authoring.setActiveTab(tab.name); updateElement()">{{tab.title}}</a>
-                </li>
-            </ul>
+        <div id="component-navigator">
 
-            <div class="tab-content">
-                <div ng-repeat="tab in authoring.tools.tabs"
-                     ng-class="'content'"
-                     ng-include="tab.contentUrl"
-                     ng-hide="authoring.tools.activeTab != tab.name">
+        </div>
+        <div id="tools-area">
+            <div class="tabbable">
+                <ul class="nav nav-tabs">
+                    <li ng-repeat="tab in authoring.tools.tabs"
+                        ng-class="{active: authoring.tools.activeTab == tab.name }">
+                        <a ng-click="authoring.setActiveTab(tab.name); updateElement()">{{tab.title}}</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div ng-repeat="tab in authoring.tools.tabs"
+                         ng-class="'content'"
+                         ng-include="tab.contentUrl"
+                         ng-hide="authoring.tools.activeTab != tab.name">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+</sdo-flex-panel>
+
+<div id="iframe-container">
+    <editor-iframe frameborder="0"
+                   id="editor-iframe"/>
 </div>
-
-<editor-iframe frameborder="0"
-               id="editor-iframe"
-               height="{{100 - authoring.tools.height}}%"
-               width="100%" />
-

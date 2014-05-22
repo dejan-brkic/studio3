@@ -1,21 +1,46 @@
 @import "variables.less";
 @import "mixins.less";
 
+// --- use resize-bar-y only for testing purposes; it is set via javascript
+@resize-bar-y: 0;
+@resize-bar-size: 2px;
+
 #tools-panel {
     background-color: @tools-panel-gradient-top;
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    border-top: 1px solid @tools-panel-border;
+    z-index: 1000;
 
-    &.off { display: none; }
+    &.top, &.bottom {
+        left: 0;
+        right: 0;
+        height: @resize-bar-y;
+    }
+    &.top { top: 0; }
+    &.bottom { bottom: 0; }
 
-    &.on { display: block; }
+    &.top > .sdo-divider,
+    &.bottom > .sdo-divider { height: @resize-bar-size; }
+
+    /*
+     * Styles to allow the tools panel to show docked on the sides (left/right)
+    &.right, &.left {
+        top: 0;
+        bottom: 0;
+        width: @resize-bar-y;;
+    }
+
+    &.right { right: 0; }
+    &.left { left: 0; }
+
+    &.right > .sdo-divider,
+    &.left > .sdo-divider { width: @resize-bar-size; }
+    */
+
+    > .sdo-divider { z-index: 1000; }
 
     button.btn-close {
         position: absolute;
-        top: 0;
+        top: @resize-bar-size;
         right: 0;
         z-index: 100;
         border-radius: 0;
@@ -101,4 +126,39 @@
             color: #3F3F3F;
         }
     }
+}
+
+#iframe-container {
+    position: absolute;
+
+    #editor-iframe {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.top + #iframe-container, .bottom + #iframe-container {
+    left: 0;
+    right: 0;
+}
+.right + #iframe-container, .left + #iframe-container {
+    top: 0;
+    bottom: 0;
+}
+
+.top + #iframe-container {
+    top: @resize-bar-y;
+    bottom: 0;
+}
+.bottom + #iframe-container {
+    top: 0;
+    bottom: @resize-bar-y;
+}
+.right + #iframe-container {
+    right: @resize-bar-y;
+    left: 0;
+}
+.left + #iframe-container {
+    right: 0;
+    left: @resize-bar-y;
 }
