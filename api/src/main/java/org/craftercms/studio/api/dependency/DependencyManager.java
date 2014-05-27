@@ -16,11 +16,12 @@
  */
 package org.craftercms.studio.api.dependency;
 
-import org.craftercms.studio.commons.dto.Item;
+import java.util.List;
+
 import org.craftercms.studio.commons.dto.Context;
+import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
 
-import java.util.List;
 
 /**
  * Dependency Manager.

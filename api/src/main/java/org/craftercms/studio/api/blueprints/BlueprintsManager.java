@@ -63,5 +63,6 @@ public interface BlueprintsManager {
      * @param blueprintName blueprint name
      * @param destination   destination
      */
-    void createBlueprintFromSite(Context context, String site, String blueprintName, String destination) throws StudioException;
+    void createBlueprintFromSite(Context context, String site, String blueprintName, String destination)
+        throws StudioException;
 }

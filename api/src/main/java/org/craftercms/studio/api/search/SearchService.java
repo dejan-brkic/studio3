@@ -16,7 +16,6 @@
  */
 package org.craftercms.studio.api.search;
 
-import org.craftercms.studio.commons.dto.ResultSet;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.StudioException;
 

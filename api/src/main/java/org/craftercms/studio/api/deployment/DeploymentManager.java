@@ -22,7 +22,6 @@ import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Deployment Manager.

@@ -19,13 +19,17 @@ package org.craftercms.studio.api.security;
 import java.net.URL;
 import java.util.List;
 
-import org.craftercms.studio.commons.dto.*;
+import org.craftercms.studio.commons.dto.Context;
+import org.craftercms.studio.commons.dto.SecurityGroup;
+import org.craftercms.studio.commons.dto.SecurityPermission;
+import org.craftercms.studio.commons.dto.SecurityRole;
+import org.craftercms.studio.commons.dto.User;
 import org.craftercms.studio.commons.exception.StudioException;
 
 
 /**
- * Security Service allows for the creation and management of security constructs such as Permissions. TODO redo this
- * description
+ * Security Service allows for the creation and management of security constructs such as Permissions.
+ * TODO: redo this description
  *
  * @author Sumer Jabri
  */
@@ -105,7 +109,8 @@ public interface SecurityService {
      * @param permissions permissions
      * @param inherit     inherit true/false
      */
-    void updatePermissions(Context context, String site, String itemId, User user, List<SecurityPermission> permissions, boolean inherit) throws StudioException;
+    void updatePermissions(Context context, String site, String itemId, User user,
+                           List<SecurityPermission> permissions, boolean inherit) throws StudioException;
 
     /**
      * Update permissions.
@@ -117,7 +122,8 @@ public interface SecurityService {
      * @param permissions permissions
      * @param inherit     inherit true/false
      */
-    void updatePermissions(Context context, String site, String itemId, SecurityGroup group, List<SecurityPermission> permissions, boolean inherit) throws StudioException;
+    void updatePermissions(Context context, String site, String itemId, SecurityGroup group,
+                           List<SecurityPermission> permissions, boolean inherit) throws StudioException;
 
     /**
      * Get groups.

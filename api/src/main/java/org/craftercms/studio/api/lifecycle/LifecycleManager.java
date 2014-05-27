@@ -16,10 +16,10 @@
  */
 package org.craftercms.studio.api.lifecycle;
 
+import java.util.List;
+
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.StudioException;
-
-import java.util.List;
 
 /**
  * Lifecycle Manager.

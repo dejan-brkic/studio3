@@ -1,7 +1,7 @@
 package org.craftercms.studio.api.content;
 
 /**
- * Transformation Manager
+ * Transformation Manager.
  *
  * @author Sumer Jabri
  */
