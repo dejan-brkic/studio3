@@ -9,7 +9,7 @@ import org.craftercms.studio.commons.dto.LockHandle;
 import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.dto.TreeNode;
 import org.craftercms.studio.commons.exception.ErrorManager;
-import org.craftercms.studio.impl.exception.ErrorCode;
+import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 import org.craftercms.studio.repo.content.ContentService;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
@@ -58,13 +58,13 @@ public class ContentManagerImpl implements ContentManager {
 
     @Override
     public void move(final Context context, final Item item, final String destinationPath) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void move(final Context context, final List<Item> itemsToMove, final String destinationPath) throws
         StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override

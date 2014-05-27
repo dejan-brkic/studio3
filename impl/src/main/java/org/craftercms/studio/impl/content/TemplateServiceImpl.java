@@ -34,7 +34,7 @@ import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.dto.LockHandle;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.exception.ErrorCode;
+import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 import org.craftercms.studio.internal.content.ContentManager;
 import org.craftercms.studio.repo.content.PathService;
 
@@ -72,7 +72,7 @@ public class TemplateServiceImpl implements TemplateService {
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
         } else {
-            throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(StudioImplErrorCode.INVALID_CONTEXT);
         }
     }
 
@@ -106,7 +106,7 @@ public class TemplateServiceImpl implements TemplateService {
             item = contentManager.read(context, site, itemId.getItemId());
             return item;
         } else {
-            throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(StudioImplErrorCode.INVALID_CONTEXT);
         }
     }
 
@@ -124,7 +124,7 @@ public class TemplateServiceImpl implements TemplateService {
         if (context != null && securityService.validate(context)) {
             return contentManager.read(context, site, itemId.getItemId());
         } else {
-            throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(StudioImplErrorCode.INVALID_CONTEXT);
         }
     }
 
@@ -136,10 +136,10 @@ public class TemplateServiceImpl implements TemplateService {
             try {
                 return IOUtils.toString(content);
             } catch (IOException e) {
-                throw ErrorManager.createError(ErrorCode.IO_ERROR, e);
+                throw ErrorManager.createError(StudioImplErrorCode.IO_ERROR, e);
             }
         } else {
-            throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(StudioImplErrorCode.INVALID_CONTEXT);
         }
     }
 
@@ -163,7 +163,7 @@ public class TemplateServiceImpl implements TemplateService {
             contentManager.write(context, site, itemId, lockHandle, content);
             return contentManager.read(context, site, itemId.getItemId());
         } else {
-            throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(StudioImplErrorCode.INVALID_CONTEXT);
         }
     }
 
@@ -188,7 +188,7 @@ public class TemplateServiceImpl implements TemplateService {
             contentManager.write(context, site, itemId, lockHandle, contentStream);
             return contentManager.read(context, site, itemId.getItemId());
         } else {
-            throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(StudioImplErrorCode.INVALID_CONTEXT);
         }
     }
 
@@ -208,7 +208,7 @@ public class TemplateServiceImpl implements TemplateService {
             itemList.add(item);
             contentManager.delete(context, itemList);
         } else {
-            throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(StudioImplErrorCode.INVALID_CONTEXT);
         }
     }
 
@@ -223,7 +223,7 @@ public class TemplateServiceImpl implements TemplateService {
      */
     @Override
     public List<Item> findBy(final Context context, final String site, final String query) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
+        throw ErrorManager.createError(StudioImplErrorCode.INVALID_CONTEXT);
     }
 
     @Override
@@ -252,7 +252,7 @@ public class TemplateServiceImpl implements TemplateService {
             }
 
         } else {
-            throw ErrorManager.createError(ErrorCode.INVALID_CONTEXT);
+            throw ErrorManager.createError(StudioImplErrorCode.INVALID_CONTEXT);
         }
     }
 

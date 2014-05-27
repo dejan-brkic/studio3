@@ -34,7 +34,7 @@ import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.exceptions.ErrorCode;
+import org.craftercms.studio.exceptions.StudioServerErrorCode;
 import org.craftercms.studio.utils.RestControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -111,7 +111,7 @@ public class DescriptorServiceController {
         try {
             content = file.getInputStream();
         } catch (IOException e) {
-            throw ErrorManager.createError(ErrorCode.FILE_UPLOAD_IO_ERROR);
+            throw ErrorManager.createError(StudioServerErrorCode.FILE_UPLOAD_IO_ERROR);
         }
         Item item = descriptorService.create(context, site, contentTypeId, parentId, fileName, content, properties);
         return item;
@@ -348,7 +348,7 @@ public class DescriptorServiceController {
         try {
             contentStream = file.getInputStream();
         } catch (IOException e) {
-            throw ErrorManager.createError(ErrorCode.FILE_UPLOAD_IO_ERROR);
+            throw ErrorManager.createError(StudioServerErrorCode.FILE_UPLOAD_IO_ERROR);
         }
         Item item = descriptorService.update(context, site, descriptorItemId, contentStream, properties);
         return item;
@@ -451,7 +451,7 @@ public class DescriptorServiceController {
             @RequestParam(value = "query", required = true) String query
     ) throws StudioException {
 
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioServerErrorCode.NOT_IMPLEMENTED);
     }
 
     /**

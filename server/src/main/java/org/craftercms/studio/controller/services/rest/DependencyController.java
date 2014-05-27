@@ -18,6 +18,7 @@
 package org.craftercms.studio.controller.services.rest;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -87,7 +88,8 @@ public class DependencyController {
         ObjectMapper mapper = new ObjectMapper();
         List<Item> items = null;
         try {
-            items = mapper.readValue(dependencies.getBytes(), new TypeReference<List<Item>>() { });
+            items = mapper.readValue(dependencies.getBytes(Charset.forName("UTF-8")),
+                new TypeReference<List<Item>>() { });
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

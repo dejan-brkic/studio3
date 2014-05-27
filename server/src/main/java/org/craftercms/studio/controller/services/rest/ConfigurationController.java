@@ -24,7 +24,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Map;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -36,7 +35,7 @@ import org.craftercms.studio.commons.dto.Configuration;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.controller.services.rest.dto.ConfigurationWriteRequest;
-import org.craftercms.studio.exceptions.ErrorCode;
+import org.craftercms.studio.exceptions.StudioServerErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,20 +63,20 @@ public class ConfigurationController {
     @ResponseBody
     public Configuration configuration(@PathVariable final String site, @RequestParam(required = true) final String
         module) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioServerErrorCode.NOT_IMPLEMENTED);
     }
 
     @RequestMapping(value = "/configure/{site}", method = RequestMethod.POST)
     @ResponseBody
     public void configure(@PathVariable final String site, @RequestParam(required = true) final String module,
                           @Valid @RequestBody final Configuration moduleConfiguration) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioServerErrorCode.NOT_IMPLEMENTED);
     }
 
     @RequestMapping(value = "/content/{site}", method = RequestMethod.GET)
     public void content(@PathVariable final String site, @RequestParam(required = true) final String object,
                         final HttpServletRequest request, HttpServletResponse response) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioServerErrorCode.NOT_IMPLEMENTED);
 
     }
 
@@ -87,7 +86,7 @@ public class ConfigurationController {
                       @Valid @RequestBody(required = true) final ConfigurationWriteRequest writeRequest) throws
         StudioException {
         InputStream contentStream = IOUtils.toInputStream(writeRequest.getContent());
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioServerErrorCode.NOT_IMPLEMENTED);
     }
 
     @RequestMapping(value = "/list/{config}",method = RequestMethod.GET)
@@ -98,12 +97,12 @@ public class ConfigurationController {
         URL url = getClass().getResource("/extension/studio3/"+config+".json");
         Map map;
         if (url == null) {
-            throw ErrorManager.createError(ErrorCode.IO_ERROR);
+            throw ErrorManager.createError(StudioServerErrorCode.IO_ERROR);
         } else {
             try {
                 map = mapper.readValue(Files.readAllBytes(Paths.get(url.toURI())), Map.class);
             } catch (URISyntaxException | IOException ex) {
-                throw ErrorManager.createError(ErrorCode.SYSTEM_ERROR, ex);
+                throw ErrorManager.createError(StudioServerErrorCode.SYSTEM_ERROR, ex);
             }
         }
         return map;

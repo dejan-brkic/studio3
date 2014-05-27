@@ -20,7 +20,7 @@ import org.craftercms.studio.api.search.SearchService;
 import org.craftercms.studio.commons.dto.ResultSet;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.exceptions.ErrorCode;
+import org.craftercms.studio.exceptions.StudioServerErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -58,6 +58,6 @@ public class SearchController {
     @ResponseBody
     public ResultSet search(@PathVariable final String site, @RequestParam(required = true) final String query,
                        final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioServerErrorCode.NOT_IMPLEMENTED);
     }
 }

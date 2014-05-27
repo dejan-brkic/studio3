@@ -24,7 +24,7 @@ import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.dto.Version;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.exception.ErrorCode;
+import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 
 /**
  * Version manager implementation.
@@ -34,16 +34,16 @@ import org.craftercms.studio.impl.exception.ErrorCode;
 public class VersionServiceImpl implements VersionService {
     @Override
     public Tree<Version> history(final Context context, final String itemId) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void revert(final Context context, final String itemId, final String revertVersion) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public DiffResult diff(final Context context, final String itemId, final String version1, final String version2) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 }
