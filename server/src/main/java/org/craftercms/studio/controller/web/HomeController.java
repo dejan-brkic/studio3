@@ -48,6 +48,7 @@ public class HomeController {
     public String index() {
         return INDEX_VIEW;
     }
+
     @RequestMapping(value = "/studio/*", method = RequestMethod.GET)
     public String indexStudio() {
         return INDEX_VIEW;
@@ -55,10 +56,9 @@ public class HomeController {
 
     @ExceptionHandler(NoSuchRequestHandlingMethodException.class)
     public String exception(HttpServletRequest request) {
-        System.out.println("ASDDSADSADSADS"+request.getRequestURL());
+        System.out.println("ASDDSADSADSADS" + request.getRequestURL());
         return INDEX_VIEW;
     }
-
 
 
 }

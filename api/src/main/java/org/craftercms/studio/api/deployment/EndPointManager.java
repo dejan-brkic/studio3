@@ -63,7 +63,7 @@ public interface EndPointManager {
     void update(Context context, Endpoint endpoint);
 
     /**
-     * Remove Endpoint
+     * Remove Endpoint.
      *
      * @param context    context
      * @param endpointId id of the endpoint to remove

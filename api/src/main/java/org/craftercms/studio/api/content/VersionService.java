@@ -28,7 +28,7 @@ import org.craftercms.studio.commons.exception.StudioException;
 public interface VersionService {
 
     /**
-     * Get version history for item
+     * Get version history for item.
      *
      * @param context context
      * @param itemId  itemId
@@ -40,7 +40,7 @@ public interface VersionService {
 // TODO   NEED to tag, tag can be against a whole bunch of things at once (even trees?)
 
     /**
-     * Revert version for item
+     * Revert version for item.
      *
      * @param context       context
      * @param itemId        itemId
@@ -49,7 +49,7 @@ public interface VersionService {
     void revert(Context context, String itemId, String revertVersion) throws StudioException;
 
     /**
-     * Difference between two versions
+     * Difference between two versions.
      *
      * @param context  context
      * @param itemId   item id
