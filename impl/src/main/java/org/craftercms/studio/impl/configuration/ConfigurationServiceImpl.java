@@ -21,7 +21,7 @@ import org.craftercms.studio.api.configuration.ConfigurationService;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.exception.ErrorCode;
+import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 
 /**
  * Configuration Service implementation.
@@ -31,11 +31,11 @@ import org.craftercms.studio.impl.exception.ErrorCode;
 public class ConfigurationServiceImpl implements ConfigurationService {
     @Override
     public String read(final Context context, final String site, final String urn) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void write(final Context context, final String site, final String urn, final String configuration) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 }

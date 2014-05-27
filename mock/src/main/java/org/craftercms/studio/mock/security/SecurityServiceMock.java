@@ -28,7 +28,7 @@ import org.craftercms.studio.commons.dto.SecurityRole;
 import org.craftercms.studio.commons.dto.User;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.mock.exception.ErrorCode;
+import org.craftercms.studio.mock.exception.MockErrorCode;
 
 /**
  * Security Manager mock implementation.
@@ -40,76 +40,76 @@ public class SecurityServiceMock implements SecurityService {
 
     @Override
     public Context login(final URL repositoryUrl, final String username, final String password) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void logout(final Context context) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public boolean validate(final Context context) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public List<User> getUsers(final Context context, final String site) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public String updateUser(final Context context, final User user, final String password, final String role) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void removeUser(final Context context, final String user) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public List<SecurityPermission> getPermissions(final Context context, final String site, final String itemId) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void updatePermissions(final Context context, final String site, final String itemId, final User user, final List<SecurityPermission> permissions, final boolean inherit) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void updatePermissions(final Context context, final String site, final String itemId, final SecurityGroup group, final List<SecurityPermission> permissions, final boolean inherit) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public List<SecurityGroup> getGroups(final Context context, final String site) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void updateGroup(final Context context, final String site, final String groupName) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void removeGroup(final Context context, final String site, final String groupName) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public List<SecurityRole> getRoles(final Context context, final String site) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void updateRole(final Context context, final String site, final String roleName) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void removeRole(final Context context, final String site, final String roleName) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 }

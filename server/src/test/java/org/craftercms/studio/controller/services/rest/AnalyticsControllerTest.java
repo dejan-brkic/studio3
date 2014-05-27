@@ -7,7 +7,7 @@ import org.craftercms.studio.api.analytics.AnalyticsService;
 import org.craftercms.studio.commons.dto.AnalyticsReport;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.ErrorManager;
-import org.craftercms.studio.exceptions.ErrorCode;
+import org.craftercms.studio.exceptions.StudioServerErrorCode;
 import org.junit.After;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -80,7 +80,7 @@ public class AnalyticsControllerTest extends AbstractControllerTest {
     public void testSiteNotFound() throws Exception {
         when(this.analyticsServiceMock.generateReport((Context)Mockito.any(), Mockito.anyString(),
                 Mockito.anyString(), Mockito.anyMapOf(String.class, Object.class)))
-                .thenThrow(ErrorManager.createError(ErrorCode.INVALID_SITE));
+                .thenThrow(ErrorManager.createError(StudioServerErrorCode.INVALID_SITE));
 
         this.mockMvc.perform(
                 get("/api/1/analytics/report/testSite?report=testReport") //Url
@@ -96,7 +96,7 @@ public class AnalyticsControllerTest extends AbstractControllerTest {
     public void testReportNameNotFound() throws Exception {
         when(this.analyticsServiceMock.generateReport(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString(), Mockito.anyMapOf(String.class, Object.class)))
-                .thenThrow(ErrorManager.createError(ErrorCode.ITEM_NOT_FOUND));
+                .thenThrow(ErrorManager.createError(StudioServerErrorCode.ITEM_NOT_FOUND));
 
         this.mockMvc.perform(
                 get("/api/1/analytics/report/testSite?report=testReport") //Url

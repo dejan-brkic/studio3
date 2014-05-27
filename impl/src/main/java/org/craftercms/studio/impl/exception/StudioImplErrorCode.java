@@ -15,12 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.mock.exception;
+package org.craftercms.studio.impl.exception;
+
+import org.craftercms.studio.commons.exception.ErrorCode;
 
 /**
  * @author Dejan Brkic
  */
-public class ErrorCode extends org.craftercms.studio.commons.exception.ErrorCode {
+public class StudioImplErrorCode extends ErrorCode {
 
-    public static final String MODULE_ID = "studio-mock" ;
+    public static final String MODULE_ID = "studio-impl";
+
+
+
 }

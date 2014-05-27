@@ -24,7 +24,7 @@ import org.craftercms.studio.commons.dto.Activity;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.exception.ErrorCode;
+import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 
 
 /**
@@ -37,11 +37,11 @@ public class AuditServiceImpl implements AuditService {
 
     @Override
     public List<Activity> getActivities(final Context context, final String site, final List<String> filters) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public Activity logActivity(final Context context, final String site, final Activity activity) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 }

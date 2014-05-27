@@ -7,7 +7,7 @@ import org.craftercms.studio.api.audit.AuditService;
 import org.craftercms.studio.commons.dto.Activity;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.exceptions.ErrorCode;
+import org.craftercms.studio.exceptions.StudioServerErrorCode;
 import org.craftercms.studio.exceptions.ValidationException;
 import org.craftercms.studio.validation.AuditValidator;
 import org.slf4j.Logger;
@@ -71,7 +71,7 @@ public class AuditController {
     {
         if ( result.hasErrors() ) {
             this.log.error("Unable to save a activity since is not valid");
-            throw ErrorManager.createError(ErrorCode.VALIDATION_ERROR);
+            throw ErrorManager.createError(StudioServerErrorCode.VALIDATION_ERROR);
         } else {
             this.log.debug("Calling AuditService#logActivity with {}", activity);
             return this.auditService.logActivity(null, site, activity);

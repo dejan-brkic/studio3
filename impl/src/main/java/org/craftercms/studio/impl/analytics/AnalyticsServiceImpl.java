@@ -7,7 +7,7 @@ import org.craftercms.studio.commons.dto.AnalyticsReport;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.exception.ErrorCode;
+import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 
 /**
  * {@link AnalyticsService} default implementation.
@@ -23,13 +23,13 @@ public class AnalyticsServiceImpl implements AnalyticsService {
     public AnalyticsReport report(final Context context, final String site,
                                   final String report, final Map<String, Object> params) throws StudioException
     {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public AnalyticsReport generateReport(final Context context, final String site, final String reportId, final
     Map<String, Object> params) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 }
 

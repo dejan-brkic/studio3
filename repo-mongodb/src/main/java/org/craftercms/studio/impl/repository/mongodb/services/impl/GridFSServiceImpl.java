@@ -28,7 +28,7 @@ import org.bson.types.ObjectId;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.data.JongoCollectionFactory;
-import org.craftercms.studio.impl.repository.mongodb.exception.ErrorCode;
+import org.craftercms.studio.impl.repository.mongodb.exception.MongodbRepoErrorCode;
 import org.craftercms.studio.impl.repository.mongodb.services.GridFSService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +71,7 @@ public class GridFSServiceImpl implements GridFSService {
             return file.getId().toString();
         } catch (MongoException ex) {
             log.error("Unable to save \"" + fileName + "\"file in GridFs due a error", ex);
-            throw ErrorManager.createError(ErrorCode.ERROR_GRIDFS_SAVE_FAILED);
+            throw ErrorManager.createError(MongodbRepoErrorCode.ERROR_GRIDFS_SAVE_FAILED);
         }
     }
 
@@ -108,7 +108,7 @@ public class GridFSServiceImpl implements GridFSService {
         } catch (MongoException ex) {
             log.error("Unable to get File with id {} due a MongoException {} ", fileId, ex.getMessage());
             log.error("DataAccessException is ", ex);
-            throw ErrorManager.createError(ErrorCode.ERROR_GRIDFS_READ_FAILED, ex);
+            throw ErrorManager.createError(MongodbRepoErrorCode.ERROR_GRIDFS_READ_FAILED, ex);
         }
     }
 

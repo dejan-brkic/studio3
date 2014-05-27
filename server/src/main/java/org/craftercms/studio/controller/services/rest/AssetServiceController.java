@@ -39,7 +39,7 @@ import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.documentation.configuration.DocumentationServiceOrder;
-import org.craftercms.studio.exceptions.ErrorCode;
+import org.craftercms.studio.exceptions.StudioServerErrorCode;
 import org.craftercms.studio.utils.RestControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -116,7 +116,7 @@ public class AssetServiceController {
         try {
             contentStream = file.getInputStream();
         } catch (IOException e) {
-            throw ErrorManager.createError(ErrorCode.SYSTEM_ERROR);
+            throw ErrorManager.createError(StudioServerErrorCode.SYSTEM_ERROR);
         }
         Context context = RestControllerUtils.createMockContext();
         return assetService.create(context, site, parentId, fileName, contentStream, mimeType, properties);
@@ -269,7 +269,7 @@ public class AssetServiceController {
         try {
             content = file.getInputStream();
         } catch (IOException e) {
-            throw ErrorManager.createError(ErrorCode.SYSTEM_ERROR);
+            throw ErrorManager.createError(StudioServerErrorCode.SYSTEM_ERROR);
         }
         return assetService.update(context, site, id, content, properties);
     }

@@ -24,7 +24,7 @@ import org.craftercms.studio.api.lifecycle.LifecycleManager;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.mock.exception.ErrorCode;
+import org.craftercms.studio.mock.exception.MockErrorCode;
 
 /**
  * Lifecycle Manager mock implementation.
@@ -35,6 +35,6 @@ public class LifecycleManagerMock implements LifecycleManager {
 
     @Override
     public List<Action> getPossibleActions(final Context context, final String site, final List<String> itemIds) throws StudioException {
-        throw ErrorManager.createError(ErrorCode.NOT_IMPLEMENTED);
+        throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 }
