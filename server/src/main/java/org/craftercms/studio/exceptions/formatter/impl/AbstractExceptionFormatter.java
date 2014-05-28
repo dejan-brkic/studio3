@@ -66,7 +66,7 @@ public abstract class AbstractExceptionFormatter implements ExceptionFormatter {
     private FormatterRegistry formatterRegistry;
     private Logger log = LoggerFactory.getLogger(AbstractExceptionFormatter.class);
 
-    protected AbstractExceptionFormatter(Class<? extends Exception> exceptionClass) {
+    protected AbstractExceptionFormatter(final Class<? extends Exception> exceptionClass) {
         this.exceptionClass = exceptionClass;
     }
 
@@ -78,7 +78,7 @@ public abstract class AbstractExceptionFormatter implements ExceptionFormatter {
      *         or <B>null</B> if the JSON could no be generate due a error.
      */
     @Override
-    public String getFormattedMessage(Exception exception) {
+    public String getFormattedMessage(final Exception exception) {
         // Checks that all is ok
         validateDefaultMessageParams(exception);
         String returnMsg = null;
@@ -122,7 +122,7 @@ public abstract class AbstractExceptionFormatter implements ExceptionFormatter {
      *
      * @throws IllegalStateException if either defaultMessage or httpResponseCode are not valid.
      */
-    private void validateDefaultMessageParams(Exception ex) {
+    private void validateDefaultMessageParams(final Exception ex) {
         if (StringUtils.isEmpty(ex.getMessage())) {
             throw new IllegalStateException("Default message can't be null or empty");
         }
@@ -157,11 +157,11 @@ public abstract class AbstractExceptionFormatter implements ExceptionFormatter {
         return this.httpResponseCode;
     }
 
-    protected void setHttpResponseCode(int httpResponseCode) {
+    protected void setHttpResponseCode(final int httpResponseCode) {
         this.httpResponseCode = httpResponseCode;
     }
 
-    public void setFormatterRegistry(FormatterRegistryImpl formatterRegistry) {
+    public void setFormatterRegistry(final FormatterRegistryImpl formatterRegistry) {
         this.formatterRegistry = formatterRegistry;
     }
 }
