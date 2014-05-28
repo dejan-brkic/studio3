@@ -45,7 +45,7 @@ public class Activity {
         return this.siteId;
     }
 
-    public void setSiteId(String siteId) {
+    public void setSiteId(final String siteId) {
         this.siteId = siteId;
     }
 
@@ -53,7 +53,7 @@ public class Activity {
         return this.siteName;
     }
 
-    public void setSiteName(String siteName) {
+    public void setSiteName(final String siteName) {
         this.siteName = siteName;
     }
 
@@ -61,7 +61,7 @@ public class Activity {
         return this.target;
     }
 
-    public void setTarget(String target) {
+    public void setTarget(final String target) {
         this.target = target;
     }
 
@@ -69,7 +69,7 @@ public class Activity {
         return this.targetProperties;
     }
 
-    public void setTargetProperties(Map<String, String> targetProperties) {
+    public void setTargetProperties(final Map<String, String> targetProperties) {
         this.targetProperties = targetProperties;
     }
 
@@ -77,7 +77,7 @@ public class Activity {
         return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -85,7 +85,7 @@ public class Activity {
         return this.date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(final Date date) {
         this.date = date;
     }
 
@@ -93,7 +93,7 @@ public class Activity {
         return this.creator;
     }
 
-    public void setCreator(String creator) {
+    public void setCreator(final String creator) {
         this.creator = creator;
     }
 
