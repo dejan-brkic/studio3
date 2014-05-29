@@ -17,14 +17,9 @@
 
 package org.craftercms.studio.mock.audit;
 
-import java.util.HashMap;
-import java.util.Map;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 import org.craftercms.studio.commons.dto.Activity;
 

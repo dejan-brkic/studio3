@@ -69,12 +69,9 @@ public class WorkflowControllerTest extends AbstractControllerTest {
         when(this.workflowManagerMock.start(Mockito.anyString(), Mockito.anyListOf(String.class),
             Mockito.anyListOf(Item.class))).thenReturn(UUID.randomUUID().toString());
 
-        this.mockMvc.perform(
-            post("/api/1/workflow/start/sample")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(generateRequestBody(generateStartWorkflowRequest()).getBytes())
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/1/workflow/start/sample").contentType(MediaType.APPLICATION_JSON).content
+            (generateRequestBody(generateStartWorkflowRequest()).getBytes()).accept(MediaType.ALL)).andExpect(status
+            ().isOk());
 
         verify(this.workflowManagerMock, times(1)).start(Mockito.anyString(), Mockito.anyListOf(String.class),
             Mockito.anyListOf(Item.class));
@@ -86,10 +83,8 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     public void testPackage() throws Exception {
         when(this.workflowManagerMock.getPackage(Mockito.anyString())).thenReturn(generateItemListMock());
 
-        this.mockMvc.perform(
-            get("/api/1/workflow/package/sample?packageId=1")
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(get("/api/1/workflow/package/sample?packageId=1").accept(MediaType.ALL)).andExpect
+            (status().isOk());
 
         verify(this.workflowManagerMock, times(1)).getPackage(Mockito.anyString());
     }
@@ -98,23 +93,19 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     public void testPackageMissingPackageId() throws Exception {
         when(this.workflowManagerMock.getPackage(Mockito.anyString())).thenReturn(generateItemListMock());
 
-        this.mockMvc.perform(
-            get("/api/1/workflow/package/sample")
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(get("/api/1/workflow/package/sample").accept(MediaType.ALL)).andExpect(status()
+            .isBadRequest());
 
         verify(this.workflowManagerMock, times(0)).getPackage(Mockito.anyString());
     }
 
     @Test
     public void testPackages() throws Exception {
-        when(this.workflowManagerMock.getPackages(Mockito.anyString(), Mockito.anyListOf(WorkflowPackageFilter.class)))
-            .thenReturn(generateListOfPackages());
+        when(this.workflowManagerMock.getPackages(Mockito.anyString(), Mockito.anyListOf(WorkflowPackageFilter.class)
+        )).thenReturn(generateListOfPackages());
 
-        this.mockMvc.perform(
-            get("/api/1/workflow/packages/sample")
-                .param("filters", RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10))
-                .accept(MediaType.ALL))
+        this.mockMvc.perform(get("/api/1/workflow/packages/sample").param("filters",
+            RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10)).accept(MediaType.ALL))
             .andExpect(status().isOk());
 
         verify(this.workflowManagerMock, times(1)).getPackages(Mockito.anyString(),
@@ -125,10 +116,8 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     public void testTransitions() throws Exception {
         when(this.workflowManagerMock.getTransitions(Mockito.anyString())).thenReturn(generateListOfTransitions());
 
-        this.mockMvc.perform(
-            get("/api/1/workflow/transitions/sample?packageId=1")
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(get("/api/1/workflow/transitions/sample?packageId=1").accept(MediaType.ALL)).andExpect
+            (status().isOk());
 
         verify(this.workflowManagerMock, times(1)).getTransitions(Mockito.anyString());
     }
@@ -137,10 +126,8 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     public void testTransitionsMissingPackageId() throws Exception {
         when(this.workflowManagerMock.getTransitions(Mockito.anyString())).thenReturn(generateListOfTransitions());
 
-        this.mockMvc.perform(
-            get("/api/1/workflow/transitions/sample")
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(get("/api/1/workflow/transitions/sample").accept(MediaType.ALL)).andExpect(status()
+            .isBadRequest());
 
         verify(this.workflowManagerMock, times(0)).getTransitions(Mockito.anyString());
     }
@@ -158,14 +145,9 @@ public class WorkflowControllerTest extends AbstractControllerTest {
             Mockito.anyMapOf(String.class, Object.class));
 
 
-
-        this.mockMvc.perform(
-            post("/api/1/workflow/transition/sample")
-                .content(generateRequestBody(generateTransitionRequestMock()).getBytes())
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.ALL)
-                )
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/1/workflow/transition/sample").content(generateRequestBody
+            (generateTransitionRequestMock()).getBytes()).contentType(MediaType.APPLICATION_JSON).accept(MediaType
+            .ALL)).andExpect(status().isOk());
 
         verify(this.workflowManagerMock, times(1)).transition(Mockito.anyString(),
             Mockito.any(WorkflowTransition.class), Mockito.anyMapOf(String.class, Object.class));
@@ -182,11 +164,8 @@ public class WorkflowControllerTest extends AbstractControllerTest {
             }
         }).when(this.workflowManagerMock).cancel(Mockito.anyString());
 
-        this.mockMvc.perform(
-            post("/api/1/workflow/cancel/sample")
-                .param("packageId", "1")
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/1/workflow/cancel/sample").param("packageId",
+            "1").accept(MediaType.ALL)).andExpect(status().isOk());
 
         verify(this.workflowManagerMock, times(1)).cancel(Mockito.anyString());
     }
@@ -202,10 +181,8 @@ public class WorkflowControllerTest extends AbstractControllerTest {
             }
         }).when(this.workflowManagerMock).cancel(Mockito.anyString());
 
-        this.mockMvc.perform(
-            post("/api/1/workflow/cancel/sample")
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/workflow/cancel/sample").accept(MediaType.ALL)).andExpect(status()
+            .isBadRequest());
 
         verify(this.workflowManagerMock, times(0)).cancel(Mockito.anyString());
     }

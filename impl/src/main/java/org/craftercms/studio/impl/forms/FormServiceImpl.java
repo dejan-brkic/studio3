@@ -35,17 +35,20 @@ import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 public class FormServiceImpl implements FormService {
 
     @Override
-    public Form create(final Context context, final String site, final String formName, final String formXml, final Map<String, String> properties) throws StudioException {
+    public Form create(final Context context, final String site, final String formName, final String formXml,
+                       final Map<String, String> properties) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public Form duplicate(final Context context, final String site, final String formId, final String formName) throws StudioException {
+    public Form duplicate(final Context context, final String site, final String formId,
+                          final String formName) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public Form duplicate(final Context context, final String site, final String formId, final String destinationSite, final String formName) throws StudioException {
+    public Form duplicate(final Context context, final String site, final String formId,
+                          final String destinationSite, final String formName) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -70,7 +73,8 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public List<Form> list(final Context context, final String site, final List<String> filters) throws StudioException {
+    public List<Form> list(final Context context, final String site, final List<String> filters) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -85,7 +89,8 @@ public class FormServiceImpl implements FormService {
     }
 
     @Override
-    public void copy(final Context context, final String site, final String source, final String destination) throws StudioException {
+    public void copy(final Context context, final String site, final String source,
+                     final String destination) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 }

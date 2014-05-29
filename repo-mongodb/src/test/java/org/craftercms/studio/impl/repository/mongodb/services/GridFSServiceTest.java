@@ -19,11 +19,6 @@ package org.craftercms.studio.impl.repository.mongodb.services;
 
 import java.io.InputStream;
 
-import com.mongodb.DB;
-import com.mongodb.gridfs.GridFS;
-import com.mongodb.gridfs.GridFSDBFile;
-import com.mongodb.gridfs.GridFSFile;
-import com.mongodb.gridfs.GridFSInputFile;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.data.JongoCollectionFactory;
 import org.craftercms.studio.impl.repository.mongodb.services.impl.GridFSServiceImpl;
@@ -32,6 +27,9 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
+import com.mongodb.DB;
+import com.mongodb.gridfs.GridFS;
+import com.mongodb.gridfs.GridFSInputFile;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -59,7 +57,7 @@ public class GridFSServiceTest {
         gridFSService = new GridFSServiceImpl();
         jongoCollectionFactory = mock(JongoCollectionFactory.class);
         when(jongoCollectionFactory.getDatabase()).thenReturn(mock(DB.class));
-  //     gridFSService.setJongoCollectionFactory(jongoCollectionFactory);
+        //     gridFSService.setJongoCollectionFactory(jongoCollectionFactory);
         gridFS = mock(GridFS.class);
     }
 
@@ -87,8 +85,8 @@ public class GridFSServiceTest {
     @Ignore
     public void testSaveFailDataAccess() throws Exception {
 
-        when(gridFS.createFile((InputStream)Mockito.any(),Mockito.anyString(),
-            Mockito.anyBoolean())).thenThrow(StudioException
+        when(gridFS.createFile((InputStream)Mockito.any(), Mockito.anyString(), Mockito.anyBoolean())).thenThrow
+            (StudioException
             .class);
         InputStream inputStream = this.getClass().getResourceAsStream("/files/index.xml");
         Assert.assertNotNull("Test Input Stream is null", inputStream); //make sure we read the file.
@@ -99,8 +97,8 @@ public class GridFSServiceTest {
     @Ignore
     public void testSave() throws Exception {
         TestGridFsFile mockSavedFile = new TestGridFsFile(null);
-        when(gridFS.createFile((InputStream)Mockito.any(),Mockito.anyString(),
-            Mockito.anyBoolean())).thenReturn(mockSavedFile);
+        when(gridFS.createFile((InputStream)Mockito.any(), Mockito.anyString(), Mockito.anyBoolean())).thenReturn
+            (mockSavedFile);
         InputStream inputStream = this.getClass().getResourceAsStream("/files/index.xml");
         Assert.assertNotNull("Test Input Stream is null", inputStream); //make sure we read the file.
         String savedFile = gridFSService.createFile(FILE_NAME, inputStream);

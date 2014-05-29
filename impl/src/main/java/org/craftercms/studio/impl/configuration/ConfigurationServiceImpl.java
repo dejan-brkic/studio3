@@ -35,7 +35,8 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     }
 
     @Override
-    public void write(final Context context, final String site, final String urn, final String configuration) throws StudioException {
+    public void write(final Context context, final String site, final String urn, final String configuration) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 }

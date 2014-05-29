@@ -22,20 +22,20 @@ import java.util.List;
 import javax.activation.MimetypesFileTypeMap;
 
 import org.apache.commons.lang3.StringUtils;
-import org.craftercms.studio.commons.exception.ErrorManager;
-import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
-import org.craftercms.studio.impl.repository.mongodb.exception.MongodbRepoErrorCode;
-import org.craftercms.studio.repo.content.ContentService;
-import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.dto.TreeNode;
+import org.craftercms.studio.commons.exception.ErrorManager;
+import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.commons.filter.Filter;
+import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
 import org.craftercms.studio.impl.repository.mongodb.domain.CoreMetadata;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
+import org.craftercms.studio.impl.repository.mongodb.exception.MongodbRepoErrorCode;
 import org.craftercms.studio.impl.repository.mongodb.services.NodeService;
+import org.craftercms.studio.repo.content.ContentService;
+import org.craftercms.studio.repo.content.PathService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -105,8 +105,9 @@ public class ContentServiceImpl implements ContentService {
      * @param path   Path to check or create
      * @param mkdirs if True creates directories, if false throws a Error.
      * @return the Node of the given path.
-     * @throws org.craftercms.studio.commons.exception.StudioException           If a Error happens while r/w
-     * @throws java.lang.IllegalArgumentException if a portion of the path does not exist and mkdirs is set to false.
+     * @throws org.craftercms.studio.commons.exception.StudioException If a Error happens while r/w
+     * @throws java.lang.IllegalArgumentException                      if a portion of the path does not exist and
+     *                                                                 mkdirs is set to false.
      */
     private Node checkParentPath(final String ticket, final String site, final String path, final boolean mkdirs,
                                  final String creator) throws StudioException {
@@ -156,7 +157,8 @@ public class ContentServiceImpl implements ContentService {
         }
     }
 
-    private Item nodeToItem(final Node newNode, String ticket, String site, final InputStream inputStream) throws StudioException {
+    private Item nodeToItem(final Node newNode, final String ticket, final String site,
+                            final InputStream inputStream) throws StudioException {
         CoreMetadata core = newNode.getCore();
         Item item = new Item();
         item.setPath(pathService.getPathByItemId(ticket, site, newNode.getId()));
@@ -285,7 +287,7 @@ public class ContentServiceImpl implements ContentService {
                 TreeNode<Item> leaf = new TreeNode<>();
                 leaf.setValue(nodeToItem(child, ticket, site, null));
                 if (depth == -1 || depth > 0) {
-                    buildChildrenTree(leaf, (depth - 1), child, ticket, site);
+                    buildChildrenTree(leaf, depth - 1, child, ticket, site);
                 }
                 root.addChild(leaf);
             }
@@ -310,7 +312,8 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Item createFolder(final String ticket, final String site, final String path, final String folderName) throws StudioException {
+    public Item createFolder(final String ticket, final String site, final String path,
+                             final String folderName) throws StudioException {
         String parentId = pathService.getItemIdByPath(ticket, site, path);
         Node parent = nodeService.getNode(parentId);
         Node folderNode = nodeService.createFolderNode(parent, folderName, folderName,
@@ -326,7 +329,7 @@ public class ContentServiceImpl implements ContentService {
     //        this.properties = propertyResolver;
     //    }
 
-    public void setPathServices(PathService pathServices) {
+    public void setPathServices(final PathService pathServices) {
         this.pathService = pathServices;
     }
 

@@ -76,11 +76,11 @@ public class FormatterRegistryImplTest {
     public void testThatResultOfFormattedMessageIsSame() {
         manager.registerFormatter(IllegalArgumentException.class, new TestFormatter());
         final IllegalArgumentException testException = new IllegalArgumentException(ERROR);
-        assertEquals(manager.getFormattedMessage(testException)
-                ,manager.getFormatter(IllegalArgumentException.class).getFormattedMessage(testException));
+        assertEquals(manager.getFormattedMessage(testException), manager.getFormatter(IllegalArgumentException.class)
+            .getFormattedMessage(testException));
     }
 
-//=========================== Support Test classes ====================================
+    //=========================== Support Test classes ====================================
 
     /**
      * Internal Class to test on Runtime Register of Exceptions.
@@ -98,10 +98,7 @@ public class FormatterRegistryImplTest {
         }
     }
 
-    class DummyException extends Exception{
-
-
-
+    class DummyException extends Exception {
 
 
     }

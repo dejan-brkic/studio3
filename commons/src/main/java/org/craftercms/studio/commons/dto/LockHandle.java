@@ -42,20 +42,20 @@ public class LockHandle {
         return itemId;
     }
 
-    public String getUname() {
-        return uname;
-    }
-
-    public long getLockDate() {
-        return lockDate;
-    }
-
     public void setItemId(final String itemId) {
         this.itemId = itemId;
     }
 
+    public String getUname() {
+        return uname;
+    }
+
     public void setUname(final String uname) {
         this.uname = uname;
+    }
+
+    public long getLockDate() {
+        return lockDate;
     }
 
     public void setLockDate(final long lockDate) {

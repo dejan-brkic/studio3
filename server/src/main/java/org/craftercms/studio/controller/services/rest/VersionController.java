@@ -16,6 +16,9 @@
  */
 package org.craftercms.studio.controller.services.rest;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.craftercms.studio.api.content.VersionService;
 import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.dto.Version;
@@ -27,9 +30,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * TODO: javadoc.
@@ -43,29 +43,31 @@ public class VersionController {
 
     /**
      * TODO: javadoc.
-     * @param site site.
-     * @param itemId itemId.
-     * @param request request.
+     *
+     * @param site     site.
+     * @param itemId   itemId.
+     * @param request  request.
      * @param response response.
      */
     @RequestMapping(value = "/history/{site}", method = RequestMethod.GET)
     @ResponseBody
     public Tree<Version> getVersionHistory(@PathVariable final String site, @RequestParam(required = true) final
-            String itemId, final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
+    String itemId, final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
         return this.versionService.history(null, itemId);
     }
 
     /**
      * TODO: javadoc.
-     * @param site site.
-     * @param itemId itemId.
+     *
+     * @param site              site.
+     * @param itemId            itemId.
      * @param versionToRevertTo version to revert to.
-     * @param request request.
-     * @param response response.
+     * @param request           request.
+     * @param response          response.
      */
     @RequestMapping(value = "/revert/{site}", method = RequestMethod.POST)
     public void revert(@PathVariable final String site, @RequestParam(required = true) final String itemId,
-        @RequestParam(required = true) final String versionToRevertTo,
+                       @RequestParam(required = true) final String versionToRevertTo,
                        final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
         this.versionService.revert(null, itemId, versionToRevertTo);
     }

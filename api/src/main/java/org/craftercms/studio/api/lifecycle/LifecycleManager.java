@@ -30,8 +30,9 @@ public interface LifecycleManager {
 
     /**
      * List of actions allowed against items.
+     *
      * @param context context
-     * @param site site
+     * @param site    site
      * @param itemIds list of item ids
      * @return list of actions
      */

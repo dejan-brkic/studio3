@@ -18,8 +18,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 
 @Documented
-@Constraint(validatedBy = { })
-@Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
+@Constraint(validatedBy = {})
+@Target({METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER})
 @Retention(RUNTIME)
 @ReportAsSingleViolation
 @NotNull
@@ -28,7 +28,7 @@ public @interface StringNotEmpty {
 
     String message() default "{org.craftercms.studio.commons.validation.StringNotEmpty.message}";
 
-    Class<?>[] groups() default { };
+    Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default { };
+    Class<? extends Payload>[] payload() default {};
 }

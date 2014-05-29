@@ -18,12 +18,13 @@ package org.craftercms.studio.commons.dto;
 
 /**
  * Lock Status.
+ *
  * @author Sumer Jabri
  * @author Dejan Brkic
  * @author Carlos Ortiz
  */
 public class LockStatus {
-//todo turn into an enum
+    //todo turn into an enum
     private String value;
 
     public String getValue() {

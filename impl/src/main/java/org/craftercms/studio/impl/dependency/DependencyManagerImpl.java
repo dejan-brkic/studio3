@@ -34,12 +34,14 @@ import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 public class DependencyManagerImpl implements DependencyManager {
 
     @Override
-    public List<Item> dependsOn(final Context context, final String itemId, final String operation) throws StudioException {
+    public List<Item> dependsOn(final Context context, final String itemId, final String operation) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public List<Item> dependentOn(final Context context, final String itemId, final String operation) throws StudioException {
+    public List<Item> dependentOn(final Context context, final String itemId,
+                                  final String operation) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -49,17 +51,20 @@ public class DependencyManagerImpl implements DependencyManager {
     }
 
     @Override
-    public void add(final Context context, final String itemId, final String operation, final List<Item> items) throws StudioException {
+    public void add(final Context context, final String itemId, final String operation,
+                    final List<Item> items) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public void remove(final Context context, final String itemId, final String operation, final List<Item> items) throws StudioException {
+    public void remove(final Context context, final String itemId, final String operation,
+                       final List<Item> items) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public void update(final Context context, final String itemId, final String operation, final List<Item> items) throws StudioException {
+    public void update(final Context context, final String itemId, final String operation,
+                       final List<Item> items) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 }

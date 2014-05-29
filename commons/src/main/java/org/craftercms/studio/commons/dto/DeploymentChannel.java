@@ -48,7 +48,7 @@ public class DeploymentChannel {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -56,7 +56,7 @@ public class DeploymentChannel {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -64,7 +64,7 @@ public class DeploymentChannel {
         return this.target;
     }
 
-    public void setTarget(String target) {
+    public void setTarget(final String target) {
         this.target = target;
     }
 
@@ -72,7 +72,7 @@ public class DeploymentChannel {
         return this.host;
     }
 
-    public void setHost(String host) {
+    public void setHost(final String host) {
         this.host = host;
     }
 
@@ -80,7 +80,7 @@ public class DeploymentChannel {
         return this.port;
     }
 
-    public void setPort(String port) {
+    public void setPort(final String port) {
         this.port = port;
     }
 
@@ -88,7 +88,7 @@ public class DeploymentChannel {
         return this.publishingUrl;
     }
 
-    public void setPublishingUrl(String publishingUrl) {
+    public void setPublishingUrl(final String publishingUrl) {
         this.publishingUrl = publishingUrl;
     }
 
@@ -96,7 +96,7 @@ public class DeploymentChannel {
         return this.versionUrl;
     }
 
-    public void setVersionUrl(String versionUrl) {
+    public void setVersionUrl(final String versionUrl) {
         this.versionUrl = versionUrl;
     }
 
@@ -104,7 +104,7 @@ public class DeploymentChannel {
         return this.statusUrl;
     }
 
-    public void setStatusUrl(String statusUrl) {
+    public void setStatusUrl(final String statusUrl) {
         this.statusUrl = statusUrl;
     }
 
@@ -112,7 +112,7 @@ public class DeploymentChannel {
         return this.excludePatterns;
     }
 
-    public void setExcludePatterns(List<String> excludePatterns) {
+    public void setExcludePatterns(final List<String> excludePatterns) {
         this.excludePatterns = excludePatterns;
     }
 
@@ -120,7 +120,7 @@ public class DeploymentChannel {
         return this.includePatterns;
     }
 
-    public void setIncludePatterns(List<String> includePatterns) {
+    public void setIncludePatterns(final List<String> includePatterns) {
         this.includePatterns = includePatterns;
     }
 
@@ -128,7 +128,7 @@ public class DeploymentChannel {
         return this.publishMetadata;
     }
 
-    public void setPublishMetadata(boolean publishMetadata) {
+    public void setPublishMetadata(final boolean publishMetadata) {
         this.publishMetadata = publishMetadata;
     }
 
@@ -136,7 +136,7 @@ public class DeploymentChannel {
         return this.disabled;
     }
 
-    public void setDisabled(boolean disabled) {
+    public void setDisabled(final boolean disabled) {
         this.disabled = disabled;
     }
 
@@ -144,7 +144,7 @@ public class DeploymentChannel {
         return this.type;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 }

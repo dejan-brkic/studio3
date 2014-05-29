@@ -28,7 +28,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.craftercms.studio.api.configuration.ConfigurationService;
 import org.craftercms.studio.commons.dto.Configuration;
@@ -44,6 +43,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Configuration controller.
@@ -75,7 +75,7 @@ public class ConfigurationController {
 
     @RequestMapping(value = "/content/{site}", method = RequestMethod.GET)
     public void content(@PathVariable final String site, @RequestParam(required = true) final String object,
-                        final HttpServletRequest request, HttpServletResponse response) throws StudioException {
+                        final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
         throw ErrorManager.createError(StudioServerErrorCode.NOT_IMPLEMENTED);
 
     }
@@ -89,12 +89,12 @@ public class ConfigurationController {
         throw ErrorManager.createError(StudioServerErrorCode.NOT_IMPLEMENTED);
     }
 
-    @RequestMapping(value = "/list/{config}",method = RequestMethod.GET)
+    @RequestMapping(value = "/list/{config}", method = RequestMethod.GET)
     @ResponseBody
-    public Map<String, Object> uiConfiguration(@PathVariable(value = "config") final String config)
-        throws StudioException {
+    public Map<String, Object> uiConfiguration(@PathVariable(value = "config") final String config) throws
+        StudioException {
         ObjectMapper mapper = new ObjectMapper();
-        URL url = getClass().getResource("/extension/studio3/"+config+".json");
+        URL url = getClass().getResource("/extension/studio3/" + config + ".json");
         Map map;
         if (url == null) {
             throw ErrorManager.createError(StudioServerErrorCode.IO_ERROR);

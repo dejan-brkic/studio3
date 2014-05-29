@@ -24,6 +24,7 @@ import java.util.UUID;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import org.craftercms.studio.api.security.SecurityService;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.SecurityPermission;
 import org.craftercms.studio.commons.dto.User;
@@ -36,8 +37,6 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-
-import org.craftercms.studio.api.security.SecurityService;
 
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.reset;
@@ -69,12 +68,8 @@ public class SecurityControllerTest extends AbstractControllerTest {
         when(this.securityServiceMock.login(Mockito.any(URL.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(null);
 
-        mockMvc.perform(
-            post("/api/1/security/login")
-                .param("username", RandomStringUtils.randomAlphabetic(10))
-                .param("password", RandomStringUtils.randomAlphanumeric(10))
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        mockMvc.perform(post("/api/1/security/login").param("username", RandomStringUtils.randomAlphabetic(10)).param
+            ("password", RandomStringUtils.randomAlphanumeric(10)).accept(MediaType.ALL)).andExpect(status().isOk());
 
         verify(this.securityServiceMock, times(1)).login(Mockito.any(URL.class), Mockito.anyString(),
             Mockito.anyString());
@@ -85,11 +80,8 @@ public class SecurityControllerTest extends AbstractControllerTest {
         when(this.securityServiceMock.login(Mockito.any(URL.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(null);
 
-        mockMvc.perform(
-            post("/api/1/security/login")
-                .param("password", RandomStringUtils.randomAlphanumeric(10))
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        mockMvc.perform(post("/api/1/security/login").param("password", RandomStringUtils.randomAlphanumeric(10))
+            .accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.securityServiceMock, times(0)).login(Mockito.any(URL.class), Mockito.anyString(),
             Mockito.anyString());
@@ -100,11 +92,8 @@ public class SecurityControllerTest extends AbstractControllerTest {
         when(this.securityServiceMock.login(Mockito.any(URL.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(null);
 
-        mockMvc.perform(
-            post("/api/1/security/login")
-                .param("username", RandomStringUtils.randomAlphabetic(10))
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        mockMvc.perform(post("/api/1/security/login").param("username", RandomStringUtils.randomAlphabetic(10))
+            .accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.securityServiceMock, times(0)).login(Mockito.any(URL.class), Mockito.anyString(),
             Mockito.anyString());
@@ -115,12 +104,8 @@ public class SecurityControllerTest extends AbstractControllerTest {
         when(this.securityServiceMock.login(Mockito.any(URL.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(null);
 
-        mockMvc.perform(
-            post("/api/1/security/login")
-                .param("username", StringUtils.EMPTY)
-                .param("password", RandomStringUtils.randomAlphanumeric(10))
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        mockMvc.perform(post("/api/1/security/login").param("username", StringUtils.EMPTY).param("password",
+            RandomStringUtils.randomAlphanumeric(10)).accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.securityServiceMock, times(0)).login(Mockito.any(URL.class), Mockito.anyString(),
             Mockito.anyString());
@@ -131,12 +116,8 @@ public class SecurityControllerTest extends AbstractControllerTest {
         when(this.securityServiceMock.login(Mockito.any(URL.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(null);
 
-        mockMvc.perform(
-            post("/api/1/security/login")
-                .param("username", RandomStringUtils.randomAlphanumeric(10))
-                .param("password", StringUtils.EMPTY)
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        mockMvc.perform(post("/api/1/security/login").param("username", RandomStringUtils.randomAlphanumeric(10))
+            .param("password", StringUtils.EMPTY).accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.securityServiceMock, times(0)).login(Mockito.any(URL.class), Mockito.anyString(),
             Mockito.anyString());
@@ -191,10 +172,7 @@ public class SecurityControllerTest extends AbstractControllerTest {
             }
         }).when(this.securityServiceMock).logout(Mockito.any(Context.class));
 
-        mockMvc.perform(
-            get("/api/1/security/logout")
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        mockMvc.perform(get("/api/1/security/logout").accept(MediaType.ALL)).andExpect(status().isOk());
 
         verify(this.securityServiceMock, times(1)).logout(Mockito.any(Context.class));
     }
@@ -203,10 +181,7 @@ public class SecurityControllerTest extends AbstractControllerTest {
     public void testValidate() throws Exception {
         when(this.securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
-        mockMvc.perform(
-            get("/api/1/security/validate")
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        mockMvc.perform(get("/api/1/security/validate").accept(MediaType.ALL)).andExpect(status().isOk());
 
         verify(this.securityServiceMock, times(1)).validate(Mockito.any(Context.class));
     }
@@ -215,10 +190,7 @@ public class SecurityControllerTest extends AbstractControllerTest {
     public void testValidateValidationFailed() throws Exception {
         when(this.securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(false);
 
-        mockMvc.perform(
-            get("/api/1/security/validate")
-                .accept(MediaType.ALL))
-            .andExpect(status().isUnauthorized());
+        mockMvc.perform(get("/api/1/security/validate").accept(MediaType.ALL)).andExpect(status().isUnauthorized());
 
         verify(this.securityServiceMock, times(1)).validate(Mockito.any(Context.class));
     }
@@ -228,11 +200,8 @@ public class SecurityControllerTest extends AbstractControllerTest {
         when(this.securityServiceMock.getUsers(Mockito.any(Context.class), Mockito.anyString())).thenReturn
             (generateListOfUsersMock());
 
-        mockMvc.perform(
-            get("/api/1/security/users")
-                .param("site", RandomStringUtils.randomAlphabetic(10))
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        mockMvc.perform(get("/api/1/security/users").param("site", RandomStringUtils.randomAlphabetic(10)).accept
+            (MediaType.ALL)).andExpect(status().isOk());
 
         verify(this.securityServiceMock, times(1)).getUsers(Mockito.any(Context.class), Mockito.anyString());
     }
@@ -250,12 +219,8 @@ public class SecurityControllerTest extends AbstractControllerTest {
         when(this.securityServiceMock.updateUser(Mockito.any(Context.class), Mockito.any(User.class),
             Mockito.anyString(), Mockito.anyString())).thenReturn(UUID.randomUUID().toString());
 
-        mockMvc.perform(
-            post("/api/1/security/update_user")
-                .content(generateRequestBody(generateUpdateUserRequest()).getBytes())
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        mockMvc.perform(post("/api/1/security/update_user").content(generateRequestBody(generateUpdateUserRequest())
+            .getBytes()).contentType(MediaType.APPLICATION_JSON).accept(MediaType.ALL)).andExpect(status().isOk());
 
         verify(this.securityServiceMock, times(1)).updateUser(Mockito.any(Context.class), Mockito.any(User.class),
             Mockito.anyString(), Mockito.anyString());
@@ -283,11 +248,8 @@ public class SecurityControllerTest extends AbstractControllerTest {
             }
         }).when(this.securityServiceMock).removeUser(Mockito.any(Context.class), Mockito.anyString());
 
-        mockMvc.perform(
-            post("/api/1/security/remove_user")
-                .param("user", RandomStringUtils.randomAlphabetic(10))
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        mockMvc.perform(post("/api/1/security/remove_user").param("user", RandomStringUtils.randomAlphabetic(10))
+            .accept(MediaType.ALL)).andExpect(status().isOk());
 
         verify(this.securityServiceMock, times(1)).removeUser(Mockito.any(Context.class), Mockito.anyString());
     }
@@ -303,10 +265,7 @@ public class SecurityControllerTest extends AbstractControllerTest {
             }
         }).when(this.securityServiceMock).removeUser(Mockito.any(Context.class), Mockito.anyString());
 
-        mockMvc.perform(
-            post("/api/1/security/remove_user")
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        mockMvc.perform(post("/api/1/security/remove_user").accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.securityServiceMock, times(0)).removeUser(Mockito.any(Context.class), Mockito.anyString());
     }
@@ -316,12 +275,8 @@ public class SecurityControllerTest extends AbstractControllerTest {
         when(this.securityServiceMock.getPermissions(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateListOfPermissionsMock());
 
-        mockMvc.perform(
-            get("/api/1/security/permissions")
-                .param("site", RandomStringUtils.randomAlphabetic(10))
-                .param("itemId", UUID.randomUUID().toString())
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        mockMvc.perform(get("/api/1/security/permissions").param("site", RandomStringUtils.randomAlphabetic(10))
+            .param("itemId", UUID.randomUUID().toString()).accept(MediaType.ALL)).andExpect(status().isOk());
 
         verify(this.securityServiceMock, times(1)).getPermissions(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());
@@ -340,11 +295,8 @@ public class SecurityControllerTest extends AbstractControllerTest {
         when(this.securityServiceMock.getPermissions(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateListOfPermissionsMock());
 
-        mockMvc.perform(
-            get("/api/1/security/permissions")
-                .param("itemId", UUID.randomUUID().toString())
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        mockMvc.perform(get("/api/1/security/permissions").param("itemId", UUID.randomUUID().toString()).accept
+            (MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.securityServiceMock, times(0)).getPermissions(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());
@@ -355,11 +307,8 @@ public class SecurityControllerTest extends AbstractControllerTest {
         when(this.securityServiceMock.getPermissions(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateListOfPermissionsMock());
 
-        mockMvc.perform(
-            get("/api/1/security/permissions")
-                .param("site", RandomStringUtils.randomAlphabetic(10))
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        mockMvc.perform(get("/api/1/security/permissions").param("site", RandomStringUtils.randomAlphabetic(10))
+            .accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.securityServiceMock, times(0)).getPermissions(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());

@@ -18,13 +18,11 @@
 package org.craftercms.studio.controller.services.rest;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.craftercms.studio.api.deployment.DeploymentManager;
-import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.DeploymentChannel;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
@@ -49,7 +47,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class DeploymentController {
 
     /**
-     * Deployment Manager
+     * Deployment Manager.
      */
     @Autowired
     private DeploymentManager deploymentManager;
@@ -57,7 +55,7 @@ public class DeploymentController {
     /**
      * Get deployment history.
      *
-     * @param site Site name.
+     * @param site    Site name.
      * @param filters Filters.
      * @return List of items
      */
@@ -71,22 +69,23 @@ public class DeploymentController {
     /**
      * Get deployment channels.
      *
-     * @param site Site name.
+     * @param site        Site name.
      * @param environment Publishing environment.
      * @return List of deployment channels
      */
     @RequestMapping(value = "/channels/{site}", method = RequestMethod.GET)
     @ResponseBody
-    public List<DeploymentChannel> history(@PathVariable final String site, @RequestParam(required = true) final String
-        environment) throws StudioException {
+    public List<DeploymentChannel> history(@PathVariable final String site, @RequestParam(required = true) final
+    String environment) throws StudioException {
         return this.deploymentManager.channels(null, site, environment);
     }
 
     /**
      * Update deployment channel.
-     * @param site Site name
-     * @param channel Deployment channel
-     * @param request Http request
+     *
+     * @param site     Site name
+     * @param channel  Deployment channel
+     * @param request  Http request
      * @param response Http response
      * @throws StudioException
      */
@@ -99,9 +98,10 @@ public class DeploymentController {
 
     /**
      * Remove deployment channel.
-     * @param site site
-     * @param channel deployment channel
-     * @param request http request
+     *
+     * @param site     site
+     * @param channel  deployment channel
+     * @param request  http request
      * @param response http response
      * @throws StudioException
      */
@@ -114,9 +114,10 @@ public class DeploymentController {
 
     /**
      * Deploy items.
-     * @param site site
-     * @param itemIds list of item ids
-     * @param request http request
+     *
+     * @param site     site
+     * @param itemIds  list of item ids
+     * @param request  http request
      * @param response http response
      * @throws StudioException
      */
@@ -128,31 +129,36 @@ public class DeploymentController {
 
     /**
      * Get deployment channel status.
-     * @param site site
+     *
+     * @param site    site
      * @param channel deployment channel
      * @return status message
      */
     @RequestMapping(value = "/status/{site}", method = RequestMethod.GET)
     @ResponseBody
-    public String status(@PathVariable final String site, @Valid @RequestBody final DeploymentChannel channel) throws StudioException {
+    public String status(@PathVariable final String site, @Valid @RequestBody final DeploymentChannel channel) throws
+        StudioException {
         return this.deploymentManager.status(null, site, channel);
     }
 
     /**
-     * Get deployment agent version
-     * @param site site
+     * Get deployment agent version.
+     *
+     * @param site    site
      * @param channel deployment channel
      * @return timestamp
      */
     @RequestMapping(value = "/version/{site}", method = RequestMethod.GET)
     @ResponseBody
-    public long version(@PathVariable final String site, @Valid @RequestBody final DeploymentChannel channel) throws StudioException {
+    public long version(@PathVariable final String site, @Valid @RequestBody final DeploymentChannel channel) throws
+        StudioException {
         return this.deploymentManager.version(null, site, channel);
     }
 
     /**
-     * Abort current deployment on given channel
-     * @param site site
+     * Abort current deployment on given channel.
+     *
+     * @param site    site
      * @param channel deployment channel
      */
     @RequestMapping(value = "/abort/{site}", method = RequestMethod.POST)

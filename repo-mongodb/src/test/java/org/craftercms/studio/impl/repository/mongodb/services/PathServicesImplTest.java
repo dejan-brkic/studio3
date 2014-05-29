@@ -17,12 +17,10 @@
 
 package org.craftercms.studio.impl.repository.mongodb.services;
 
-import java.net.InetSocketAddress;
 import java.util.LinkedList;
 import java.util.UUID;
 
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
-import org.craftercms.studio.impl.repository.mongodb.services.impl.NodeServiceImpl;
 import org.craftercms.studio.impl.repository.mongodb.services.impl.PathServicesImpl;
 import org.junit.Assert;
 import org.junit.Before;

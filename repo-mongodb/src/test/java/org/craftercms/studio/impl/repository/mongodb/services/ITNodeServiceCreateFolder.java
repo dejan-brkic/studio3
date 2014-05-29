@@ -18,7 +18,6 @@
 package org.craftercms.studio.impl.repository.mongodb.services;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
 import org.junit.Assert;
@@ -69,10 +68,11 @@ public class ITNodeServiceCreateFolder implements ApplicationContextAware {
 
     @Test()
     public void testValidationOfFolderNameInPath() throws Exception {
-        Node folder = nodeService.createFolderNode(nodeService.getRootNode(), FOLDER_NAME_2,FOLDER_LABEL_2,
+        Node folder = nodeService.createFolderNode(nodeService.getRootNode(), FOLDER_NAME_2, FOLDER_LABEL_2,
             FOLDER_CREATOR);
         Assert.assertNotNull(folder);
-        Node folder2 = nodeService.createFolderNode(nodeService.getRootNode(), FOLDER_NAME_2,FOLDER_LABEL_2, FOLDER_CREATOR);
+        Node folder2 = nodeService.createFolderNode(nodeService.getRootNode(), FOLDER_NAME_2, FOLDER_LABEL_2,
+            FOLDER_CREATOR);
 
     }
 

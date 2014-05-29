@@ -16,13 +16,14 @@
   ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="commonMessagesLoader" class="org.craftercms.studio.commons.exception.ErrorMessageLoader" init-method="init">
+    <bean id="commonMessagesLoader" class="org.craftercms.studio.commons.exception.ErrorMessageLoader"
+          init-method="init">
         <property name="errorMessageLocation"
-                  value="craftercms.studio.commons.exception.error_messages" />
+                  value="craftercms.studio.commons.exception.error_messages"/>
         <property name="moduleId" value="commons"/>
     </bean>
 

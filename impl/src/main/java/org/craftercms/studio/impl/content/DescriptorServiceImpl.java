@@ -55,22 +55,22 @@ public class DescriptorServiceImpl implements DescriptorService {
     /**
      * Create a new descriptor.
      *
-     * @param context         the caller's context
-     * @param site            the site to use
-     * @param contentTypeId   content type id as defined in the {@link org.craftercms.studio.api.content
-     *                        .ContentTypeService}
-     * @param parentId   the id of the parent item (can be a folder or a descriptor)
-     * @param fileName        file name of the descriptor
-     * @param content         the InputStream containing the XML that is compliant with the model defined in Studio
-     *                        (typically done using Studio's Form Engine)
-     * @param properties      key-value-pair properties, can be null
-     * @return                item representing descriptor
+     * @param context       the caller's context
+     * @param site          the site to use
+     * @param contentTypeId content type id as defined in the {@link org.craftercms.studio.api.content
+     *                      .ContentTypeService}
+     * @param parentId      the id of the parent item (can be a folder or a descriptor)
+     * @param fileName      file name of the descriptor
+     * @param content       the InputStream containing the XML that is compliant with the model defined in Studio
+     *                      (typically done using Studio's Form Engine)
+     * @param properties    key-value-pair properties, can be null
+     * @return item representing descriptor
      * @throws StudioException
      */
     @Override
     public Item create(final Context context, final String site, final String contentTypeId, final String parentId,
-                       final String fileName, final InputStream content, final Map<String, String> properties
-    ) throws StudioException {
+                       final String fileName, final InputStream content, final Map<String,
+        String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
             Item item = createDescriptorItem(fileName);
             ItemId itemId = contentManager.create(context, site, parentId, item, content);
@@ -82,18 +82,18 @@ public class DescriptorServiceImpl implements DescriptorService {
     }
 
     /**
-     * Create a new descriptor
+     * Create a new descriptor.
      *
-     * @param context         the caller's context
-     * @param site            the site to use
-     * @param contentTypeId   content type id as defined in the {@link org.craftercms.studio.api.content
-     *                        .ContentTypeService}
-     * @param parentId   the id of the parent item (can be a folder or a descriptor)
-     * @param fileName        file name of the descriptor
-     * @param content         the XML that is compliant with the model defined in Studio (typically done using
-     *                        Studio's Form Engine)
-     * @param properties      key-value-pair properties, can be null
-     * @return                item representing descriptor
+     * @param context       the caller's context
+     * @param site          the site to use
+     * @param contentTypeId content type id as defined in the {@link org.craftercms.studio.api.content
+     *                      .ContentTypeService}
+     * @param parentId      the id of the parent item (can be a folder or a descriptor)
+     * @param fileName      file name of the descriptor
+     * @param content       the XML that is compliant with the model defined in Studio (typically done using
+     *                      Studio's Form Engine)
+     * @param properties    key-value-pair properties, can be null
+     * @return item representing descriptor
      * @throws StudioException
      */
     @Override
@@ -115,12 +115,12 @@ public class DescriptorServiceImpl implements DescriptorService {
     /**
      * Create a copy of existing descriptor.
      *
-     * @param context         the caller's context
-     * @param site            the site to use
-     * @param itemId          the source item to duplicate
-     * @param parentId   the id of the parent item (can be a folder or a descriptor)
-     * @param fileName        file name of the descriptor
-     * @return                item representing descriptor
+     * @param context  the caller's context
+     * @param site     the site to use
+     * @param itemId   the source item to duplicate
+     * @param parentId the id of the parent item (can be a folder or a descriptor)
+     * @param fileName file name of the descriptor
+     * @return item representing descriptor
      * @throws StudioException
      */
     @Override
@@ -140,16 +140,17 @@ public class DescriptorServiceImpl implements DescriptorService {
     /**
      * Move/rename descriptor item.
      *
-     * @param context         the caller's context
-     * @param site            the site to use
-     * @param itemId          the source item to move
-     * @param parentId   the id of the parent item (can be a folder or a descriptor)
-     * @param fileName        file name of the descriptor
-     * @return                item representing descriptor
+     * @param context  the caller's context
+     * @param site     the site to use
+     * @param itemId   the source item to move
+     * @param parentId the id of the parent item (can be a folder or a descriptor)
+     * @param fileName file name of the descriptor
+     * @return item representing descriptor
      * @throws StudioException
      */
     @Override
-    public Item move(final Context context, final String site, final ItemId itemId, final String parentId, final String fileName) throws StudioException {
+    public Item move(final Context context, final String site, final ItemId itemId, final String parentId,
+                     final String fileName) throws StudioException {
         if (context != null && securityService.validate(context)) {
             Item item = contentManager.read(context, site, itemId.getItemId());
             contentManager.move(context, item, parentId);
@@ -229,35 +230,34 @@ public class DescriptorServiceImpl implements DescriptorService {
 
     @Override
     public List<Item> list(final Context context, final String site, final ItemId itemId) throws StudioException {
-        if (context != null && securityService.validate(context)) {
-            if (itemId != null) {
-                return contentManager.list(context, site, itemId.getItemId());
-            } else {
-                String rootItemId = pathService.getItemIdByPath(context.getTicket(), site, repoRootPath);
-                if (StringUtils.isEmpty(rootItemId)) {
-                    int lastIndex = repoRootPath.lastIndexOf("/");
-                    String rootParent = "/";
-                    String folderName = repoRootPath;
-                    if (lastIndex > 0) {
-                        rootParent = repoRootPath.substring(0, lastIndex - 1);
-                        folderName = repoRootPath.substring(lastIndex + 1);
-                    } else {
-                        if (repoRootPath.startsWith("/")) {
-                            folderName = repoRootPath.substring(1);
-                        }
-                    }
-                    Item rootItem = contentManager.createFolder(context, site, rootParent, folderName);
-                    rootItemId = rootItem.getId().toString();
-                }
-                return contentManager.list(context, site, rootItemId);
-            }
-
-        } else {
+        if (!(context != null && securityService.validate(context))) {
             throw ErrorManager.createError(StudioImplErrorCode.INVALID_CONTEXT);
         }
+
+        if (itemId != null) {
+            return contentManager.list(context, site, itemId.getItemId());
+        }
+
+        String rootItemId = pathService.getItemIdByPath(context.getTicket(), site, repoRootPath);
+        if (StringUtils.isEmpty(rootItemId)) {
+            int lastIndex = repoRootPath.lastIndexOf("/");
+            String rootParent = "/";
+            String folderName = repoRootPath;
+            if (lastIndex > 0) {
+                rootParent = repoRootPath.substring(0, lastIndex - 1);
+                folderName = repoRootPath.substring(lastIndex + 1);
+            } else {
+                if (repoRootPath.startsWith("/")) {
+                    folderName = repoRootPath.substring(1);
+                }
+            }
+            Item rootItem = contentManager.createFolder(context, site, rootParent, folderName);
+            rootItemId = rootItem.getId().toString();
+        }
+        return contentManager.list(context, site, rootItemId);
     }
 
-    private Item createDescriptorItem(String fileName) {
+    private Item createDescriptorItem(final String fileName) {
         Item item = new Item();
         item.setCreatedBy(RandomStringUtils.random(10));
         item.setFileName(fileName);

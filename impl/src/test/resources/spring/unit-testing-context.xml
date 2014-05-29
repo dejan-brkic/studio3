@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-    <bean id="versionManagerSUT" class="org.craftercms.studio.impl.version.VersionServiceImpl" />
+    <bean id="versionManagerSUT" class="org.craftercms.studio.impl.version.VersionServiceImpl"/>
 
-    <bean id="dependencyMangerSUT" class="org.craftercms.studio.impl.dependency.DependencyManagerImpl" />
+    <bean id="dependencyMangerSUT" class="org.craftercms.studio.impl.dependency.DependencyManagerImpl"/>
 
-    <bean id="workflowManagerSUT" class="org.craftercms.studio.impl.workflow.WorkflowManagerImpl" />
+    <bean id="workflowManagerSUT" class="org.craftercms.studio.impl.workflow.WorkflowManagerImpl"/>
 
-    <bean id="deploymentManagerSUT" class="org.craftercms.studio.impl.deployment.DeploymentManagerImpl" />
+    <bean id="deploymentManagerSUT" class="org.craftercms.studio.impl.deployment.DeploymentManagerImpl"/>
 
-    <bean id="lifecycleManagerSUT" class="org.craftercms.studio.impl.lifecycle.LifecycleManagerImpl" />
+    <bean id="lifecycleManagerSUT" class="org.craftercms.studio.impl.lifecycle.LifecycleManagerImpl"/>
 
-    <bean id="auditManagerSUT" class="org.craftercms.studio.impl.audit.AuditServiceImpl" />
+    <bean id="auditManagerSUT" class="org.craftercms.studio.impl.audit.AuditServiceImpl"/>
 
-    <bean id="formsManagerSUT" class="org.craftercms.studio.impl.forms.FormServiceImpl" />
+    <bean id="formsManagerSUT" class="org.craftercms.studio.impl.forms.FormServiceImpl"/>
 
-    <bean id="blueprintsManagerSUT" class="org.craftercms.studio.impl.blueprints.BlueprintsManagerImpl" />
+    <bean id="blueprintsManagerSUT" class="org.craftercms.studio.impl.blueprints.BlueprintsManagerImpl"/>
 
     <bean id="assetServiceSUT" class="org.craftercms.studio.impl.content.AssetServiceImpl"/>
 
@@ -26,16 +26,16 @@
 
     <bean id="descriptorServiceSUT" class="org.craftercms.studio.impl.content.DescriptorServiceImpl"/>
 
-    <bean id="contentTypeServiceSUT" class="org.craftercms.studio.impl.content.ContentTypeServiceImpl" />
+    <bean id="contentTypeServiceSUT" class="org.craftercms.studio.impl.content.ContentTypeServiceImpl"/>
 
 
     <!-- Mock beans -->
     <bean id="contentManagerMock" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="org.craftercms.studio.internal.content.ContentManager" />
+        <constructor-arg value="org.craftercms.studio.internal.content.ContentManager"/>
     </bean>
 
     <bean id="securityServiceMock" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="org.craftercms.studio.api.security.SecurityService" />
+        <constructor-arg value="org.craftercms.studio.api.security.SecurityService"/>
     </bean>
 
     <bean id="versionServiceMock" class="org.mockito.Mockito" factory-method="mock">

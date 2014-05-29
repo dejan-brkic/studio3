@@ -40,14 +40,12 @@ public class DeploymentManagerImplTest extends AbstractServiceTest {
 
     @Test(expected = StudioException.class)
     public void testHistory() throws Exception {
-        this.deploymentManagerSUT.history(null, RandomStringUtils.randomAlphabetic(10),
-            createStringListMock());
+        this.deploymentManagerSUT.history(null, RandomStringUtils.randomAlphabetic(10), createStringListMock());
     }
 
     @Test(expected = StudioException.class)
     public void testHistoryInvalidSite() throws Exception {
-        this.deploymentManagerSUT.history(null, RandomStringUtils.randomAlphabetic(10),
-            createStringListMock());
+        this.deploymentManagerSUT.history(null, RandomStringUtils.randomAlphabetic(10), createStringListMock());
     }
 
     @Test(expected = StudioException.class)
@@ -149,73 +147,61 @@ public class DeploymentManagerImplTest extends AbstractServiceTest {
 
     @Test(expected = StudioException.class)
     public void testStatus() throws Exception {
-        this.deploymentManagerSUT.status(null, RandomStringUtils.randomAlphabetic(10),
-            createDeploymentChannelMock());
+        this.deploymentManagerSUT.status(null, RandomStringUtils.randomAlphabetic(10), createDeploymentChannelMock());
     }
 
     @Test(expected = StudioException.class)
     public void testStatusInvalidSite() throws Exception {
-        this.deploymentManagerSUT.status(null, RandomStringUtils.randomAlphabetic(10),
-            createDeploymentChannelMock());
+        this.deploymentManagerSUT.status(null, RandomStringUtils.randomAlphabetic(10), createDeploymentChannelMock());
     }
 
     @Test(expected = StudioException.class)
     public void testStatusInvalidChannel() throws Exception {
-        this.deploymentManagerSUT.status(null, RandomStringUtils.randomAlphabetic(10),
-            createDeploymentChannelMock());
+        this.deploymentManagerSUT.status(null, RandomStringUtils.randomAlphabetic(10), createDeploymentChannelMock());
     }
 
     @Test(expected = StudioException.class)
     public void testStatusChannelUnavailable() throws Exception {
-        this.deploymentManagerSUT.status(null, RandomStringUtils.randomAlphabetic(10),
-            createDeploymentChannelMock());
+        this.deploymentManagerSUT.status(null, RandomStringUtils.randomAlphabetic(10), createDeploymentChannelMock());
     }
 
     @Test(expected = StudioException.class)
     public void testVersion() throws Exception {
-        this.deploymentManagerSUT.version(null, RandomStringUtils.randomAlphabetic(10),
-            createDeploymentChannelMock());
+        this.deploymentManagerSUT.version(null, RandomStringUtils.randomAlphabetic(10), createDeploymentChannelMock());
     }
 
     @Test(expected = StudioException.class)
     public void testVersionInvalidSite() throws Exception {
-        this.deploymentManagerSUT.version(null, RandomStringUtils.randomAlphabetic(10),
-            createDeploymentChannelMock());
+        this.deploymentManagerSUT.version(null, RandomStringUtils.randomAlphabetic(10), createDeploymentChannelMock());
     }
 
     @Test(expected = StudioException.class)
     public void testVersionInvalidChannel() throws Exception {
-        this.deploymentManagerSUT.version(null, RandomStringUtils.randomAlphabetic(10),
-            createDeploymentChannelMock());
+        this.deploymentManagerSUT.version(null, RandomStringUtils.randomAlphabetic(10), createDeploymentChannelMock());
     }
 
     @Test(expected = StudioException.class)
     public void testVersionChannelUnavailable() throws Exception {
-        this.deploymentManagerSUT.version(null, RandomStringUtils.randomAlphabetic(10),
-            createDeploymentChannelMock());
+        this.deploymentManagerSUT.version(null, RandomStringUtils.randomAlphabetic(10), createDeploymentChannelMock());
     }
 
     @Test(expected = StudioException.class)
     public void testAbort() throws Exception {
-        this.deploymentManagerSUT.abort(null, RandomStringUtils.randomAlphabetic(10),
-            createDeploymentChannelMock());
+        this.deploymentManagerSUT.abort(null, RandomStringUtils.randomAlphabetic(10), createDeploymentChannelMock());
     }
 
     @Test(expected = StudioException.class)
     public void testAbortInvalidSite() throws Exception {
-        this.deploymentManagerSUT.abort(null, RandomStringUtils.randomAlphabetic(10),
-            createDeploymentChannelMock());
+        this.deploymentManagerSUT.abort(null, RandomStringUtils.randomAlphabetic(10), createDeploymentChannelMock());
     }
 
     @Test(expected = StudioException.class)
     public void testAbortInvalidChannel() throws Exception {
-        this.deploymentManagerSUT.abort(null, RandomStringUtils.randomAlphabetic(10),
-            createDeploymentChannelMock());
+        this.deploymentManagerSUT.abort(null, RandomStringUtils.randomAlphabetic(10), createDeploymentChannelMock());
     }
 
     @Test(expected = StudioException.class)
     public void testAbortChannelUnavailable() throws Exception {
-        this.deploymentManagerSUT.abort(null, RandomStringUtils.randomAlphabetic(10),
-            createDeploymentChannelMock());
+        this.deploymentManagerSUT.abort(null, RandomStringUtils.randomAlphabetic(10), createDeploymentChannelMock());
     }
 }

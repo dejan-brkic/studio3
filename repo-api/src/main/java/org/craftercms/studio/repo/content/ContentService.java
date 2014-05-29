@@ -20,9 +20,9 @@ package org.craftercms.studio.repo.content;
 import java.io.InputStream;
 import java.util.List;
 
-import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.Tree;
+import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.commons.filter.Filter;
 
 /**
@@ -62,20 +62,20 @@ public interface ContentService {
      * @param contentId content id
      * @param site      Site
      * @return content item
-     * @throws org.craftercms.studio.commons.exception.StudioException         if there is no content for that file
-     *                                                                         id (must likely given id is a folder
-     *                                                                         not a file)
+     * @throws org.craftercms.studio.commons.exception.StudioException if there is no content for that file
+     *                                                                 id (must likely given id is a folder
+     *                                                                 not a file)
      * @throws org.craftercms.studio.commons.exception.StudioException If the node is a File but don't have
-     *                                                                         an inputstream (repo may be broken)
+     *                                                                 an inputstream (repo may be broken)
      */
     Item read(String ticket, String site, String contentId) throws StudioException;
 
     /**
      * Update content in repository.
      *
-     * @param ticket    security ticket
-     * @param item      item
-     * @param content   content
+     * @param ticket  security ticket
+     * @param item    item
+     * @param content content
      */
     void update(String ticket, Item item, InputStream content) throws StudioException;
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <aop:aspectj-autoproxy/>
@@ -21,7 +21,7 @@
 
     <bean id="AssetService" class="org.craftercms.studio.impl.content.AssetServiceImpl">
         <property name="contentManager" ref="ContentManager"/>
-        <property name="securityService" ref="SecurityManager" />
+        <property name="securityService" ref="SecurityManager"/>
         <property name="repoRootPath" value="${content.repo.assets.root}"/>
         <property name="pathService" ref="studio.repo.pathServices"/>
     </bean>
@@ -47,28 +47,28 @@
     <bean id="AnalyticsService" class="org.craftercms.studio.impl.analytics.AnalyticsServiceImpl">
     </bean>
 
-    <bean id="AuditManager" class="org.craftercms.studio.impl.audit.AuditServiceImpl" />
+    <bean id="AuditManager" class="org.craftercms.studio.impl.audit.AuditServiceImpl"/>
 
     <bean id="ConfigurationManager" class="org.craftercms.studio.impl.configuration.ConfigurationServiceImpl"/>
 
-    <bean id="DependencyManager" class="org.craftercms.studio.impl.dependency.DependencyManagerImpl" />
+    <bean id="DependencyManager" class="org.craftercms.studio.impl.dependency.DependencyManagerImpl"/>
 
-    <bean id="DeploymentManager" class="org.craftercms.studio.impl.deployment.DeploymentManagerImpl" />
+    <bean id="DeploymentManager" class="org.craftercms.studio.impl.deployment.DeploymentManagerImpl"/>
 
-    <bean id="FormsManager" class="org.craftercms.studio.impl.forms.FormServiceImpl" />
+    <bean id="FormsManager" class="org.craftercms.studio.impl.forms.FormServiceImpl"/>
 
-    <bean id="LifecycleManager" class="org.craftercms.studio.impl.lifecycle.LifecycleManagerImpl" />
+    <bean id="LifecycleManager" class="org.craftercms.studio.impl.lifecycle.LifecycleManagerImpl"/>
 
     <bean id="SearchManager" class="org.craftercms.studio.impl.search.SearchServiceImpl"/>
 
-    <bean id="SecurityManager" class="org.craftercms.studio.impl.security.SecurityServiceImpl" />
+    <bean id="SecurityManager" class="org.craftercms.studio.impl.security.SecurityServiceImpl"/>
 
     <bean id="VersionManager" class="org.craftercms.studio.impl.content.VersionServiceImpl"/>
 
     <bean id="WorkflowManager" class="org.craftercms.studio.impl.workflow.WorkflowManagerImpl"/>
 
     <bean id="ContentManager" class="org.craftercms.studio.internal.content.impl.ContentManagerImpl">
-            <property name="contentService" ref="studio.repo.contentService"/>
+        <property name="contentService" ref="studio.repo.contentService"/>
         <property name="pathService" ref="studio.repo.pathServices"/>
     </bean>
 

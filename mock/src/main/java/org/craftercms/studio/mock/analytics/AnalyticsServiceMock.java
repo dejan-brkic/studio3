@@ -35,8 +35,8 @@ public class AnalyticsServiceMock implements AnalyticsService {
 
 
     @Override
-    public AnalyticsReport generateReport(final Context context, final String site, final String reportId, final Map
-        <String, Object> params) throws StudioException {
+    public AnalyticsReport generateReport(final Context context, final String site, final String reportId,
+                                          final Map<String, Object> params) throws StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 }

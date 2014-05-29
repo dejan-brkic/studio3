@@ -25,17 +25,17 @@ import org.openqa.selenium.By;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-    public class HomepageIntegrationTest extends AbstractIntegrationTest {
+public class HomepageIntegrationTest extends AbstractIntegrationTest {
 
     public HomepageIntegrationTest() throws Exception {
     }
 
     @Test
     @Ignore
-    public void testISaidHello(){
+    public void testISaidHello() {
         driver.get(baseUrl + "/");
         final String htmlText = driver.findElement(By.tagName("h2")).getText();
         assertNotNull(driver.findElement(By.tagName("h2")));
-        assertEquals(htmlText,"Hello World!");
+        assertEquals(htmlText, "Hello World!");
     }
 }

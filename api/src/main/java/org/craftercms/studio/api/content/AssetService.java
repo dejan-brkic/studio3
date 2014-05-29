@@ -168,10 +168,10 @@ public interface AssetService {
     /**
      * Lists all children for given item.
      *
-     * @param context   the caller's context
-     * @param site      the site to use
-     * @param itemId    parent item
-     * @return          list of children
+     * @param context the caller's context
+     * @param site    the site to use
+     * @param itemId  parent item
+     * @return list of children
      */
     List<Item> list(Context context, String site, ItemId itemId) throws StudioException;
 }

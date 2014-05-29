@@ -21,10 +21,10 @@ import java.util.LinkedList;
 
 import org.apache.commons.lang3.StringUtils;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
 import org.craftercms.studio.impl.repository.mongodb.services.NodeService;
+import org.craftercms.studio.repo.content.PathService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,8 +73,7 @@ public class PathServicesImpl implements PathService {
     }
 
     @Override
-    public String getPathByItemId(final String ticket, final String site,
-                                  final String itemId) throws StudioException {
+    public String getPathByItemId(final String ticket, final String site, final String itemId) throws StudioException {
 
 
         if (StringUtils.isBlank(ticket)) {

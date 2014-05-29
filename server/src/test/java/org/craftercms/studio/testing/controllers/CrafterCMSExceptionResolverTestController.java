@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/testing")
 public class CrafterCMSExceptionResolverTestController {
 
-    public static final String EXCEPTION_MSG ="This is Intended to Fail" ;
+    public static final String EXCEPTION_MSG = "This is Intended to Fail";
 
-    @RequestMapping(value = "/throwUnregisterCrafterCMSException",method = RequestMethod.GET)
-    public void throwUnregisterException()throws Exception{
-         throw ErrorManager.createError(StudioServerErrorCode.SYSTEM_ERROR);
+    @RequestMapping(value = "/throwUnregisterCrafterCMSException", method = RequestMethod.GET)
+    public void throwUnregisterException() throws Exception {
+        throw ErrorManager.createError(StudioServerErrorCode.SYSTEM_ERROR);
     }
     /*
     @RequestMapping(value = "/throwUnregisterException",method = RequestMethod.GET)

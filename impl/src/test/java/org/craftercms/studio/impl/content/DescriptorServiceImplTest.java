@@ -99,8 +99,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, fileStream,
             props);
 
-        verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
-            Mockito.any(Item.class), Mockito.any(InputStream.class));
+        verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
         verify(securityServiceMock, times(1)).validate(context);
     }
 
@@ -160,7 +160,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         Map<String, String> props = new HashMap<>();
 
         try {
-            Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, fileStream, props);
+            Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, fileStream,
+                props);
         } catch (StudioException expectedException) {
             assertEquals(StudioImplErrorCode.INVALID_CONTEXT.getCode(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).create(Mockito.any(Context.class), Mockito.anyString(),
@@ -179,9 +180,9 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testCreateUsingInputStreamInvalidSite() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock)
-            .create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
-                Mockito.any(InputStream.class));
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock).create(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
+            Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -193,7 +194,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         Map<String, String> props = new HashMap<>();
 
         try {
-            Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, fileStream, props);
+            Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, fileStream,
+                props);
         } catch (StudioException expectedException) {
             assertEquals(StudioImplErrorCode.INVALID_SITE.getCode(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(),
@@ -212,8 +214,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testCreateUsingInputStreamInvalidContentType() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_CONTENT)).when(contentManagerMock)
-            .create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_CONTENT)).when(contentManagerMock).create
+            (Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
                 Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
@@ -226,7 +228,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         Map<String, String> props = new HashMap<>();
 
         try {
-            Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, fileStream, props);
+            Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, fileStream,
+                props);
         } catch (StudioException expectedException) {
             assertEquals(StudioImplErrorCode.INVALID_CONTENT.getCode(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(),
@@ -258,11 +261,10 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         String content = RandomStringUtils.random(1000);
         Map<String, String> props = new HashMap<>();
 
-        Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, content,
-            props);
+        Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, content, props);
 
-        verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
-            Mockito.any(Item.class), Mockito.any(InputStream.class));
+        verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
         verify(securityServiceMock, times(1)).validate(context);
     }
 
@@ -342,9 +344,9 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testCreateUsingContentStringInvalidSite() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock)
-            .create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
-                Mockito.any(InputStream.class));
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock).create(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
+            Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -356,7 +358,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         Map<String, String> props = new HashMap<>();
 
         try {
-            Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, content, props);
+            Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, content,
+                props);
         } catch (StudioException expectedException) {
             assertEquals(StudioImplErrorCode.INVALID_SITE.getCode(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(),
@@ -375,8 +378,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testCreateUsingContentStringInvalidContentType() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_CONTENT)).when(contentManagerMock)
-            .create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_CONTENT)).when(contentManagerMock).create
+            (Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
                 Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
@@ -389,7 +392,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         Map<String, String> props = new HashMap<>();
 
         try {
-            Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, content, props);
+            Item testItem = descriptorServiceSUT.create(context, site, contentTypeId, parentId, fileName, content,
+                props);
         } catch (StudioException expectedException) {
             assertEquals(StudioImplErrorCode.INVALID_CONTENT.getCode(), expectedException.getErrorCode());
             verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(),
@@ -425,8 +429,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         Item testItem = descriptorServiceSUT.duplicate(context, site, duplicatedItemId, parentId, fileName);
 
         verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(), eq(duplicatedId));
-        verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
-            Mockito.any(Item.class), Mockito.any(InputStream.class));
+        verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
         verify(securityServiceMock, times(1)).validate(context);
     }
 
@@ -510,11 +514,11 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testDuplicateUsingInvalidSite() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock)
-            .read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock)
-            .create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
-                Mockito.any(InputStream.class));
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock).read(Mockito.any
+            (Context.class), Mockito.anyString(), Mockito.anyString());
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock).create(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
+            Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -546,10 +550,10 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testDuplicateUsingInvalidDuplicatedItem() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_CONTENT)).when(contentManagerMock)
-            .read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_CONTENT)).when(contentManagerMock)
-            .create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_CONTENT)).when(contentManagerMock).read(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.anyString());
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_CONTENT)).when(contentManagerMock).create
+            (Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
                 Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
@@ -584,9 +588,9 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
     public void testDuplicateUsingInvalidParent() throws Exception {
         when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(createItemMock());
-        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when(contentManagerMock)
-            .create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
-                Mockito.any(InputStream.class));
+        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when(contentManagerMock).create(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
+            Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -620,10 +624,9 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
     public void testDuplicateUsingInvalidFilename() throws Exception {
         when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(createItemMock());
-        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when
-            (contentManagerMock).create
-            (Mockito.any
-            (Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
+        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when(contentManagerMock).create(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
+            Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -772,8 +775,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
     public void testMoveInvalidSite() throws Exception {
         when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(createItemMock());
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE))
-            .when(contentManagerMock).move(Mockito.any(Context.class), Mockito.any(Item.class), Mockito.anyString());
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock).move(Mockito.any
+            (Context.class), Mockito.any(Item.class), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -806,8 +809,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
     public void testMoveInvalidItemId() throws Exception {
         when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(createItemMock());
-        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND))
-            .when(contentManagerMock).move(Mockito.any(Context.class), Mockito.any(Item.class), Mockito.anyString());
+        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when(contentManagerMock).move(Mockito
+            .any(Context.class), Mockito.any(Item.class), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -840,8 +843,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
     public void testMoveInvalidParent() throws Exception {
         when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(createItemMock());
-        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND))
-            .when(contentManagerMock).move(Mockito.any(Context.class), Mockito.any(Item.class), Mockito.anyString());
+        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when(contentManagerMock).move(Mockito
+            .any(Context.class), Mockito.any(Item.class), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -874,8 +877,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
     public void testMoveInvalidFilename() throws Exception {
         when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(createItemMock());
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_CONTENT))
-            .when(contentManagerMock).move(Mockito.any(Context.class), Mockito.any(Item.class), Mockito.anyString());
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_CONTENT)).when(contentManagerMock).move(Mockito
+            .any(Context.class), Mockito.any(Item.class), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -939,7 +942,7 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         ItemId readItemId = new ItemId(itemId);
 
         try {
-        Item testItem = descriptorServiceSUT.read(context, site, readItemId);
+            Item testItem = descriptorServiceSUT.read(context, site, readItemId);
         } catch (StudioException expectedException) {
             assertEquals(StudioImplErrorCode.INVALID_CONTEXT.getCode(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).read(Mockito.any(Context.class), Mockito.anyString(), eq(itemId));
@@ -985,8 +988,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testReadInvalidSite() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock)
-            .read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock).read(Mockito.any
+            (Context.class), Mockito.anyString(), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -1013,9 +1016,8 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testReadInvalidItem() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when
-            (contentManagerMock)
-            .read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when(contentManagerMock).read(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -1423,6 +1425,7 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 40:
      * Test delete method.
+     *
      * @throws Exception
      */
     @Test
@@ -1447,13 +1450,14 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
         // execute delete method
         descriptorServiceSUT.delete(context, site, descriptorItemId);
 
-        verify(contentManagerMock, times(1)).delete(Mockito.any(Context.class),Mockito.anyListOf(Item.class));
+        verify(contentManagerMock, times(1)).delete(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
         verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
     }
 
     /**
      * Use case 41:
      * Test delete method using null context.
+     *
      * @throws Exception
      */
     @Test
@@ -1490,6 +1494,7 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 42:
      * Test delete method using invalid context.
+     *
      * @throws Exception
      */
     @Test
@@ -1526,6 +1531,7 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 43:
      * Test delete method for invalid site.
+     *
      * @throws Exception
      */
     @Test
@@ -1556,6 +1562,7 @@ public class DescriptorServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 44:
      * Test delete method for invalid item.
+     *
      * @throws Exception
      */
     @Test

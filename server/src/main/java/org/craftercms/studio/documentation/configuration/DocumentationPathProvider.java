@@ -19,9 +19,9 @@ package org.craftercms.studio.documentation.configuration;
 
 import javax.servlet.ServletContext;
 
-import com.mangofactory.swagger.core.SwaggerPathProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.util.UriComponentsBuilder;
+import com.mangofactory.swagger.core.SwaggerPathProvider;
 
 /**
  * @author Dejan Brkic
@@ -41,11 +41,7 @@ public class DocumentationPathProvider implements SwaggerPathProvider {
     }
 
     public String getAppBasePath() {
-        return UriComponentsBuilder
-            .fromHttpUrl(hostUrl)
-            .path(servletContext.getContextPath())
-            .build()
-            .toString();
+        return UriComponentsBuilder.fromHttpUrl(hostUrl).path(servletContext.getContextPath()).build().toString();
     }
 
     @Override
@@ -53,10 +49,10 @@ public class DocumentationPathProvider implements SwaggerPathProvider {
         String result = requestMappingPattern;
         //remove regex portion '/{businessId:\\w+}'
         result = result.replaceAll("\\{(.*?):.*?\\}", "{$1}");
-        return result.isEmpty() ? "/" : result;
+        return result.isEmpty()? "/": result;
     }
 
-    public void setDefaultSwaggerPathProvider(SwaggerPathProvider defaultSwaggerPathProvider) {
+    public void setDefaultSwaggerPathProvider(final SwaggerPathProvider defaultSwaggerPathProvider) {
         this.defaultSwaggerPathProvider = defaultSwaggerPathProvider;
     }
 

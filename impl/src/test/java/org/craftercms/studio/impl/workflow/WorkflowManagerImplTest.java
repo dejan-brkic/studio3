@@ -25,7 +25,6 @@ import java.util.Map;
 import org.apache.commons.lang.RandomStringUtils;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.AbstractServiceTest;
-import org.junit.After;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +52,7 @@ public class WorkflowManagerImplTest extends AbstractServiceTest {
 
     private List<String> createComments() {
         List<String> comments = new ArrayList<String>();
-        for (int i = 0;  i < 1 + Math.random() * (10 * Math.random()); i++) {
+        for (int i = 0; i < 1 + Math.random() * (10 * Math.random()); i++) {
             comments.add(RandomStringUtils.randomAlphanumeric((int)(50 + Math.random() * 150)));
         }
         return comments;

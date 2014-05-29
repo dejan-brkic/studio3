@@ -16,6 +16,9 @@
  */
 package org.craftercms.studio.controller.services.rest;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.craftercms.studio.api.search.SearchService;
 import org.craftercms.studio.commons.dto.ResultSet;
 import org.craftercms.studio.commons.exception.ErrorManager;
@@ -29,9 +32,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * TODO: javadoc.
@@ -49,15 +49,17 @@ public class SearchController {
 
     /**
      * TODO: javadoc.
-     * @param site site
-     * @param query query
-     * @param request request
+     *
+     * @param site     site
+     * @param query    query
+     * @param request  request
      * @param response response
      */
     @RequestMapping(value = "/find/{site}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResultSet search(@PathVariable final String site, @RequestParam(required = true) final String query,
-                       final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
+                            final HttpServletRequest request, final HttpServletResponse response) throws
+        StudioException {
         throw ErrorManager.createError(StudioServerErrorCode.NOT_IMPLEMENTED);
     }
 }

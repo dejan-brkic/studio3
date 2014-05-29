@@ -22,7 +22,6 @@ import java.util.UUID;
 import org.apache.commons.lang.RandomStringUtils;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.AbstractServiceTest;
-import org.junit.After;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,43 +99,43 @@ public class FormServiceImplTest extends AbstractServiceTest {
 
     @Test(expected = StudioException.class)
     public void testCopy() throws Exception {
-        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10),
-            RandomStringUtils.randomAlphabetic(150), RandomStringUtils.randomAlphabetic(150));
+        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic
+            (150), RandomStringUtils.randomAlphabetic(150));
     }
 
     @Test(expected = StudioException.class)
     public void testCopyInvalidSite() throws Exception {
-        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10),
-            RandomStringUtils.randomAlphabetic(150), RandomStringUtils.randomAlphabetic(150));
+        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic
+            (150), RandomStringUtils.randomAlphabetic(150));
     }
 
     @Test(expected = StudioException.class)
     public void testCopyInvalidSource() throws Exception {
-        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10),
-            RandomStringUtils.randomAlphabetic(150), RandomStringUtils.randomAlphabetic(150));
+        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic
+            (150), RandomStringUtils.randomAlphabetic(150));
     }
 
     @Test(expected = StudioException.class)
     public void testCopyEmptySource() throws Exception {
-        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10),
-            RandomStringUtils.randomAlphabetic(150), RandomStringUtils.randomAlphabetic(150));
+        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic
+            (150), RandomStringUtils.randomAlphabetic(150));
     }
 
     @Test(expected = StudioException.class)
     public void testCopyInvalidDestination() throws Exception {
-        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10),
-            RandomStringUtils.randomAlphabetic(150), RandomStringUtils.randomAlphabetic(150));
+        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic
+            (150), RandomStringUtils.randomAlphabetic(150));
     }
 
     @Test(expected = StudioException.class)
     public void testCopyDestinationDoesNotExist() throws Exception {
-        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10),
-            RandomStringUtils.randomAlphabetic(150), RandomStringUtils.randomAlphabetic(150));
+        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic
+            (150), RandomStringUtils.randomAlphabetic(150));
     }
 
     @Test(expected = StudioException.class)
     public void testCopySourceExistsAtDestination() throws Exception {
-        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10),
-            RandomStringUtils.randomAlphabetic(150), RandomStringUtils.randomAlphabetic(150));
+        this.formsManagerSUT.copy(null, RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic
+            (150), RandomStringUtils.randomAlphabetic(150));
     }
 }

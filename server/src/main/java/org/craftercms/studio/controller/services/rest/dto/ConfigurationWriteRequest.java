@@ -19,6 +19,9 @@ package org.craftercms.studio.controller.services.rest.dto;
 
 import org.craftercms.studio.commons.validation.StringNotEmpty;
 
+/**
+ * Configuration write request body.
+ */
 public class ConfigurationWriteRequest {
 
     @StringNotEmpty

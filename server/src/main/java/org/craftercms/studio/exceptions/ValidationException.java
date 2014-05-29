@@ -35,8 +35,8 @@ public class ValidationException extends StudioException {
     /**
      * Creates a Instance of ValidationException base on a List of error.
      *
-     * @param code Exception Summary Message
-     * @param errors  List of all validation errors
+     * @param code   Exception Summary Message
+     * @param errors List of all validation errors
      */
     public ValidationException(String code, List<ObjectError> errors) {
         super(code, "Validation Error");
@@ -54,12 +54,12 @@ public class ValidationException extends StudioException {
 
     @Override
     public String getMessage() {
-        return String.format("%s, invalid fields %s",super.getMessage(), errorsToMessage());
+        return String.format("%s, invalid fields %s", super.getMessage(), errorsToMessage());
     }
 
-    protected String errorsToMessage(){
-        StringBuilder builder=new StringBuilder();
-        for (ObjectError error : this.errors){
+    protected String errorsToMessage() {
+        StringBuilder builder = new StringBuilder();
+        for (ObjectError error : this.errors) {
             builder.append(" ");
             builder.append(error.getObjectName());
             builder.append(" ");
@@ -68,7 +68,7 @@ public class ValidationException extends StudioException {
         }
         //Remove last ',' ToDo do this with a integrator
         if (builder.length() > 0) {
-            builder.setLength(builder.length()-1);
+            builder.setLength(builder.length() - 1);
         }
         return builder.toString();
     }

@@ -8,7 +8,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.craftercms.studio.commons.dto.Item;
-import org.craftercms.studio.commons.dto.TreeNode;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "node")

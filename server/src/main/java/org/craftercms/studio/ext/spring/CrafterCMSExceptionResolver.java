@@ -46,9 +46,8 @@ public class CrafterCMSExceptionResolver extends AbstractHandlerExceptionResolve
     }
 
     @Override
-    protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response,
-                                              Object handler, Exception ex)
-    {
+    protected ModelAndView doResolveException(final HttpServletRequest request, final HttpServletResponse response,
+                                              final Object handler, final Exception ex) {
         final ExceptionFormatter exceptionFormatter = formatterRegistry.getFormatter(ex.getClass());
         try {
             if (exceptionFormatter != null) {
@@ -70,7 +69,7 @@ public class CrafterCMSExceptionResolver extends AbstractHandlerExceptionResolve
         return new ModelAndView();
     }
 
-    public void setFormatterRegistry(FormatterRegistry formatterRegistry) {
+    public void setFormatterRegistry(final FormatterRegistry formatterRegistry) {
         this.formatterRegistry = formatterRegistry;
     }
 }

@@ -22,6 +22,7 @@ import java.util.Map;
 
 /**
  * Workflow package.
+ *
  * @author Sumer Jabri
  * @author Dejan Brkic
  * @author Carlos Ortiz
@@ -75,6 +76,7 @@ public class WorkflowPackage {
 
     /**
      * Id getter.
+     *
      * @return id
      */
     public final String getId() {
@@ -83,6 +85,7 @@ public class WorkflowPackage {
 
     /**
      * Id setter.
+     *
      * @param id id
      */
     public final void setId(final String id) {
@@ -91,6 +94,7 @@ public class WorkflowPackage {
 
     /**
      * Name getter.
+     *
      * @return name
      */
     public final String getName() {
@@ -99,6 +103,7 @@ public class WorkflowPackage {
 
     /**
      * Name setter.
+     *
      * @param name name
      */
     public final void setName(final String name) {
@@ -107,6 +112,7 @@ public class WorkflowPackage {
 
     /**
      * Description getter.
+     *
      * @return description
      */
     public final String getDescription() {
@@ -115,6 +121,7 @@ public class WorkflowPackage {
 
     /**
      * Description setter.
+     *
      * @param description description
      */
     public final void setDescription(final String description) {
@@ -123,6 +130,7 @@ public class WorkflowPackage {
 
     /**
      * Items getter.
+     *
      * @return items
      */
     public final List<Item> getItems() {
@@ -131,6 +139,7 @@ public class WorkflowPackage {
 
     /**
      * Items setter.
+     *
      * @param items items
      */
     public final void setItems(final List<Item> items) {
@@ -139,6 +148,7 @@ public class WorkflowPackage {
 
     /**
      * Scheduled date getter.
+     *
      * @return scheduled date
      */
     public final Date getScheduledDate() {
@@ -147,6 +157,7 @@ public class WorkflowPackage {
 
     /**
      * Scheduled date setter.
+     *
      * @param scheduledDate scheduled date
      */
     public final void setScheduledDate(final Date scheduledDate) {
@@ -155,6 +166,7 @@ public class WorkflowPackage {
 
     /**
      * Submitted by getter.
+     *
      * @return submitted by
      */
     public final String getSubmittedBy() {
@@ -163,6 +175,7 @@ public class WorkflowPackage {
 
     /**
      * Submitted by setter.
+     *
      * @param submittedBy submitted by
      */
     public final void setSubmittedBy(final String submittedBy) {
@@ -171,6 +184,7 @@ public class WorkflowPackage {
 
     /**
      * Workflow id getter.
+     *
      * @return workflow id
      */
     public final String getWorkflowId() {
@@ -179,6 +193,7 @@ public class WorkflowPackage {
 
     /**
      * Workflow id setter.
+     *
      * @param workflowId workflow id
      */
     public final void setWorkflowId(final String workflowId) {
@@ -187,6 +202,7 @@ public class WorkflowPackage {
 
     /**
      * State getter.
+     *
      * @return state
      */
     public final String getState() {
@@ -195,6 +211,7 @@ public class WorkflowPackage {
 
     /**
      * State setter.
+     *
      * @param state state
      */
     public final void setState(final String state) {
@@ -203,6 +220,7 @@ public class WorkflowPackage {
 
     /**
      * Properties getter.
+     *
      * @return properties
      */
     public final Map<String, Object> getProperties() {
@@ -211,6 +229,7 @@ public class WorkflowPackage {
 
     /**
      * Properties setter.
+     *
      * @param properties properties
      */
     public final void setProperties(final Map<String, Object> properties) {

@@ -2,7 +2,6 @@ package org.craftercms.studio.impl.repository.mongodb.services.impl;
 
 import java.util.Date;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.UUID;
 
 import org.craftercms.studio.commons.exception.StudioException;
@@ -60,22 +59,22 @@ public class MongoStartupService implements ApplicationListener {
      * </ul>
      */
     private void checkRepoIntegrity() {
-        try{
-        log.debug("Checking Repository Integrity");
-        Node root = nodeService.getRootNode();
-        if (root == null) {
-            log.info("Unable to find a root node, creating one ");
-            root = createRootNode();
-            log.info("Root node created , root = ", root);
-        } else {
-            log.debug("Root node found, root= {}", root);
-        }
-        //Checks if root node was created. if multiple roots found
-        // Throw exception and stop startup
-        //TODO build Tools for Mongo repo (sort of fdisk)
-         nodeService.countRootNodes();
-        }catch (StudioException ex){
-            log.error("Unable to check Repo Integrity due a MongoRepositoryException",ex);
+        try {
+            log.debug("Checking Repository Integrity");
+            Node root = nodeService.getRootNode();
+            if (root == null) {
+                log.info("Unable to find a root node, creating one ");
+                root = createRootNode();
+                log.info("Root node created , root = ", root);
+            } else {
+                log.debug("Root node found, root= {}", root);
+            }
+            //Checks if root node was created. if multiple roots found
+            // Throw exception and stop startup
+            //TODO build Tools for Mongo repo (sort of fdisk)
+            nodeService.countRootNodes();
+        } catch (StudioException ex) {
+            log.error("Unable to check Repo Integrity due a MongoRepositoryException", ex);
         }
 
     }
@@ -100,7 +99,7 @@ public class MongoStartupService implements ApplicationListener {
         rootNode.setCore(metadata);
         try {
             log.info("Creating Root node {}", rootNode);
-            mongodbDataService.save(NodeService.NODES_COLLECTION,rootNode);
+            mongodbDataService.save(NodeService.NODES_COLLECTION, rootNode);
             log.info("Root node created");
             createSiteStructure(rootNode);
             return rootNode;
@@ -124,6 +123,6 @@ public class MongoStartupService implements ApplicationListener {
 
 
     public void setMongodbDataService(MongodbDataService mongodbDataService) {
-        this.mongodbDataService=mongodbDataService;
+        this.mongodbDataService = mongodbDataService;
     }
 }

@@ -20,11 +20,11 @@ package org.craftercms.studio.impl.repository.mongodb.tools;
 import java.io.BufferedReader;
 import java.io.PrintStream;
 
-import org.craftercms.studio.repo.content.ContentService;
-import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
 import org.craftercms.studio.impl.repository.mongodb.services.GridFSService;
 import org.craftercms.studio.impl.repository.mongodb.services.NodeService;
+import org.craftercms.studio.repo.content.ContentService;
+import org.craftercms.studio.repo.content.PathService;
 
 /**
  * Repo Shell Context.
@@ -64,13 +64,14 @@ public class RepoShellContext {
 
     /**
      * Ctor.
-     * @param currentNode  Current Node.
-     * @param nodeService Node service Impl.
-     * @param pathService Path service Impl.
-     * @param gridFSService Grid Service Impl.
+     *
+     * @param currentNode    Current Node.
+     * @param nodeService    Node service Impl.
+     * @param pathService    Path service Impl.
+     * @param gridFSService  Grid Service Impl.
      * @param contentService Content Service Impl.
-     * @param out Out printer.
-     * @param in Input Reader.
+     * @param out            Out printer.
+     * @param in             Input Reader.
      */
     public RepoShellContext(final Node currentNode, final NodeService nodeService, final PathService pathService,
                             final GridFSService gridFSService, final ContentService contentService,

@@ -9,11 +9,11 @@
         </encoder>
     </appender>
 
-    <logger name="org.craftercms.studio.impl.repository.mongodb" level="TRACE" />
-    <logger name="org.springframework.data.document.mongodb" level="TRACE" />
+    <logger name="org.craftercms.studio.impl.repository.mongodb" level="TRACE"/>
+    <logger name="org.springframework.data.document.mongodb" level="TRACE"/>
 
 
     <root level="INFO">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
     </root>
 </configuration>

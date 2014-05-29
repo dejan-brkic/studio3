@@ -18,6 +18,7 @@ package org.craftercms.studio.commons.dto;
 
 /**
  * Version.
+ *
  * @author Sumer Jabri
  * @author Dejan Brkic
  * @author Carlos Ortiz
@@ -37,11 +38,13 @@ public class Version implements Comparable<Version> {
     /**
      * Default constructor.
      */
-    public Version() { }
+    public Version() {
+    }
 
     /**
      * Parametrized constructor.
-     * @param label label
+     *
+     * @param label   label
      * @param comment comment
      */
     public Version(final String label, final String comment) {
@@ -51,6 +54,7 @@ public class Version implements Comparable<Version> {
 
     /**
      * Label getter.
+     *
      * @return label value
      */
     public final String getLabel() {
@@ -59,6 +63,7 @@ public class Version implements Comparable<Version> {
 
     /**
      * Label setter.
+     *
      * @param label label
      */
     public final void setLabel(final String label) {
@@ -67,6 +72,7 @@ public class Version implements Comparable<Version> {
 
     /**
      * Comment getter.
+     *
      * @return comment
      */
     public final String getComment() {
@@ -75,6 +81,7 @@ public class Version implements Comparable<Version> {
 
     /**
      * Comment setter
+     *
      * @param comment comment
      */
     public final void setComment(final String comment) {
@@ -83,7 +90,8 @@ public class Version implements Comparable<Version> {
 
     /**
      * Compare version.
-     * @param version  version
+     *
+     * @param version version
      * @return comparison value
      */
     @Override

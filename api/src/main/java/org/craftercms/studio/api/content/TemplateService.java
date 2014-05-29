@@ -14,32 +14,33 @@ import org.craftercms.studio.commons.exception.StudioException;
  */
 public interface TemplateService {
     // TODO Consider adding duplicate and move
-    /**
-     * Create a new template.
-     *
-     * @param context         the caller's context
-     * @param site            the site to use
-     * @param parentId   the id of the parent item (can be a folder or a descriptor)
-     * @param fileName        file name of the template
-     * @param content         the InputStream containing the XML that is compliant with the model defined in Studio
-     *                        (typically done using Studio's Form Engine).
-     * @param properties      key-value-pair properties, can be null
-     * @return the Item template
-     * @throws StudioException
-     */
-    Item create(Context context, String site, String parentId, String fileName, InputStream content,
-                Map<String, String> properties) throws StudioException;
 
     /**
      * Create a new template.
      *
-     * @param context         the caller's context
-     * @param site            the site to use
+     * @param context    the caller's context
+     * @param site       the site to use
      * @param parentId   the id of the parent item (can be a folder or a descriptor)
-     * @param fileName        file name of the template
-     * @param content         the XML that is compliant with the model defined in Studio (typically done using
-     *                        Studio's Form Engine).
-     * @param properties      key-value-pair properties, can be null
+     * @param fileName   file name of the template
+     * @param content    the InputStream containing the XML that is compliant with the model defined in Studio
+     *                   (typically done using Studio's Form Engine).
+     * @param properties key-value-pair properties, can be null
+     * @return the Item template
+     * @throws StudioException
+     */
+    Item create(Context context, String site, String parentId, String fileName, InputStream content, Map<String,
+        String> properties) throws StudioException;
+
+    /**
+     * Create a new template.
+     *
+     * @param context    the caller's context
+     * @param site       the site to use
+     * @param parentId   the id of the parent item (can be a folder or a descriptor)
+     * @param fileName   file name of the template
+     * @param content    the XML that is compliant with the model defined in Studio (typically done using
+     *                   Studio's Form Engine).
+     * @param properties key-value-pair properties, can be null
      * @return the Item template
      * @throws StudioException
      */
@@ -122,10 +123,10 @@ public interface TemplateService {
     /**
      * Lists all children for given item.
      *
-     * @param context   the caller's context
-     * @param site      the site to use
-     * @param itemId    parent item
-     * @return          list of children
+     * @param context the caller's context
+     * @param site    the site to use
+     * @param itemId  parent item
+     * @return list of children
      */
     List<Item> list(Context context, String site, ItemId itemId) throws StudioException;
 }

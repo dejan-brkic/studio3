@@ -27,5 +27,4 @@ public class StudioImplErrorCode extends ErrorCode {
     public static final String MODULE_ID = "studio-impl";
 
 
-
 }

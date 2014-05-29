@@ -19,8 +19,8 @@ package org.craftercms.studio.documentation.configuration;
 
 import javax.servlet.ServletContext;
 
-import com.mangofactory.swagger.core.DefaultSwaggerPathProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.mangofactory.swagger.core.DefaultSwaggerPathProvider;
 
 /**
  * @author Dejan Brkic

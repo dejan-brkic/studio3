@@ -27,42 +27,45 @@ import org.craftercms.studio.impl.repository.mongodb.tools.RepoShellContext;
  * Changes the directory context of the repo mongo shell and has no effect on the Repository.
  */
 public class CdAction extends AbstractAction {
+
+    private final static String CD_COMMAND = "cd";
+    private final static String INTERNAL = "INTERNAL";
+
     @Override
     public boolean responseTo(final String action) {
-        return "cd".equals(action);
+        return CD_COMMAND.equals(action);
     }
 
     @Override
     public void run(final RepoShellContext context, final String[] args) throws StudioException {
-        if (args.length == 1) {
-            String path = args[0];
-            if (!path.startsWith(MongoRepositoryDefaults.REPO_DEFAULT_PATH_SEPARATOR_CHAR)) {
-                String tmp=context.getPathService().getPathByItemId("INTERNAL","INTERNAL",
-                    context.getCurrentNode().getId());
-                if(!tmp.equals(MongoRepositoryDefaults.REPO_DEFAULT_PATH_SEPARATOR_CHAR)){
-                    path=tmp+MongoRepositoryDefaults.REPO_DEFAULT_PATH_SEPARATOR_CHAR+path;
-                }else{
-                    path=tmp+path;
-                }
-            }
-            String id = context.getPathService().getItemIdByPath("InternalTooling", "InternalSite", path);
-
-            if (id == null) {
-                context.getOut().printf("Folder %s Does not exist \n", path);
-                return;
-            }
-            Node n = context.getNodeService().getNode(id);
-            if (n == null) {
-                context.getOut().printf("Folder with id %s Does not exist \n", id);
-                return;
-            }
-            if (context.getNodeService().isNodeFolder(n)) {
-                context.setCurrentNode(n);
+        if (args.length != 1) {
+            context.getOut().println("Cd cmd requires 1 param");
+            return;
+        }
+        String path = args[0];
+        if (!path.startsWith(MongoRepositoryDefaults.REPO_DEFAULT_PATH_SEPARATOR_CHAR)) {
+            String tmp = context.getPathService().getPathByItemId(INTERNAL, INTERNAL, context.getCurrentNode().getId());
+            if (!tmp.equals(MongoRepositoryDefaults.REPO_DEFAULT_PATH_SEPARATOR_CHAR)) {
+                path = tmp + MongoRepositoryDefaults.REPO_DEFAULT_PATH_SEPARATOR_CHAR + path;
             } else {
-                context.getOut().printf("Folder %s is not a folder \n", path);
+                path = tmp + path;
             }
+        }
+        String id = context.getPathService().getItemIdByPath("InternalTooling", "InternalSite", path);
+
+        if (id == null) {
+            context.getOut().printf("Folder %s Does not exist \n", path);
+            return;
+        }
+        Node n = context.getNodeService().getNode(id);
+        if (n == null) {
+            context.getOut().printf("Folder with id %s Does not exist \n", id);
+            return;
+        }
+        if (context.getNodeService().isNodeFolder(n)) {
+            context.setCurrentNode(n);
         } else {
-            context.getOut().println("Cd cmd requires a param");
+            context.getOut().printf("Folder %s is not a folder \n", path);
         }
     }
 
@@ -73,6 +76,6 @@ public class CdAction extends AbstractAction {
 
     @Override
     public String actionName() {
-        return "cd";
+        return CD_COMMAND;
     }
 }

@@ -18,14 +18,12 @@
 package org.craftercms.studio.controller.services.rest;
 
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.security.SecurityService;
-
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.SecurityPermission;
 import org.craftercms.studio.commons.dto.User;
@@ -55,9 +53,8 @@ public class SecurityController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Context login(@RequestParam(required = true) final String username,
-                         @RequestParam(required = true) final String password, final HttpServletRequest request,
-                         final HttpServletResponse response) throws StudioException {
+    public Context login(@RequestParam(required = true) final String username, @RequestParam(required = true) final
+    String password, final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;
@@ -101,7 +98,8 @@ public class SecurityController {
     @RequestMapping(value = "/permissions", method = RequestMethod.GET)
     @ResponseBody
     public List<SecurityPermission> permissions(@RequestParam(required = true) final String site,
-                                                @RequestParam(required = true) final String itemId) throws StudioException {
+                                                @RequestParam(required = true) final String itemId) throws
+        StudioException {
         return this.securityService.getPermissions(null, site, itemId);
     }
 }

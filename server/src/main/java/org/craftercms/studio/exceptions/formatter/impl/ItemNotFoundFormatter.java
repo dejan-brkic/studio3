@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
  * Formats {@link org.craftercms.studio.commons.exception.StudioException} to a nice JSON
  * that will return HTTP status 404 (not found).
  */
-public class ItemNotFoundFormatter extends AbstractExceptionFormatter{
+public class ItemNotFoundFormatter extends AbstractExceptionFormatter {
 
     /**
      * Register ItemNotFound Exception Mapping.
@@ -24,7 +24,8 @@ public class ItemNotFoundFormatter extends AbstractExceptionFormatter{
      * Since a lot of things can be not found ,a detail message will be more complex.
      * using default {@link AbstractExceptionFormatter#getFormattedMessage(Exception)}
      * to just use ItemNotFoundException message its much simple.
-     * **/
+     * *
+     */
     @Override
     protected JSONObject generateDetailMessage(final Exception ex) throws JSONException {
         return null;

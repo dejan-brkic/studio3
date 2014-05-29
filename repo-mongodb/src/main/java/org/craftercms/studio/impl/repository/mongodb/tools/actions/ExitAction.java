@@ -28,7 +28,7 @@ import org.craftercms.studio.impl.repository.mongodb.tools.RepoShellContext;
 public class ExitAction extends AbstractAction {
     @Override
     public boolean responseTo(final String action) {
-        return Arrays.asList("exit","quit").contains(action);
+        return Arrays.asList("exit", "quit").contains(action);
     }
 
     @Override

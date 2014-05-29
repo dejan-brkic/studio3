@@ -1,7 +1,6 @@
 package org.craftercms.studio.impl.repository.mongodb.services;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
@@ -45,7 +44,7 @@ public class ITMongoStartupService implements ApplicationContextAware {
     public void testContentNameCreated() throws Exception {
         Iterable<Node> nodes = nodeService.findNodesByParents(Arrays.asList(nodeService.getRootNode()));
         for (Node node : nodes) {
-            if(node.getCore().getNodeName().equals(MongoRepositoryDefaults.REPO_DEFAULT_CONTENT_FOLDER)){
+            if (node.getCore().getNodeName().equals(MongoRepositoryDefaults.REPO_DEFAULT_CONTENT_FOLDER)) {
                 return;
             }
         }
@@ -58,7 +57,7 @@ public class ITMongoStartupService implements ApplicationContextAware {
     public void testConfigNameCreated() throws Exception {
         Iterable<Node> nodes = nodeService.findNodesByParents(Arrays.asList(nodeService.getRootNode()));
         for (Node node : nodes) {
-            if(node.getCore().getNodeName().equals(MongoRepositoryDefaults.REPO_DEFAULT_CONFIG_FOLDER)){
+            if (node.getCore().getNodeName().equals(MongoRepositoryDefaults.REPO_DEFAULT_CONFIG_FOLDER)) {
                 return;
             }
         }
@@ -67,9 +66,8 @@ public class ITMongoStartupService implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext=applicationContext;
+        this.applicationContext = applicationContext;
     }
-
 
 
 }

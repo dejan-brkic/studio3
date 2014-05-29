@@ -46,10 +46,10 @@ public class FormatterRegistryImpl implements FormatterRegistry {
 
     @Override
     public void registerFormatter(Class<? extends Exception> clazz, ExceptionFormatter formatter) {
-        if ( this.formatterMap == null ) {
+        if (this.formatterMap == null) {
             this.formatterMap = new FastMap<>();
         }
-        if ( this.log.isDebugEnabled() ) {
+        if (this.log.isDebugEnabled()) {
             this.log.debug("Registering Message formatter {}", formatter.getClass().getName());
         }
         this.formatterMap.put(clazz, formatter);
@@ -57,15 +57,15 @@ public class FormatterRegistryImpl implements FormatterRegistry {
 
     @Override
     public ExceptionFormatter getFormatter(Class<? extends Exception> clazz) {
-        if ( this.formatterMap == null ) {
+        if (this.formatterMap == null) {
             this.formatterMap = new FastMap<>();
         }
         ExceptionFormatter formatter;
-        if ( clazz == null ) {
+        if (clazz == null) {
             formatter = new DefaultFormatter();
         } else {
             formatter = this.formatterMap.get(clazz);
-            if ( formatter == null ) {
+            if (formatter == null) {
                 formatter = new DefaultFormatter();
             }
         }

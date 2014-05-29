@@ -93,6 +93,38 @@ public class Item implements Comparable<Item> {
 
     @JsonIgnore
     private InputStream inputStream;
+    /**
+     * User id of the lock owner, null if item is not locked
+     */
+    @ApiModelProperty(value = "Lock owner")
+    private String lockOwner;
+    /**
+     * The URL to preview this item, null if item is not previewable
+     */
+    @ApiModelProperty(value = "Preview url for item")
+    private String previewUrl;
+    ////TODO LOCK TYPE
+    // Security Properties
+    @ApiModelProperty(value = "Security is inherited")
+    private boolean securityInherited;
+    @ApiModelProperty(value = "Content type")
+    private String contentType;
+    @ApiModelProperty(value = "List of rendering templates")
+    private List<String> renderingTemplates;
+    //private List<ACL> acls;
+    @ApiModelProperty(value = "Scheduled date")
+    private Date scheduledDate;
+    @ApiModelProperty(value = "Workflow packages")
+    private List<String> packages;
+    // Additional Metadata
+    @ApiModelProperty(value = "Custom metadata")
+    private Map<String, Object> properties;
+    public Item() {
+    }
+
+    public Item(Item original) {
+
+    }
 
     @JsonIgnore
     public InputStream getInputStream() {
@@ -101,45 +133,6 @@ public class Item implements Comparable<Item> {
 
     public void setInputStream(InputStream inputStream) {
         this.inputStream = inputStream;
-    }
-    ////TODO LOCK TYPE
-    /**
-     * User id of the lock owner, null if item is not locked
-     */
-    @ApiModelProperty(value = "Lock owner")
-    private String lockOwner;
-
-    /**
-     * The URL to preview this item, null if item is not previewable
-     */
-    @ApiModelProperty(value = "Preview url for item")
-    private String previewUrl;
-
-
-    // Security Properties
-    @ApiModelProperty(value = "Security is inherited")
-    private boolean securityInherited;
-    //private List<ACL> acls;
-
-    @ApiModelProperty(value = "Content type")
-    private String contentType;
-    @ApiModelProperty(value = "List of rendering templates")
-    private List<String> renderingTemplates;
-
-    @ApiModelProperty(value = "Scheduled date")
-    private Date scheduledDate;
-    @ApiModelProperty(value = "Workflow packages")
-    private List<String> packages;
-
-    // Additional Metadata
-    @ApiModelProperty(value = "Custom metadata")
-    private Map<String, Object> properties;
-
-    public Item() {
-    }
-
-    public Item(Item original) {
-
     }
 
     /**

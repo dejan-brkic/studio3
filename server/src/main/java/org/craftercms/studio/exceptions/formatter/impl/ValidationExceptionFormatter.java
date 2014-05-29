@@ -46,7 +46,7 @@ public class ValidationExceptionFormatter extends AbstractExceptionFormatter {
     public JSONObject generateDetailMessage(Exception ex) throws JSONException {
         final JSONObject returnJson = new JSONObject();
         if (ex instanceof ValidationException) {
-            final ValidationException validationException = (ValidationException) ex;
+            final ValidationException validationException = (ValidationException)ex;
             if (!validationException.getErrors().isEmpty()) {
                 final JSONArray jsonArray = new JSONArray();
                 for (ObjectError o : validationException.getErrors()) {
@@ -58,10 +58,9 @@ public class ValidationExceptionFormatter extends AbstractExceptionFormatter {
                 returnJson.put(AbstractExceptionFormatter.JSON_DETAIL_MESSAGE_KEY, jsonArray);
             }
             return returnJson;
-        }else {
+        } else {
             throw new IllegalArgumentException(String.format("The Given Exception (%s) is not a valid %s instance",
-                                                         ex.getClass().getCanonicalName(),
-                                                        this.getClass().getCanonicalName()));
+                ex.getClass().getCanonicalName(), this.getClass().getCanonicalName()));
         }
     }
 }

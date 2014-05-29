@@ -17,7 +17,6 @@
 
 package org.craftercms.studio.impl.repository.mongodb.data;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -33,19 +32,17 @@ import org.springframework.core.io.Resource;
 public class JongoQueries {
 
     /**
+     * Backend properties file.
+     */
+    protected Properties properties;
+    /**
      * Logger.
      */
     private Logger log = LoggerFactory.getLogger(JongoQueries.class);
-
     /**
      * List of all Query files to be load.
      */
     private List<Resource> queryFiles;
-
-    /**
-     * Backend properties file.
-     */
-    protected Properties properties;
 
     /**
      * Create a JongoQueries instance.

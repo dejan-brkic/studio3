@@ -22,11 +22,6 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiParam;
-import com.wordnik.swagger.annotations.ApiResponse;
-import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.content.TemplateService;
 import org.craftercms.studio.commons.dto.Context;
@@ -48,6 +43,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
+import com.wordnik.swagger.annotations.ApiResponse;
+import com.wordnik.swagger.annotations.ApiResponses;
 
 /**
  * Template Service RESTful controller.
@@ -57,7 +57,8 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 @RequestMapping("/api/1/template")
-@Api(value = "TemplateService", description = "Template RESTful services", position = DocumentationServiceOrder.TEMPLATE_SERVICE)
+@Api(value = "TemplateService", description = "Template RESTful services", position = DocumentationServiceOrder
+    .TEMPLATE_SERVICE)
 public class TemplateServiceController {
 
     @Autowired
@@ -66,43 +67,40 @@ public class TemplateServiceController {
     /**
      * Create a new template.
      *
-     * @param site          site identifier
-     * @param parentId      parent identifier
-     * @param fileName      file name
-     * @param file          template file
-     * @param properties    template properties
-     * @return              template descriptor item
+     * @param site       site identifier
+     * @param parentId   parent identifier
+     * @param fileName   file name
+     * @param file       template file
+     * @param properties template properties
+     * @return template descriptor item
      * @throws StudioException
      */
     @ApiOperation(value = "Create new template", notes = "Adds new template file to repository",
         produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = Item.class), @ApiResponse(code = 400,
+        message = "Bad request")})
     @RequestMapping(
         value = "/create/{site}",
         method = RequestMethod.POST,
-        params = { "parent_id", "file_name"}
+        params = {"parent_id", "file_name"}
     )
     @ResponseBody
     public Item create(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable final String site,
+        @ApiParam(name = "site", required = true, value = "String") @PathVariable final String site,
 
-            @ApiParam(name = "parent_id", required = true, value = "String")
-            @RequestParam(value = "parent_id", required = true) final String parentId,
+        @ApiParam(name = "parent_id", required = true, value = "String") @RequestParam(value = "parent_id",
+            required = true) final String parentId,
 
-            @ApiParam(name = "file_name", required = true, value = "String")
-            @RequestParam(value = "file_name", required = true) final String fileName,
+        @ApiParam(name = "file_name", required = true, value = "String") @RequestParam(value = "file_name",
+            required = true) final String fileName,
 
-            @ApiParam(name = "file", required = true, value = "String")
-            @RequestParam(value = "file", required = true) final MultipartFile file,
+        @ApiParam(name = "file", required = true, value = "String") @RequestParam(value = "file",
+            required = true) final MultipartFile file,
 
-            @ApiParam(name = "properties", required = false, value = "Map<String, String")
-            @RequestParam(value = "properties", required = false) final Map<String, String> properties
-    ) throws StudioException {
+        @ApiParam(name = "properties", required = false, value = "Map<String, " +
+            "String") @RequestParam(value = "properties", required = false) final Map<String,
+            String> properties) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         InputStream content = null;
@@ -118,41 +116,37 @@ public class TemplateServiceController {
     /**
      * Create a new template.
      *
-     * @param site          site identifier
-     * @param parentId      parent identifier
-     * @param fileName      file name
-     * @param content       template content
-     * @param properties    template properties
-     * @return              template descriptor
+     * @param site       site identifier
+     * @param parentId   parent identifier
+     * @param fileName   file name
+     * @param content    template content
+     * @param properties template properties
+     * @return template descriptor
      * @throws StudioException
      */
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = Item.class), @ApiResponse(code = 400,
+        message = "Bad request")})
     @RequestMapping(
         value = "/create/{site}",
         method = RequestMethod.POST,
-        params = { "parent_id", "file_name", "content" }
+        params = {"parent_id", "file_name", "content"}
     )
     @ResponseBody
     public Item create(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable final String site,
+        @ApiParam(name = "site", required = true, value = "String") @PathVariable final String site,
 
-            @ApiParam(name = "parent_id", required = true, value = "String")
-            @RequestParam(value = "parent_id", required = true) final String parentId,
+        @ApiParam(name = "parent_id", required = true, value = "String") @RequestParam(value = "parent_id",
+            required = true) final String parentId,
 
-            @ApiParam(name = "file_name", required = true, value = "String")
-            @RequestParam(value = "file_name", required = true) final String fileName,
+        @ApiParam(name = "file_name", required = true, value = "String") @RequestParam(value = "file_name",
+            required = true) final String fileName,
 
-            @ApiParam(name = "content", required = true, value = "String")
-            @RequestParam(value = "content", required = true) final String content,
+        @ApiParam(name = "content", required = true, value = "String") @RequestParam(value = "content",
+            required = true) final String content,
 
-            @ApiParam(name = "properties", required = false, value = "Map<String, String>")
-            @RequestParam(value = "properties", required = false) final Map<String, String> properties
-    ) throws StudioException {
+        @ApiParam(name = "properties", required = false, value = "Map<String, String>") @RequestParam(value =
+            "properties", required = false) final Map<String, String> properties) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         Item item = templateService.create(context, site, parentId, fileName, content, properties);
@@ -162,15 +156,13 @@ public class TemplateServiceController {
     /**
      * Get template descriptor.
      *
-     * @param site      site identifier
-     * @param itemId    template identifier
-     * @return          template descriptor
+     * @param site   site identifier
+     * @param itemId template identifier
+     * @return template descriptor
      * @throws StudioException
      */
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = Item.class), @ApiResponse(code = 400,
+        message = "Bad request")})
     @RequestMapping(
         value = "/read/{site}",
         method = RequestMethod.GET
@@ -178,12 +170,10 @@ public class TemplateServiceController {
     @ResponseBody
     public Item read(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable final String site,
+        @ApiParam(name = "site", required = true, value = "String") @PathVariable final String site,
 
-            @ApiParam(name = "item_id", required = true, value = "String")
-            @RequestParam(value = "item_id", required = true) final String itemId
-    ) throws StudioException {
+        @ApiParam(name = "item_id", required = true, value = "String") @RequestParam(value = "item_id",
+            required = true) final String itemId) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId templateItemId = new ItemId(itemId);
@@ -193,28 +183,23 @@ public class TemplateServiceController {
 
     /**
      * Read textual content for given template id.
-
-     * @param site      site identifier
-     * @param itemId    template item id
-     * @return          textual content of template
+     *
+     * @param site   site identifier
+     * @param itemId template item id
+     * @return textual content of template
      * @throws StudioException
      */
     @ApiOperation(value = "read textual content of template", position = 3)
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "Success", response = String.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = String.class), @ApiResponse(code = 400,
+        message = "Bad request")})
     @RequestMapping(value = "/read_text/{site}",
-        params = { "item_id" },
+        params = {"item_id"},
         method = RequestMethod.GET)
     @ResponseBody
-    public String getTextContent(
-        @ApiParam(name = "site", required = true, value = "String")
-        @PathVariable String site,
+    public String getTextContent(@ApiParam(name = "site", required = true, value = "String") @PathVariable String site,
 
-        @ApiParam(name = "item_id", required = true, value = "String")
-        @RequestParam(value = "item_id") String itemId
-    ) throws StudioException {
+                                 @ApiParam(name = "item_id", required = true, value = "String") @RequestParam(value =
+                                     "item_id") String itemId) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId templateItemId = new ItemId(itemId);
@@ -224,37 +209,34 @@ public class TemplateServiceController {
     /**
      * Update template.
      *
-     * @param site          site identifier
-     * @param itemId        template identifier
-     * @param file          template file
-     * @param properties    template properties
-     * @return              template descriptor
+     * @param site       site identifier
+     * @param itemId     template identifier
+     * @param file       template file
+     * @param properties template properties
+     * @return template descriptor
      * @throws StudioException
      */
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = Item.class), @ApiResponse(code = 400,
+        message = "Bad request")})
     @RequestMapping(
         value = "/update/{site}",
         method = RequestMethod.POST,
-        params = { "item_id" }
+        params = {"item_id"}
     )
     @ResponseBody
     public Item update(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable final String site,
+        @ApiParam(name = "site", required = true, value = "String") @PathVariable final String site,
 
-            @ApiParam(name = "item_id", required = true, value = "String")
-            @RequestParam(value = "item_id", required = true) final String itemId,
+        @ApiParam(name = "item_id", required = true, value = "String") @RequestParam(value = "item_id",
+            required = true) final String itemId,
 
-            @ApiParam(name = "file", required = true, value = "MultipartFile")
-            @RequestParam(value = "file", required = true) final MultipartFile file,
+        @ApiParam(name = "file", required = true, value = "MultipartFile") @RequestParam(value = "file",
+            required = true) final MultipartFile file,
 
-            @ApiParam(name = "properties", required = false, value = "Map<String, String")
-            @RequestParam(value = "properties", required = false) final Map<String, String> properties
-    ) throws StudioException {
+        @ApiParam(name = "properties", required = false, value = "Map<String, " +
+            "String") @RequestParam(value = "properties", required = false) final Map<String,
+            String> properties) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId templateItemId = new ItemId(itemId);
@@ -271,37 +253,33 @@ public class TemplateServiceController {
     /**
      * Update template.
      *
-     * @param site          site identifier
-     * @param itemId        template identifier
-     * @param content       template content
-     * @param properties    template properties
-     * @return              template descriptor
+     * @param site       site identifier
+     * @param itemId     template identifier
+     * @param content    template content
+     * @param properties template properties
+     * @return template descriptor
      * @throws StudioException
      */
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = Item.class), @ApiResponse(code = 400,
+        message = "Bad request")})
     @RequestMapping(
         value = "/update/{site}",
         method = RequestMethod.POST,
-        params = { "item_id", "content" }
+        params = {"item_id", "content"}
     )
     @ResponseBody
     public Item update(
 
-        @ApiParam(name = "site", required = true, value = "String")
-        @PathVariable final String site,
+        @ApiParam(name = "site", required = true, value = "String") @PathVariable final String site,
 
-        @ApiParam(name = "item_id", required = true, value = "String")
-        @RequestParam(value = "item_id", required = true) final String itemId,
+        @ApiParam(name = "item_id", required = true, value = "String") @RequestParam(value = "item_id",
+            required = true) final String itemId,
 
-        @ApiParam(name = "content", required = true, value = "String")
-        @RequestParam(value = "content", required = true) final String content,
+        @ApiParam(name = "content", required = true, value = "String") @RequestParam(value = "content",
+            required = true) final String content,
 
-        @ApiParam(name = "properties", required = false, value = "Map<String, String>")
-        @RequestParam(value = "properties", required = false) final Map<String, String> properties
-    ) throws StudioException {
+        @ApiParam(name = "properties", required = false, value = "Map<String, String>") @RequestParam(value =
+            "properties", required = false) final Map<String, String> properties) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId templateItemId = new ItemId(itemId);
@@ -312,14 +290,11 @@ public class TemplateServiceController {
     /**
      * Delete template descriptor.
      *
-     * @param site      site identifier
-     * @param itemId    template identifier
+     * @param site   site identifier
+     * @param itemId template identifier
      * @throws StudioException
      */
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "Success"),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+    @ApiResponses({@ApiResponse(code = 200, message = "Success"), @ApiResponse(code = 400, message = "Bad request")})
     @RequestMapping(
         value = "/delete/{site}",
         method = RequestMethod.POST
@@ -327,12 +302,10 @@ public class TemplateServiceController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable final String site,
+        @ApiParam(name = "site", required = true, value = "String") @PathVariable final String site,
 
-            @ApiParam(name = "item_id", required = true)
-            @RequestParam(value = "item_id", required = true) final String itemId
-    ) throws StudioException {
+        @ApiParam(name = "item_id", required = true) @RequestParam(value = "item_id",
+            required = true) final String itemId) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId templateItemId = new ItemId(itemId);
@@ -342,27 +315,23 @@ public class TemplateServiceController {
     /**
      * Find templates by given criteria.
      *
-     * @param site      site identifier
-     * @param query     search query
-     * @return          list of template descriptors
+     * @param site  site identifier
+     * @param query search query
+     * @return list of template descriptors
      * @throws StudioException
      */
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = Item.class), @ApiResponse(code = 400,
+        message = "Bad request")})
     @RequestMapping(
         value = "/find/{site}",
         method = RequestMethod.GET
     )
     public List<Item> findBy(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable final String site,
+        @ApiParam(name = "site", required = true, value = "String") @PathVariable final String site,
 
-            @ApiParam(name = "query", required = true, value = "String")
-            @RequestParam(value = "query", required = true) final String query
-    ) throws StudioException {
+        @ApiParam(name = "query", required = true, value = "String") @RequestParam(value = "query",
+            required = true) final String query) throws StudioException {
 
         throw ErrorManager.createError(StudioServerErrorCode.NOT_IMPLEMENTED);
     }
@@ -370,17 +339,14 @@ public class TemplateServiceController {
     /**
      * List children for given template item.
      *
-     * @param site      site identifier
-     * @param itemId    parent template item id
-     * @return          list of children items
-     *
+     * @param site   site identifier
+     * @param itemId parent template item id
+     * @return list of children items
      * @throws StudioException
      */
     @ApiOperation(value = "list children templates")
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = Item.class), @ApiResponse(code = 400,
+        message = "Bad request")})
     @RequestMapping(
         value = "/list/{site}",
         method = RequestMethod.GET
@@ -388,12 +354,10 @@ public class TemplateServiceController {
     @ResponseBody
     public List<Item> list(
 
-        @ApiParam(name = "site", required = true, value = "String")
-        @PathVariable String site,
+        @ApiParam(name = "site", required = true, value = "String") @PathVariable String site,
 
-        @ApiParam(name = "item_id", required = false, value = "String")
-        @RequestParam(value = "item_id", required = false) String itemId
-    ) throws StudioException {
+        @ApiParam(name = "item_id", required = false, value = "String") @RequestParam(value = "item_id",
+            required = false) String itemId) throws StudioException {
         Context context = RestControllerUtils.createMockContext();
         ItemId templateItemId = null;
         if (StringUtils.isNotEmpty(itemId)) {

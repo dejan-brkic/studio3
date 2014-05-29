@@ -50,31 +50,31 @@ public interface ContentManager {
      * @return content item
      */
     Item read(Context context, String site, String itemId) throws StudioException;
-//
-//    /**
-//     * Read content for given item id and version.
-//     *
-//     * @param context context
-//     * @param itemId  item id
-//     * @param version content version
-//     * @return content
-//     */
-//    InputStream read(Context context, ItemId itemId, String version) throws StudioException;
-//
-//    // TODO Add read meta-data, write meta-data
-//    // TODO UPDATE TO USE ItemId
-//
-//    // TODO add version management support here?
-//
+    //
+    //    /**
+    //     * Read content for given item id and version.
+    //     *
+    //     * @param context context
+    //     * @param itemId  item id
+    //     * @param version content version
+    //     * @return content
+    //     */
+    //    InputStream read(Context context, ItemId itemId, String version) throws StudioException;
+    //
+    //    // TODO Add read meta-data, write meta-data
+    //    // TODO UPDATE TO USE ItemId
+    //
+    //    // TODO add version management support here?
+    //
 
     /**
      * Write content.
      *
-     * @param context       security context
-     * @param site          site identifier
-     * @param itemId        content identifier
-     * @param lockHandle    lock handle
-     * @param content       content to be written
+     * @param context    security context
+     * @param site       site identifier
+     * @param itemId     content identifier
+     * @param lockHandle lock handle
+     * @param content    content to be written
      * @throws StudioException
      */
     void write(Context context, String site, ItemId itemId, LockHandle lockHandle,
@@ -87,24 +87,24 @@ public interface ContentManager {
      * @param itemsToDelete items to delete
      */
     void delete(Context context, List<Item> itemsToDelete) throws StudioException;
-//
-//    /**
-//     * Copy items to destination path.
-//     *
-//     * @param context         context
-//     * @param itemsToCopy     items to copy
-//     * @param destinationPath destination path
-//     * @param includeChildren include children
-//     */
-//    void copy(Context context, List<Item> itemsToCopy, String destinationPath, boolean includeChildren);
-//
+    //
+    //    /**
+    //     * Copy items to destination path.
+    //     *
+    //     * @param context         context
+    //     * @param itemsToCopy     items to copy
+    //     * @param destinationPath destination path
+    //     * @param includeChildren include children
+    //     */
+    //    void copy(Context context, List<Item> itemsToCopy, String destinationPath, boolean includeChildren);
+    //
 
     /**
      * Move item to destination path.
      *
-     * @param context           context
-     * @param item              item to move
-     * @param destinationPath   destination path
+     * @param context         context
+     * @param item            item to move
+     * @param destinationPath destination path
      */
     void move(Context context, Item item, String destinationPath) throws StudioException;
 
@@ -120,8 +120,8 @@ public interface ContentManager {
     /**
      * Get children.
      *
-     * @param context       context
-     * @param itemId        item id
+     * @param context context
+     * @param itemId  item id
      * @return children
      */
     List<Item> list(Context context, String site, String itemId) throws StudioException;
@@ -129,32 +129,32 @@ public interface ContentManager {
     /**
      * Create new folder.
      *
-     * @param context       caller's context
-     * @param site          site identifier
-     * @param path          path where to create folder
-     * @param folderName    folder name
-     * @return              content item representing folder
+     * @param context    caller's context
+     * @param site       site identifier
+     * @param path       path where to create folder
+     * @param folderName folder name
+     * @return content item representing folder
      */
     Item createFolder(Context context, String site, String path, String folderName) throws StudioException;
-//
-//    /**
-//     * Get sub-tree with given item as root.
-//     *
-//     * @param context    context
-//     * @param itemId     item id
-//     * @param depth      depth
-//     * @param filters    filters
-//     * @param extractors extractors
-//     * @return tree of items
-//     */
-//    Tree<Item> tree(Context context, String itemId, int depth, List<ItemFilter> filters,
-//                    List<ItemExtractor> extractors);
-//
-//    /**
-//     * Get sites.
-//     *
-//     * @param context context
-//     * @return list of sites
-//     */
-//    List<Site> getSiteList(Context context);
+    //
+    //    /**
+    //     * Get sub-tree with given item as root.
+    //     *
+    //     * @param context    context
+    //     * @param itemId     item id
+    //     * @param depth      depth
+    //     * @param filters    filters
+    //     * @param extractors extractors
+    //     * @return tree of items
+    //     */
+    //    Tree<Item> tree(Context context, String itemId, int depth, List<ItemFilter> filters,
+    //                    List<ItemExtractor> extractors);
+    //
+    //    /**
+    //     * Get sites.
+    //     *
+    //     * @param context context
+    //     * @return list of sites
+    //     */
+    //    List<Site> getSiteList(Context context);
 }

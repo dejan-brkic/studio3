@@ -17,24 +17,23 @@ public enum NodeType {
      */
     FOLDER;
 
-
-    @Override
-    public String toString() {
-        switch (this){
-            case FOLDER:
-                return "FOLDER";
-            case FILE :
-                return "FILE";
-            default:
-                return "OTHER";
-        }
-    }
-
     public static NodeType fromString(String nodeType) {
         if (nodeType.equalsIgnoreCase("FILE")) {
             return NodeType.FILE;
         } else {
             return NodeType.FOLDER;
+        }
+    }
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case FOLDER:
+                return "FOLDER";
+            case FILE:
+                return "FILE";
+            default:
+                return "OTHER";
         }
     }
 }

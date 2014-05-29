@@ -56,7 +56,7 @@ public class ContentType {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -64,7 +64,7 @@ public class ContentType {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -72,7 +72,7 @@ public class ContentType {
         return this.siteId;
     }
 
-    public void setSiteId(String siteId) {
+    public void setSiteId(final String siteId) {
         this.siteId = siteId;
     }
 
@@ -80,7 +80,7 @@ public class ContentType {
         return this.siteName;
     }
 
-    public void setSiteName(String siteName) {
+    public void setSiteName(final String siteName) {
         this.siteName = siteName;
     }
 
@@ -88,7 +88,7 @@ public class ContentType {
         return this.path;
     }
 
-    public void setPath(String path) {
+    public void setPath(final String path) {
         this.path = path;
     }
 
@@ -96,7 +96,7 @@ public class ContentType {
         return this.previewable;
     }
 
-    public void setPreviewable(boolean previewable) {
+    public void setPreviewable(final boolean previewable) {
         this.previewable = previewable;
     }
 
@@ -104,7 +104,7 @@ public class ContentType {
         return this.thumbnail;
     }
 
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(final String thumbnail) {
         this.thumbnail = thumbnail;
     }
 
@@ -112,7 +112,7 @@ public class ContentType {
         return this.form;
     }
 
-    public void setForm(Form form) {
+    public void setForm(final Form form) {
         this.form = form;
     }
 }

@@ -43,8 +43,9 @@ public class ContentTypeServiceImpl implements ContentTypeService {
 
     private SecurityService securityService;
     private ContentManager contentManager;
+
     /**
-     * Create a new content type
+     * Create a new content type.
      *
      * @param context           the caller's context
      * @param site              the site to use
@@ -61,12 +62,15 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      * @param lifecycleScripts  lifecycle method definitions to be invoked during the various
      *                          lifecycle events, see {@link ??????????????????}
      * @param properties        key-value-pair properties, can be null
-     * @return                  content type descriptor
+     * @return content type descriptor
      * @throws StudioException
      */
     @Override
     public ContentType create(final Context context, final String site, final String typeName, final String formId,
-                              final String defaultTemplateId, final Map<String, String> templateIds, final byte[] thumbnail, final List<String> permissionIds, final boolean previewable, final String lifecycleScripts, final Map<String, String> properties) throws StudioException {
+                              final String defaultTemplateId, final Map<String, String> templateIds,
+                              final byte[] thumbnail, final List<String> permissionIds, final boolean previewable,
+                              final String lifecycleScripts, final Map<String,
+        String> properties) throws StudioException {
 
         if (context != null && securityService.validate(context)) {
             Item item = createContentTypeItem(typeName);
@@ -81,7 +85,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
 
     // TODO: review this function ..
     // Content manager requires Item object to add new item to repository
-    private Item createContentTypeItem(String fileName) {
+    private Item createContentTypeItem(final String fileName) {
         Item item = new Item();
         item.setCreatedBy(RandomStringUtils.random(10));
         item.setFileName(fileName);
@@ -97,12 +101,12 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      * @param contentTypeId content type id
      * @param formId        the form associated with this content type, see {@link org.craftercms.studio.api
      *                      .content.FormService}
-     * @return              content type descriptor
+     * @return content type descriptor
      * @throws StudioException
      */
     @Override
-    public ContentType updateForm(final Context context, final String site, final String contentTypeId, final String
-        formId) throws StudioException {
+    public ContentType updateForm(final Context context, final String site, final String contentTypeId,
+                                  final String formId) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -114,7 +118,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      * @param contentTypeId     content type id
      * @param defaultTemplateId default view template to use with this content type, can be null,
      *                          see {@link org.craftercms.studio.api.content.TemplateService}
-     * @return                  content type descriptor
+     * @return content type descriptor
      * @throws StudioException
      */
     @Override
@@ -131,12 +135,12 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      * @param contentTypeId content type id
      * @param templateIds   map of templates to use based on various criteria (like user-agent/browser,
      *                      or anything else), key to template mapping. Can be null.
-     * @return              content type descriptor
+     * @return content type descriptor
      * @throws StudioException
      */
     @Override
-    public ContentType updateTemplates(final Context context, final String site, final String contentTypeId, final
-    List<String> templateIds) throws StudioException {
+    public ContentType updateTemplates(final Context context, final String site, final String contentTypeId,
+                                       final List<String> templateIds) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -147,11 +151,12 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      * @param site          the site to use
      * @param contentTypeId content type id
      * @param thumbnail     thumbnail view of this type, can be null
-     * @return              content type descriptor
+     * @return content type descriptor
      * @throws StudioException
      */
     @Override
-    public ContentType updateThumbnail(final Context context, final String site, final String contentTypeId, final byte[] thumbnail) throws StudioException {
+    public ContentType updateThumbnail(final Context context, final String site, final String contentTypeId,
+                                       final byte[] thumbnail) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -162,11 +167,12 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      * @param site          the site to use
      * @param contentTypeId content type id
      * @param permissionIds list of permission ids, see {@link org.craftercms.studio.api.security.SecurityService}
-     * @return              content type descriptor
+     * @return content type descriptor
      * @throws StudioException
      */
     @Override
-    public ContentType updatePermissions(final Context context, final String site, final String contentTypeId, final List<String> permissionIds) throws StudioException {
+    public ContentType updatePermissions(final Context context, final String site, final String contentTypeId,
+                                         final List<String> permissionIds) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -176,25 +182,25 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      * @param context       the caller's context
      * @param site          the site to use
      * @param contentTypeId content type id
-     * @param previewable       content type is previewable (like a page)
-     * @return              content type descriptor
+     * @param previewable   content type is previewable (like a page)
+     * @return content type descriptor
      * @throws StudioException
      */
     @Override
-    public ContentType updatePreviewable(final Context context, final String site, final String contentTypeId, final
-    boolean previewable) throws StudioException {
+    public ContentType updatePreviewable(final Context context, final String site, final String contentTypeId,
+                                         final boolean previewable) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     /**
      * Update lifecycle scripts for given content type.
      *
-     * @param context       the caller's context
-     * @param site          the site to use
-     * @param contentTypeId content type id
-     * @param lifecycleScripts  lifecycle method definitions to be invoked during the various
-     *                          lifecycle events, see {@link ??????????????????}
-     * @return                  content type descriptor
+     * @param context          the caller's context
+     * @param site             the site to use
+     * @param contentTypeId    content type id
+     * @param lifecycleScripts lifecycle method definitions to be invoked during the various
+     *                         lifecycle events, see {@link ??????????????????}
+     * @return content type descriptor
      * @throws StudioException
      */
     @Override
@@ -210,11 +216,12 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      * @param site          the site to use
      * @param contentTypeId content type id
      * @param properties    key-value-pair properties, can be null
-     * @return              content type descriptor
+     * @return content type descriptor
      * @throws StudioException
      */
     @Override
-    public ContentType updateProperties(final Context context, final String site, final String contentTypeId, final Map<String, String> properties) throws StudioException {
+    public ContentType updateProperties(final Context context, final String site, final String contentTypeId,
+                                        final Map<String, String> properties) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -225,11 +232,12 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      * @param site          the site to use
      * @param contentTypeId content type id
      * @param typeName      name of content type
-     * @return              content type descriptor
+     * @return content type descriptor
      * @throws StudioException
      */
     @Override
-    public ContentType duplicate(final Context context, final String site, final String contentTypeId, final String typeName) throws StudioException {
+    public ContentType duplicate(final Context context, final String site, final String contentTypeId,
+                                 final String typeName) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -241,11 +249,12 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      * @param destinationSite the destination site to copy to
      * @param contentTypeId   the content type to copy
      * @param typeName        name of the target content type
-     * @return                content type descriptor
+     * @return content type descriptor
      * @throws StudioException
      */
     @Override
-    public ContentType duplicate(final Context context, final String sourceSite, final String destinationSite, final String contentTypeId, final String typeName) throws StudioException {
+    public ContentType duplicate(final Context context, final String sourceSite, final String destinationSite,
+                                 final String contentTypeId, final String typeName) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -255,11 +264,12 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      * @param context       the caller's context
      * @param site          the site to use
      * @param contentTypeId content type id
-     * @return              content type descriptor
+     * @return content type descriptor
      * @throws StudioException
      */
     @Override
-    public ContentType read(final Context context, final String site, final String contentTypeId) throws StudioException {
+    public ContentType read(final Context context, final String site, final String contentTypeId) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -282,7 +292,7 @@ public class ContentTypeServiceImpl implements ContentTypeService {
      * @param context the caller's context
      * @param site    the site to use
      * @param query   mdb query string
-     * @return        list of content type descriptors
+     * @return list of content type descriptors
      * @throws StudioException
      */
     @Override

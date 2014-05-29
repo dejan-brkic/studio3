@@ -10,8 +10,12 @@ import java.util.List;
 public interface PluginService {
     // TODO FINISH THIS
     void createPlugin();
+
     String getPlugin();
+
     void updatePlugin();
+
     void deletePlugin();
+
     List<String> listPluginsBy();
 }

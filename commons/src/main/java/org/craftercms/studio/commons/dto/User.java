@@ -39,6 +39,7 @@ public class User {
 
     /**
      * User ig getter.
+     *
      * @return user id
      */
     public final String getUserId() {
@@ -47,6 +48,7 @@ public class User {
 
     /**
      * User id setter.
+     *
      * @param userId userId
      */
     public final void setUserId(final String userId) {
@@ -55,6 +57,7 @@ public class User {
 
     /**
      * Password getter.
+     *
      * @return password
      */
     public final String getPassword() {
@@ -63,6 +66,7 @@ public class User {
 
     /**
      * Password setter.
+     *
      * @param password password
      */
     public final void setPassword(final String password) {

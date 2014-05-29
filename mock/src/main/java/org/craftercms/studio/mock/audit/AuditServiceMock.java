@@ -19,7 +19,6 @@ package org.craftercms.studio.mock.audit;
 
 import java.io.InputStream;
 import java.util.List;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -56,7 +55,8 @@ public class AuditServiceMock implements AuditService {
     }
 
     @Override
-    public Activity logActivity(final Context context, final String site, final Activity activity) throws StudioException {
+    public Activity logActivity(final Context context, final String site, final Activity activity) throws
+        StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 }

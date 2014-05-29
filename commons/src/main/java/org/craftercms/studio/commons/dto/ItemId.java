@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @author Sumer Jabri
  */
-public class ItemId implements Serializable{
+public class ItemId implements Serializable {
     private static final long serialVersionUID = 19678608701816182L;
 
     String itemId;

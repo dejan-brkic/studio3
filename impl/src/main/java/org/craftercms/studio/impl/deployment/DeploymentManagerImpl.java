@@ -35,22 +35,26 @@ import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 public class DeploymentManagerImpl implements DeploymentManager {
 
     @Override
-    public List<Item> history(final Context context, final String site, final List<String> filters) throws StudioException {
+    public List<Item> history(final Context context, final String site, final List<String> filters) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public List<DeploymentChannel> channels(final Context context, final String site, final String environment) throws StudioException {
+    public List<DeploymentChannel> channels(final Context context, final String site,
+                                            final String environment) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public void updateChannel(final Context context, final String site, final DeploymentChannel channel) throws StudioException {
+    public void updateChannel(final Context context, final String site, final DeploymentChannel channel) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public void removeChannel(final Context context, final String site, final DeploymentChannel channel) throws StudioException {
+    public void removeChannel(final Context context, final String site, final DeploymentChannel channel) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -60,17 +64,20 @@ public class DeploymentManagerImpl implements DeploymentManager {
     }
 
     @Override
-    public String status(final Context context, final String site, final DeploymentChannel channel) throws StudioException {
+    public String status(final Context context, final String site, final DeploymentChannel channel) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public long version(final Context context, final String site, final DeploymentChannel channel) throws StudioException {
+    public long version(final Context context, final String site, final DeploymentChannel channel) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public void abort(final Context context, final String site, final DeploymentChannel channel) throws StudioException {
+    public void abort(final Context context, final String site, final DeploymentChannel channel) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 }

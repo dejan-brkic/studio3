@@ -16,12 +16,12 @@
  */
 package org.craftercms.studio.api.deployment;
 
+import java.util.List;
+
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.DeploymentChannel;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
-
-import java.util.List;
 
 /**
  * Deployment Manager.
@@ -34,42 +34,45 @@ public interface DeploymentManager {
 
     /**
      * Get deployment history.
+     *
      * @param context context
-     * @param site site
+     * @param site    site
      * @param filters filters
      * @return list of items
      */
-    List<Item> history(Context context, String site,
-                       List<String> filters) throws StudioException;
+    List<Item> history(Context context, String site, List<String> filters) throws StudioException;
 
     /**
      * Get deployment channels.
-     * @param context context
-     * @param site site
+     *
+     * @param context     context
+     * @param site        site
      * @param environment environment
      * @return list of deployment channels
      */
-    List<DeploymentChannel> channels(Context context, String site,
-                                     String environment) throws StudioException;
+    List<DeploymentChannel> channels(Context context, String site, String environment) throws StudioException;
 
     /**
      * Create or update deployment channel.
+     *
      * @param context context
-     * @param site site
+     * @param site    site
      * @param channel channel
      */
     void updateChannel(Context context, String site, DeploymentChannel channel) throws StudioException;
 
     /**
      * Remove deployment channel.
+     *
      * @param context context
-     * @param site site
+     * @param site    site
      * @param channel channel
      */
     void removeChannel(Context context, String site, DeploymentChannel channel) throws StudioException;
 
     /**
      * Deploy items.
+     *
      * @param context context
      * @param itemIds list of item ids
      */
@@ -77,24 +80,27 @@ public interface DeploymentManager {
 
     /**
      * Get deployment channel status.
+     *
      * @param context context
-     * @param site site
+     * @param site    site
      * @param channel channel
      */
     String status(Context context, String site, DeploymentChannel channel) throws StudioException;
 
     /**
      * Get deployment channel version.
+     *
      * @param context context
-     * @param site site
+     * @param site    site
      * @param channel channel
      */
     long version(Context context, String site, DeploymentChannel channel) throws StudioException;
 
     /**
      * Abort deployment.
+     *
      * @param context context
-     * @param site site
+     * @param site    site
      * @param channel channel
      */
     void abort(Context context, String site, DeploymentChannel channel) throws StudioException;

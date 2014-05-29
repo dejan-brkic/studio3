@@ -33,8 +33,9 @@ public interface SearchService {
 
     /**
      * Find items.
-     * @param ticket security ticket
-     * @param query query string
+     *
+     * @param ticket  security ticket
+     * @param query   query string
      * @param filters filters
      * @return list of items
      */

@@ -30,17 +30,18 @@ import org.craftercms.studio.mock.exception.MockErrorCode;
  * Dependency Manager mock implementation.
  *
  * @author Dejan Brkic
- *
  */
 public class DependencyManagerMock implements DependencyManager {
 
     @Override
-    public List<Item> dependsOn(final Context context, final String itemId, final String operation) throws StudioException {
+    public List<Item> dependsOn(final Context context, final String itemId, final String operation) throws
+        StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public List<Item> dependentOn(final Context context, final String itemId, final String operation) throws StudioException {
+    public List<Item> dependentOn(final Context context, final String itemId,
+                                  final String operation) throws StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -50,17 +51,20 @@ public class DependencyManagerMock implements DependencyManager {
     }
 
     @Override
-    public void add(final Context context, final String itemId, final String operation, final List<Item> items) throws StudioException {
+    public void add(final Context context, final String itemId, final String operation,
+                    final List<Item> items) throws StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public void remove(final Context context, final String itemId, final String operation, final List<Item> items) throws StudioException {
+    public void remove(final Context context, final String itemId, final String operation,
+                       final List<Item> items) throws StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public void update(final Context context, final String itemId, final String operation, final List<Item> items) throws StudioException {
+    public void update(final Context context, final String itemId, final String operation,
+                       final List<Item> items) throws StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 }

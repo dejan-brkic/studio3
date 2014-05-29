@@ -19,17 +19,14 @@ package org.craftercms.studio.controller.services.rest;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.dependency.DependencyManager;
-import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +41,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Dependency Controller.
@@ -61,15 +60,15 @@ public class DependencyController {
 
     @RequestMapping(value = "/dependent-on/{site}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Item> dependentOn(@PathVariable final String site, @RequestParam(required = true) final String itemId,
-                          @RequestParam(required = true) final String operation) throws StudioException {
+    public List<Item> dependentOn(@PathVariable final String site, @RequestParam(required = true) final String
+        itemId, @RequestParam(required = true) final String operation) throws StudioException {
         return this.dependencyManager.dependentOn(null, itemId, operation);
     }
 
     @RequestMapping(value = "/list/{site}", method = RequestMethod.GET)
     @ResponseBody
     public List<Item> list(@PathVariable final String site, @RequestParam(required = true) final String itemId,
-                     @RequestParam(required = true) final String operation) throws StudioException {
+                           @RequestParam(required = true) final String operation) throws StudioException {
         return this.dependencyManager.dependsOn(null, itemId, operation);
     }
 
@@ -82,14 +81,13 @@ public class DependencyController {
 
     @RequestMapping(value = "/add/{site}", method = RequestMethod.POST)
     public void add(@PathVariable final String site, @RequestParam(required = true) final String itemId,
-                    @RequestParam(required = true) final String operation,
-                    @Valid @RequestBody final String dependencies, final HttpServletRequest request,
-                    final HttpServletResponse response) throws StudioException {
+                    @RequestParam(required = true) final String operation, @Valid @RequestBody final String
+        dependencies, final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
         ObjectMapper mapper = new ObjectMapper();
         List<Item> items = null;
         try {
-            items = mapper.readValue(dependencies.getBytes(Charset.forName("UTF-8")),
-                new TypeReference<List<Item>>() { });
+            items = mapper.readValue(dependencies.getBytes(Charset.forName("UTF-8")), new TypeReference<List<Item>>() {
+            });
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -98,13 +96,14 @@ public class DependencyController {
 
     @RequestMapping(value = "/remove/{site}", method = RequestMethod.POST)
     public void remove(@PathVariable final String site, @RequestParam(required = true) final String itemId,
-                       @RequestParam(required = true) final String operation,
-                       @Valid @RequestBody final String dependencies, final HttpServletRequest request,
-                       final HttpServletResponse response) throws StudioException {
+                       @RequestParam(required = true) final String operation, @Valid @RequestBody final String
+        dependencies, final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
         ObjectMapper mapper = new ObjectMapper();
         List<Item> items = null;
         try {
-            items = mapper.readValue(dependencies.getBytes(), new TypeReference<List<Item>>() { });
+            items = mapper.readValue(dependencies.getBytes(StandardCharsets.UTF_8),
+                new TypeReference<List<Item>>() {
+            });
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -113,14 +112,14 @@ public class DependencyController {
 
     @RequestMapping(value = "/update/{site}", method = RequestMethod.POST)
     public void update(@PathVariable final String site, @RequestParam(required = true) final String itemId,
-                       @RequestParam(required = true) final String operation,
-                       @Valid @RequestBody final String dependencies, final HttpServletRequest request,
-                       final HttpServletResponse response) throws StudioException {
+                       @RequestParam(required = true) final String operation, @Valid @RequestBody final String
+        dependencies, final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
 
         ObjectMapper mapper = new ObjectMapper();
         List<Item> items = null;
         try {
-            items = mapper.readValue(dependencies.getBytes(), new TypeReference<List<Item>>() { });
+            items = mapper.readValue(dependencies.getBytes(StandardCharsets.UTF_8), new TypeReference<List<Item>>() {
+            });
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -128,7 +127,7 @@ public class DependencyController {
     }
 
     @InitBinder
-    protected void initBinder(WebDataBinder binder) {
+    protected void initBinder(final WebDataBinder binder) {
         binder.setValidator(new Validator() {
             @Override
             public boolean supports(final Class<?> clazz) {

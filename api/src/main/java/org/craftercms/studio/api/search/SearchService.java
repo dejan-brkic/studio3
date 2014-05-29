@@ -26,8 +26,9 @@ public interface SearchService {
 
     /**
      * Execute search within given context for given query.
+     *
      * @param context context
-     * @param query query
+     * @param query   query
      * @return JSON result?
      */
     String studio_search(Context context, String query) throws StudioException;

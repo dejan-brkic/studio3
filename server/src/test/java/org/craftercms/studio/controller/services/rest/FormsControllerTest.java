@@ -65,12 +65,9 @@ public class FormsControllerTest extends AbstractControllerTest {
         when(this.formServiceMock.list(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class))).thenReturn(formsList);
 
-        this.mockMvc.perform(
-            get("/api/1/forms/list/sample")
-                .param("filters", "filter1", "filter2")
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk())
-            .andExpect(content().bytes(generateRequestBody(formsList).getBytes()));
+        this.mockMvc.perform(get("/api/1/forms/list/sample").param("filters", "filter1",
+            "filter2").accept(MediaType.ALL)).andExpect(status().isOk()).andExpect(content().bytes
+            (generateRequestBody(formsList).getBytes()));
 
         verify(this.formServiceMock, times(1)).list(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class));
@@ -82,10 +79,7 @@ public class FormsControllerTest extends AbstractControllerTest {
         when(this.formServiceMock.list(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class))).thenReturn(formsList);
 
-        this.mockMvc.perform(
-            get("/api/1/forms/list/sample")
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk())
+        this.mockMvc.perform(get("/api/1/forms/list/sample").accept(MediaType.ALL)).andExpect(status().isOk())
             .andExpect(content().bytes(generateRequestBody(formsList).getBytes()));
 
         verify(this.formServiceMock, times(1)).list(Mockito.any(Context.class), Mockito.anyString(),
@@ -101,15 +95,13 @@ public class FormsControllerTest extends AbstractControllerTest {
                 Object[] args = invocationOnMock.getArguments();
                 return null;
             }
-        }).when(this.formServiceMock).update(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.any(Form.class));
+        }).when(this.formServiceMock).update(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(Form.class));
 
         this.mockMvc.perform(post("/api/1/forms/update/sample").contentType(MediaType.APPLICATION_JSON).content
-            (generateRequestBody(createFormDefinitionMock())).accept(MediaType.ALL))
-            .andExpect(status().isOk());
+            (generateRequestBody(createFormDefinitionMock())).accept(MediaType.ALL)).andExpect(status().isOk());
 
-        verify(this.formServiceMock, times(1)).update(Mockito.any(Context.class), Mockito.anyString(), Mockito.any
-            (Form.class));
+        verify(this.formServiceMock, times(1)).update(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.any(Form.class));
     }
 
     @Test
@@ -121,15 +113,13 @@ public class FormsControllerTest extends AbstractControllerTest {
                 Object[] args = invocationOnMock.getArguments();
                 return null;
             }
-        }).when(this.formServiceMock).update(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.any(Form.class));
+        }).when(this.formServiceMock).update(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(Form.class));
 
         this.mockMvc.perform(post("/api/1/forms/update/sample").contentType(MediaType.APPLICATION_JSON).content
-            (StringUtils.EMPTY).accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+            (StringUtils.EMPTY).accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
-        verify(this.formServiceMock, times(0)).update(Mockito.any(Context.class), Mockito.anyString(), Mockito.any
-            (Form.class));
+        verify(this.formServiceMock, times(0)).update(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.any(Form.class));
     }
 
     @Test
@@ -143,12 +133,11 @@ public class FormsControllerTest extends AbstractControllerTest {
             }
         }).when(this.formServiceMock).remove(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
 
-        this.mockMvc.perform(post("/api/1/forms/remove/sample")
-            .param("type", RandomStringUtils.randomAlphabetic(10))
-            .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/1/forms/remove/sample").param("type", RandomStringUtils.randomAlphabetic(10))
+            .accept(MediaType.ALL)).andExpect(status().isOk());
 
-        verify(this.formServiceMock, times(1)).remove(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+        verify(this.formServiceMock, times(1)).remove(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString());
     }
 
     @Test
@@ -162,9 +151,8 @@ public class FormsControllerTest extends AbstractControllerTest {
             }
         }).when(this.formServiceMock).remove(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
 
-        this.mockMvc.perform(post("/api/1/forms/remove/sample")
-            .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/forms/remove/sample").accept(MediaType.ALL)).andExpect(status()
+            .isBadRequest());
 
         verify(this.formServiceMock, times(0)).remove(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());
@@ -182,11 +170,8 @@ public class FormsControllerTest extends AbstractControllerTest {
         }).when(this.formServiceMock).copy(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
             Mockito.anyString());
 
-        this.mockMvc.perform(post("/api/1/forms/copy/sample")
-            .param("src", RandomStringUtils.randomAlphabetic(200))
-            .param("dst", RandomStringUtils.randomAlphabetic(200))
-            .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/1/forms/copy/sample").param("src", RandomStringUtils.randomAlphabetic(200))
+            .param("dst", RandomStringUtils.randomAlphabetic(200)).accept(MediaType.ALL)).andExpect(status().isOk());
 
         verify(this.formServiceMock, times(1)).copy(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyString());
@@ -204,10 +189,8 @@ public class FormsControllerTest extends AbstractControllerTest {
         }).when(this.formServiceMock).copy(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
             Mockito.anyString());
 
-        this.mockMvc.perform(post("/api/1/forms/copy/sample")
-            .param("dst", RandomStringUtils.randomAlphabetic(200))
-            .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/forms/copy/sample").param("dst", RandomStringUtils.randomAlphabetic(200))
+            .accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.formServiceMock, times(0)).copy(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyString());
@@ -225,10 +208,8 @@ public class FormsControllerTest extends AbstractControllerTest {
         }).when(this.formServiceMock).copy(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
             Mockito.anyString());
 
-        this.mockMvc.perform(post("/api/1/forms/copy/sample")
-            .param("src", RandomStringUtils.randomAlphabetic(200))
-            .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/forms/copy/sample").param("src", RandomStringUtils.randomAlphabetic(200))
+            .accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.formServiceMock, times(0)).copy(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyString());

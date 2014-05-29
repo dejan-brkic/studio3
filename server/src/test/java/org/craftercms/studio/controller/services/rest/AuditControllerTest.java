@@ -43,71 +43,62 @@ public class AuditControllerTest extends AbstractControllerTest {
     @Test
     public void testGetActivities() throws Exception {
         when(auditService.getActivities(Mockito.any(Context.class), Mockito.anyString(),
-                Mockito.anyListOf(String.class))).thenReturn(createActivities());
+            Mockito.anyListOf(String.class))).thenReturn(createActivities());
 
-        this.mockMvc.perform(get("/api/1/audit/activity/TestSite"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.", Matchers.any(Collection.class)))
-                .andExpect(jsonPath("$.[0].creator", Matchers.equalTo("Carlos Ortiz")))
-                .andExpect(jsonPath("$.[0].targetProperties", Matchers.any(Map.class)))
-                .andExpect(jsonPath("$.[0].targetProperties", Matchers.hasKey("targetProp2"))
-                        // prints request/response useful for debug
-                        //.andDo(print()
-                );
+        this.mockMvc.perform(get("/api/1/audit/activity/TestSite")).andExpect(status().isOk()).andExpect(jsonPath("$" +
+            ".", Matchers.any(Collection.class))).andExpect(jsonPath("$.[0].creator",
+            Matchers.equalTo("Carlos Ortiz"))).andExpect(jsonPath("$.[0].targetProperties",
+            Matchers.any(Map.class))).andExpect(jsonPath("$.[0].targetProperties", Matchers.hasKey("targetProp2"))
+            // prints request/response useful for debug
+            //.andDo(print()
+        );
 
         verify(this.auditService, times(1)).getActivities(Mockito.any(Context.class), Mockito.anyString(),
-                Mockito.anyListOf(String.class));
+            Mockito.anyListOf(String.class));
     }
 
     @Test
     public void testSaveActivity() throws Exception {
-        final String saveId=UUID.randomUUID().toString();
+        final String saveId = UUID.randomUUID().toString();
         when(this.auditService.logActivity(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.any(Activity.class)))
-                .thenAnswer(new Answer<Object>() {
-                    @Override
-                    public Object answer(final InvocationOnMock invocation) throws Throwable {
-                        Activity activity = (Activity) invocation.getArguments()[2];
-                        activity.setId(saveId);
-                        return activity;
-                    }
-                });
+            Mockito.any(Activity.class))).thenAnswer(new Answer<Object>() {
+            @Override
+            public Object answer(final InvocationOnMock invocation) throws Throwable {
+                Activity activity = (Activity)invocation.getArguments()[2];
+                activity.setId(saveId);
+                return activity;
+            }
+        });
 
-        this.mockMvc.perform(post("/api/1/audit/log/testSite")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(createActivityJson(false)))
-                //.andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", Matchers.equalTo(saveId))
-                );
+        this.mockMvc.perform(post("/api/1/audit/log/testSite").contentType(MediaType.APPLICATION_JSON).content
+            (createActivityJson(false)))
+            //.andDo(print())
+            .andExpect(status().isOk()).andExpect(jsonPath("$.id", Matchers.equalTo(saveId)));
 
-        verify(this.auditService, times(1)).logActivity(Mockito.any(Context.class),
-                Mockito.anyString(), Mockito.any(Activity.class));
+        verify(this.auditService, times(1)).logActivity(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.any(Activity.class));
     }
 
     @Test
     @Ignore
     public void testSaveActivityInvalid() throws Exception {
-        final String saveId=UUID.randomUUID().toString();
+        final String saveId = UUID.randomUUID().toString();
         when(this.auditService.logActivity(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.any(Activity.class)))
-                .thenAnswer(new Answer<Object>() {
-                    @Override
-                    public Object answer(final InvocationOnMock invocation) throws Throwable {
-                        Activity activity = (Activity) invocation.getArguments()[2];
-                        activity.setId(saveId);
-                        return activity;
-                    }
-                });
+            Mockito.any(Activity.class))).thenAnswer(new Answer<Object>() {
+            @Override
+            public Object answer(final InvocationOnMock invocation) throws Throwable {
+                Activity activity = (Activity)invocation.getArguments()[2];
+                activity.setId(saveId);
+                return activity;
+            }
+        });
 
-        this.mockMvc.perform(post("/api/1/audit/log/testSite")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(createActivityJson(true)))
-                //.andDo(print())
-                .andExpect(status().isBadRequest()
-                );
+        this.mockMvc.perform(post("/api/1/audit/log/testSite").contentType(MediaType.APPLICATION_JSON).content
+            (createActivityJson(true)))
+            //.andDo(print())
+            .andExpect(status().isBadRequest());
 
-        verify(this.auditService, times(0)).logActivity(Mockito.any(Context.class),
-                Mockito.anyString(), Mockito.any(Activity.class));
+        verify(this.auditService, times(0)).logActivity(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.any(Activity.class));
     }
 }

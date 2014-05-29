@@ -4,10 +4,11 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.FactoryBean;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.ServerAddress;
-import org.springframework.beans.factory.FactoryBean;
+
 /**
  */
 public class MongoClientFactory implements FactoryBean<MongoClient> {
@@ -17,15 +18,15 @@ public class MongoClientFactory implements FactoryBean<MongoClient> {
 
     @Override
     public MongoClient getObject() throws Exception {
-        List<ServerAddress> addressList=processServers();
-        return new MongoClient(addressList,mongoOptions);
+        List<ServerAddress> addressList = processServers();
+        return new MongoClient(addressList, mongoOptions);
     }
 
     private List<ServerAddress> processServers() throws UnknownHostException {
         List<ServerAddress> addresses = new ArrayList<>(mongoServers.size());
-       for(MongoServer server : mongoServers){
-            addresses.add(new ServerAddress(server.getHost(),server.getPort()));
-       }
+        for (MongoServer server : mongoServers) {
+            addresses.add(new ServerAddress(server.getHost(), server.getPort()));
+        }
         return addresses;
     }
 

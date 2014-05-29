@@ -17,7 +17,6 @@
 
 package org.craftercms.studio.internal.content.impl;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -59,7 +58,9 @@ public class SimplePreviewDeployerAspect {
 
     @Before(value = "execution(* org.craftercms.studio.internal.content.ContentManager.create(..))")
     public void createContent(JoinPoint joinPoint) {
-        if (!enabled) return;
+        if (!enabled) {
+            return;
+        }
         Object[] arguments = joinPoint.getArgs();
         String path = (String)arguments[2];
         Item item = (Item)arguments[3];
@@ -78,7 +79,9 @@ public class SimplePreviewDeployerAspect {
      */
     @Before(value = "execution(* org.craftercms.studio.internal.content.ContentManager.write(..))")
     public void updateContent(JoinPoint joinPoint) {
-        if (!enabled) return;
+        if (!enabled) {
+            return;
+        }
         Object[] arguments = joinPoint.getArgs();
         Context context = (Context)arguments[0];
         String site = (String)arguments[1];
@@ -102,7 +105,7 @@ public class SimplePreviewDeployerAspect {
         }
     }
 
-    protected void writeFile(String path, String filename, final InputStream content) throws IOException{
+    protected void writeFile(String path, String filename, final InputStream content) throws IOException {
 
         //BufferedInputStream contentStream = new BufferedInputStream(content);
         StringBuilder sbSavePath = new StringBuilder(previewStoreRootPath);
@@ -133,7 +136,7 @@ public class SimplePreviewDeployerAspect {
             throw e;
         } catch (IOException e) {
             if (log.isErrorEnabled()) {
-                log.error("Error: not able to write file " + path );
+                log.error("Error: not able to write file " + path);
             }
             throw e;
         } finally {
@@ -149,7 +152,9 @@ public class SimplePreviewDeployerAspect {
      */
     @Before(value = "execution(* org.craftercms.studio.internal.content.ContentManager.delete(..))")
     public void deleteContent(JoinPoint joinPoint) {
-        if (!enabled) return;
+        if (!enabled) {
+            return;
+        }
 
         Object[] arguments = joinPoint.getArgs();
         List<Item> items = (List<Item>)arguments[1];

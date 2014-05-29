@@ -21,7 +21,6 @@ package org.craftercms.studio.impl.repository.mongodb.services;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.mongodb.gridfs.GridFSFile;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Assert;
 import org.junit.Before;
@@ -42,13 +41,12 @@ public class ITGridFSService implements ApplicationContextAware {
 
 
     /**
-     *  Ruler of the planet Omicron Persei 8
+     * Ruler of the planet Omicron Persei 8
      */
-    private static final String FILE_NAME="Lrrr";
+    private static final String FILE_NAME = "Lrrr";
 
     private ApplicationContext applicationContext;
     private GridFSService gridFSService;
-
 
 
     @Before
@@ -61,24 +59,25 @@ public class ITGridFSService implements ApplicationContextAware {
     public void testSaveFile() throws Exception {
         InputStream testInput = NodeServiceCreateFileTest.class.getResourceAsStream("/files/index.xml");
         testInput.mark(Integer.MAX_VALUE);
-        String currentMD5=getMD5(testInput);
+        String currentMD5 = getMD5(testInput);
         testInput.reset();
         String fileId = gridFSService.createFile(FILE_NAME, testInput);
         Assert.assertNotNull(fileId);
         InputStream stream = gridFSService.getFile(fileId);
         Assert.assertNotNull(stream);
-        Assert.assertEquals(currentMD5,getMD5(stream));
+        Assert.assertEquals(currentMD5, getMD5(stream));
     }
 
 
-    private  String getMD5(InputStream io) throws IOException {
+    private String getMD5(InputStream io) throws IOException {
         Assert.assertNotNull(io);
-     //   io.mark(Integer.MAX_VALUE);
+        //   io.mark(Integer.MAX_VALUE);
         String MD5 = DigestUtils.md5Hex(io);
         return MD5;
     }
+
     @Override
     public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext=applicationContext;
+        this.applicationContext = applicationContext;
     }
 }

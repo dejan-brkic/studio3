@@ -28,17 +28,17 @@ public interface PathService {
      * Get item id by path.
      *
      * @param ticket security ticket
-     * @param site site
-     * @param path item pah
+     * @param site   site
+     * @param path   item pah
      * @return item id
      */
-    String getItemIdByPath(final String ticket, final String site,  final String path) throws StudioException;
+    String getItemIdByPath(final String ticket, final String site, final String path) throws StudioException;
 
     /**
      * Get item path by item id.
      *
      * @param ticket security ticket
-     * @param site site
+     * @param site   site
      * @param itemId item id
      * @return item path
      */
@@ -48,11 +48,12 @@ public interface PathService {
      * Validates that the given path is valid.<br/>
      * A valid path is
      * <ul>
-     *     <li>A String that it's not null empty or whitespace</li>
-     *     <li>A String that starts with '/' char </li>
-     *     <li>Only have this chars A-Z a-z 0-9 '/' '-' '_' '.'</li>
-     *     <li>Path separator is '/' </li>
+     * <li>A String that it's not null empty or whitespace</li>
+     * <li>A String that starts with '/' char </li>
+     * <li>Only have this chars A-Z a-z 0-9 '/' '-' '_' '.'</li>
+     * <li>Path separator is '/' </li>
      * </ul>
+     *
      * @param path
      * @return
      */
@@ -60,6 +61,7 @@ public interface PathService {
 
     /**
      * Calculates the Full internal repo path.
+     *
      * @param site Site name
      * @param path Path relative to the site
      */

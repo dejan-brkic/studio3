@@ -19,10 +19,10 @@ package org.craftercms.studio.impl.repository.mongodb.services.impl;
 
 import java.util.UUID;
 
-import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
 import org.craftercms.studio.impl.repository.mongodb.domain.NodeType;
 import org.craftercms.studio.impl.repository.mongodb.services.NodeService;
+import org.craftercms.studio.repo.content.PathService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.core.env.PropertyResolver;
@@ -56,27 +56,25 @@ public class ContentServiceImplTest {
 
     @Test
     public void testCreate() throws Exception {
-//        Item mock = new Item();
-//        mock.setFileName("robot-hell");
-//        mock.setLabel("Robot Hell");
-//        when(pathService.isPathValid(Mockito.anyString())).thenReturn(true);
-//        when(nodeService.getNode(Mockito.anyString())).thenReturn(newMockNode());
-//        when(nodeService.createFolderNode(Mockito.any(Node.class), Mockito.anyString(), Mockito.anyString(),
-//            Mockito.anyString())).thenAnswer(new Answer<Object>() {
-//            @Override
-//            public Object answer(final InvocationOnMock invocation) throws Throwable {
-//                return invocation.getArguments()[0];
-//            }
-//        });
-//        when(nodeService.isNodeFolder(Mockito.any(Node.class))).thenReturn(true);
-//        when(pathService.getPathByItemId(Mockito.anyString(), Mockito.anyString(),
-//            Mockito.anyString())).thenReturn("/test/test");
-//        Item item = contentService.create("ATicket", "test", "/test", mock);
-//        Assert.assertNotNull(item);
-//        Assert.assertEquals(item.getPath(), "/test/test");
+        //        Item mock = new Item();
+        //        mock.setFileName("robot-hell");
+        //        mock.setLabel("Robot Hell");
+        //        when(pathService.isPathValid(Mockito.anyString())).thenReturn(true);
+        //        when(nodeService.getNode(Mockito.anyString())).thenReturn(newMockNode());
+        //        when(nodeService.createFolderNode(Mockito.any(Node.class), Mockito.anyString(), Mockito.anyString(),
+        //            Mockito.anyString())).thenAnswer(new Answer<Object>() {
+        //            @Override
+        //            public Object answer(final InvocationOnMock invocation) throws Throwable {
+        //                return invocation.getArguments()[0];
+        //            }
+        //        });
+        //        when(nodeService.isNodeFolder(Mockito.any(Node.class))).thenReturn(true);
+        //        when(pathService.getPathByItemId(Mockito.anyString(), Mockito.anyString(),
+        //            Mockito.anyString())).thenReturn("/test/test");
+        //        Item item = contentService.create("ATicket", "test", "/test", mock);
+        //        Assert.assertNotNull(item);
+        //        Assert.assertEquals(item.getPath(), "/test/test");
     }
-
-
 
 
     private Node newMockNode() {

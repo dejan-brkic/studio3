@@ -37,7 +37,8 @@ import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 public class WorkflowManagerImpl implements WorkflowManager {
 
     @Override
-    public String start(final String packageName, final List<String> comments, final List<Item> items) throws StudioException {
+    public String start(final String packageName, final List<String> comments,
+                        final List<Item> items) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -47,7 +48,8 @@ public class WorkflowManagerImpl implements WorkflowManager {
     }
 
     @Override
-    public List<WorkflowPackage> getPackages(final String site, final List<WorkflowPackageFilter> filters) throws StudioException {
+    public List<WorkflowPackage> getPackages(final String site, final List<WorkflowPackageFilter> filters) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -58,7 +60,7 @@ public class WorkflowManagerImpl implements WorkflowManager {
 
     @Override
     public void transition(final String packageId, final WorkflowTransition transition, final Map<String,
-            Object> params) throws StudioException {
+        Object> params) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 

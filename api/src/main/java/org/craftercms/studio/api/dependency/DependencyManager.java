@@ -34,8 +34,9 @@ public interface DependencyManager {
 
     /**
      * Return list of items that given item depends on.
-     * @param context context
-     * @param itemId item id
+     *
+     * @param context   context
+     * @param itemId    item id
      * @param operation operation
      * @return list of items
      */
@@ -43,8 +44,9 @@ public interface DependencyManager {
 
     /**
      * Return list of items that are dependant on given item.
-     * @param context context
-     * @param itemId item id
+     *
+     * @param context   context
+     * @param itemId    item id
      * @param operation operation
      * @return list of items
      */
@@ -52,39 +54,40 @@ public interface DependencyManager {
 
     /**
      * Refresh dependencies for given item.
+     *
      * @param context context
-     * @param itemId item id
+     * @param itemId  item id
      * @return list of dependency items
      */
     List<Item> refresh(Context context, String itemId) throws StudioException;
 
     /**
      * Add dependencies for item.
-     * @param context context
-     * @param itemId item id
+     *
+     * @param context   context
+     * @param itemId    item id
      * @param operation operation
-     * @param items items
+     * @param items     items
      */
-    void add(Context context, String itemId, String operation,
-             List<Item> items) throws StudioException;
+    void add(Context context, String itemId, String operation, List<Item> items) throws StudioException;
 
     /**
      * Remove dependencies for item.
-     * @param context context
-     * @param itemId item id
+     *
+     * @param context   context
+     * @param itemId    item id
      * @param operation operation
-     * @param items items
+     * @param items     items
      */
-    void remove(Context context, String itemId, String operation,
-                List<Item> items) throws StudioException;
+    void remove(Context context, String itemId, String operation, List<Item> items) throws StudioException;
 
     /**
      * Update dependencies for item.
-     * @param context context
-     * @param itemId item id
+     *
+     * @param context   context
+     * @param itemId    item id
      * @param operation operation
-     * @param items items
+     * @param items     items
      */
-    void update(Context context, String itemId, String operation,
-                List<Item> items) throws StudioException;
+    void update(Context context, String itemId, String operation, List<Item> items) throws StudioException;
 }

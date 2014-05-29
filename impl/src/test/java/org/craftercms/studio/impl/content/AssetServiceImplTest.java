@@ -162,7 +162,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         Map<String, String> props = new HashMap<>();
 
         // execute tested method
-        Item testItem = assetServiceSUT.create(context, site, destinationPath, fileName, contentByteArray, mimeType, props);
+        Item testItem = assetServiceSUT.create(context, site, destinationPath, fileName, contentByteArray, mimeType,
+            props);
 
         // assert and verify
         verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(),
@@ -233,8 +234,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
 
         // execute tested method
         try {
-            Item testItem = assetServiceSUT.create(context, site, destinationPath, fileName, content, mimeType,
-                props);
+            Item testItem = assetServiceSUT.create(context, site, destinationPath, fileName, content, mimeType, props);
         } catch (StudioException expectedException) {
             // assert and verify
             assertEquals(StudioImplErrorCode.INVALID_CONTEXT.getCode(), expectedException.getErrorCode());
@@ -272,8 +272,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
 
         // execute tested method
         try {
-        Item testItem = assetServiceSUT.create(context, site, destinationPath, fileName, contentByteArray, mimeType,
-            props);
+            Item testItem = assetServiceSUT.create(context, site, destinationPath, fileName, contentByteArray,
+                mimeType, props);
         } catch (StudioException expectedException) {
             // assert and verify
             assertEquals(StudioImplErrorCode.INVALID_CONTEXT.getCode(), expectedException.getErrorCode());
@@ -348,8 +348,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
 
         // execute tested method
         try {
-            Item testItem = assetServiceSUT.create(context, site, destinationPath, fileName, content, mimeType,
-                props);
+            Item testItem = assetServiceSUT.create(context, site, destinationPath, fileName, content, mimeType, props);
         } catch (StudioException expectedException) {
             // assert and verify
             assertEquals(StudioImplErrorCode.INVALID_CONTEXT.getCode(), expectedException.getErrorCode());
@@ -386,8 +385,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
 
         // execute tested method
         try {
-            Item testItem = assetServiceSUT.create(context, site, destinationPath, fileName, contentByteArray, mimeType,
-                props);
+            Item testItem = assetServiceSUT.create(context, site, destinationPath, fileName, contentByteArray,
+                mimeType, props);
         } catch (StudioException expectedException) {
             // assert and verify
             assertEquals(expectedException.getErrorCode(), StudioImplErrorCode.INVALID_CONTEXT.getCode());
@@ -402,12 +401,14 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 10:
      * Test read method
+     *
      * @throws Exception
      */
     @Test
     public void testRead() throws Exception {
         // Set up mock objects
-        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString())).thenReturn(createItemMock());
+        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString())).thenReturn(createItemMock());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         // set up parameters
@@ -418,21 +419,21 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         // execute read method
         Item assetItem = assetServiceSUT.read(context, site, assetId);
 
-        verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.anyString());
+        verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
         verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
     }
 
     /**
      * Use case 11:
      * Test read method using context = null
+     *
      * @throws Exception
      */
     @Test
     public void testReadWithNullContext() throws Exception {
         // Set up mock objects
-        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString()))
-            .thenReturn(createItemMock());
+        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString())).thenReturn(createItemMock());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         // set up parameters
@@ -456,13 +457,14 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 12:
      * Test read method using invalid context
+     *
      * @throws Exception
      */
     @Test
     public void testReadWithInvalidContext() throws Exception {
         // Set up mock objects
-        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString()))
-            .thenReturn(createItemMock());
+        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString())).thenReturn(createItemMock());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(false);
 
         // set up parameters
@@ -486,6 +488,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 13:
      * Test read method for non-existing site
+     *
      * @throws Exception
      */
     @Test
@@ -516,6 +519,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 14:
      * Test read method
+     *
      * @throws Exception
      */
     @Test
@@ -546,12 +550,14 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 15:
      * Test get text content method.
+     *
      * @throws Exception
      */
     @Test
     public void testGetTextContent() throws Exception {
         // Set up mock objects
-        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString())).thenReturn(createItemMock());
+        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString())).thenReturn(createItemMock());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         // set up parameters
@@ -562,14 +568,14 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         // execute read method
         String assetContent = assetServiceSUT.getTextContent(context, site, assetId);
 
-        verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.anyString());
+        verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
         verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
     }
 
     /**
      * Use case 16:
      * Test get text content method using null context.
+     *
      * @throws Exception
      */
     @Test
@@ -600,12 +606,14 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 17:
      * Test get text content method using invalid context.
+     *
      * @throws Exception
      */
     @Test
     public void testGetTextContentWithInvalidContext() throws Exception {
         // Set up mock objects
-        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString())).thenReturn(createItemMock());
+        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString())).thenReturn(createItemMock());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(false);
 
         // set up parameters
@@ -629,6 +637,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 18:
      * Test get text content method for invalid site.
+     *
      * @throws Exception
      */
     @Test
@@ -659,6 +668,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 19:
      * Test get text content method for invalid item.
+     *
      * @throws Exception
      */
     @Test
@@ -689,12 +699,14 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 20:
      * Test get input stream method.
+     *
      * @throws Exception
      */
     @Test
     public void testGetInputStream() throws Exception {
         // Set up mock objects
-        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString())).thenReturn(createItemMock());
+        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString())).thenReturn(createItemMock());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         // set up parameters
@@ -706,14 +718,14 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         // execute read method
         InputStream assetContentStream = assetServiceSUT.getInputStream(context, site, assetItemID);
 
-        verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.anyString());
+        verify(contentManagerMock, times(1)).read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
         verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
     }
 
     /**
      * Use case 21:
      * Test get input stream method using null context.
+     *
      * @throws Exception
      */
     @Test
@@ -745,6 +757,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 22:
      * Test get input stream method using invalid context.
+     *
      * @throws Exception
      */
     @Test
@@ -776,6 +789,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 23:
      * Test get input stream method for invalid site.
+     *
      * @throws Exception
      */
     @Test
@@ -807,6 +821,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 24:
      * Test get text input stream for invalid item.
+     *
      * @throws Exception
      */
     @Test
@@ -1068,7 +1083,8 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             assertEquals(StudioImplErrorCode.INVALID_CONTEXT.getCode(), expectedException.getErrorCode());
             verify(contentManagerMock, times(0)).write(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.any(ItemId.class), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
-            verify(securityServiceMock, times(0)).validate(Mockito.any(Context.class));  return;
+            verify(securityServiceMock, times(0)).validate(Mockito.any(Context.class));
+            return;
         }
         fail();
     }
@@ -1419,6 +1435,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 40:
      * Test delete method.
+     *
      * @throws Exception
      */
     @Test
@@ -1443,13 +1460,14 @@ public class AssetServiceImplTest extends AbstractServiceTest {
         // execute delete method
         assetServiceSUT.delete(context, site, assetItemId);
 
-        verify(contentManagerMock, times(1)).delete(Mockito.any(Context.class),Mockito.anyListOf(Item.class));
+        verify(contentManagerMock, times(1)).delete(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
         verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
     }
 
     /**
      * Use case 41:
      * Test delete method using null context.
+     *
      * @throws Exception
      */
     @Test
@@ -1486,6 +1504,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 42:
      * Test delete method using invalid context.
+     *
      * @throws Exception
      */
     @Test
@@ -1522,6 +1541,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 43:
      * Test delete method for invalid site.
+     *
      * @throws Exception
      */
     @Test
@@ -1552,6 +1572,7 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 44:
      * Test delete method for invalid item.
+     *
      * @throws Exception
      */
     @Test
