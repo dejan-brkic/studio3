@@ -36,8 +36,8 @@ import static org.junit.Assert.assertNotNull;
 public class DefaultFormatterTest {
 
 
-    private static final String TEST_MESSAGE = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " +
-            "Morbi iaculis mattis nulla, eget pretium turpis.";
+    private static final String TEST_MESSAGE = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. " + "Morbi " +
+        "iaculis mattis nulla, eget pretium turpis.";
 
     /**
      * Default HTTP Should Not return null
@@ -68,7 +68,8 @@ public class DefaultFormatterTest {
     @Test(expected = JSONException.class)
     public void testGenerateDetailMessage() throws Exception {
         ExceptionFormatter defaultMessageFormatter = new DefaultFormatter();
-        JSONObject jsonResponse = new JSONObject(defaultMessageFormatter.getFormattedMessage(new Exception(TEST_MESSAGE)));
+        JSONObject jsonResponse = new JSONObject(defaultMessageFormatter.getFormattedMessage(new Exception
+            (TEST_MESSAGE)));
         jsonResponse.get(AbstractExceptionFormatter.JSON_DETAIL_MESSAGE_KEY);
     }
 }

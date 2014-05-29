@@ -28,16 +28,16 @@ import javolution.util.FastList;
 import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.impl.repository.mongodb.exception.MongodbRepoErrorCode;
-import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryDefaults;
 import org.craftercms.studio.impl.repository.mongodb.MongoRepositoryQueries;
 import org.craftercms.studio.impl.repository.mongodb.data.MongodbDataService;
 import org.craftercms.studio.impl.repository.mongodb.domain.CoreMetadata;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
 import org.craftercms.studio.impl.repository.mongodb.domain.NodeType;
+import org.craftercms.studio.impl.repository.mongodb.exception.MongodbRepoErrorCode;
 import org.craftercms.studio.impl.repository.mongodb.services.GridFSService;
 import org.craftercms.studio.impl.repository.mongodb.services.NodeService;
+import org.craftercms.studio.repo.content.PathService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,24 +49,21 @@ public class NodeServiceImpl implements NodeService {
 
 
     /**
+     * String Buffer Size.
+     */
+    private static final int DEFAULT_BUILDER_SIZE = 512;
+    /**
      * Logger.
      */
     private Logger log = LoggerFactory.getLogger(NodeServiceImpl.class);
-
     /**
      * Grid FS Helper Services.
      */
     private GridFSService gridFSService;
-
     /**
      * Path Services
      */
     private PathService pathServices;
-
-    /**
-     * String Buffer Size.
-     */
-    private static final int DEFAULT_BUILDER_SIZE = 512;
     /**
      * Data Service.
      */
@@ -209,8 +206,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Node findNodeByAncestorsAndName(final List<String> ancestors, final String nodeName) throws
-        StudioException {
+    public Node findNodeByAncestorsAndName(final List<String> ancestors, final String nodeName) throws StudioException {
         if (StringUtils.isBlank(nodeName)) {
             log.debug("Node name can't be empty or blank");
             throw new IllegalArgumentException("Can't search node with name either null ,empty or blank");

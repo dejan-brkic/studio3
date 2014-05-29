@@ -4,14 +4,17 @@ import java.util.Map;
 
 import org.craftercms.studio.api.analytics.AnalyticsService;
 import org.craftercms.studio.commons.dto.AnalyticsReport;
-import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.utils.RestControllerUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Handles the JSON API for Analytics module.
@@ -20,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/1/analytics")
 public class AnalyticsController {
 
-    private Logger log= LoggerFactory.getLogger(AnalyticsController.class);
+    private Logger log = LoggerFactory.getLogger(AnalyticsController.class);
 
     /**
      * Analytics Manager instance.
@@ -41,22 +44,19 @@ public class AnalyticsController {
      * @param report Name of the Report to be Run
      * @param params Report specific Parameters
      * @return the result of the report, define in
-     *         {@link AnalyticsService#generateReport(org.craftercms.studio.commons.dto.Context, String, String, java.util.Map)}
+     * {@link AnalyticsService#generateReport(org.craftercms.studio.commons.dto.Context, String, String,
+     * java.util.Map)}
      */
     @RequestMapping(value = "/report/{site}",
-            produces = "application/json",
-            method = RequestMethod.GET)
+        produces = "application/json",
+        method = RequestMethod.GET)
     @ResponseBody
-    public AnalyticsReport report(@PathVariable final String site,
-                                  @RequestParam final String report,
+    public AnalyticsReport report(@PathVariable final String site, @RequestParam final String report,
                                   // Catch all do filter them out before send them to BL
-                                  @RequestParam Map<String, Object> params)
-            throws StudioException
-
-    {
+                                  @RequestParam final Map<String, Object> params) throws StudioException {
         log.debug("Filtering \"report\",\"security\" from params map");
-        RestControllerUtils.removeParamters(params,"report","security");
-        log.debug("Final map is {}",params);
+        RestControllerUtils.removeParamters(params, "report", "security");
+        log.debug("Final map is {}", params);
         log.debug("Calling AnalyticsService#report");
         return this.analyticsService.generateReport(null, site, report, params);
     }

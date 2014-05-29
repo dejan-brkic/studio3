@@ -18,10 +18,6 @@ package org.craftercms.studio.controller.services.rest;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-
 /**
  * Unit test for RepositoryController.
  *
@@ -227,7 +223,8 @@ public class RepositoryControllerTest extends AbstractControllerTest {
 
     @Test
     public void testOpenForEdit() throws Exception {
-        when(this.contentManagerMock.open(Mockito.any(Context.class), Mockito.anyString())).thenReturn(createLockHandleMock());
+        when(this.contentManagerMock.open(Mockito.any(Context.class), Mockito.anyString())).thenReturn
+        (createLockHandleMock());
 
         this.mockMvc.perform(
                 get("/api/1/content/open/site?itemId=1").accept(MediaType.ALL))
@@ -360,7 +357,8 @@ public class RepositoryControllerTest extends AbstractControllerTest {
             .andExpect(status().isBadRequest())
         ;
 
-        verify(this.contentManagerMock, times(0)).save(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
+        verify(this.contentManagerMock, times(0)).save(Mockito.any(Context.class), Mockito.anyString(),
+        Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
     }
 
     @Test
@@ -636,7 +634,8 @@ public class RepositoryControllerTest extends AbstractControllerTest {
         when(this.contentManagerMock.lock(Mockito.any(Context.class), Mockito.anyListOf(Item.class)))
             .thenReturn(createLockHandleMock());
 
-        this.mockMvc.perform(post("/api/1/content/lock/site").accept(MediaType.ALL).content(StringUtils.EMPTY.getBytes()))
+        this.mockMvc.perform(post("/api/1/content/lock/site").accept(MediaType.ALL).content(StringUtils.EMPTY
+        .getBytes()))
             .andExpect(status().isBadRequest());
 
         verify(this.contentManagerMock, times(0)).lock(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
@@ -720,7 +719,8 @@ public class RepositoryControllerTest extends AbstractControllerTest {
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
 
-        verify(this.contentManagerMock, times(1)).getLockStatus(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
+        verify(this.contentManagerMock, times(1)).getLockStatus(Mockito.any(Context.class),
+        Mockito.anyListOf(Item.class));
     }
 
     @Test
@@ -734,7 +734,8 @@ public class RepositoryControllerTest extends AbstractControllerTest {
             .content(StringUtils.EMPTY.getBytes()))
             .andExpect(status().isBadRequest());
 
-        verify(this.contentManagerMock, times(0)).getLockStatus(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
+        verify(this.contentManagerMock, times(0)).getLockStatus(Mockito.any(Context.class),
+        Mockito.anyListOf(Item.class));
     }
 
     @Test
@@ -764,7 +765,8 @@ public class RepositoryControllerTest extends AbstractControllerTest {
     @Test
     public void testGetTree() throws Exception {
         when(this.contentManagerMock.tree(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyInt(),
-            Mockito.anyListOf(ItemFilter.class), Mockito.anyListOf(ItemExtractor.class))).thenReturn(generateItemTreeMock
+            Mockito.anyListOf(ItemFilter.class), Mockito.anyListOf(ItemExtractor.class))).thenReturn
+            (generateItemTreeMock
             ());
 
         Tree<Item> tree = generateItemTreeMock();
@@ -791,14 +793,16 @@ public class RepositoryControllerTest extends AbstractControllerTest {
     @Test
     public void testGetTreeMissingItemId() throws Exception {
         when(this.contentManagerMock.tree(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyInt(),
-            Mockito.anyListOf(ItemFilter.class), Mockito.anyListOf(ItemExtractor.class))).thenReturn(generateItemTreeMock
+            Mockito.anyListOf(ItemFilter.class), Mockito.anyListOf(ItemExtractor.class))).thenReturn
+            (generateItemTreeMock
             ());
 
         this.mockMvc.perform(
             get("/api/1/content/tree/site?depth=1").accept(MediaType.ALL))
             .andExpect(status().isBadRequest());
 
-        verify(this.contentManagerMock, times(0)).tree(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyInt(),
+        verify(this.contentManagerMock, times(0)).tree(Mockito.any(Context.class), Mockito.anyString(),
+        Mockito.anyInt(),
             Mockito.anyListOf(ItemFilter.class), Mockito.anyListOf(ItemExtractor.class));
     }
 

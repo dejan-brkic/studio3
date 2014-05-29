@@ -22,7 +22,6 @@ import java.util.UUID;
 import org.apache.commons.lang.RandomStringUtils;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.AbstractServiceTest;
-import org.junit.After;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;

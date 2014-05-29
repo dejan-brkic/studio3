@@ -23,13 +23,15 @@ package org.craftercms.studio.exceptions.formatter;
 public interface FormatterRegistry {
     /**
      * Registers a Formatter fot the give class.
-     * @param clazz Exception class that will be handel by the Formatter.
+     *
+     * @param clazz     Exception class that will be handel by the Formatter.
      * @param formatter Formatter that will handel the Exception.
      */
     void registerFormatter(Class<? extends Exception> clazz, ExceptionFormatter formatter);
 
     /**
      * Returns the Register Formatter for the given class.
+     *
      * @param clazz Exception base class.
      * @return Formatted Error.
      */

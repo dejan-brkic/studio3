@@ -34,11 +34,11 @@ import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy;
 import javolution.util.FastList;
 import org.apache.commons.lang3.StringUtils;
-import org.craftercms.studio.repo.content.ContentService;
-import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.services.GridFSService;
 import org.craftercms.studio.impl.repository.mongodb.services.NodeService;
+import org.craftercms.studio.repo.content.ContentService;
+import org.craftercms.studio.repo.content.PathService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -82,6 +82,7 @@ public class RepoShell {
     /**
      * Creates a new instance of the Shell.Creates an instance of RepoShellContext<br/>
      * Additionally search and loads all the Actions in the classpath.
+     *
      * @param ctx Spring Application Context.
      * @throws IllegalAccessException If Actions constructor is not public.
      * @throws InstantiationException If Actions can't be instantiated.
@@ -103,6 +104,7 @@ public class RepoShell {
 
     /**
      * Starts the Shell, Loads Spring Contexts.
+     *
      * @param args Application Args
      * @throws Exception If Spring context can't be load.
      */
@@ -162,10 +164,11 @@ public class RepoShell {
      * Using Spring's ClassPathScanningCandidateComponentProvider search for all Classes
      * that Extends {@link org.craftercms.studio.impl.repository.mongodb.tools.AbstractAction}
      * in the package <i>org.craftercms.studio.impl.repository.mongodb</i> and loads and register them.
+     *
      * @throws ClassNotFoundException If Class can't be found.
      * @throws IllegalAccessException If Class can't be access.
      * @throws InstantiationException If Class can't be Instantiated.
-     * @throws ClassCastException If Class can't be cast to AbstractAction.
+     * @throws ClassCastException     If Class can't be cast to AbstractAction.
      */
     private void loadActions() throws ClassNotFoundException, IllegalAccessException, InstantiationException,
         ClassCastException {
@@ -189,6 +192,7 @@ public class RepoShell {
      * Search  is done by iterating the registry and asking for the action if response to the given
      * command/action.
      * (uses {@link org.craftercms.studio.impl.repository.mongodb.tools.AbstractAction#responseTo(String)}  result.)
+     *
      * @throws IOException
      */
     public void run() throws IOException {
@@ -215,7 +219,8 @@ public class RepoShell {
 
     /**
      * Runs the action.
-     * @param cmd Command.
+     *
+     * @param cmd  Command.
      * @param args Command Arguments
      * @return True if was run successfully. False otherwise.
      */
@@ -247,6 +252,7 @@ public class RepoShell {
 
         /**
          * Default Constructor.
+         *
          * @param actions Action Registry.
          */
         public HelpAction(List<AbstractAction> actions) {
@@ -272,6 +278,7 @@ public class RepoShell {
 
         /**
          * Runs the help Command for a given Command.
+         *
          * @param cmd Command to be run.
          */
         private void runHelp(final String cmd) {

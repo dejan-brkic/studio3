@@ -18,11 +18,31 @@
 package org.craftercms.studio.documentation.configuration;
 
 /**
+ * Utility class for Documentation Service order
+ *
  * @author Dejan Brkic
  */
 public class DocumentationServiceOrder {
+
+    /**
+     * Order value for Asset Service.
+     */
     public static final int ASSET_SERVICE = 0;
+
+    /**
+     * Order value for ContentType Service.
+     */
     public static final int CONTENT_TYPE_SERVICE = 1;
+
+    /**
+     * Order value for Descriptor Service.
+     */
     public static final int DESCRIPTOR_SERVICE = 2;
+
+    /**
+     * Order value for Template Service.
+     */
     public static final int TEMPLATE_SERVICE = 3;
+
+    private DocumentationServiceOrder() { }
 }

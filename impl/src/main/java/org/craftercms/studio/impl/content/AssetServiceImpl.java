@@ -52,9 +52,8 @@ public class AssetServiceImpl implements AssetService {
     private String repoRootPath;
     private PathService pathService;
 
-    // TODO: review this function ..
     // Content manager requires Item object to add new item to repository
-    private Item createAssetItem(String fileName) {
+    private Item createAssetItem(final String fileName) {
         Item item = new Item();
         item.setCreatedBy(RandomStringUtils.random(10));
         item.setFileName(fileName);
@@ -63,6 +62,7 @@ public class AssetServiceImpl implements AssetService {
     }
 
     /**
+     * Create new asset item.
      * {@link org.craftercms.studio.api.content.AssetService}
      *
      * @param context         the caller's context
@@ -76,7 +76,9 @@ public class AssetServiceImpl implements AssetService {
      * @throws StudioException
      */
     @Override
-    public Item create(final Context context, final String site, final String destinationPath, final String fileName, final InputStream content, final String mimeType, final Map<String, String> properties) throws StudioException {
+    public Item create(final Context context, final String site, final String destinationPath, final String fileName,
+                       final InputStream content, final String mimeType, final Map<String,
+        String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
             StringBuilder sb = new StringBuilder(destinationPath);
             sb.append(File.separator);
@@ -91,21 +93,20 @@ public class AssetServiceImpl implements AssetService {
     }
 
     /**
-     *
-     * @param context           the caller's context
-     * @param site              the site to use
-     * @param destinationPath   path to write to (this is relative off of the base path for this type)
-     * @param fileName          file name of asset
-     * @param content           content as a string (textual content)
-     * @param mimeType          mimeType of asset, can be null if unknown
-     * @param properties        key-value-pair properties, can be null
-     * @return                  item representing asset
+     * @param context         the caller's context
+     * @param site            the site to use
+     * @param destinationPath path to write to (this is relative off of the base path for this type)
+     * @param fileName        file name of asset
+     * @param content         content as a string (textual content)
+     * @param mimeType        mimeType of asset, can be null if unknown
+     * @param properties      key-value-pair properties, can be null
+     * @return item representing asset
      * @throws StudioException
      */
     @Override
     public Item create(final Context context, final String site, final String destinationPath, final String fileName,
-                       final String content, final String mimeType, final Map<String, String> properties
-    ) throws StudioException {
+                       final String content, final String mimeType, final Map<String,
+        String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
             Item item = createAssetItem(fileName);
             InputStream contentStream = IOUtils.toInputStream(content);
@@ -118,7 +119,9 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public Item create(final Context context, final String site, final String destinationPath, final String fileName, final byte[] content, final String mimeType, final Map<String, String> properties) throws StudioException {
+    public Item create(final Context context, final String site, final String destinationPath, final String fileName,
+                       final byte[] content, final String mimeType, final Map<String,
+        String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
             Item item = createAssetItem(fileName);
             InputStream contentStream = new ByteArrayInputStream(content);
@@ -217,31 +220,29 @@ public class AssetServiceImpl implements AssetService {
 
     @Override
     public List<Item> list(final Context context, final String site, final ItemId itemId) throws StudioException {
-        if (context != null && securityService.validate(context)) {
-            if (itemId != null) {
-                return contentManager.list(context, site, itemId.getItemId());
-            } else {
-                String rootItemId = pathService.getItemIdByPath(context.getTicket(), site, repoRootPath);
-                if (StringUtils.isEmpty(rootItemId)) {
-                    int lastIndex = repoRootPath.lastIndexOf("/");
-                    String rootParent = "/";
-                    String folderName = repoRootPath;
-                    if (lastIndex > 0) {
-                        rootParent = repoRootPath.substring(0, lastIndex - 1);
-                        folderName = repoRootPath.substring(lastIndex + 1);
-                    } else {
-                        if (repoRootPath.startsWith("/")) {
-                            folderName = repoRootPath.substring(1);
-                        }
-                    }
-                    Item rootItem = contentManager.createFolder(context, site, rootParent, folderName);
-                    rootItemId = rootItem.getId().toString();
-                }
-                return contentManager.list(context, site, rootItemId);
-            }
-
-        } else {
+        if (!(context != null && securityService.validate(context))) {
             throw ErrorManager.createError(StudioImplErrorCode.INVALID_CONTEXT);
+        }
+        if (itemId != null) {
+            return contentManager.list(context, site, itemId.getItemId());
+        } else {
+            String rootItemId = pathService.getItemIdByPath(context.getTicket(), site, repoRootPath);
+            if (StringUtils.isEmpty(rootItemId)) {
+                int lastIndex = repoRootPath.lastIndexOf("/");
+                String rootParent = "/";
+                String folderName = repoRootPath;
+                if (lastIndex > 0) {
+                    rootParent = repoRootPath.substring(0, lastIndex - 1);
+                    folderName = repoRootPath.substring(lastIndex + 1);
+                } else {
+                    if (repoRootPath.startsWith("/")) {
+                        folderName = repoRootPath.substring(1);
+                    }
+                }
+                Item rootItem = contentManager.createFolder(context, site, rootParent, folderName);
+                rootItemId = rootItem.getId().toString();
+            }
+            return contentManager.list(context, site, rootItemId);
         }
     }
 

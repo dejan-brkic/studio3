@@ -17,15 +17,15 @@
 
 package org.craftercms.studio.testing.integration;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.apache.commons.io.FileUtils;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-
-import java.io.File;
-import java.io.IOException;
 
 public class WebIntegrationTestRule extends TestWatcher {
 
@@ -42,9 +42,9 @@ public class WebIntegrationTestRule extends TestWatcher {
     public void failed(Throwable e, Description description) {
 
         try {
-            File shoot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+            File shoot = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(shoot, new File(screenshotOutputFolder +
-                    File.separator + description.getMethodName() + ".png"));
+                File.separator + description.getMethodName() + ".png"));
         } catch (IOException ex) {
             System.out.println("Unable to save screenshot");
         }

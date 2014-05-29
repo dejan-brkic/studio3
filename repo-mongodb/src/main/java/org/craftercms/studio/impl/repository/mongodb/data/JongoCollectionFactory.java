@@ -17,13 +17,12 @@
 
 package org.craftercms.studio.impl.repository.mongodb.data;
 
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoException;
 import org.apache.commons.lang3.StringUtils;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
-import org.springframework.beans.factory.FactoryBean;
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoException;
 
 
 public class JongoCollectionFactory {
@@ -37,7 +36,7 @@ public class JongoCollectionFactory {
     private Jongo jongo;
 
 
-    public MongoCollection getCollection(final String collectionName){
+    public MongoCollection getCollection(final String collectionName) {
         return jongo.getCollection(collectionName);
     }
 
@@ -52,7 +51,7 @@ public class JongoCollectionFactory {
         jongo = new Jongo(db);
     }
 
-    public DB getDatabase(){
+    public DB getDatabase() {
         return db;
     }
 

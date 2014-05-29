@@ -51,5 +51,6 @@ public class MongoRepositoryQueries {
     public static final String SORT_ANCESTORS = "studio.repo.mongodb.query.getAncestorsSort";
 
 
-    private MongoRepositoryQueries(){}
+    private MongoRepositoryQueries() {
+    }
 }

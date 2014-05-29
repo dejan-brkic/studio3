@@ -34,7 +34,8 @@ import org.craftercms.studio.mock.exception.MockErrorCode;
 public class LifecycleManagerMock implements LifecycleManager {
 
     @Override
-    public List<Action> getPossibleActions(final Context context, final String site, final List<String> itemIds) throws StudioException {
+    public List<Action> getPossibleActions(final Context context, final String site,
+                                           final List<String> itemIds) throws StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 }

@@ -30,9 +30,10 @@ public interface LoVService {
 
     /**
      * Get list of values.
-     * @param ticket security ticket
+     *
+     * @param ticket  security ticket
      * @param lovName list of values name
-     * @param type list of values type
+     * @param type    list of values type
      * @return list of values
      */
     <T> List<T> getLoV(String ticket, String lovName, Class<T> type);

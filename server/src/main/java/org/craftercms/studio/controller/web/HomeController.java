@@ -18,9 +18,7 @@
 package org.craftercms.studio.controller.web;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.PathParam;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;

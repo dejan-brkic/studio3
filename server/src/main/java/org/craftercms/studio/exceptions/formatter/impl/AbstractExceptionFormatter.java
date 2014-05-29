@@ -75,7 +75,7 @@ public abstract class AbstractExceptionFormatter implements ExceptionFormatter {
      * calls {@link AbstractExceptionFormatter#generateDetailMessage} for get any detail if needed.
      *
      * @return A String representation of a JSON Object to be return.<br/>
-     *         or <B>null</B> if the JSON could no be generate due a error.
+     * or <B>null</B> if the JSON could no be generate due a error.
      */
     @Override
     public String getFormattedMessage(final Exception exception) {
@@ -102,7 +102,7 @@ public abstract class AbstractExceptionFormatter implements ExceptionFormatter {
                     if (key.equals(JSON_CODE_KEY) || key.equals(JSON_MESSAGE_KEY)) {
                         if (this.log.isDebugEnabled()) {
                             this.log.debug("Detail message has either {} or {} they are not allow, ignoring them",
-                                    JSON_CODE_KEY, JSON_MESSAGE_KEY);
+                                JSON_CODE_KEY, JSON_MESSAGE_KEY);
                         }
                     } else {
                         jsonToReturn.put(key, detailsObject.get(key));
@@ -130,7 +130,7 @@ public abstract class AbstractExceptionFormatter implements ExceptionFormatter {
             HttpStatus.valueOf(this.httpResponseCode);
         } catch (IllegalArgumentException e) {
             throw new IllegalStateException(String.format("%s is not a valid Http Response Code",
-                    this.httpResponseCode));
+                this.httpResponseCode));
         }
 
     }
@@ -142,8 +142,8 @@ public abstract class AbstractExceptionFormatter implements ExceptionFormatter {
      *
      * @param ex Exception used to generate detail message.
      * @return A JSONObject that will be append to standard out put.
-     *         if contains either "code" or "message" as keys they will be
-     *         removed.If return empty or null will be ignore.
+     * if contains either "code" or "message" as keys they will be
+     * removed.If return empty or null will be ignore.
      * @throws org.json.JSONException if a error generating the exceptionClass happened.
      */
     protected abstract JSONObject generateDetailMessage(Exception ex) throws JSONException;

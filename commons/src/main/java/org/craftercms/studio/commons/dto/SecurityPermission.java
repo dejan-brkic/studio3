@@ -37,6 +37,7 @@ public class SecurityPermission {
 
     /**
      * Name getter.
+     *
      * @return name
      */
     public final String getName() {
@@ -45,6 +46,7 @@ public class SecurityPermission {
 
     /**
      * Name setter.
+     *
      * @param name name
      */
     public final void setName(final String name) {
@@ -53,6 +55,7 @@ public class SecurityPermission {
 
     /**
      * Description getter.
+     *
      * @return description
      */
     public final String getDescription() {
@@ -61,6 +64,7 @@ public class SecurityPermission {
 
     /**
      * Description setter.
+     *
      * @param description description
      */
     public final void setDescription(final String description) {

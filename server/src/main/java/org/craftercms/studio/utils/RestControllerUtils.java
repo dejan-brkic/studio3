@@ -19,11 +19,12 @@ public final class RestControllerUtils {
 
     /**
      * Removes from the map the given keys.
+     *
      * @param map  Map in which the keys will be remove
      * @param keys keys to be remove from the map
      */
     public static void removeParamters(Map<String, Object> map, String... keys) {
-        final Logger log=LoggerFactory.getLogger(RestControllerUtils.class);
+        final Logger log = LoggerFactory.getLogger(RestControllerUtils.class);
         log.debug("About to filter from {} {}", map, keys);
         for (String keyToRemove : keys) {
             map.remove(keyToRemove);

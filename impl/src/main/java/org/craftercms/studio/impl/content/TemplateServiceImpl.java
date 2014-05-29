@@ -54,18 +54,19 @@ public class TemplateServiceImpl implements TemplateService {
     /**
      * Create new template.
      *
-     * @param context           the caller's context
-     * @param site              the site to use
-     * @param parentId          the id of the parent item (can be a folder or a descriptor)
-     * @param fileName          file name of the template
-     * @param content           the InputStream containing the XML that is compliant with the model defined in Studio
-     *                          (typically done using Studio's Form Engine).
-     * @param properties        key-value-pair properties, can be null
-     * @return                  template descriptor
+     * @param context    the caller's context
+     * @param site       the site to use
+     * @param parentId   the id of the parent item (can be a folder or a descriptor)
+     * @param fileName   file name of the template
+     * @param content    the InputStream containing the XML that is compliant with the model defined in Studio
+     *                   (typically done using Studio's Form Engine).
+     * @param properties key-value-pair properties, can be null
+     * @return template descriptor
      * @throws StudioException
      */
     @Override
-    public Item create(final Context context, final String site, final String parentId, final String fileName, final InputStream content, final Map<String, String> properties) throws StudioException {
+    public Item create(final Context context, final String site, final String parentId, final String fileName,
+                       final InputStream content, final Map<String, String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
             Item item = createTemplateItem(fileName);
             ItemId itemId = contentManager.create(context, site, parentId, item, content);
@@ -87,18 +88,19 @@ public class TemplateServiceImpl implements TemplateService {
     /**
      * Create new template.
      *
-     * @param context           the caller's context
-     * @param site              the site to use
-     * @param parentId          the id of the parent item (can be a folder or a descriptor)
-     * @param fileName          file name of the template
-     * @param content           the XML that is compliant with the model defined in Studio (typically done using
-     *                          Studio's Form Engine).
-     * @param properties        key-value-pair properties, can be null
-     * @return                  template descriptor
+     * @param context    the caller's context
+     * @param site       the site to use
+     * @param parentId   the id of the parent item (can be a folder or a descriptor)
+     * @param fileName   file name of the template
+     * @param content    the XML that is compliant with the model defined in Studio (typically done using
+     *                   Studio's Form Engine).
+     * @param properties key-value-pair properties, can be null
+     * @return template descriptor
      * @throws StudioException
      */
     @Override
-    public Item create(final Context context, final String site, final String parentId, final String fileName, final String content, final Map<String, String> properties) throws StudioException {
+    public Item create(final Context context, final String site, final String parentId, final String fileName,
+                       final String content, final Map<String, String> properties) throws StudioException {
         if (context != null && securityService.validate(context)) {
             Item item = createTemplateItem(fileName);
             InputStream contentStream = IOUtils.toInputStream(content);
@@ -113,10 +115,10 @@ public class TemplateServiceImpl implements TemplateService {
     /**
      * Read template descriptor.
      *
-     * @param context   the caller's context
-     * @param site      the site to use
-     * @param itemId    the item to read
-     * @return          template descriptor
+     * @param context the caller's context
+     * @param site    the site to use
+     * @param itemId  the item to read
+     * @return template descriptor
      * @throws StudioException
      */
     @Override
@@ -152,7 +154,7 @@ public class TemplateServiceImpl implements TemplateService {
      * @param content    the InputStream containing the XML that is compliant with the model defined in Studio
      *                   (typically done using Studio's Form Engine).
      * @param properties key-value-pair properties, can be null
-     * @return           template descriptor
+     * @return template descriptor
      * @throws StudioException
      */
     @Override
@@ -176,7 +178,7 @@ public class TemplateServiceImpl implements TemplateService {
      * @param content    the XML that is compliant with the model defined in Studio (typically done using
      *                   Studio's Form Engine).
      * @param properties key-value-pair properties, can be null
-     * @return           template descriptor
+     * @return template descriptor
      * @throws StudioException
      */
     @Override
@@ -218,7 +220,7 @@ public class TemplateServiceImpl implements TemplateService {
      * @param context the caller's context
      * @param site    the site to use
      * @param query   mdb query string
-     * @return        template descriptor
+     * @return template descriptor
      * @throws StudioException
      */
     @Override

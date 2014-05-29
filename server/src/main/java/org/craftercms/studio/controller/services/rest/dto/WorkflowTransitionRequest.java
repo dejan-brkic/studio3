@@ -18,9 +18,7 @@
 package org.craftercms.studio.controller.services.rest.dto;
 
 import java.util.Map;
-
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import org.craftercms.studio.commons.dto.WorkflowTransition;
 import org.craftercms.studio.commons.validation.StringNotEmpty;

@@ -11,9 +11,10 @@ public final class TestUtils {
     /**
      * Since is a utils class hide its CTOR
      */
-    private  TestUtils(){
+    private TestUtils() {
 
     }
+
     public static void isUUIDValid(String uuid) {
         if (uuid == null) {
             fail("Given UUID is null");
@@ -23,7 +24,7 @@ public final class TestUtils {
             // good validation logic.
             UUID fromStringUUID = UUID.fromString(uuid);
             String toStringUUID = fromStringUUID.toString();
-            if(!toStringUUID.equals(uuid)){
+            if (!toStringUUID.equals(uuid)) {
                 fail(String.format("UUID {} is not valid", uuid));
             }
         } catch (IllegalArgumentException e) {

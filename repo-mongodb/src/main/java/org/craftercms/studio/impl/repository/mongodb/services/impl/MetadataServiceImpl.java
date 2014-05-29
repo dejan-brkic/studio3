@@ -30,22 +30,26 @@ import org.craftercms.studio.repo.content.MetaDataService;
 public class MetadataServiceImpl implements MetaDataService {
 
     @Override
-    public <T> Map<String, T> getProperties(final String ticket, final String itemId, final Class<T> type) throws StudioException{
+    public <T> Map<String, T> getProperties(final String ticket, final String itemId,
+                                            final Class<T> type) throws StudioException {
         throw ErrorManager.createError(MongodbRepoErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public <T> void setProperties(final String ticket, final String itemId, final Map<String, T> properties) throws StudioException {
+    public <T> void setProperties(final String ticket, final String itemId, final Map<String,
+        T> properties) throws StudioException {
         throw ErrorManager.createError(MongodbRepoErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public <T> T getProperty(final String ticket, final String itemId, final String property, final Class<T> type) throws StudioException {
+    public <T> T getProperty(final String ticket, final String itemId, final String property,
+                             final Class<T> type) throws StudioException {
         throw ErrorManager.createError(MongodbRepoErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public <T> void setProperty(final String ticket, final String itemId, final String property, final T value) throws StudioException {
+    public <T> void setProperty(final String ticket, final String itemId, final String property,
+                                final T value) throws StudioException {
         throw ErrorManager.createError(MongodbRepoErrorCode.NOT_IMPLEMENTED);
     }
 

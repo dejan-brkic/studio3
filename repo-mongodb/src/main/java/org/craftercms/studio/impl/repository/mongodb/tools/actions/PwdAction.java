@@ -33,14 +33,13 @@ public class PwdAction extends AbstractAction {
 
     @Override
     public void run(final RepoShellContext context, final String[] args) throws StudioException {
-        String pwd = context.getPathService().getPathByItemId("Internal", "Internal",
-            context.getCurrentNode().getId());
+        String pwd = context.getPathService().getPathByItemId("Internal", "Internal", context.getCurrentNode().getId());
         context.getOut().println(pwd);
     }
 
     @Override
     public String printHelp() {
-       return "Prints current directory path";
+        return "Prints current directory path";
     }
 
     @Override

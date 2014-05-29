@@ -24,5 +24,5 @@ import org.craftercms.studio.commons.exception.ErrorCode;
  */
 public class MockErrorCode extends ErrorCode {
 
-    public static final String MODULE_ID = "studio-mock" ;
+    public static final String MODULE_ID = "studio-mock";
 }

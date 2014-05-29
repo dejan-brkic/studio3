@@ -66,13 +66,9 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     @Test
     public void testHistory() throws Exception {
         when(this.deploymentManagerMock.history(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.anyListOf(String.class)
-            )).thenReturn(generateDeploymentHistory());
+            Mockito.anyListOf(String.class))).thenReturn(generateDeploymentHistory());
 
-        this.mockMvc.perform(
-            get("/api/1/deployment/history/sample")
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(get("/api/1/deployment/history/sample").accept(MediaType.ALL)).andExpect(status().isOk());
 
         verify(this.deploymentManagerMock, times(1)).history(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class));
@@ -81,14 +77,10 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     @Test
     public void testHistoryWithFilters() throws Exception {
         when(this.deploymentManagerMock.history(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.anyListOf(String.class)
-        )).thenReturn(generateDeploymentHistory());
+            Mockito.anyListOf(String.class))).thenReturn(generateDeploymentHistory());
 
-        this.mockMvc.perform(
-            get("/api/1/deployment/history/sample")
-                .param("filters", "filter1", "filter2")
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(get("/api/1/deployment/history/sample").param("filters", "filter1",
+            "filter2").accept(MediaType.ALL)).andExpect(status().isOk());
 
         verify(this.deploymentManagerMock, times(1)).history(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class));
@@ -97,14 +89,10 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     @Test
     public void testChannels() throws Exception {
         when(this.deploymentManagerMock.channels(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.anyString()
-        )).thenReturn(generateChannelsList());
+            Mockito.anyString())).thenReturn(generateChannelsList());
 
-        this.mockMvc.perform(
-            get("/api/1/deployment/channels/sample")
-                .param("environment", RandomStringUtils.randomAlphabetic(10))
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(get("/api/1/deployment/channels/sample").param("environment",
+            RandomStringUtils.randomAlphabetic(10)).accept(MediaType.ALL)).andExpect(status().isOk());
 
         verify(this.deploymentManagerMock, times(1)).channels(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());
@@ -113,13 +101,10 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     @Test
     public void testChannelsMissingEnvironment() throws Exception {
         when(this.deploymentManagerMock.channels(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.anyString()
-        )).thenReturn(generateChannelsList());
+            Mockito.anyString())).thenReturn(generateChannelsList());
 
-        this.mockMvc.perform(
-            get("/api/1/deployment/channels/sample")
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(get("/api/1/deployment/channels/sample").accept(MediaType.ALL)).andExpect(status()
+            .isBadRequest());
 
         verify(this.deploymentManagerMock, times(0)).channels(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());
@@ -137,12 +122,9 @@ public class DeploymentControllerTest extends AbstractControllerTest {
         }).when(this.deploymentManagerMock).updateChannel(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
 
-        this.mockMvc.perform(
-            post("/api/1/deployment/update_channel/sample")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(generateRequestBody(createDeploymentChannelMock()).getBytes())
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/1/deployment/update_channel/sample").contentType(MediaType.APPLICATION_JSON)
+            .content(generateRequestBody(createDeploymentChannelMock()).getBytes()).accept(MediaType.ALL)).andExpect
+            (status().isOk());
 
         verify(this.deploymentManagerMock, times(1)).updateChannel(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
@@ -160,12 +142,8 @@ public class DeploymentControllerTest extends AbstractControllerTest {
         }).when(this.deploymentManagerMock).updateChannel(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
 
-        this.mockMvc.perform(
-            post("/api/1/deployment/update_channel/sample")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(StringUtils.EMPTY.getBytes())
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/deployment/update_channel/sample").contentType(MediaType.APPLICATION_JSON)
+            .content(StringUtils.EMPTY.getBytes()).accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.deploymentManagerMock, times(0)).updateChannel(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
@@ -183,12 +161,9 @@ public class DeploymentControllerTest extends AbstractControllerTest {
         }).when(this.deploymentManagerMock).removeChannel(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
 
-        this.mockMvc.perform(
-            post("/api/1/deployment/remove_channel/sample")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(generateRequestBody(createDeploymentChannelMock()).getBytes())
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/1/deployment/remove_channel/sample").contentType(MediaType.APPLICATION_JSON)
+            .content(generateRequestBody(createDeploymentChannelMock()).getBytes()).accept(MediaType.ALL)).andExpect
+            (status().isOk());
 
         verify(this.deploymentManagerMock, times(1)).removeChannel(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
@@ -206,12 +181,8 @@ public class DeploymentControllerTest extends AbstractControllerTest {
         }).when(this.deploymentManagerMock).removeChannel(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
 
-        this.mockMvc.perform(
-            post("/api/1/deployment/remove_channel/sample")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(StringUtils.EMPTY.getBytes())
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/deployment/remove_channel/sample").contentType(MediaType.APPLICATION_JSON)
+            .content(StringUtils.EMPTY.getBytes()).accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.deploymentManagerMock, times(0)).removeChannel(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
@@ -229,11 +200,9 @@ public class DeploymentControllerTest extends AbstractControllerTest {
         }).when(this.deploymentManagerMock).deploy(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class));
 
-        this.mockMvc.perform(
-            post("/api/1/deployment/deploy/sample")
-                .param("itemIds", UUID.randomUUID().toString(), UUID.randomUUID().toString(), UUID.randomUUID().toString())
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/1/deployment/deploy/sample").param("itemIds", UUID.randomUUID().toString(),
+            UUID.randomUUID().toString(), UUID.randomUUID().toString()).accept(MediaType.ALL)).andExpect(status()
+            .isOk());
 
         verify(this.deploymentManagerMock, times(1)).deploy(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class));
@@ -251,10 +220,8 @@ public class DeploymentControllerTest extends AbstractControllerTest {
         }).when(this.deploymentManagerMock).deploy(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class));
 
-        this.mockMvc.perform(
-            post("/api/1/deployment/deploy/sample")
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/deployment/deploy/sample").accept(MediaType.ALL)).andExpect(status()
+            .isBadRequest());
 
         verify(this.deploymentManagerMock, times(0)).deploy(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class));
@@ -265,12 +232,9 @@ public class DeploymentControllerTest extends AbstractControllerTest {
         when(this.deploymentManagerMock.status(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class))).thenReturn(RandomStringUtils.randomAlphanumeric(200));
 
-        this.mockMvc.perform(
-            get("/api/1/deployment/status/sample")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(generateRequestBody(createDeploymentChannelMock()).getBytes())
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(get("/api/1/deployment/status/sample").contentType(MediaType.APPLICATION_JSON).content
+            (generateRequestBody(createDeploymentChannelMock()).getBytes()).accept(MediaType.ALL)).andExpect(status()
+            .isOk());
 
         verify(this.deploymentManagerMock, times(1)).status(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
@@ -281,12 +245,8 @@ public class DeploymentControllerTest extends AbstractControllerTest {
         when(this.deploymentManagerMock.status(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class))).thenReturn(RandomStringUtils.randomAlphanumeric(200));
 
-        this.mockMvc.perform(
-            get("/api/1/deployment/status/sample")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(StringUtils.EMPTY.getBytes())
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(get("/api/1/deployment/status/sample").contentType(MediaType.APPLICATION_JSON).content
+            (StringUtils.EMPTY.getBytes()).accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.deploymentManagerMock, times(0)).status(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
@@ -297,12 +257,9 @@ public class DeploymentControllerTest extends AbstractControllerTest {
         when(this.deploymentManagerMock.version(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class))).thenReturn((long)(Math.random() * Long.MAX_VALUE));
 
-        this.mockMvc.perform(
-            get("/api/1/deployment/version/sample")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(generateRequestBody(createDeploymentChannelMock()).getBytes())
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(get("/api/1/deployment/version/sample").contentType(MediaType.APPLICATION_JSON).content
+            (generateRequestBody(createDeploymentChannelMock()).getBytes()).accept(MediaType.ALL)).andExpect(status()
+            .isOk());
 
         verify(this.deploymentManagerMock, times(1)).version(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
@@ -313,12 +270,8 @@ public class DeploymentControllerTest extends AbstractControllerTest {
         when(this.deploymentManagerMock.version(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class))).thenReturn((long)(Math.random() * Long.MAX_VALUE));
 
-        this.mockMvc.perform(
-            get("/api/1/deployment/version/sample")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(StringUtils.EMPTY.getBytes())
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(get("/api/1/deployment/version/sample").contentType(MediaType.APPLICATION_JSON).content
+            (StringUtils.EMPTY.getBytes()).accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.deploymentManagerMock, times(0)).version(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
@@ -336,12 +289,9 @@ public class DeploymentControllerTest extends AbstractControllerTest {
         }).when(this.deploymentManagerMock).abort(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
 
-        this.mockMvc.perform(
-            post("/api/1/deployment/abort/sample")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(generateRequestBody(createDeploymentChannelMock()).getBytes())
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/1/deployment/abort/sample").contentType(MediaType.APPLICATION_JSON).content
+            (generateRequestBody(createDeploymentChannelMock()).getBytes()).accept(MediaType.ALL)).andExpect(status()
+            .isOk());
 
         verify(this.deploymentManagerMock, times(1)).abort(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
@@ -359,12 +309,8 @@ public class DeploymentControllerTest extends AbstractControllerTest {
         }).when(this.deploymentManagerMock).abort(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));
 
-        this.mockMvc.perform(
-            post("/api/1/deployment/abort/sample")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(StringUtils.EMPTY.getBytes())
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/deployment/abort/sample").contentType(MediaType.APPLICATION_JSON).content
+            (StringUtils.EMPTY.getBytes()).accept(MediaType.ALL)).andExpect(status().isBadRequest());
 
         verify(this.deploymentManagerMock, times(0)).abort(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class));

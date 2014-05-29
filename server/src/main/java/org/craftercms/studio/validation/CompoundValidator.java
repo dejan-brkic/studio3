@@ -23,10 +23,10 @@ public class CompoundValidator implements Validator {
     }
 
     @Override
-    public boolean supports(Class<?> aClass) {
+    public boolean supports(final Class<?> aClass) {
         boolean supports = false;
         for (Validator v : this.validators) {
-            if ( v.supports(aClass) ) {
+            if (v.supports(aClass)) {
                 supports = true;
                 break;
             }
@@ -35,9 +35,9 @@ public class CompoundValidator implements Validator {
     }
 
     @Override
-    public void validate(Object o, Errors errors) {
+    public void validate(final Object o, final Errors errors) {
         for (Validator v : this.validators) {
-            if ( v.supports(o.getClass()) ) {
+            if (v.supports(o.getClass())) {
                 v.validate(o, errors);
             }
         }
@@ -47,7 +47,7 @@ public class CompoundValidator implements Validator {
         return this.validators;
     }
 
-    public void setValidators(List<Validator> validators) {
+    public void setValidators(final List<Validator> validators) {
         this.validators = validators;
     }
 }

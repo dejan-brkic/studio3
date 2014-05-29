@@ -60,28 +60,22 @@ public class VersionControllerTest extends AbstractControllerTest {
 
     @Test
     public void testGetContent() throws Exception {
-        when(this.versionServiceMock.history(Mockito.any(Context.class), Mockito.anyString()))
-            .thenReturn(generateVersionTree());
+        when(this.versionServiceMock.history(Mockito.any(Context.class), Mockito.anyString())).thenReturn
+            (generateVersionTree());
 
-        this.mockMvc.perform(
-            get("/api/1/version/history/site?itemId=1")
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk())
-        ;
+        this.mockMvc.perform(get("/api/1/version/history/site?itemId=1").accept(MediaType.ALL)).andExpect(status()
+            .isOk());
 
         verify(this.versionServiceMock, times(1)).history(Mockito.any(Context.class), Mockito.anyString());
     }
 
     @Test
     public void testGetContentMissingItemId() throws Exception {
-        when(this.versionServiceMock.history(Mockito.any(Context.class), Mockito.anyString()))
-            .thenReturn(generateVersionTree());
+        when(this.versionServiceMock.history(Mockito.any(Context.class), Mockito.anyString())).thenReturn
+            (generateVersionTree());
 
-        this.mockMvc.perform(
-            get("/api/1/version/history/site")
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest())
-        ;
+        this.mockMvc.perform(get("/api/1/version/history/site").accept(MediaType.ALL)).andExpect(status()
+            .isBadRequest());
 
         verify(this.versionServiceMock, times(0)).history(Mockito.any(Context.class), Mockito.anyString());
     }
@@ -97,11 +91,8 @@ public class VersionControllerTest extends AbstractControllerTest {
             }
         }).when(this.versionServiceMock).revert(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
 
-        this.mockMvc.perform(
-            post("/api/1/version/revert/site").accept(MediaType.ALL)
-                .param("itemId", "1")
-                .param("versionToRevertTo", "1.0"))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(post("/api/1/version/revert/site").accept(MediaType.ALL).param("itemId",
+            "1").param("versionToRevertTo", "1.0")).andExpect(status().isOk());
 
         verify(this.versionServiceMock, times(1)).revert(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());
@@ -118,10 +109,8 @@ public class VersionControllerTest extends AbstractControllerTest {
             }
         }).when(this.versionServiceMock).revert(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
 
-        this.mockMvc.perform(
-            post("/api/1/version/revert/site").accept(MediaType.ALL)
-                .param("versionToRevertTo", "1.0"))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/version/revert/site").accept(MediaType.ALL).param("versionToRevertTo",
+            "1.0")).andExpect(status().isBadRequest());
 
         verify(this.versionServiceMock, times(0)).revert(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());
@@ -138,10 +127,8 @@ public class VersionControllerTest extends AbstractControllerTest {
             }
         }).when(this.versionServiceMock).revert(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
 
-        this.mockMvc.perform(
-            post("/api/1/version/revert/site").accept(MediaType.ALL)
-                .param("itemId", "1"))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/version/revert/site").accept(MediaType.ALL).param("itemId",
+            "1")).andExpect(status().isBadRequest());
 
         verify(this.versionServiceMock, times(0)).revert(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());

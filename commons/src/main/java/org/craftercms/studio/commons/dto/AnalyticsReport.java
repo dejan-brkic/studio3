@@ -2,6 +2,7 @@ package org.craftercms.studio.commons.dto;
 
 /**
  * Container for AnalyticsReport.
+ *
  * @author Carlos Ortiz
  * @author Dejan Brkic
  * @author Sumer Jabri
@@ -18,7 +19,8 @@ public class AnalyticsReport {
 
     /**
      * Default Ctr with params.
-     * @param reportName  Report Name.
+     *
+     * @param reportName Report Name.
      */
     public AnalyticsReport(final String reportName) {
         this.reportName = reportName;

@@ -17,35 +17,34 @@
 
 package org.craftercms.studio.testing.integration;
 
-import com.thoughtworks.selenium.Selenium;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Rule;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
+import com.thoughtworks.selenium.Selenium;
 
 /**
  * Base class for all Selenium base test.
  */
-public abstract class AbstractIntegrationTest{
+public abstract class AbstractIntegrationTest {
 
-    private final static String WEB_TESTING_PROPERTIES="webTesting.properties";
-    protected Selenium selenium;
-    protected WebDriver driver;
-    protected String baseUrl;
-    protected StringBuffer verificationErrors = new StringBuffer();
+    private final static String WEB_TESTING_PROPERTIES = "webTesting.properties";
     protected static DesiredCapabilities desiredCapabilities;
-    protected Properties testProperties;
-
     /**
      * Because it has to be (Junit)
      */
     @Rule
     public WebIntegrationTestRule webIntegrationTestRule;
+    protected Selenium selenium;
+    protected WebDriver driver;
+    protected String baseUrl;
+    protected StringBuffer verificationErrors = new StringBuffer();
+    protected Properties testProperties;
 
-    public AbstractIntegrationTest() throws Exception{
+    public AbstractIntegrationTest() throws Exception {
         testProperties = new Properties();
         testProperties.load(AbstractIntegrationTest.class.getClassLoader().getResourceAsStream(WEB_TESTING_PROPERTIES));
         desiredCapabilities = new DesiredCapabilities();
@@ -53,8 +52,10 @@ public abstract class AbstractIntegrationTest{
         desiredCapabilities.setCapability("takesScreenshot", true);
         driver = new FirefoxDriver(desiredCapabilities);
         baseUrl = testProperties.getProperty("test.base.url");
-        driver.manage().timeouts().implicitlyWait(Integer.parseInt(testProperties.getProperty("test.timeout")), TimeUnit.SECONDS);
-        webIntegrationTestRule = new WebIntegrationTestRule(testProperties.getProperty("test.screenshotOutputPath"),driver);
+        driver.manage().timeouts().implicitlyWait(Integer.parseInt(testProperties.getProperty("test.timeout")),
+            TimeUnit.SECONDS);
+        webIntegrationTestRule = new WebIntegrationTestRule(testProperties.getProperty("test.screenshotOutputPath"),
+            driver);
     }
 
 }

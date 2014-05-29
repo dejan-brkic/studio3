@@ -44,7 +44,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.reset;
@@ -96,8 +95,8 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
 
         Item testItem = templateServiceSUT.create(context, site, parentId, fileName, fileStream, props);
 
-        verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
-            Mockito.any(Item.class), Mockito.any(InputStream.class));
+        verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
         verify(securityServiceMock, times(1)).validate(context);
     }
 
@@ -128,7 +127,7 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
             verify(contentManagerMock, times(0)).create(Mockito.any(Context.class), Mockito.anyString(),
                 Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
             verify(securityServiceMock, times(0)).validate(context);
-                return;
+            return;
         }
         fail();
     }
@@ -173,9 +172,9 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testCreateUsingInputStreamInvalidSite() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock)
-            .create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
-                Mockito.any(InputStream.class));
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock).create(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
+            Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -219,8 +218,8 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
 
         Item testItem = templateServiceSUT.create(context, site, parentId, fileName, content, props);
 
-        verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
-            Mockito.any(Item.class), Mockito.any(InputStream.class));
+        verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString(), Mockito.any(Item.class), Mockito.any(InputStream.class));
         verify(securityServiceMock, times(1)).validate(context);
     }
 
@@ -296,9 +295,9 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testCreateUsingContentStringInvalidSite() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock)
-            .create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
-                Mockito.any(InputStream.class));
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock).create(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.any(Item.class),
+            Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -328,8 +327,8 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testRead() throws Exception {
-        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString()))
-            .thenReturn(createItemMock());
+        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString())).thenReturn(createItemMock());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -380,7 +379,8 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testReadUsingInvalidContext() throws Exception {
-        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),Mockito.anyString())).thenReturn(createItemMock());
+        when(contentManagerMock.read(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString())).thenReturn(createItemMock());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(false);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -410,8 +410,8 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testReadUsingInvalidSite() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock)
-            .read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock).read(Mockito.any
+            (Context.class), Mockito.anyString(), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -439,8 +439,8 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testReadUsingInvalidItem() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when(contentManagerMock)
-            .read(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when(contentManagerMock).read(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.anyString());
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -580,9 +580,9 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testUpdateUsingInputStreamInvalidSite() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock)
-            .write(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class),
-                Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock).write(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class), Mockito.any(LockHandle.class),
+            Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -613,9 +613,9 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testUpdateUsingInputStreamInvalidItem() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when(contentManagerMock)
-            .write(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class),
-                Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
+        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when(contentManagerMock).write(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class), Mockito.any(LockHandle.class),
+            Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -755,9 +755,9 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testUpdateUsingContentStringInvalidSite() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock)
-            .write(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class),
-                Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE)).when(contentManagerMock).write(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class), Mockito.any(LockHandle.class),
+            Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -787,9 +787,9 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
      */
     @Test
     public void testUpdateUsingContentStringInvalidItem() throws Exception {
-        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when(contentManagerMock)
-            .write(Mockito.any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class),
-                Mockito.any(LockHandle.class), Mockito.any(InputStream.class));
+        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND)).when(contentManagerMock).write(Mockito
+            .any(Context.class), Mockito.anyString(), Mockito.any(ItemId.class), Mockito.any(LockHandle.class),
+            Mockito.any(InputStream.class));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(UUID.randomUUID().toString(), new Tenant());
@@ -814,6 +814,7 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 24:
      * Test delete method.
+     *
      * @throws Exception
      */
     @Test
@@ -838,13 +839,14 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
         // execute delete method
         templateServiceSUT.delete(context, site, templateItemId);
 
-        verify(contentManagerMock, times(1)).delete(Mockito.any(Context.class),Mockito.anyListOf(Item.class));
+        verify(contentManagerMock, times(1)).delete(Mockito.any(Context.class), Mockito.anyListOf(Item.class));
         verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
     }
 
     /**
      * Use case 25:
      * Test delete method using null context.
+     *
      * @throws Exception
      */
     @Test
@@ -881,6 +883,7 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 26:
      * Test delete method using invalid context.
+     *
      * @throws Exception
      */
     @Test
@@ -917,6 +920,7 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 27:
      * Test delete method for invalid site.
+     *
      * @throws Exception
      */
     @Test
@@ -947,6 +951,7 @@ public class TemplateServiceImplTest extends AbstractServiceTest {
     /**
      * Use case 28:
      * Test delete method for invalid item.
+     *
      * @throws Exception
      */
     @Test

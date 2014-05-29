@@ -22,7 +22,6 @@ package org.craftercms.studio.commons.filter;
  * @author Sumer Jabri
  * @author Dejan Brkic
  * @author Carlos Ortiz
- *
  */
 public class WorkflowPackageFilter {
 }

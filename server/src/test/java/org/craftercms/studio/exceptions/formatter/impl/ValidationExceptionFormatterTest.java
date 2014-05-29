@@ -17,6 +17,9 @@
 
 package org.craftercms.studio.exceptions.formatter.impl;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javolution.util.FastList;
 import org.craftercms.studio.exceptions.StudioServerErrorCode;
 import org.craftercms.studio.exceptions.ValidationException;
@@ -26,9 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.springframework.validation.ObjectError;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -44,22 +44,19 @@ public class ValidationExceptionFormatterTest {
 
     private static final int TOTAL_FIELDS = 3;
     private static final List<ObjectError> OBJECT_ERROR_LIST = Arrays.asList(new ObjectError("field1", "Is Empty"),
-            new ObjectError("field2",
-                    "Is not a valid Date"),
-            new ObjectError("field3",
-                    "Is not a email Address")
-    );
+        new ObjectError("field2", "Is not a valid Date"), new ObjectError("field3", "Is not a email Address"));
 
     @Test
     public void testGenerateDetailMessageIsValid() throws Exception {
         try {
             ExceptionFormatter messageFormatter = new ValidationExceptionFormatter();
 
-            ValidationException ex = new ValidationException(StudioServerErrorCode.SYSTEM_ERROR.getCode(), OBJECT_ERROR_LIST);
+            ValidationException ex = new ValidationException(StudioServerErrorCode.SYSTEM_ERROR.getCode(),
+                OBJECT_ERROR_LIST);
             new JSONObject(messageFormatter.getFormattedMessage(ex));
         } catch (JSONException ex) {
-            fail("Unable to parse response for ValidationExceptionFormatter#getFormatMessage due a exception \n"
-                    + ex.toString());
+            fail("Unable to parse response for ValidationExceptionFormatter#getFormatMessage due a exception \n" + ex
+                .toString());
 
         }
     }
@@ -67,32 +64,35 @@ public class ValidationExceptionFormatterTest {
     @Test
     public void testGenerateDetailMessageIsAnArray() throws Exception {
         ExceptionFormatter messageFormatter = new ValidationExceptionFormatter();
-        ValidationException ex = new ValidationException(StudioServerErrorCode.SYSTEM_ERROR.getCode(), OBJECT_ERROR_LIST);
+        ValidationException ex = new ValidationException(StudioServerErrorCode.SYSTEM_ERROR.getCode(),
+            OBJECT_ERROR_LIST);
         new JSONObject(messageFormatter.getFormattedMessage(ex)).
-                getJSONArray(AbstractExceptionFormatter.JSON_DETAIL_MESSAGE_KEY);
+            getJSONArray(AbstractExceptionFormatter.JSON_DETAIL_MESSAGE_KEY);
 
     }
 
     @Test
     public void testGenerateDetailMessageArrayLength() throws Exception {
         ExceptionFormatter messageFormatter = new ValidationExceptionFormatter();
-        ValidationException ex = new ValidationException(StudioServerErrorCode.SYSTEM_ERROR.getCode(), OBJECT_ERROR_LIST);
+        ValidationException ex = new ValidationException(StudioServerErrorCode.SYSTEM_ERROR.getCode(),
+            OBJECT_ERROR_LIST);
         final JSONArray jsonArray = new JSONObject(messageFormatter.getFormattedMessage(ex)).
-                getJSONArray(AbstractExceptionFormatter.JSON_DETAIL_MESSAGE_KEY);
+            getJSONArray(AbstractExceptionFormatter.JSON_DETAIL_MESSAGE_KEY);
         assertEquals(jsonArray.length(), TOTAL_FIELDS);
     }
 
     @Test
     public void testGenerateDetailMessageContents() throws Exception {
         ExceptionFormatter messageFormatter = new ValidationExceptionFormatter();
-        ValidationException ex = new ValidationException(StudioServerErrorCode.SYSTEM_ERROR.getCode(), OBJECT_ERROR_LIST);
+        ValidationException ex = new ValidationException(StudioServerErrorCode.SYSTEM_ERROR.getCode(),
+            OBJECT_ERROR_LIST);
         final JSONArray jsonArray = new JSONObject(messageFormatter.getFormattedMessage(ex)).
-                getJSONArray(AbstractExceptionFormatter.JSON_DETAIL_MESSAGE_KEY);
+            getJSONArray(AbstractExceptionFormatter.JSON_DETAIL_MESSAGE_KEY);
         for (int i = 0; i < jsonArray.length(); i++) {
-            String detail=jsonArray.getJSONObject(i).getString(ValidationExceptionFormatter.JSON_DETAIL_FIELD_KEY);
-            String message=jsonArray.getJSONObject(i).getString(ValidationExceptionFormatter.JSON_DETAIL_MESSAGE_KEY);
-            assertEquals(detail,OBJECT_ERROR_LIST.get(i).getObjectName());
-            assertEquals(message,OBJECT_ERROR_LIST.get(i).getDefaultMessage());
+            String detail = jsonArray.getJSONObject(i).getString(ValidationExceptionFormatter.JSON_DETAIL_FIELD_KEY);
+            String message = jsonArray.getJSONObject(i).getString(ValidationExceptionFormatter.JSON_DETAIL_MESSAGE_KEY);
+            assertEquals(detail, OBJECT_ERROR_LIST.get(i).getObjectName());
+            assertEquals(message, OBJECT_ERROR_LIST.get(i).getDefaultMessage());
         }
     }
 
@@ -107,7 +107,7 @@ public class ValidationExceptionFormatterTest {
     public void testListOfErrorsEmpty() throws Exception {
         ExceptionFormatter messageFormatter = new ValidationExceptionFormatter();
         ValidationException ex = new ValidationException(StudioServerErrorCode.SYSTEM_ERROR.getCode(),
-        new FastList<ObjectError>());
+            new FastList<ObjectError>());
         messageFormatter.getFormattedMessage(ex);
     }
 }

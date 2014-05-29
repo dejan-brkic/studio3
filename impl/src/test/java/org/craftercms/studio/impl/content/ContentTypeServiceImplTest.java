@@ -26,7 +26,6 @@ import java.util.Random;
 import java.util.UUID;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.security.SecurityService;
 import org.craftercms.studio.commons.dto.ContentType;
 import org.craftercms.studio.commons.dto.Context;
@@ -50,7 +49,7 @@ import static org.mockito.Mockito.when;
  *
  * @author Dejan Brkic
  */
-public class ContentTypeServiceImplTest extends AbstractServiceTest{
+public class ContentTypeServiceImplTest extends AbstractServiceTest {
 
     @InjectMocks
     @Autowired
@@ -78,8 +77,8 @@ public class ContentTypeServiceImplTest extends AbstractServiceTest{
     public void testCreate() throws Exception {
         // Setup mock object
         when(contentManagerMock.create(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
-            Mockito.any(Item.class), Mockito.any(InputStream.class)))
-            .thenReturn(new ItemId(UUID.randomUUID().toString()));
+            Mockito.any(Item.class), Mockito.any(InputStream.class))).thenReturn(new ItemId(UUID.randomUUID()
+            .toString()));
         when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
 
         Context context = new Context(RandomStringUtils.randomAlphanumeric(10), new Tenant());
@@ -95,8 +94,7 @@ public class ContentTypeServiceImplTest extends AbstractServiceTest{
         Map<String, String> properties = new HashMap<String, String>();
 
         ContentType contentType = contentTypeServiceSUT.create(context, site, typeName, formId, defaultTemplateId,
-            templateIds,
-            thumbnail, permissionIds, previewable, lifecycleScripts, properties);
+            templateIds, thumbnail, permissionIds, previewable, lifecycleScripts, properties);
 
         // assert and verify
         verify(contentManagerMock, times(1)).create(Mockito.any(Context.class), Mockito.anyString(),

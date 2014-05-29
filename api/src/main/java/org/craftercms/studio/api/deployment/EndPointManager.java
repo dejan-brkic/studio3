@@ -40,7 +40,7 @@ public interface EndPointManager {
     /**
      * Get an Endpoint.
      *
-     * @param context  context
+     * @param context    context
      * @param endpointId Endpoint to retrieve
      */
     Endpoint get(Context context, String endpointId);

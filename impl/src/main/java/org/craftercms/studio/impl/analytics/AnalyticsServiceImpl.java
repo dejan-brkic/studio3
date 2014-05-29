@@ -20,15 +20,14 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 
 
     //@Override
-    public AnalyticsReport report(final Context context, final String site,
-                                  final String report, final Map<String, Object> params) throws StudioException
-    {
+    public AnalyticsReport report(final Context context, final String site, final String report, final Map<String,
+        Object> params) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public AnalyticsReport generateReport(final Context context, final String site, final String reportId, final
-    Map<String, Object> params) throws StudioException {
+    public AnalyticsReport generateReport(final Context context, final String site, final String reportId,
+                                          final Map<String, Object> params) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 }

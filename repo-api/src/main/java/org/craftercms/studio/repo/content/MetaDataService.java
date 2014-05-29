@@ -33,36 +33,41 @@ public interface MetaDataService {
 
     /**
      * Get item properties.
+     *
      * @param ticket security ticket
      * @param itemId item id
      * @return map of properties
      */
     <T> Map<String, T> getProperties(String ticket, String itemId, Class<T> type) throws StudioException;
-// TODO Switch to add/remove instead of get/set
+    // TODO Switch to add/remove instead of get/set
+
     /**
      * Set item properties.
-     * @param ticket security ticket
-     * @param itemId item id
+     *
+     * @param ticket     security ticket
+     * @param itemId     item id
      * @param properties properties
      */
     <T> void setProperties(String ticket, String itemId, Map<String, T> properties) throws StudioException;
 
     /**
      * Get item property.
-     * @param ticket security ticket
-     * @param itemId item id
+     *
+     * @param ticket   security ticket
+     * @param itemId   item id
      * @param property property
-     * @param type property type (class)
+     * @param type     property type (class)
      * @return value
      */
     <T> T getProperty(String ticket, String itemId, String property, Class<T> type) throws StudioException;
 
     /**
      * Set item property.
-     * @param ticket security ticket
-     * @param itemId item id
+     *
+     * @param ticket   security ticket
+     * @param itemId   item id
      * @param property property
-     * @param value value
+     * @param value    value
      */
     <T> void setProperty(String ticket, String itemId, String property, T value) throws StudioException;
 }

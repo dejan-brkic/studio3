@@ -25,30 +25,28 @@
     </comment>
 
     <entry key="studio.repo.mongodb.query.id">
-            {_id:#}
+        {_id:#}
     </entry>
     <entry key="studio.repo.mongodb.query.getRoot">
-            {ancestors:{$size:0}}
+        {ancestors:{$size:0}}
     </entry>
     <entry key="studio.repo.mongodb.query.getByAncestors">
-            {ancestors:#}
+        {ancestors:#}
     </entry>
     <entry key="studio.repo.mongodb.query.getChildren">
         {$and:[{'ancestors':#}, {'ancestors':{$size:#}}]}
     </entry>
     <entry key="studio.repo.mongodb.query.getByAncestorsAndName">
-            {ancestors:#,'core.nodeName':#}
+        {ancestors:#,'core.nodeName':#}
     </entry>
 
     <entry key="studio.repo.mongodb.query.getAncestors">
-        {'$match':{'_id': {'$in': #}}  }
+        {'$match':{'_id': {'$in': #}} }
     </entry>
 
     <entry key="studio.repo.mongodb.query.getAncestorsSort">
-        {$sort : { ancestors:1}         }
+        {$sort : { ancestors:1} }
     </entry>
-
-
 
 
 </properties>

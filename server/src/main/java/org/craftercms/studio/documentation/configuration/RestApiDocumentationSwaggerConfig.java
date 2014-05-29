@@ -21,7 +21,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.mangofactory.swagger.authorization.AuthorizationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import com.mangofactory.swagger.configuration.JacksonScalaSupport;
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
 import com.mangofactory.swagger.configuration.SwaggerGlobalSettings;
@@ -30,21 +33,7 @@ import com.mangofactory.swagger.core.SwaggerApiResourceListing;
 import com.mangofactory.swagger.scanners.ApiListingReferenceScanner;
 import com.wordnik.swagger.model.ApiInfo;
 import com.wordnik.swagger.model.ApiKey;
-import com.wordnik.swagger.model.Authorization;
-import com.wordnik.swagger.model.AuthorizationCodeGrant;
-import com.wordnik.swagger.model.AuthorizationScope;
 import com.wordnik.swagger.model.AuthorizationType;
-import com.wordnik.swagger.model.GrantType;
-import com.wordnik.swagger.model.ImplicitGrant;
-import com.wordnik.swagger.model.LoginEndpoint;
-import com.wordnik.swagger.model.OAuth;
-import com.wordnik.swagger.model.OAuthBuilder;
-import com.wordnik.swagger.model.TokenEndpoint;
-import com.wordnik.swagger.model.TokenRequestEndpoint;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Swagger configuration for REST API Documentation.
@@ -54,12 +43,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RestApiDocumentationSwaggerConfig {
 
-    public static final List<String> DEFAULT_INCLUDE_PATTERNS = Arrays.asList(new String[]{
-        "/api/1/.*"
-    });
+    public static final List<String> DEFAULT_INCLUDE_PATTERNS = Arrays.asList(new String[] {"/api/1/.*"});
     public static final String SWAGGER_GROUP = "studio-api";
 
-    private @Value("${documentation.services.hostUrl}") String hostUrl;
+    private
+    @Value("${documentation.services.hostUrl}")
+    String hostUrl;
 
     @Autowired
     private SpringSwaggerConfig springSwaggerConfig;
@@ -99,19 +88,15 @@ public class RestApiDocumentationSwaggerConfig {
      * API Info as it appears on the swagger-ui page
      */
     private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo(
-            "Studio 3 swagger 1.2 api",
-            "Studio 3 api based on the swagger 1.2 spec",
-            "http://en.wikipedia.org/wiki/Terms_of_service",
-            "somecontact@somewhere.com",
-            "Apache 2.0",
-            "http://www.apache.org/licenses/LICENSE-2.0.html"
-        );
+        ApiInfo apiInfo = new ApiInfo("Studio 3 swagger 1.2 api", "Studio 3 api based on the swagger 1.2 spec",
+            "http://en.wikipedia.org/wiki/Terms_of_service", "somecontact@somewhere.com", "Apache 2.0",
+            "http://www.apache.org/licenses/LICENSE-2.0.html");
         return apiInfo;
     }
 
     /**
-     * Configure a SwaggerApiResourceListing for each swagger instance within your app. e.g. 1. private  2. external apis
+     * Configure a SwaggerApiResourceListing for each swagger instance within your app. e.g. 1. private  2. external
+     * apis
      * Required to be a spring bean as spring will call the postConstruct method to bootstrap swagger scanning.
      *
      * @return
@@ -120,7 +105,8 @@ public class RestApiDocumentationSwaggerConfig {
     public SwaggerApiResourceListing swaggerApiResourceListing() {
         //The group name is important and should match the group set on ApiListingReferenceScanner
         //Note that swaggerCache() is by DefaultSwaggerController to serve the swagger json
-        SwaggerApiResourceListing swaggerApiResourceListing = new SwaggerApiResourceListing(springSwaggerConfig.swaggerCache(), SWAGGER_GROUP);
+        SwaggerApiResourceListing swaggerApiResourceListing = new SwaggerApiResourceListing(springSwaggerConfig
+            .swaggerCache(), SWAGGER_GROUP);
 
         //Set the required swagger settings
         swaggerApiResourceListing.setSwaggerGlobalSettings(swaggerGlobalSettings());
@@ -152,12 +138,14 @@ public class RestApiDocumentationSwaggerConfig {
         ApiListingReferenceScanner apiListingReferenceScanner = new ApiListingReferenceScanner();
 
         //Picks up all of the registered spring RequestMappingHandlerMappings for scanning
-        apiListingReferenceScanner.setRequestMappingHandlerMapping(springSwaggerConfig.swaggerRequestMappingHandlerMappings());
+        apiListingReferenceScanner.setRequestMappingHandlerMapping(springSwaggerConfig
+            .swaggerRequestMappingHandlerMappings());
 
         //Excludes any controllers with the supplied annotations
         apiListingReferenceScanner.setExcludeAnnotations(springSwaggerConfig.defaultExcludeAnnotations());
 
-        //How to group request mappings to ApiResource's typically by spring controller classes. This is a hook to provide
+        //How to group request mappings to ApiResource's typically by spring controller classes. This is a hook to
+        // provide
         // a custom implementation of the grouping strategy. By default we use SpringGroupingStrategy. An alternative is
         // to use ClassOrApiAnnotationResourceGrouping to group using Api annotation.
         apiListingReferenceScanner.setResourceGroupingStrategy(new ClassOrApiAnnotationResourceGrouping());
@@ -185,7 +173,8 @@ public class RestApiDocumentationSwaggerConfig {
         return documentationPathProvider;
     }
 
-    @Bean DocumentationRelativePathProvider documentationRelativePathProvider() {
+    @Bean
+    DocumentationRelativePathProvider documentationRelativePathProvider() {
         DocumentationRelativePathProvider documentationRelativePathProvider = new DocumentationRelativePathProvider();
         return documentationRelativePathProvider;
     }
@@ -207,7 +196,8 @@ public class RestApiDocumentationSwaggerConfig {
     @Bean
     public ApiListingReferenceScanner relativeApiListingReferenceScanner() {
         ApiListingReferenceScanner apiListingReferenceScanner = new ApiListingReferenceScanner();
-        apiListingReferenceScanner.setRequestMappingHandlerMapping(springSwaggerConfig.swaggerRequestMappingHandlerMappings());
+        apiListingReferenceScanner.setRequestMappingHandlerMapping(springSwaggerConfig
+        .swaggerRequestMappingHandlerMappings());
         apiListingReferenceScanner.setExcludeAnnotations(springSwaggerConfig.defaultExcludeAnnotations());
         apiListingReferenceScanner.setResourceGroupingStrategy(springSwaggerConfig.defaultResourceGroupingStrategy());
         apiListingReferenceScanner.setSwaggerPathProvider(documentationRelativePathProvider());

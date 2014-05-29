@@ -18,7 +18,6 @@
 package org.craftercms.studio.controller.services.rest;
 
 import java.util.List;
-
 import javax.validation.Valid;
 
 import org.craftercms.studio.api.content.FormService;
@@ -49,8 +48,8 @@ public class FormsController {
 
     @RequestMapping(value = "/list/{site}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Form> list(@PathVariable final String site,
-                                     @RequestParam(required = false) final List<String> filters) throws StudioException {
+    public List<Form> list(@PathVariable final String site, @RequestParam(required = false) final List<String>
+        filters) throws StudioException {
         return formService.list(null, site, filters);
     }
 
@@ -62,7 +61,8 @@ public class FormsController {
 
     @RequestMapping(value = "/remove/{site}", method = RequestMethod.POST)
     @ResponseBody
-    public void remove(@PathVariable final String site, @RequestParam(required = true) final String type) throws StudioException {
+    public void remove(@PathVariable final String site, @RequestParam(required = true) final String type) throws
+        StudioException {
         this.formService.remove(null, site, type);
     }
 

@@ -8,7 +8,6 @@ import org.craftercms.studio.commons.dto.Activity;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.exceptions.StudioServerErrorCode;
-import org.craftercms.studio.exceptions.ValidationException;
 import org.craftercms.studio.validation.AuditValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,8 +47,8 @@ public class AuditController {
 
     @RequestMapping(value = "/activity/{site}", produces = "application/json", method = RequestMethod.GET)
     @ResponseBody
-    public List<Activity> getActivities(@PathVariable final String site,
-                                        @RequestParam(required = false) final List<String> filters) throws StudioException {
+    public List<Activity> getActivities(@PathVariable final String site, @RequestParam(required = false) final
+    List<String> filters) throws StudioException {
         this.log.debug("Retrieving list of activities for {} using filters {}", site, filters);
         return this.auditService.getActivities(null, site, filters);
     }
@@ -61,15 +60,14 @@ public class AuditController {
      * @param activity Activity to be save (Form Message conversion see {@link Activity})
      * @param result   Spring MVC validation Result
      * @return The Activity that have been save
-     * @throws ValidationException If the given object is not valid
+     * @throws org.craftercms.studio.commons.exception.StudioException If the given object is not valid
      */
     @RequestMapping(value = "/log/{site}", produces = MediaType.APPLICATION_JSON_VALUE,
-                    consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+        consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
     @ResponseBody
     public Activity logActivity(@PathVariable final String site, @Valid @RequestBody final Activity activity,
-                                final BindingResult result) throws StudioException
-    {
-        if ( result.hasErrors() ) {
+                                final BindingResult result) throws StudioException {
+        if (result.hasErrors()) {
             this.log.error("Unable to save a activity since is not valid");
             throw ErrorManager.createError(StudioServerErrorCode.VALIDATION_ERROR);
         } else {
@@ -79,7 +77,7 @@ public class AuditController {
     }
 
     @InitBinder
-    protected void initBinder(WebDataBinder binder) {
+    protected void initBinder(final WebDataBinder binder) {
         this.log.debug("Setting Validators for AuditController");
         binder.setValidator(new AuditValidator());
     }

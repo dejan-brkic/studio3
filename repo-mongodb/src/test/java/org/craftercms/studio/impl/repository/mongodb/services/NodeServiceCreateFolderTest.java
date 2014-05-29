@@ -17,10 +17,8 @@
 
 package org.craftercms.studio.impl.repository.mongodb.services;
 
-import java.io.InputStream;
 import java.util.UUID;
 
-import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.data.MongodbDataService;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
@@ -34,11 +32,9 @@ import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 /**
  * Test for Folder Create in  Node Service.
@@ -66,12 +62,12 @@ public class NodeServiceCreateFolderTest {
     public void testParentNodeIsNotFolder() throws Exception {
         Node badParent = new Node();
         badParent.setType(NodeType.FILE);
-        nodeService.createFolderNode(badParent, "TestBadParent","Test Bad Parent", "Philip J. Fry,");
+        nodeService.createFolderNode(badParent, "TestBadParent", "Test Bad Parent", "Philip J. Fry,");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testParentIsNull() throws Exception {
-        nodeService.createFolderNode(null, "TestBadParent","Test bad Parent", "Philip J. Fry,");
+        nodeService.createFolderNode(null, "TestBadParent", "Test bad Parent", "Philip J. Fry,");
     }
 
     @Test()
@@ -88,7 +84,7 @@ public class NodeServiceCreateFolderTest {
         String nodeId = UUID.randomUUID().toString();
         parent.setType(NodeType.FOLDER);
         parent.setId(nodeId);
-        Node node = nodeService.createFolderNode(parent, "TestFolder","Test Folder" ,"Philip J. Fry");
+        Node node = nodeService.createFolderNode(parent, "TestFolder", "Test Folder", "Philip J. Fry");
         Assert.assertNotNull(node);
         Assert.assertNotNull(node);
         Assert.assertEquals(node.getCore().getCreator(), "Philip J. Fry");
@@ -103,7 +99,7 @@ public class NodeServiceCreateFolderTest {
         doThrow(StudioException.class).when(dataService).save(Mockito.anyString(), Mockito.any(Node.class));
         Node parent = new Node();
         parent.setType(NodeType.FOLDER);
-        Node node = nodeService.createFolderNode(parent, "TestFolder","Test Folder", "Philip J. Fry");
+        Node node = nodeService.createFolderNode(parent, "TestFolder", "Test Folder", "Philip J. Fry");
         Assert.assertTrue(nodeService.isNodeFolder(node));
     }
 
@@ -116,7 +112,6 @@ public class NodeServiceCreateFolderTest {
         Assert.assertFalse(nodeService.isNodeFolder(file));
         Assert.assertTrue(nodeService.isNodeFolder(folder));
     }
-
 
 
 }

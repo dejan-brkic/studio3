@@ -20,7 +20,7 @@ package org.craftercms.studio.mock.security;
 import java.net.URL;
 import java.util.List;
 
-import org.craftercms.studio.api.security.*;
+import org.craftercms.studio.api.security.SecurityService;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.SecurityGroup;
 import org.craftercms.studio.commons.dto.SecurityPermission;
@@ -34,7 +34,6 @@ import org.craftercms.studio.mock.exception.MockErrorCode;
  * Security Manager mock implementation.
  *
  * @author Dejan Brkic
- *
  */
 public class SecurityServiceMock implements SecurityService {
 
@@ -59,7 +58,8 @@ public class SecurityServiceMock implements SecurityService {
     }
 
     @Override
-    public String updateUser(final Context context, final User user, final String password, final String role) throws StudioException {
+    public String updateUser(final Context context, final User user, final String password,
+                             final String role) throws StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -69,17 +69,22 @@ public class SecurityServiceMock implements SecurityService {
     }
 
     @Override
-    public List<SecurityPermission> getPermissions(final Context context, final String site, final String itemId) throws StudioException {
+    public List<SecurityPermission> getPermissions(final Context context, final String site,
+                                                   final String itemId) throws StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public void updatePermissions(final Context context, final String site, final String itemId, final User user, final List<SecurityPermission> permissions, final boolean inherit) throws StudioException {
+    public void updatePermissions(final Context context, final String site, final String itemId, final User user,
+                                  final List<SecurityPermission> permissions,
+                                  final boolean inherit) throws StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public void updatePermissions(final Context context, final String site, final String itemId, final SecurityGroup group, final List<SecurityPermission> permissions, final boolean inherit) throws StudioException {
+    public void updatePermissions(final Context context, final String site, final String itemId,
+                                  final SecurityGroup group, final List<SecurityPermission> permissions,
+                                  final boolean inherit) throws StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 

@@ -25,11 +25,12 @@ public class AbstractUnitTest {
     /**
      * Testing Properties file name
      */
-    private final static String INTERNAL_TESTING_PROPERTIES="unitTesting.properties";
+    private final static String INTERNAL_TESTING_PROPERTIES = "unitTesting.properties";
     /**
      * Testing Properties read from file named INTERNAL_TESTING_PROPERTIES
      */
     protected Properties testProperties;
+
     public AbstractUnitTest() throws Exception {
         testProperties = new Properties();
         testProperties.load(AbstractUnitTest.class.getClassLoader().getResourceAsStream(INTERNAL_TESTING_PROPERTIES));

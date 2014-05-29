@@ -32,6 +32,9 @@ import org.craftercms.studio.impl.repository.mongodb.services.NodeService;
 import org.craftercms.studio.impl.repository.mongodb.tools.AbstractAction;
 import org.craftercms.studio.impl.repository.mongodb.tools.RepoShellContext;
 
+/**
+ * Export Action.
+ */
 public class ExportAction extends AbstractAction {
 
     @Override
@@ -50,7 +53,7 @@ public class ExportAction extends AbstractAction {
             }
             Tree<Item> toExport = context.getContentService().getChildren("Internal", "Internal", parentID, -1, null);
             try (ZipOutputStream zipOutputStream = new ZipOutputStream(new FileOutputStream(new File(args[1])))) {
-                ZipEntry rootEntry = new ZipEntry(toExport.getRootNode().getValue().getFileName()+File.separator);
+                ZipEntry rootEntry = new ZipEntry(toExport.getRootNode().getValue().getFileName() + File.separator);
                 buildZip(toExport.getRootNode(), zipOutputStream, context, rootEntry);
                 zipOutputStream.flush();
                 zipOutputStream.close();
@@ -67,7 +70,7 @@ public class ExportAction extends AbstractAction {
                           final RepoShellContext context, final ZipEntry parentFolder) throws IOException,
         StudioException {
         NodeService nodeService = context.getNodeService();
-        ZipEntry newEntry = new ZipEntry(parentFolder.getName() + treeNode.getValue().getFileName()+File.separator );
+        ZipEntry newEntry = new ZipEntry(parentFolder.getName() + treeNode.getValue().getFileName() + File.separator);
         zipOutputStream.putNextEntry(newEntry);
         Item item = treeNode.getValue();
         if (item.isFolder()) {

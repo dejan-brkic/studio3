@@ -18,15 +18,15 @@ public interface DescriptorService {
     /**
      * Create a new descriptor.
      *
-     * @param context         the caller's context
-     * @param site            the site to use
-     * @param contentTypeId   content type id as defined in the {@link org.craftercms.studio.api.content
-     *                        .ContentTypeService}
-     * @param parentId   the id of the parent item (can be a folder or a descriptor)
-     * @param fileName        file name of the descriptor
-     * @param content         the InputStream containing the XML that is compliant with the model defined in Studio
-     *                        (typically done using Studio's Form Engine)
-     * @param properties      key-value-pair properties, can be null
+     * @param context       the caller's context
+     * @param site          the site to use
+     * @param contentTypeId content type id as defined in the {@link org.craftercms.studio.api.content
+     *                      .ContentTypeService}
+     * @param parentId      the id of the parent item (can be a folder or a descriptor)
+     * @param fileName      file name of the descriptor
+     * @param content       the InputStream containing the XML that is compliant with the model defined in Studio
+     *                      (typically done using Studio's Form Engine)
+     * @param properties    key-value-pair properties, can be null
      * @return the Item descriptor
      * @throws org.craftercms.studio.commons.exception.StudioException
      */
@@ -36,31 +36,31 @@ public interface DescriptorService {
     /**
      * Create a new descriptor.
      *
-     * @param context         the caller's context
-     * @param site            the site to use
-     * @param contentTypeId   content type id as defined in the {@link org.craftercms.studio.api.content
-     *                        .ContentTypeService}
-     * @param parentId   the id of the parent item (can be a folder or a descriptor)
-     * @param fileName        file name of the descriptor
-     * @param content         the XML that is compliant with the model defined in Studio (typically done using
-     *                        Studio's Form Engine)
-     * @param properties      key-value-pair properties, can be null
+     * @param context       the caller's context
+     * @param site          the site to use
+     * @param contentTypeId content type id as defined in the {@link org.craftercms.studio.api.content
+     *                      .ContentTypeService}
+     * @param parentId      the id of the parent item (can be a folder or a descriptor)
+     * @param fileName      file name of the descriptor
+     * @param content       the XML that is compliant with the model defined in Studio (typically done using
+     *                      Studio's Form Engine)
+     * @param properties    key-value-pair properties, can be null
      * @return the Item descriptor
      * @throws org.craftercms.studio.commons.exception.StudioException
      */
-    Item create(Context context, String site, String contentTypeId, String parentId, String fileName,
-                String content, Map<String, String> properties) throws StudioException;
+    Item create(Context context, String site, String contentTypeId, String parentId, String fileName, String content,
+                Map<String, String> properties) throws StudioException;
 
     // TODO consider                // additional, detailed, exceptions
 
     /**
      * Create a duplicate of an existing descriptor.
      *
-     * @param context         the caller's context
-     * @param site            the site to use
-     * @param itemId          the source item to duplicate
-     * @param parentId   the id of the parent item (can be a folder or a descriptor)
-     * @param fileName        file name of the descriptor
+     * @param context  the caller's context
+     * @param site     the site to use
+     * @param itemId   the source item to duplicate
+     * @param parentId the id of the parent item (can be a folder or a descriptor)
+     * @param fileName file name of the descriptor
      * @return the new Item descriptor
      * @throws org.craftercms.studio.commons.exception.StudioException
      */
@@ -70,16 +70,15 @@ public interface DescriptorService {
     /**
      * Move a descriptor to a new path.
      *
-     * @param context         the caller's context
-     * @param site            the site to use
-     * @param itemId          the source item to move
-     * @param parentId   the id of the parent item (can be a folder or a descriptor)
-     * @param fileName        file name of the descriptor
+     * @param context  the caller's context
+     * @param site     the site to use
+     * @param itemId   the source item to move
+     * @param parentId the id of the parent item (can be a folder or a descriptor)
+     * @param fileName file name of the descriptor
      * @return the new Item descriptor
      * @throws org.craftercms.studio.commons.exception.StudioException
      */
-    Item move(Context context, String site, ItemId itemId, String parentId,
-              String fileName) throws StudioException;
+    Item move(Context context, String site, ItemId itemId, String parentId, String fileName) throws StudioException;
 
     /**
      * Read a descriptor and return it.
@@ -157,10 +156,10 @@ public interface DescriptorService {
     /**
      * Lists all children for given item.
      *
-     * @param context   the caller's context
-     * @param site      the site to use
-     * @param itemId    parent item
-     * @return          list of children
+     * @param context the caller's context
+     * @param site    the site to use
+     * @param itemId  parent item
+     * @return list of children
      */
     List<Item> list(Context context, String site, ItemId itemId) throws StudioException;
 }

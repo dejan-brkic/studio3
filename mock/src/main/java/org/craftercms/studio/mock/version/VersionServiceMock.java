@@ -44,7 +44,8 @@ public class VersionServiceMock implements VersionService {
     }
 
     @Override
-    public DiffResult diff(final Context context, final String itemId, final String version1, final String version2) throws StudioException {
+    public DiffResult diff(final Context context, final String itemId, final String version1,
+                           final String version2) throws StudioException {
         throw ErrorManager.createError(MockErrorCode.NOT_IMPLEMENTED);
     }
 }

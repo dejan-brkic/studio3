@@ -20,7 +20,6 @@ package org.craftercms.studio.impl.repository.mongodb.services;
 import java.io.InputStream;
 import java.util.List;
 
-import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
 
@@ -34,7 +33,7 @@ public interface NodeService {
     /**
      * Node Collection name.
      */
-     static final String NODES_COLLECTION = "nodes";
+    static final String NODES_COLLECTION = "nodes";
 
     /**
      * Creates a File Node.
@@ -47,17 +46,17 @@ public interface NodeService {
      * @param creatorName Creator name (who create this)
      * @param content     content of this node
      * @return A new File Node.
-     * @throws IllegalArgumentException                                                          <ul>
-     *                                                                                           <li>If parent is
-     *                                                                                           null</li>
-     *                                                                                           <li>If parent is not
-     *                                                                                           a Folder (Node of
-     *                                                                                           type Folder)</li>
-     *                                                                                           </ul>
+     * @throws IllegalArgumentException                                <ul>
+     *                                                                 <li>If parent is
+     *                                                                 null</li>
+     *                                                                 <li>If parent is not
+     *                                                                 a Folder (Node of
+     *                                                                 type Folder)</li>
+     *                                                                 </ul>
      * @throws org.craftercms.studio.commons.exception.StudioException If system was unable
-     * to store de node on the repository.
+     *                                                                 to store de node on the repository.
      */
-    Node createFileNode(Node parent, String fileName, String fileLabel ,String creatorName,
+    Node createFileNode(Node parent, String fileName, String fileLabel, String creatorName,
                         InputStream content) throws StudioException;
 
     /**
@@ -67,18 +66,18 @@ public interface NodeService {
      * @param folderName  File folderName
      * @param creatorName Creator name (who create this)
      * @return a new Folder Node.
-     * @throws IllegalArgumentException                                                          <ul>
-     *                                                                                           <li>If parent is
-     *                                                                                           null</li>
-     *                                                                                           <li>If parent is not
-     *                                                                                           a Folder (Node of
-     *                                                                                           type Folder)</li>
-     *                                                                                           <li>If metadata is
-     *                                                                                           incompatible with a
-     *                                                                                           Folder Node</li>
-     *                                                                                           </ul>
+     * @throws IllegalArgumentException                                <ul>
+     *                                                                 <li>If parent is
+     *                                                                 null</li>
+     *                                                                 <li>If parent is not
+     *                                                                 a Folder (Node of
+     *                                                                 type Folder)</li>
+     *                                                                 <li>If metadata is
+     *                                                                 incompatible with a
+     *                                                                 Folder Node</li>
+     *                                                                 </ul>
      * @throws org.craftercms.studio.commons.exception.StudioException If system was unable
-     * to store de node on the repository.
+     *                                                                 to store de node on the repository.
      */
     Node createFolderNode(Node parent, String folderName, String folderLabel,
                           String creatorName) throws StudioException;
@@ -86,7 +85,6 @@ public interface NodeService {
     /**
      * Finds all nodes for a given parent.
      * Sending parent as null is equivalent to call getRootNode()
-     *
      *
      * @param parent parent to look for
      * @return Empty List if given node has no children.
@@ -126,7 +124,7 @@ public interface NodeService {
      *
      * @param nodeId Id of the node
      * @return The node with the given ID, null if not found.
-     * @throws IllegalArgumentException If nodeId is null, empty or blank
+     * @throws IllegalArgumentException                                If nodeId is null, empty or blank
      * @throws org.craftercms.studio.commons.exception.StudioException If is unable to find.
      */
     Node getNode(String nodeId) throws StudioException;
@@ -140,8 +138,7 @@ public interface NodeService {
      */
     Node findNodeByAncestorsAndName(List<String> ancestors, String nodeName) throws StudioException;
 
-    Node findNodeByAncestorsIdsAndName(List<String> ancestors, String nodeName) throws
-        StudioException;
+    Node findNodeByAncestorsIdsAndName(List<String> ancestors, String nodeName) throws StudioException;
 
     /**
      * Gets the site Root node, null if the site node does not exist (site haven't been created or deleted).
@@ -154,12 +151,11 @@ public interface NodeService {
     /**
      * Creates a folder tree base on the given path, starts from the last know leaf.
      *
-     * @param path Path to create.
+     * @param path    Path to create.
      * @param creator Creator of this folder.
      * @return Node from representing the last leaf.
-     *
      */
-    Node createFolderStructure(String path,final String creator) throws StudioException;
+    Node createFolderStructure(String path, final String creator) throws StudioException;
 
     /**
      * Search and returns a InputStream for a file with the given Id.
@@ -167,11 +163,11 @@ public interface NodeService {
      * @param fileId File id to be found.
      * @return A inputSteam for the file with the given Id.<br/>
      * Null if nothing is found with that id.
-     * @throws java.lang.IllegalArgumentException                                                If file id is not
-     * valid (null,empty or whitespace)
+     * @throws java.lang.IllegalArgumentException                      If file id is not
+     *                                                                 valid (null,empty or whitespace)
      * @throws org.craftercms.studio.commons.exception.StudioException if unable to search
-     *                                                                                           or retrieve the
-     *                                                                                           InputStream.
+     *                                                                 or retrieve the
+     *                                                                 InputStream.
      */
     InputStream getFile(String fileId) throws StudioException;
 

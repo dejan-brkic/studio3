@@ -36,12 +36,14 @@ public class AuditServiceImpl implements AuditService {
 
 
     @Override
-    public List<Activity> getActivities(final Context context, final String site, final List<String> filters) throws StudioException {
+    public List<Activity> getActivities(final Context context, final String site, final List<String> filters) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public Activity logActivity(final Context context, final String site, final Activity activity) throws StudioException {
+    public Activity logActivity(final Context context, final String site, final Activity activity) throws
+        StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 }

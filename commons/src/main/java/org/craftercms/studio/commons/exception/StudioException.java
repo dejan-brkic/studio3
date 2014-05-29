@@ -17,7 +17,6 @@
 
 package org.craftercms.studio.commons.exception;
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -64,10 +63,6 @@ public class StudioException extends Exception {
         this.errorCode = errorCode;
     }
 
-    public String getErrorCode() {
-        return errorCode;
-    }
-
     public static StudioException createStudioException(ResourceBundle messageBundle, String errorCode) {
 
         StudioException exception = null;
@@ -108,8 +103,8 @@ public class StudioException extends Exception {
         return exception;
     }
 
-    public static StudioException createStudioException(ResourceBundle messageBundle, String errorCode, Exception exc,
-                                                        String... args) {
+    public static StudioException createStudioException(ResourceBundle messageBundle, String errorCode,
+                                                        Exception exc, String... args) {
 
         StudioException exception = null;
         if (messageBundle != null) {
@@ -122,5 +117,9 @@ public class StudioException extends Exception {
             exception = new StudioException("SYSTEM ERROR", "SYSTEM ERROR", exc);
         }
         return exception;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
     }
 }

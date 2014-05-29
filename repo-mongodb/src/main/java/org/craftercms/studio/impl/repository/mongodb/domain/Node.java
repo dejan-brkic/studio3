@@ -118,6 +118,10 @@ public class Node implements Cloneable {
         return core;
     }
 
+    public void setCore(final CoreMetadata core) {
+        this.core = core;
+    }
+
     public Map<String, Object> getAdditional() {
         return additional;
     }
@@ -135,10 +139,6 @@ public class Node implements Cloneable {
         LinkedList<String> tmp = (LinkedList<String>)ancestors.clone();
         tmp.addLast(this.getId());
         return ListUtils.unmodifiableList(tmp);
-    }
-
-    public void setCore(final CoreMetadata core) {
-        this.core = core;
     }
 
     /**

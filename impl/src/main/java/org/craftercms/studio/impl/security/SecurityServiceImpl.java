@@ -57,7 +57,8 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public String updateUser(final Context context, final User user, final String password, final String role) throws StudioException {
+    public String updateUser(final Context context, final User user, final String password,
+                             final String role) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
@@ -67,19 +68,22 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public List<SecurityPermission> getPermissions(final Context context, final String site, final String itemId) throws StudioException {
+    public List<SecurityPermission> getPermissions(final Context context, final String site,
+                                                   final String itemId) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
     public void updatePermissions(final Context context, final String site, final String itemId, final User user,
-                                  final List<SecurityPermission> permissions, final boolean inherit) throws StudioException {
+                                  final List<SecurityPermission> permissions,
+                                  final boolean inherit) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 
     @Override
-    public void updatePermissions(final Context context, final String site, final String itemId, final SecurityGroup
-        group, final List<SecurityPermission> permissions, final boolean inherit) throws StudioException {
+    public void updatePermissions(final Context context, final String site, final String itemId,
+                                  final SecurityGroup group, final List<SecurityPermission> permissions,
+                                  final boolean inherit) throws StudioException {
         throw ErrorManager.createError(StudioImplErrorCode.NOT_IMPLEMENTED);
     }
 

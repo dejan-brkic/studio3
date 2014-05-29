@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.craftercms.studio.commons.dto.Context;
+import org.craftercms.studio.commons.dto.Item;
+import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.dto.LockHandle;
 import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.dto.TreeNode;
 import org.craftercms.studio.commons.exception.ErrorManager;
-import org.craftercms.studio.impl.exception.StudioImplErrorCode;
-import org.craftercms.studio.repo.content.ContentService;
-import org.craftercms.studio.commons.dto.Context;
-import org.craftercms.studio.commons.dto.Item;
-import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 import org.craftercms.studio.internal.content.ContentManager;
+import org.craftercms.studio.repo.content.ContentService;
 import org.craftercms.studio.repo.content.PathService;
 
 /**
@@ -30,7 +30,7 @@ public class ContentManagerImpl implements ContentManager {
 
     @Override
     public ItemId create(final Context context, final String site, final String path, final Item item,
-                    final InputStream content) throws StudioException {
+                         final InputStream content) throws StudioException {
         Item newItem = contentService.create(context.getTicket(), site, path, item, content);
         return newItem.getId();
     }
@@ -42,8 +42,7 @@ public class ContentManagerImpl implements ContentManager {
 
     @Override
     public void write(final Context context, final String site, final ItemId itemId, final LockHandle lockHandle,
-                      final InputStream
-        content) throws StudioException {
+                      final InputStream content) throws StudioException {
 
         Item item = contentService.read(context.getTicket(), site, itemId.getItemId());
         contentService.update(context.getTicket(), item, content);
@@ -68,7 +67,7 @@ public class ContentManagerImpl implements ContentManager {
     }
 
     @Override
-    public List<Item> list(final Context context, String site, final String itemId) throws StudioException {
+    public List<Item> list(final Context context, final String site, final String itemId) throws StudioException {
 
         // Get only direct children (depth=1) and no filters
         Tree<Item> resultTree = contentService.getChildren(context.getTicket(), site, itemId, 1, null);
@@ -84,7 +83,8 @@ public class ContentManagerImpl implements ContentManager {
     }
 
     @Override
-    public Item createFolder(final Context context, final String site, final String path, final String folderName) throws StudioException {
+    public Item createFolder(final Context context, final String site, final String path,
+                             final String folderName) throws StudioException {
         String ticket = context.getTicket();
         return contentService.createFolder(ticket, site, path, folderName);
     }

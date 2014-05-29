@@ -31,8 +31,8 @@ public class AuditValidator implements Validator {
      */
     @Override
     public void validate(final Object target, final Errors errors) {
-        if ( target instanceof Activity ) {
-            if ( target != null ) {
+        if (target instanceof Activity) {
+            if (target != null) {
                 ValidatorUtils.validateStringNotEmpty(target, errors, "siteId", "siteName", "target", "type");
             }
         } else {

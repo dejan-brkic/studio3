@@ -66,10 +66,8 @@ public class DependencyControllerTest extends AbstractControllerTest {
         when(this.dependencyManagerMock.dependentOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateItemListMock());
 
-        this.mockMvc.perform(
-            get("/api/1/dependency/dependent-on/sample?itemId=1&operation=op").accept(MediaType.ALL))
-                .andExpect(status().isOk())
-        ;
+        this.mockMvc.perform(get("/api/1/dependency/dependent-on/sample?itemId=1&operation=op").accept(MediaType.ALL)
+        ).andExpect(status().isOk());
 
         verify(this.dependencyManagerMock, times(1)).dependentOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());
@@ -80,10 +78,8 @@ public class DependencyControllerTest extends AbstractControllerTest {
         when(this.dependencyManagerMock.dependentOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateItemListMock());
 
-        this.mockMvc.perform(
-            get("/api/1/dependency/dependent-on/sample?operation=op").accept(MediaType.ALL))
-            .andExpect(status().isBadRequest())
-        ;
+        this.mockMvc.perform(get("/api/1/dependency/dependent-on/sample?operation=op").accept(MediaType.ALL))
+            .andExpect(status().isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).dependentOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());
@@ -94,10 +90,8 @@ public class DependencyControllerTest extends AbstractControllerTest {
         when(this.dependencyManagerMock.dependentOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateItemListMock());
 
-        this.mockMvc.perform(
-            get("/api/1/dependency/dependent-on/sample?itemId=1").accept(MediaType.ALL))
-            .andExpect(status().isBadRequest())
-        ;
+        this.mockMvc.perform(get("/api/1/dependency/dependent-on/sample?itemId=1").accept(MediaType.ALL)).andExpect
+            (status().isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).dependentOn((Context)Mockito.any(), Mockito.anyString(),
             Mockito.anyString());
@@ -105,13 +99,11 @@ public class DependencyControllerTest extends AbstractControllerTest {
 
     @Test
     public void testList() throws Exception {
-        when(this.dependencyManagerMock.dependsOn((Context)Mockito.any(), Mockito.anyString(), Mockito.anyString()))
-            .thenReturn(generateItemListMock());
+        when(this.dependencyManagerMock.dependsOn((Context)Mockito.any(), Mockito.anyString(),
+            Mockito.anyString())).thenReturn(generateItemListMock());
 
-        this.mockMvc.perform(
-            get("/api/1/dependency/list/sample?itemId=1&operation=op").accept(MediaType.ALL))
-            .andExpect(status().isOk())
-        ;
+        this.mockMvc.perform(get("/api/1/dependency/list/sample?itemId=1&operation=op").accept(MediaType.ALL))
+            .andExpect(status().isOk());
 
         verify(this.dependencyManagerMock, times(1)).dependsOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());
@@ -122,10 +114,8 @@ public class DependencyControllerTest extends AbstractControllerTest {
         when(this.dependencyManagerMock.dependsOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateItemListMock());
 
-        this.mockMvc.perform(
-            get("/api/1/dependency/list/sample?operation=op").accept(MediaType.ALL))
-            .andExpect(status().isBadRequest())
-        ;
+        this.mockMvc.perform(get("/api/1/dependency/list/sample?operation=op").accept(MediaType.ALL)).andExpect
+            (status().isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).dependsOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());
@@ -136,10 +126,8 @@ public class DependencyControllerTest extends AbstractControllerTest {
         when(this.dependencyManagerMock.dependsOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateItemListMock());
 
-        this.mockMvc.perform(
-            get("/api/1/dependency/list/sample?itemId=1").accept(MediaType.ALL))
-            .andExpect(status().isBadRequest())
-        ;
+        this.mockMvc.perform(get("/api/1/dependency/list/sample?itemId=1").accept(MediaType.ALL)).andExpect(status()
+            .isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).dependsOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString());
@@ -147,26 +135,22 @@ public class DependencyControllerTest extends AbstractControllerTest {
 
     @Test
     public void testRefresh() throws Exception {
-        when(this.dependencyManagerMock.refresh(Mockito.any(Context.class), Mockito.anyString()))
-            .thenReturn(generateItemListMock());
+        when(this.dependencyManagerMock.refresh(Mockito.any(Context.class), Mockito.anyString())).thenReturn
+            (generateItemListMock());
 
-        this.mockMvc.perform(
-            get("/api/1/dependency/refresh/sample?itemId=1").accept(MediaType.ALL))
-            .andExpect(status().isOk())
-        ;
+        this.mockMvc.perform(get("/api/1/dependency/refresh/sample?itemId=1").accept(MediaType.ALL)).andExpect(status
+            ().isOk());
 
         verify(this.dependencyManagerMock, times(1)).refresh(Mockito.any(Context.class), Mockito.anyString());
     }
 
     @Test
     public void testRefreshMissingItemId() throws Exception {
-        when(this.dependencyManagerMock.refresh(Mockito.any(Context.class), Mockito.anyString()))
-            .thenReturn(generateItemListMock());
+        when(this.dependencyManagerMock.refresh(Mockito.any(Context.class), Mockito.anyString())).thenReturn
+            (generateItemListMock());
 
-        this.mockMvc.perform(
-            get("/api/1/dependency/refresh/sample").accept(MediaType.ALL))
-            .andExpect(status().isBadRequest())
-        ;
+        this.mockMvc.perform(get("/api/1/dependency/refresh/sample").accept(MediaType.ALL)).andExpect(status()
+            .isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).refresh(Mockito.any(Context.class), Mockito.anyString());
     }
@@ -184,12 +168,8 @@ public class DependencyControllerTest extends AbstractControllerTest {
             Mockito.anyListOf(Item.class));
 
         String itemsJSONList = generateRequestBody(generateItemListMock());
-        this.mockMvc.perform(
-            post("/api/1/dependency/add/sample")
-                .accept(MediaType.ALL)
-                .param("itemId", "1")
-                .param("operation", RandomStringUtils.randomAlphabetic(10))
-                .content(itemsJSONList.getBytes()))
+        this.mockMvc.perform(post("/api/1/dependency/add/sample").accept(MediaType.ALL).param("itemId",
+            "1").param("operation", RandomStringUtils.randomAlphabetic(10)).content(itemsJSONList.getBytes()))
             .andExpect(status().isOk());
 
         verify(this.dependencyManagerMock, times(1)).add(Mockito.any(Context.class), Mockito.anyString(),
@@ -209,12 +189,9 @@ public class DependencyControllerTest extends AbstractControllerTest {
             Mockito.anyListOf(Item.class));
 
         String itemsJSONList = generateRequestBody(generateItemListMock());
-        this.mockMvc.perform(
-            post("/api/1/dependency/add/sample")
-                .accept(MediaType.ALL)
-                .param("operation", RandomStringUtils.randomAlphabetic(10))
-                .content(itemsJSONList.getBytes()))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/dependency/add/sample").accept(MediaType.ALL).param("operation",
+            RandomStringUtils.randomAlphabetic(10)).content(itemsJSONList.getBytes())).andExpect(status()
+            .isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).add(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyListOf(Item.class));
@@ -233,12 +210,8 @@ public class DependencyControllerTest extends AbstractControllerTest {
             Mockito.anyListOf(Item.class));
 
         String itemsJSONList = generateRequestBody(generateItemListMock());
-        this.mockMvc.perform(
-            post("/api/1/dependency/add/sample")
-                .accept(MediaType.ALL)
-                .param("itemId", "1")
-                .content(itemsJSONList.getBytes()))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/dependency/add/sample").accept(MediaType.ALL).param("itemId",
+            "1").content(itemsJSONList.getBytes())).andExpect(status().isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).add(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyListOf(Item.class));
@@ -256,12 +229,8 @@ public class DependencyControllerTest extends AbstractControllerTest {
         }).when(this.dependencyManagerMock).add(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
             Mockito.anyListOf(Item.class));
 
-        this.mockMvc.perform(
-            post("/api/1/dependency/add/sample")
-                .accept(MediaType.ALL)
-                .param("itemId", "1")
-                .param("operation", RandomStringUtils.randomAlphabetic(10))
-                .content(StringUtils.EMPTY.getBytes()))
+        this.mockMvc.perform(post("/api/1/dependency/add/sample").accept(MediaType.ALL).param("itemId",
+            "1").param("operation", RandomStringUtils.randomAlphabetic(10)).content(StringUtils.EMPTY.getBytes()))
             .andExpect(status().isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).add(Mockito.any(Context.class), Mockito.anyString(),
@@ -277,16 +246,12 @@ public class DependencyControllerTest extends AbstractControllerTest {
                 Object[] args = invocationOnMock.getArguments();
                 return null;
             }
-        }).when(this.dependencyManagerMock).remove(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
-            Mockito.anyListOf(Item.class));
+        }).when(this.dependencyManagerMock).remove(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString(), Mockito.anyListOf(Item.class));
 
         String itemsJSONList = generateRequestBody(generateItemListMock());
-        this.mockMvc.perform(
-            post("/api/1/dependency/remove/sample")
-                .accept(MediaType.ALL)
-                .param("itemId", "1")
-                .param("operation", RandomStringUtils.randomAlphabetic(10))
-                .content(itemsJSONList.getBytes()))
+        this.mockMvc.perform(post("/api/1/dependency/remove/sample").accept(MediaType.ALL).param("itemId",
+            "1").param("operation", RandomStringUtils.randomAlphabetic(10)).content(itemsJSONList.getBytes()))
             .andExpect(status().isOk());
 
         verify(this.dependencyManagerMock, times(1)).remove(Mockito.any(Context.class), Mockito.anyString(),
@@ -302,16 +267,13 @@ public class DependencyControllerTest extends AbstractControllerTest {
                 Object[] args = invocationOnMock.getArguments();
                 return null;
             }
-        }).when(this.dependencyManagerMock).remove(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
-            Mockito.anyListOf(Item.class));
+        }).when(this.dependencyManagerMock).remove(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString(), Mockito.anyListOf(Item.class));
 
         String itemsJSONList = generateRequestBody(generateItemListMock());
-        this.mockMvc.perform(
-            post("/api/1/dependency/remove/sample")
-                .accept(MediaType.ALL)
-                .param("operation", RandomStringUtils.randomAlphabetic(10))
-                .content(itemsJSONList.getBytes()))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/dependency/remove/sample").accept(MediaType.ALL).param("operation",
+            RandomStringUtils.randomAlphabetic(10)).content(itemsJSONList.getBytes())).andExpect(status()
+            .isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).remove(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyListOf(Item.class));
@@ -326,16 +288,12 @@ public class DependencyControllerTest extends AbstractControllerTest {
                 Object[] args = invocationOnMock.getArguments();
                 return null;
             }
-        }).when(this.dependencyManagerMock).remove(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
-            Mockito.anyListOf(Item.class));
+        }).when(this.dependencyManagerMock).remove(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString(), Mockito.anyListOf(Item.class));
 
         String itemsJSONList = generateRequestBody(generateItemListMock());
-        this.mockMvc.perform(
-            post("/api/1/dependency/remove/sample")
-                .accept(MediaType.ALL)
-                .param("itemId", "1")
-                .content(itemsJSONList.getBytes()))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/dependency/remove/sample").accept(MediaType.ALL).param("itemId",
+            "1").content(itemsJSONList.getBytes())).andExpect(status().isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).remove(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyListOf(Item.class));
@@ -350,15 +308,11 @@ public class DependencyControllerTest extends AbstractControllerTest {
                 Object[] args = invocationOnMock.getArguments();
                 return null;
             }
-        }).when(this.dependencyManagerMock).remove(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(),
-            Mockito.anyListOf(Item.class));
+        }).when(this.dependencyManagerMock).remove(Mockito.any(Context.class), Mockito.anyString(),
+            Mockito.anyString(), Mockito.anyListOf(Item.class));
 
-        this.mockMvc.perform(
-            post("/api/1/dependency/remove/sample")
-                .accept(MediaType.ALL)
-                .param("itemId", "1")
-                .param("operation", RandomStringUtils.randomAlphabetic(10))
-                .content(StringUtils.EMPTY.getBytes()))
+        this.mockMvc.perform(post("/api/1/dependency/remove/sample").accept(MediaType.ALL).param("itemId",
+            "1").param("operation", RandomStringUtils.randomAlphabetic(10)).content(StringUtils.EMPTY.getBytes()))
             .andExpect(status().isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).remove(Mockito.any(Context.class), Mockito.anyString(),
@@ -378,12 +332,8 @@ public class DependencyControllerTest extends AbstractControllerTest {
             Mockito.anyString(), Mockito.anyListOf(Item.class));
 
         String itemsJSONList = generateRequestBody(generateItemListMock());
-        this.mockMvc.perform(
-            post("/api/1/dependency/update/sample")
-                .accept(MediaType.ALL)
-                .param("itemId", "1")
-                .param("operation", RandomStringUtils.randomAlphabetic(10))
-                .content(itemsJSONList.getBytes()))
+        this.mockMvc.perform(post("/api/1/dependency/update/sample").accept(MediaType.ALL).param("itemId",
+            "1").param("operation", RandomStringUtils.randomAlphabetic(10)).content(itemsJSONList.getBytes()))
             .andExpect(status().isOk());
 
         verify(this.dependencyManagerMock, times(1)).update(Mockito.any(Context.class), Mockito.anyString(),
@@ -403,12 +353,9 @@ public class DependencyControllerTest extends AbstractControllerTest {
             Mockito.anyString(), Mockito.anyListOf(Item.class));
 
         String itemsJSONList = generateRequestBody(generateItemListMock());
-        this.mockMvc.perform(
-            post("/api/1/dependency/update/sample")
-                .accept(MediaType.ALL)
-                .param("operation", RandomStringUtils.randomAlphabetic(10))
-                .content(itemsJSONList.getBytes()))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/dependency/update/sample").accept(MediaType.ALL).param("operation",
+            RandomStringUtils.randomAlphabetic(10)).content(itemsJSONList.getBytes())).andExpect(status()
+            .isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).update(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyListOf(Item.class));
@@ -427,12 +374,8 @@ public class DependencyControllerTest extends AbstractControllerTest {
             Mockito.anyString(), Mockito.anyListOf(Item.class));
 
         String itemsJSONList = generateRequestBody(generateItemListMock());
-        this.mockMvc.perform(
-            post("/api/1/dependency/update/sample")
-                .accept(MediaType.ALL)
-                .param("itemId", "1")
-                .content(itemsJSONList.getBytes()))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(post("/api/1/dependency/update/sample").accept(MediaType.ALL).param("itemId",
+            "1").content(itemsJSONList.getBytes())).andExpect(status().isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).update(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyListOf(Item.class));
@@ -450,12 +393,8 @@ public class DependencyControllerTest extends AbstractControllerTest {
         }).when(this.dependencyManagerMock).update(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyListOf(Item.class));
 
-        this.mockMvc.perform(
-            post("/api/1/dependency/update/sample")
-                .accept(MediaType.ALL)
-                .param("itemId", "1")
-                .param("operation", RandomStringUtils.randomAlphabetic(10))
-                .content(StringUtils.EMPTY.getBytes()))
+        this.mockMvc.perform(post("/api/1/dependency/update/sample").accept(MediaType.ALL).param("itemId",
+            "1").param("operation", RandomStringUtils.randomAlphabetic(10)).content(StringUtils.EMPTY.getBytes()))
             .andExpect(status().isBadRequest());
 
         verify(this.dependencyManagerMock, times(0)).update(Mockito.any(Context.class), Mockito.anyString(),

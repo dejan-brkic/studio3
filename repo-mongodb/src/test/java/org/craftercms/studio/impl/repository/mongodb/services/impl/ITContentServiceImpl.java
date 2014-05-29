@@ -17,8 +17,8 @@
 
 package org.craftercms.studio.impl.repository.mongodb.services.impl;
 
-import org.craftercms.studio.repo.content.ContentService;
 import org.craftercms.studio.commons.dto.Item;
+import org.craftercms.studio.repo.content.ContentService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

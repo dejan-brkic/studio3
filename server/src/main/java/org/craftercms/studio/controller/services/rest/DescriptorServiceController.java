@@ -22,11 +22,6 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiParam;
-import com.wordnik.swagger.annotations.ApiResponse;
-import com.wordnik.swagger.annotations.ApiResponses;
 import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.content.DescriptorService;
 import org.craftercms.studio.commons.dto.Context;
@@ -46,6 +41,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
+import com.wordnik.swagger.annotations.ApiResponse;
+import com.wordnik.swagger.annotations.ApiResponses;
 
 /**
  * Descriptor Service RESTful Controller.
@@ -67,45 +67,44 @@ public class DescriptorServiceController {
     /**
      * Create a new descriptor.
      *
-     * @param site              site identifier
-     * @param contentTypeId     content type identifier
-     * @param parentId          parent identifier
-     * @param fileName          file name
-     * @param file              content stream
-     * @param properties        additional properties
-     * @return                  item
+     * @param site          site identifier
+     * @param contentTypeId content type identifier
+     * @param parentId      parent identifier
+     * @param fileName      file name
+     * @param file          content stream
+     * @param properties    additional properties
+     * @return item
      * @throws StudioException
      */
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad Request")
-    })
+        @ApiResponse(code = 400, message = "Bad Request")})
     @RequestMapping(
         value = "/create/{site}",
         method = RequestMethod.POST,
-        params = { "content_type_id", "parent_id", "file_name" }
+        params = {"content_type_id", "parent_id", "file_name"}
     )
     @ResponseBody
     public Item create(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable String site,
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable final String site,
 
-            @ApiParam(name = "content_type_id", required = true, value = "String")
-            @RequestParam(value = "content_type_id", required = true) String contentTypeId,
+        @ApiParam(name = "content_type_id", required = true, value = "String")
+        @RequestParam(value = "content_type_id", required = true) final  String contentTypeId,
 
-            @ApiParam(name = "parent_id", required = true, value = "String")
-            @RequestParam(value = "parent_id", required = true) String parentId,
+        @ApiParam(name = "parent_id", required = true, value = "String")
+        @RequestParam(value = "parent_id", required = true) final String parentId,
 
-            @ApiParam(name = "file_name", required = true, value = "String")
-            @RequestParam(value ="file_name", required = true) String fileName,
+        @ApiParam(name = "file_name", required = true, value = "String")
+        @RequestParam(value = "file_name", required = true) final String fileName,
 
-            @ApiParam(name = "file", required = true, value = "MultipartFile")
-            @RequestParam(value = "file") MultipartFile file,
+        @ApiParam(name = "file", required = true, value = "MultipartFile")
+        @RequestParam(value = "file") final MultipartFile file,
 
-            @ApiParam(name = "properties", required = false, value ="Map<String, String>")
-            @RequestParam(value = "properties", required = false) Map<String, String> properties
-    ) throws StudioException {
+        @ApiParam(name = "properties", required = false, value = "Map<String, String>")
+        @RequestParam(value = "properties", required = false) final Map<String,
+            String> properties) throws StudioException {
         Context context = RestControllerUtils.createMockContext();
         InputStream content = null;
         try {
@@ -120,45 +119,44 @@ public class DescriptorServiceController {
     /**
      * Create a new descriptor.
      *
-     * @param site              site identifier
-     * @param contentTypeId     content type identifier
-     * @param parentId          parent identifier
-     * @param fileName          file name
-     * @param content           content
-     * @param properties        additional properties
-     * @return                  item
+     * @param site          site identifier
+     * @param contentTypeId content type identifier
+     * @param parentId      parent identifier
+     * @param fileName      file name
+     * @param content       content
+     * @param properties    additional properties
+     * @return item
      * @throws StudioException
      */
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+        @ApiResponse(code = 400, message = "Bad request")})
     @RequestMapping(
         value = "/create/{site}",
         method = RequestMethod.POST,
-        params = { "content_type_id", "parent_id", "file_name", "content" }
+        params = {"content_type_id", "parent_id", "file_name", "content"}
     )
     @ResponseBody
     public Item create(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable String site,
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable final String site,
 
-            @ApiParam(name = "content_type_id", required = true, value = "String")
-            @RequestParam(value = "content_type_id", required = true) String contentTypeId,
+        @ApiParam(name = "content_type_id", required = true, value = "String")
+        @RequestParam(value = "content_type_id", required = true) final String contentTypeId,
 
-            @ApiParam(name = "parent_id", required = true, value = "String")
-            @RequestParam(value = "parent_id", required = true) String parentId,
+        @ApiParam(name = "parent_id", required = true, value = "String")
+        @RequestParam(value = "parent_id", required = true) final String parentId,
 
-            @ApiParam(name = "file_name", required = true, value = "String")
-            @RequestParam(value = "file_name", required = true) String fileName,
+        @ApiParam(name = "file_name", required = true, value = "String")
+        @RequestParam(value = "file_name", required = true) final String fileName,
 
-            @ApiParam(name = "content", required = true, value = "String")
-            @RequestParam(value = "content", required = true) String content,
+        @ApiParam(name = "content", required = true, value = "String")
+        @RequestParam(value = "content", required = true) final String content,
 
-            @ApiParam(name = "properties", required = false, value ="Map<String, String>")
-            @RequestParam(value = "properties", required = false) Map<String, String> properties
-    ) throws StudioException {
+        @ApiParam(name = "properties", required = false, value = "Map<String, String>")
+        @RequestParam(value = "properties", required = false) final Map<String,
+            String> properties) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         Item item = descriptorService.create(context, site, contentTypeId, parentId, fileName, content, properties);
@@ -168,17 +166,16 @@ public class DescriptorServiceController {
     /**
      * Create a new descriptor as copy of existing.
      *
-     * @param site          site identifier
-     * @param itemId        item identifier of descriptor to be duplicated
-     * @param parentId      parent identifier
-     * @param fileName      file name
-     * @return              item
+     * @param site     site identifier
+     * @param itemId   item identifier of descriptor to be duplicated
+     * @param parentId parent identifier
+     * @param fileName file name
+     * @return item
      * @throws StudioException
      */
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+        @ApiResponse(code = 400, message = "Bad request")})
     @RequestMapping(
         value = "/duplicate/{site}",
         method = RequestMethod.POST
@@ -186,18 +183,17 @@ public class DescriptorServiceController {
     @ResponseBody
     public Item duplicate(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable String site,
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable final String site,
 
-            @ApiParam(name = "item_id", required = true, value = "String")
-            @RequestParam(value = "item_id", required = true) String itemId,
+        @ApiParam(name = "item_id", required = true, value = "String")
+        @RequestParam(value = "item_id", required = true) final String itemId,
 
-            @ApiParam(name = "parent_id", required = true, value = "String")
-            @RequestParam(value = "parent_id", required = true) String parentId,
+        @ApiParam(name = "parent_id", required = true, value = "String")
+        @RequestParam(value = "parent_id", required = true) final String parentId,
 
-            @ApiParam(name = "file_name", required = true, value = "String")
-            @RequestParam(value = "file_name") String fileName
-    ) throws StudioException {
+        @ApiParam(name = "file_name", required = true, value = "String")
+        @RequestParam(value = "file_name") final String fileName) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = new ItemId(itemId);
@@ -208,17 +204,16 @@ public class DescriptorServiceController {
     /**
      * Move/rename descriptor.
      *
-     * @param site          site identifier
-     * @param itemId        item identifier
-     * @param parentId      destination parent identifier
-     * @param fileName      file name
-     * @return              item
+     * @param site     site identifier
+     * @param itemId   item identifier
+     * @param parentId destination parent identifier
+     * @param fileName file name
+     * @return item
      * @throws StudioException
      */
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+        @ApiResponse(code = 400, message = "Bad request")})
     @RequestMapping(
         value = "/move/{site}",
         method = RequestMethod.POST
@@ -226,18 +221,17 @@ public class DescriptorServiceController {
     @ResponseBody
     public Item move(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable String site,
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable final String site,
 
-            @ApiParam(name = "item_id", required = true, value = "String")
-            @RequestParam(value = "item_id", required = true) String itemId,
+        @ApiParam(name = "item_id", required = true, value = "String")
+        @RequestParam(value = "item_id", required = true) final String itemId,
 
-            @ApiParam(name = "parent_id", required = true, value = "String")
-            @RequestParam(value = "parent_id", required = true) String parentId,
+        @ApiParam(name = "parent_id", required = true, value = "String")
+        @RequestParam(value = "parent_id", required = true) final String parentId,
 
-            @ApiParam(name = "file_name", required = true, value = "String")
-            @RequestParam(value = "file_name", required = true) String fileName
-    ) throws StudioException {
+        @ApiParam(name = "file_name", required = true, value = "String")
+        @RequestParam(value = "file_name", required = true) final String fileName) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = new ItemId(itemId);
@@ -248,29 +242,27 @@ public class DescriptorServiceController {
     /**
      * Get descriptor item.
      *
-     * @param site      site identifier
-     * @param itemId    item identifier
-     * @return          item
+     * @param site   site identifier
+     * @param itemId item identifier
+     * @return item
      * @throws StudioException
      */
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+        @ApiResponse(code = 400, message = "Bad request")})
     @RequestMapping(
         value = "/read/{site}",
-        params = { "item_id" },
+        params = {"item_id"},
         method = RequestMethod.GET
     )
     @ResponseBody
     public Item read(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable String site,
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable final String site,
 
-            @ApiParam(name = "item_id", required = true, value = "String")
-            @RequestParam(value = "item_id", required = true) String itemId
-    ) throws StudioException {
+        @ApiParam(name = "item_id", required = true, value = "String")
+        @RequestParam(value = "item_id", required = true) final String itemId) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = new ItemId(itemId);
@@ -280,28 +272,27 @@ public class DescriptorServiceController {
 
     /**
      * Read textual content for given descriptor id.
-
-     * @param site      site identifier
-     * @param itemId    descriptor item identifier
-     * @return          textual content of descriptor
+     *
+     * @param site   site identifier
+     * @param itemId descriptor item identifier
+     * @return textual content of descriptor
      * @throws StudioException
      */
     @ApiOperation(value = "read textual content of descriptor", position = 3)
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = String.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+        @ApiResponse(code = 400, message = "Bad request")})
     @RequestMapping(value = "/read_text/{site}",
-        params = { "item_id" },
+        params = {"item_id"},
         method = RequestMethod.GET)
     @ResponseBody
     public String getTextContent(
-        @ApiParam(name = "site", required = true, value = "String")
-        @PathVariable String site,
 
-        @ApiParam(name = "item_id", required = true, value = "String")
-        @RequestParam(value = "item_id") String itemId
-    ) throws StudioException {
+            @ApiParam(name = "site", required = true, value = "String")
+            @PathVariable final String site,
+
+            @ApiParam(name = "item_id", required = true, value = "String")
+            @RequestParam(value = "item_id") final String itemId) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         return descriptorService.getTextContent(context, site, itemId);
@@ -310,17 +301,16 @@ public class DescriptorServiceController {
     /**
      * Update given descriptor.
      *
-     * @param site          site identifier
-     * @param itemId        descriptor item identifier
-     * @param file          content stream
-     * @param properties    additional properties
-     * @return              item
+     * @param site       site identifier
+     * @param itemId     descriptor item identifier
+     * @param file       content stream
+     * @param properties additional properties
+     * @return item
      * @throws StudioException
      */
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+        @ApiResponse(code = 400, message = "Bad request")})
     @RequestMapping(
         value = "/update/{site}",
         method = RequestMethod.POST,
@@ -329,18 +319,17 @@ public class DescriptorServiceController {
     @ResponseBody
     public Item update(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable String site,
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable String site,
 
-            @ApiParam(name = "item_id", required = true, value = "String")
-            @RequestParam(value = "item_id", required = true) String itemId,
+        @ApiParam(name = "item_id", required = true, value = "String") @RequestParam(value = "item_id",
+            required = true) String itemId,
 
-            @ApiParam(name = "file", required = true, value = "MultipartFile")
-            @RequestParam(value = "file", required = true) MultipartFile file,
+        @ApiParam(name = "file", required = true, value = "MultipartFile") @RequestParam(value = "file",
+            required = true) MultipartFile file,
 
-            @ApiParam(name = "properties", required = false, value = "Map<String, String>")
-            @RequestParam(value = "properties", required = false) Map<String, String> properties
-    ) throws StudioException {
+        @ApiParam(name = "properties", required = false, value = "Map<String, String>") @RequestParam(value =
+            "properties", required = false) Map<String, String> properties) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = new ItemId(itemId);
@@ -357,37 +346,35 @@ public class DescriptorServiceController {
     /**
      * Update given descriptor.
      *
-     * @param site          site identifier
-     * @param itemId        descriptor item identifier
-     * @param content       descriptor content
-     * @param properties    additional properties
-     * @return              item
+     * @param site       site identifier
+     * @param itemId     descriptor item identifier
+     * @param content    descriptor content
+     * @param properties additional properties
+     * @return item
      * @throws StudioException
      */
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = Item.class), @ApiResponse(code = 400,
+        message = "Bad request")})
     @RequestMapping(
         value = "/update/{site}",
         method = RequestMethod.POST,
-        params = { "item_id", "content" }
+        params = {"item_id", "content"}
     )
     @ResponseBody
     public Item update(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable String site,
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable final String site,
 
-            @ApiParam(name = "item_id", required = true, value = "String")
-            @RequestParam(value = "item_id", required = true) String itemId,
+        @ApiParam(name = "item_id", required = true, value = "String")
+        @RequestParam(value = "item_id", required = true) final String itemId,
 
-            @ApiParam(name = "content", required = true, value = "String")
-            @RequestParam(value = "content", required = true) String content,
+        @ApiParam(name = "content", required = true, value = "String")
+        @RequestParam(value = "content", required = true) final String content,
 
-            @ApiParam(name = "content", required = false, value = "Map<String, String>")
-            @RequestParam(value = "properties", required = false) Map<String, String> properties
-    ) throws StudioException {
+        @ApiParam(name = "content", required = false, value = "Map<String, String>")
+        @RequestParam(value = "properties", required = false) final Map<String,
+            String> properties) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = new ItemId(itemId);
@@ -398,14 +385,13 @@ public class DescriptorServiceController {
     /**
      * Delete descriptor.
      *
-     * @param site      site identifier
-     * @param itemId    descriptor item identifier
+     * @param site   site identifier
+     * @param itemId descriptor item identifier
      * @throws StudioException
      */
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success"),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+        @ApiResponse(code = 400, message = "Bad request")})
     @RequestMapping(
         value = "/delete/{site}",
         method = RequestMethod.POST
@@ -413,12 +399,11 @@ public class DescriptorServiceController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable String site,
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable final String site,
 
-            @ApiParam(name = "item_id", required = true, value = "String")
-            @RequestParam(value = "item_id", required = true) String itemId
-    ) throws StudioException {
+        @ApiParam(name = "item_id", required = true, value = "String")
+        @RequestParam(value = "item_id", required = true) final String itemId) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = new ItemId(itemId);
@@ -428,15 +413,14 @@ public class DescriptorServiceController {
     /**
      * Find descriptor by given query.
      *
-     * @param site      site identifier
-     * @param query     search query
-     * @return          list of descriptor items
+     * @param site  site identifier
+     * @param query search query
+     * @return list of descriptor items
      * @throws StudioException
      */
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+        @ApiResponse(code = 400, message = "Bad request")})
     @RequestMapping(
         value = "/find/{site}",
         method = RequestMethod.POST
@@ -444,12 +428,11 @@ public class DescriptorServiceController {
     @ResponseBody
     public List<Item> findBy(
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable String site,
+        @ApiParam(name = "site", required = true, value = "String")
+        @PathVariable final String site,
 
-            @ApiParam(name = "site", required = true, value = "String")
-            @RequestParam(value = "query", required = true) String query
-    ) throws StudioException {
+        @ApiParam(name = "site", required = true, value = "String")
+        @RequestParam(value = "query", required = true) final String query) throws StudioException {
 
         throw ErrorManager.createError(StudioServerErrorCode.NOT_IMPLEMENTED);
     }
@@ -457,17 +440,15 @@ public class DescriptorServiceController {
     /**
      * List children for given descriptor item.
      *
-     * @param site      site identifier
-     * @param itemId    parent descriptor item id
-     * @return          list of children items
-     *
+     * @param site   site identifier
+     * @param itemId parent descriptor item id
+     * @return list of children items
      * @throws StudioException
      */
     @ApiOperation(value = "list children descriptors")
     @ApiResponses({
         @ApiResponse(code = 200, message = "Success", response = Item.class),
-        @ApiResponse(code = 400, message = "Bad request")
-    })
+        @ApiResponse(code = 400, message = "Bad request")})
     @RequestMapping(
         value = "/list/{site}",
         method = RequestMethod.GET
@@ -476,11 +457,11 @@ public class DescriptorServiceController {
     public List<Item> list(
 
         @ApiParam(name = "site", required = true, value = "String")
-        @PathVariable String site,
+        @PathVariable final String site,
 
         @ApiParam(name = "item_id", required = false, value = "String")
-        @RequestParam(value = "item_id", required = false) String itemId
-    ) throws StudioException {
+        @RequestParam(value = "item_id", required = false) final String itemId) throws StudioException {
+
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = null;
         if (StringUtils.isNotEmpty(itemId)) {

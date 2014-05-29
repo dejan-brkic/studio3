@@ -1,4 +1,3 @@
-
 /*
  * Copyright (C) 2007-2013 Crafter Software Corporation.
  *
@@ -48,7 +47,7 @@ public class LifecycleControllerTest extends AbstractControllerTest {
     // Mocks
     @Autowired
     private LifecycleManager lifecycleManagerMock;
-    
+
     @InjectMocks
     private LifecycleController lifecycleController;
 
@@ -62,14 +61,11 @@ public class LifecycleControllerTest extends AbstractControllerTest {
         when(this.lifecycleManagerMock.getPossibleActions(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class))).thenReturn(generateListOfActions());
 
-        this.mockMvc.perform(
-            get("/api/1/lifecycle/actions/sample")
-                .param("itemIds", UUID.randomUUID().toString(), UUID.randomUUID().toString())
-                .accept(MediaType.ALL))
-            .andExpect(status().isOk());
+        this.mockMvc.perform(get("/api/1/lifecycle/actions/sample").param("itemIds", UUID.randomUUID().toString(),
+            UUID.randomUUID().toString()).accept(MediaType.ALL)).andExpect(status().isOk());
 
-        verify(this.lifecycleManagerMock, times(1)).getPossibleActions(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.anyListOf(String.class));
+        verify(this.lifecycleManagerMock, times(1)).getPossibleActions(Mockito.any(Context.class),
+            Mockito.anyString(), Mockito.anyListOf(String.class));
     }
 
     @Test
@@ -77,12 +73,10 @@ public class LifecycleControllerTest extends AbstractControllerTest {
         when(this.lifecycleManagerMock.getPossibleActions(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class))).thenReturn(generateListOfActions());
 
-        this.mockMvc.perform(
-            get("/api/1/lifecycle/actions/sample")
-                .accept(MediaType.ALL))
-            .andExpect(status().isBadRequest());
+        this.mockMvc.perform(get("/api/1/lifecycle/actions/sample").accept(MediaType.ALL)).andExpect(status()
+            .isBadRequest());
 
-        verify(this.lifecycleManagerMock, times(0)).getPossibleActions(Mockito.any(Context.class), Mockito.anyString(),
-            Mockito.anyListOf(String.class));
+        verify(this.lifecycleManagerMock, times(0)).getPossibleActions(Mockito.any(Context.class),
+            Mockito.anyString(), Mockito.anyListOf(String.class));
     }
 }

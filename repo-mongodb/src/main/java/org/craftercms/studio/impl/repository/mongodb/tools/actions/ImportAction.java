@@ -85,15 +85,17 @@ public class ImportAction extends AbstractAction {
 
     /**
      * Gets the File Folder path base on the path
+     *
      * @param path Full path of the file
      * @return the Files Folder
      */
-    private String  fileFolder(final String path) {
+    private String fileFolder(final String path) {
         return new File(path).getParent();
     }
 
     /**
      * Reads the ZipEntry and returns it as a InputStream (ByteArrayInputStream)
+     *
      * @param zipInputStream ZipStream to be read.
      * @return A InputStream with the entry.
      * @throws IOException If zipInputStream could not be read or Return Input could be write.
@@ -109,9 +111,10 @@ public class ImportAction extends AbstractAction {
 
     /**
      * Checks if the ZipEntry represents a folder.
+     *
      * @param entry Entry To check.
      * @return True if entry is a folder (Ends with /)
-     *         False otherwise.
+     * False otherwise.
      */
     private boolean entryIsFolder(final ZipEntry entry) {
         return entry.getName().endsWith(File.separator);
@@ -119,6 +122,7 @@ public class ImportAction extends AbstractAction {
 
     /**
      * Gets the file path for the given full path.
+     *
      * @param path to be check
      * @return File or Folder path.
      */

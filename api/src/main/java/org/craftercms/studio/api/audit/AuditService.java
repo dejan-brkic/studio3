@@ -33,8 +33,9 @@ public interface AuditService {
 
     /**
      * Get activities.
+     *
      * @param context context
-     * @param site site
+     * @param site    site
      * @param filters filters
      * @return list of activities
      */
@@ -42,8 +43,9 @@ public interface AuditService {
 
     /**
      * Log activity.
-     * @param context context
-     * @param site site
+     *
+     * @param context  context
+     * @param site     site
      * @param activity activity
      */
     Activity logActivity(Context context, String site, Activity activity) throws StudioException;

@@ -18,8 +18,8 @@
 package org.craftercms.studio.impl.repository.mongodb.services;
 
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.repo.content.PathService;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
+import org.craftercms.studio.repo.content.PathService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -19,6 +19,7 @@ package org.craftercms.studio.commons.dto;
 /**
  * Module Configuration.
  *
+ * @param T configuration type
  * @author Carlos Ortiz
  * @author Sumer Jabri
  */

@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.RandomStringUtils;
 import org.craftercms.studio.api.lifecycle.Action;
 import org.craftercms.studio.commons.dto.Activity;
@@ -58,6 +56,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Abstract class for unit tests of all controllers
@@ -113,12 +113,12 @@ public abstract class AbstractControllerTest {
 
         activity1.setDate(new Date());
         activity1.setSiteId(UUID.randomUUID().toString());
-        if(broken){
+        if (broken) {
             activity1.setSiteName("");
             activity1.setTarget("");
             activity1.setType("");
             activity1.setCreator(" ");
-        }else{
+        } else {
             activity1.setSiteName("testSite");
             activity1.setTarget("testTarget");
             activity1.setType("SAVED");
@@ -256,7 +256,7 @@ public abstract class AbstractControllerTest {
         Item root = createItemMock();
         Tree<Item> itemTreeMock = new Tree<Item>(root);
         TreeNode<Item> rootNode = itemTreeMock.getRootNode();
-        for (int i = 0; i < 1 + (int)(3* Math.random()); i++) {
+        for (int i = 0; i < 1 + (int)(3 * Math.random()); i++) {
             Item item = createItemMock();
             rootNode.addChild(item);
         }
@@ -292,7 +292,7 @@ public abstract class AbstractControllerTest {
         Version root = createVersionMock();
         Tree<Version> versionTreeMock = new Tree<Version>(root);
         TreeNode<Version> rootNode = versionTreeMock.getRootNode();
-        for (int i = 0; i < 1 + (int)(3* Math.random()); i++) {
+        for (int i = 0; i < 1 + (int)(3 * Math.random()); i++) {
             Version version = createVersionMock();
             rootNode.addChild(version);
         }

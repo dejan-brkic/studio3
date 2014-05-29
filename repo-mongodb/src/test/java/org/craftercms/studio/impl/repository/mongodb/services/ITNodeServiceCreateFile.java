@@ -19,8 +19,8 @@ package org.craftercms.studio.impl.repository.mongodb.services;
 
 import java.io.InputStream;
 
-import org.junit.Assert;
 import org.craftercms.studio.impl.repository.mongodb.domain.Node;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -54,7 +54,7 @@ public class ITNodeServiceCreateFile implements ApplicationContextAware {
         Node parent = nodeService.getRootNode();
         InputStream inputStream = this.getClass().getResourceAsStream("/files/index.xml");
         Assert.assertNotNull("Input Stream is null", inputStream); //make sure we read the file.
-        Node createdNode = nodeService.createFileNode(parent, FILE_NAME,FILE_LABEL , FILE_CREATOR, inputStream);
+        Node createdNode = nodeService.createFileNode(parent, FILE_NAME, FILE_LABEL, FILE_CREATOR, inputStream);
         Node expectedNode = nodeService.getNode(createdNode.getId());
         Assert.assertNotNull(createdNode);
         Assert.assertNotNull(expectedNode);
@@ -63,7 +63,7 @@ public class ITNodeServiceCreateFile implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext=applicationContext;
+        this.applicationContext = applicationContext;
     }
 
 }

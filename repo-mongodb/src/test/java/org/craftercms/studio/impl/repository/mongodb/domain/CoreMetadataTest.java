@@ -44,15 +44,15 @@ public class CoreMetadataTest {
         // Now lets do the copies
         CoreMetadata coreMetadata2 = coreMetadata1.copy();
         // Now Clone it
-        CoreMetadata coreMetadata3 = (CoreMetadata) coreMetadata2.clone();
+        CoreMetadata coreMetadata3 = (CoreMetadata)coreMetadata2.clone();
         //Test that everybody is the same but different
         assertEquals(coreMetadata2, coreMetadata1);
         assertEquals(coreMetadata1, coreMetadata3);
         assertEquals(coreMetadata2, coreMetadata3);
         //They have to be a Diff mem Ref
-        assertFalse(coreMetadata2==coreMetadata1);
-        assertFalse(coreMetadata1==coreMetadata3);
-        assertFalse(coreMetadata2==coreMetadata3);
+        assertFalse(coreMetadata2 == coreMetadata1);
+        assertFalse(coreMetadata1 == coreMetadata3);
+        assertFalse(coreMetadata2 == coreMetadata3);
         //For coverage  (and quadruple check) :D
         assertEquals(coreMetadata1.toString(), coreMetadata2.toString());
     }
