@@ -1,21 +1,21 @@
 // swagger.js
 // version 2.0.19
 
-var __bind = function (fn, me) {
-    return function () {
+var __bind = function(fn, me){
+    return function(){
         return fn.apply(me, arguments);
     };
 };
 
-log = function () {
+log = function(){
     log.history = log.history || [];
     log.history.push(arguments);
-    if (this.console) {
-        console.log(Array.prototype.slice.call(arguments));
+    if(this.console){
+        console.log( Array.prototype.slice.call(arguments) );
     }
 };
 
-var SwaggerApi = function (url, options) {
+var SwaggerApi = function(url, options) {
     this.url = null;
     this.debug = false;
     this.basePath = null;
@@ -23,7 +23,7 @@ var SwaggerApi = function (url, options) {
     this.authorizationScheme = null;
     this.info = null;
 
-    options = (options || {});
+    options = (options||{});
     if (url)
         if (url.url)
             options = url;
@@ -38,15 +38,13 @@ var SwaggerApi = function (url, options) {
     if (options.success != null)
         this.success = options.success;
 
-    this.failure = options.failure != null ? options.failure : function () {
-    };
-    this.progress = options.progress != null ? options.progress : function () {
-    };
+    this.failure = options.failure != null ? options.failure : function() {};
+    this.progress = options.progress != null ? options.progress : function() {};
     if (options.success != null)
         this.build();
 }
 
-SwaggerApi.prototype.build = function () {
+SwaggerApi.prototype.build = function() {
     var _this = this;
     this.progress('fetching resource list: ' + this.url);
     var obj = {
@@ -57,7 +55,7 @@ SwaggerApi.prototype.build = function () {
             accept: "application/json"
         },
         on: {
-            error: function (response) {
+            error: function(response) {
                 if (_this.url.substring(0, 4) !== 'http') {
                     return _this.fail('Please specify the protocol for ' + _this.url);
                 } else if (response.status === 0) {
@@ -68,7 +66,7 @@ SwaggerApi.prototype.build = function () {
                     return _this.fail(response.status + ' : ' + response.statusText + ' ' + _this.url);
                 }
             },
-            response: function (resp) {
+            response: function(resp) {
                 var responseObj = resp.obj || JSON.parse(resp.data);
                 _this.swaggerVersion = responseObj.swaggerVersion;
                 if (_this.swaggerVersion === "1.2") {
@@ -85,7 +83,7 @@ SwaggerApi.prototype.build = function () {
     return this;
 };
 
-SwaggerApi.prototype.buildFromSpec = function (response) {
+SwaggerApi.prototype.buildFromSpec = function(response) {
     if (response.apiVersion != null) {
         this.apiVersion = response.apiVersion;
     }
@@ -133,7 +131,7 @@ SwaggerApi.prototype.buildFromSpec = function (response) {
     return this;
 };
 
-SwaggerApi.prototype.buildFrom1_1Spec = function (response) {
+SwaggerApi.prototype.buildFrom1_1Spec = function(response) {
     log("This API is using a deprecated version of Swagger!  Please see http://github.com/wordnik/swagger-core/wiki for more info");
     if (response.apiVersion != null)
         this.apiVersion = response.apiVersion;
@@ -180,7 +178,7 @@ SwaggerApi.prototype.buildFrom1_1Spec = function (response) {
     return this;
 };
 
-SwaggerApi.prototype.selfReflect = function () {
+SwaggerApi.prototype.selfReflect = function() {
     var resource, resource_name, _ref;
     if (this.apis == null) {
         return false;
@@ -199,12 +197,12 @@ SwaggerApi.prototype.selfReflect = function () {
     }
 };
 
-SwaggerApi.prototype.fail = function (message) {
+SwaggerApi.prototype.fail = function(message) {
     this.failure(message);
     throw message;
 };
 
-SwaggerApi.prototype.setConsolidatedModels = function () {
+SwaggerApi.prototype.setConsolidatedModels = function() {
     var model, modelName, resource, resource_name, _i, _len, _ref, _ref1, _results;
     this.modelsArray = [];
     this.models = {};
@@ -227,7 +225,7 @@ SwaggerApi.prototype.setConsolidatedModels = function () {
     return _results;
 };
 
-SwaggerApi.prototype.help = function () {
+SwaggerApi.prototype.help = function() {
     var operation, operation_name, parameter, resource, resource_name, _i, _len, _ref, _ref1, _ref2;
     _ref = this.apis;
     for (resource_name in _ref) {
@@ -247,7 +245,7 @@ SwaggerApi.prototype.help = function () {
     return this;
 };
 
-var SwaggerResource = function (resourceObj, api) {
+var SwaggerResource = function(resourceObj, api) {
     var _this = this;
     this.api = api;
     this.api = this.api;
@@ -286,11 +284,11 @@ var SwaggerResource = function (resourceObj, api) {
                 accept: "application/json"
             },
             on: {
-                response: function (resp) {
+                response: function(resp) {
                     var responseObj = resp.obj || JSON.parse(resp.data);
                     return _this.addApiDeclaration(responseObj);
                 },
-                error: function (response) {
+                error: function(response) {
                     return _this.api.fail("Unable to read api '" +
                         _this.name + "' from path " + _this.url + " (server returned " + response.statusText + ")");
                 }
@@ -302,7 +300,7 @@ var SwaggerResource = function (resourceObj, api) {
     }
 }
 
-SwaggerResource.prototype.getAbsoluteBasePath = function (relativeBasePath) {
+SwaggerResource.prototype.getAbsoluteBasePath = function(relativeBasePath) {
     var parts, pos, url;
     url = this.api.basePath;
     pos = url.lastIndexOf(relativeBasePath);
@@ -321,7 +319,7 @@ SwaggerResource.prototype.getAbsoluteBasePath = function (relativeBasePath) {
     }
 };
 
-SwaggerResource.prototype.addApiDeclaration = function (response) {
+SwaggerResource.prototype.addApiDeclaration = function(response) {
     if (response.produces != null)
         this.produces = response.produces;
     if (response.consumes != null)
@@ -331,7 +329,7 @@ SwaggerResource.prototype.addApiDeclaration = function (response) {
 
     this.addModels(response.models);
     if (response.apis) {
-        for (var i = 0; i < response.apis.length; i++) {
+        for (var i = 0 ; i < response.apis.length; i++) {
             var endpoint = response.apis[i];
             this.addOperations(endpoint.path, endpoint.operations, response.consumes, response.produces);
         }
@@ -341,7 +339,7 @@ SwaggerResource.prototype.addApiDeclaration = function (response) {
     return this.api.selfReflect();
 };
 
-SwaggerResource.prototype.addModels = function (models) {
+SwaggerResource.prototype.addModels = function(models) {
     if (models != null) {
         for (modelName in models) {
             if (this.models[modelName] == null) {
@@ -360,7 +358,7 @@ SwaggerResource.prototype.addModels = function (models) {
     }
 };
 
-SwaggerResource.prototype.addOperations = function (resource_path, ops, consumes, produces) {
+SwaggerResource.prototype.addOperations = function(resource_path, ops, consumes, produces) {
     if (ops) {
         output = [];
         for (var i = 0; i < ops.length; i++) {
@@ -376,7 +374,7 @@ SwaggerResource.prototype.addOperations = function (resource_path, ops, consumes
                 produces = o.produces;
             else
                 produces = this.produces;
-            type = (o.type || o.responseClass);
+            type = (o.type||o.responseClass);
 
             if (type === "array") {
                 ref = null;
@@ -409,11 +407,9 @@ SwaggerResource.prototype.addOperations = function (resource_path, ops, consumes
     }
 };
 
-SwaggerResource.prototype.sanitize = function (nickname) {
+SwaggerResource.prototype.sanitize = function(nickname) {
     var op;
-    op = nickname.replace(/[\s!@#$%^&*()_+=\[{\]};:<>|./ ?,\\'""-]/g, '
-    _
-    ');
+    op = nickname.replace(/[\s!@#$%^&*()_+=\[{\]};:<>|./?,\\'""-]/g, '_');
     //'
     op = op.replace(/((_){2,})/g, '_');
     op = op.replace(/^(_)*/g, '');
@@ -421,7 +417,7 @@ SwaggerResource.prototype.sanitize = function (nickname) {
     return op;
 };
 
-SwaggerResource.prototype.help = function () {
+SwaggerResource.prototype.help = function() {
     var op = this.operations;
     var output = [];
     for (operation_name in op) {
@@ -436,7 +432,7 @@ SwaggerResource.prototype.help = function () {
     return output;
 };
 
-var SwaggerModel = function (modelName, obj) {
+var SwaggerModel = function(modelName, obj) {
     this.name = obj.id != null ? obj.id : modelName;
     this.properties = [];
     for (propertyName in obj.properties) {
@@ -452,7 +448,7 @@ var SwaggerModel = function (modelName, obj) {
     }
 }
 
-SwaggerModel.prototype.setReferencedModels = function (allModels) {
+SwaggerModel.prototype.setReferencedModels = function(allModels) {
     var results = [];
     for (var i = 0; i < this.properties.length; i++) {
         var property = this.properties[i];
@@ -467,7 +463,7 @@ SwaggerModel.prototype.setReferencedModels = function (allModels) {
     return results;
 };
 
-SwaggerModel.prototype.getMockSignature = function (modelsToIgnore) {
+SwaggerModel.prototype.getMockSignature = function(modelsToIgnore) {
     var propertiesStr = [];
     for (var i = 0; i < this.properties.length; i++) {
         prop = this.properties[i];
@@ -493,9 +489,9 @@ SwaggerModel.prototype.getMockSignature = function (modelsToIgnore) {
     return returnVal;
 };
 
-SwaggerModel.prototype.createJSONSample = function (modelsToIgnore) {
+SwaggerModel.prototype.createJSONSample = function(modelsToIgnore) {
     var result = {};
-    var modelsToIgnore = (modelsToIgnore || [])
+    var modelsToIgnore = (modelsToIgnore||[])
     modelsToIgnore.push(this.name);
     for (var i = 0; i < this.properties.length; i++) {
         prop = this.properties[i];
@@ -505,7 +501,7 @@ SwaggerModel.prototype.createJSONSample = function (modelsToIgnore) {
     return result;
 };
 
-var SwaggerModelProperty = function (name, obj) {
+var SwaggerModelProperty = function(name, obj) {
     this.name = name;
     this.dataType = obj.type || obj.dataType || obj["$ref"];
     this.isCollection = this.dataType && (this.dataType.toLowerCase() === 'array' || this.dataType.toLowerCase() === 'list' || this.dataType.toLowerCase() === 'set');
@@ -536,7 +532,7 @@ var SwaggerModelProperty = function (name, obj) {
     }
 }
 
-SwaggerModelProperty.prototype.getSampleValue = function (modelsToIgnore) {
+SwaggerModelProperty.prototype.getSampleValue = function(modelsToIgnore) {
     var result;
     if ((this.refModel != null) && (modelsToIgnore.indexOf(prop.refModel.name) === -1)) {
         result = this.refModel.createJSONSample(modelsToIgnore);
@@ -554,7 +550,7 @@ SwaggerModelProperty.prototype.getSampleValue = function (modelsToIgnore) {
     }
 };
 
-SwaggerModelProperty.prototype.toSampleValue = function (value) {
+SwaggerModelProperty.prototype.toSampleValue = function(value) {
     var result;
     if (value === "integer") {
         result = 0;
@@ -570,7 +566,7 @@ SwaggerModelProperty.prototype.toSampleValue = function (value) {
     return result;
 };
 
-SwaggerModelProperty.prototype.toString = function () {
+SwaggerModelProperty.prototype.toString = function() {
     var req = this.required ? 'propReq' : 'propOpt';
     var str = '<span class="propName ' + req + '">' + this.name + '</span> (<span class="propType">' + this.dataTypeWithRef + '</span>';
     if (!this.required) {
@@ -586,19 +582,19 @@ SwaggerModelProperty.prototype.toString = function () {
     return str;
 };
 
-var SwaggerOperation = function (nickname, path, method, parameters, summary, notes, type, responseMessages, resource, consumes, produces, authorizations) {
+var SwaggerOperation = function(nickname, path, method, parameters, summary, notes, type, responseMessages, resource, consumes, produces, authorizations) {
     var _this = this;
 
     var errors = [];
-    this.nickname = (nickname || errors.push("SwaggerOperations must have a nickname."));
-    this.path = (path || errors.push("SwaggerOperation " + nickname + " is missing path."));
-    this.method = (method || errors.push("SwaggerOperation " + nickname + " is missing method."));
+    this.nickname = (nickname||errors.push("SwaggerOperations must have a nickname."));
+    this.path = (path||errors.push("SwaggerOperation " + nickname + " is missing path."));
+    this.method = (method||errors.push("SwaggerOperation " + nickname + " is missing method."));
     this.parameters = parameters != null ? parameters : [];
     this.summary = summary;
     this.notes = notes;
     this.type = type;
-    this.responseMessages = (responseMessages || []);
-    this.resource = (resource || errors.push("Resource is required"));
+    this.responseMessages = (responseMessages||[]);
+    this.resource = (resource||errors.push("Resource is required"));
     this.consumes = consumes;
     this.produces = produces;
     this.authorizations = authorizations;
@@ -612,25 +608,25 @@ var SwaggerOperation = function (nickname, path, method, parameters, summary, no
     this.isGetMethod = this.method === "get";
 
     this.resourceName = this.resource.name;
-    if (typeof this.type !== 'undefined' && this.type === 'void')
+    if(typeof this.type !== 'undefined' && this.type === 'void')
         this.type = null;
     else {
         this.responseClassSignature = this.getSignature(this.type, this.resource.models);
         this.responseSampleJSON = this.getSampleJSON(this.type, this.resource.models);
     }
 
-    for (var i = 0; i < this.parameters.length; i++) {
+    for(var i = 0; i < this.parameters.length; i ++) {
         var param = this.parameters[i];
         // might take this away
         param.name = param.name || param.type || param.dataType;
 
         // for 1.1 compatibility
         var type = param.type || param.dataType;
-        if (type === 'array') {
+        if(type === 'array') {
             type = 'array[' + (param.items.$ref ? param.items.$ref : param.items.type) + ']';
         }
 
-        if (type.toLowerCase() === 'boolean') {
+        if(type.toLowerCase() === 'boolean') {
             param.allowableValues = {};
             param.allowableValues.values = ["true", "false"];
         }
@@ -638,45 +634,45 @@ var SwaggerOperation = function (nickname, path, method, parameters, summary, no
         param.sampleJSON = this.getSampleJSON(type, this.resource.models);
 
         var enumValue = param["enum"];
-        if (enumValue != null) {
+        if(enumValue != null) {
             param.isList = true;
             param.allowableValues = {};
             param.allowableValues.descriptiveValues = [];
 
-            for (var j = 0; j < enumValue.length; j++) {
+            for(var j = 0; j < enumValue.length; j++) {
                 var v = enumValue[j];
-                if (param.defaultValue != null) {
-                    param.allowableValues.descriptiveValues.push({
+                if(param.defaultValue != null) {
+                    param.allowableValues.descriptiveValues.push ({
                         value: String(v),
                         isDefault: (v === param.defaultValue)
                     });
                 }
                 else {
-                    param.allowableValues.descriptiveValues.push({
+                    param.allowableValues.descriptiveValues.push ({
                         value: String(v),
                         isDefault: false
                     });
                 }
             }
         }
-        else if (param.allowableValues != null) {
-            if (param.allowableValues.valueType === "RANGE")
+        else if(param.allowableValues != null) {
+            if(param.allowableValues.valueType === "RANGE")
                 param.isRange = true;
             else
                 param.isList = true;
-            if (param.allowableValues != null) {
+            if(param.allowableValues != null) {
                 param.allowableValues.descriptiveValues = [];
-                if (param.allowableValues.values) {
-                    for (var j = 0; j < param.allowableValues.values.length; j++) {
+                if(param.allowableValues.values) {
+                    for(var j = 0; j < param.allowableValues.values.length; j++){
                         var v = param.allowableValues.values[j];
-                        if (param.defaultValue != null) {
-                            param.allowableValues.descriptiveValues.push({
+                        if(param.defaultValue != null) {
+                            param.allowableValues.descriptiveValues.push ({
                                 value: String(v),
                                 isDefault: (v === param.defaultValue)
                             });
                         }
                         else {
-                            param.allowableValues.descriptiveValues.push({
+                            param.allowableValues.descriptiveValues.push ({
                                 value: String(v),
                                 isDefault: false
                             });
@@ -686,15 +682,15 @@ var SwaggerOperation = function (nickname, path, method, parameters, summary, no
             }
         }
     }
-    this.resource[this.nickname] = function (args, callback, error) {
+    this.resource[this.nickname] = function(args, callback, error) {
         return _this["do"](args, callback, error);
     };
-    this.resource[this.nickname].help = function () {
+    this.resource[this.nickname].help = function() {
         return _this.help();
     };
 }
 
-SwaggerOperation.prototype.isListType = function (type) {
+SwaggerOperation.prototype.isListType = function(type) {
     if (type && type.indexOf('[') >= 0) {
         return type.substring(type.indexOf('[') + 1, type.indexOf(']'));
     } else {
@@ -702,7 +698,7 @@ SwaggerOperation.prototype.isListType = function (type) {
     }
 };
 
-SwaggerOperation.prototype.getSignature = function (type, models) {
+SwaggerOperation.prototype.getSignature = function(type, models) {
     var isPrimitive, listType;
     listType = this.isListType(type);
     isPrimitive = ((listType != null) && models[listType]) || (models[type] != null) ? false : true;
@@ -717,7 +713,7 @@ SwaggerOperation.prototype.getSignature = function (type, models) {
     }
 };
 
-SwaggerOperation.prototype.getSampleJSON = function (type, models) {
+SwaggerOperation.prototype.getSampleJSON = function(type, models) {
     var isPrimitive, listType, val;
     listType = this.isListType(type);
     isPrimitive = ((listType != null) && models[listType]) || (models[type] != null) ? false : true;
@@ -728,7 +724,7 @@ SwaggerOperation.prototype.getSampleJSON = function (type, models) {
     }
 };
 
-SwaggerOperation.prototype["do"] = function (args, opts, callback, error) {
+SwaggerOperation.prototype["do"] = function(args, opts, callback, error) {
     var key, param, params, possibleParams, req, requestContentType, responseContentType, value, _i, _len, _ref;
     if (args == null) {
         args = {};
@@ -748,12 +744,12 @@ SwaggerOperation.prototype["do"] = function (args, opts, callback, error) {
         callback = opts;
     }
     if (error == null) {
-        error = function (xhr, textStatus, error) {
+        error = function(xhr, textStatus, error) {
             return log(xhr, textStatus, error);
         };
     }
     if (callback == null) {
-        callback = function (response) {
+        callback = function(response) {
             var content;
             content = null;
             if (response != null) {
@@ -772,13 +768,13 @@ SwaggerOperation.prototype["do"] = function (args, opts, callback, error) {
     }
 
     var possibleParams = [];
-    for (var i = 0; i < this.parameters.length; i++) {
+    for(var i = 0; i < this.parameters.length; i++) {
         var param = this.parameters[i];
-        if (param.paramType === 'header') {
-            if (args[param.name])
+        if(param.paramType === 'header') {
+            if(args[param.name])
                 params.headers[param.name] = args[param.name];
         }
-        else if (param.paramType === 'form' || param.paramType.toLowerCase() === 'file')
+        else if(param.paramType === 'form' || param.paramType.toLowerCase() === 'file')
             possibleParams.push(param);
     }
 
@@ -804,21 +800,21 @@ SwaggerOperation.prototype["do"] = function (args, opts, callback, error) {
     }
 };
 
-SwaggerOperation.prototype.pathJson = function () {
+SwaggerOperation.prototype.pathJson = function() {
     return this.path.replace("{format}", "json");
 };
 
-SwaggerOperation.prototype.pathXml = function () {
+SwaggerOperation.prototype.pathXml = function() {
     return this.path.replace("{format}", "xml");
 };
 
-SwaggerOperation.prototype.urlify = function (args) {
+SwaggerOperation.prototype.urlify = function(args) {
     var url = this.resource.basePath + this.pathJson();
     var params = this.parameters;
-    for (var i = 0; i < params.length; i++) {
+    for(var i = 0; i < params.length; i ++){
         var param = params[i];
         if (param.paramType === 'path') {
-            if (args[param.name]) {
+            if(args[param.name]) {
                 // apply path params and remove from args
                 var reg = new RegExp('\{' + param.name + '[^\}]*\}', 'gi');
                 url = url.replace(reg, encodeURIComponent(args[param.name]));
@@ -830,12 +826,12 @@ SwaggerOperation.prototype.urlify = function (args) {
     }
 
     var queryParams = "";
-    for (var i = 0; i < params.length; i++) {
+    for(var i = 0; i < params.length; i ++){
         var param = params[i];
-        if (param.paramType === 'query') {
-            if (queryParams !== '')
+        if(param.paramType === 'query') {
+            if(queryParams !== '')
                 queryParams += "&";
-            if (args[param.name] !== undefined)
+            if(args[param.name] !== undefined)
                 queryParams += encodeURIComponent(param.name) + '=' + encodeURIComponent(args[param.name]);
         }
     }
@@ -844,23 +840,23 @@ SwaggerOperation.prototype.urlify = function (args) {
     return url;
 };
 
-SwaggerOperation.prototype.supportHeaderParams = function () {
+SwaggerOperation.prototype.supportHeaderParams = function() {
     return this.resource.api.supportHeaderParams;
 };
 
-SwaggerOperation.prototype.supportedSubmitMethods = function () {
+SwaggerOperation.prototype.supportedSubmitMethods = function() {
     return this.resource.api.supportedSubmitMethods;
 };
 
-SwaggerOperation.prototype.getQueryParams = function (args) {
+SwaggerOperation.prototype.getQueryParams = function(args) {
     return this.getMatchingParams(['query'], args);
 };
 
-SwaggerOperation.prototype.getHeaderParams = function (args) {
+SwaggerOperation.prototype.getHeaderParams = function(args) {
     return this.getMatchingParams(['header'], args);
 };
 
-SwaggerOperation.prototype.getMatchingParams = function (paramTypes, args) {
+SwaggerOperation.prototype.getMatchingParams = function(paramTypes, args) {
     var matchingParams = {};
     var params = this.parameters;
     for (var i = 0; i < params.length; i++) {
@@ -876,7 +872,7 @@ SwaggerOperation.prototype.getMatchingParams = function (paramTypes, args) {
     return matchingParams;
 };
 
-SwaggerOperation.prototype.help = function () {
+SwaggerOperation.prototype.help = function() {
     var msg = "";
     var params = this.parameters;
     for (var i = 0; i < params.length; i++) {
@@ -888,21 +884,21 @@ SwaggerOperation.prototype.help = function () {
     return msg;
 };
 
-var SwaggerRequest = function (type, url, params, opts, successCallback, errorCallback, operation, execution) {
+var SwaggerRequest = function(type, url, params, opts, successCallback, errorCallback, operation, execution) {
     var _this = this;
     var errors = [];
     this.useJQuery = (typeof operation.useJQuery !== 'undefined' ? operation.useJQuery : null);
-    this.type = (type || errors.push("SwaggerRequest type is required (get/post/put/delete/patch/options)."));
-    this.url = (url || errors.push("SwaggerRequest url is required."));
+    this.type = (type||errors.push("SwaggerRequest type is required (get/post/put/delete/patch/options)."));
+    this.url = (url||errors.push("SwaggerRequest url is required."));
     this.params = params;
     this.opts = opts;
-    this.successCallback = (successCallback || errors.push("SwaggerRequest successCallback is required."));
-    this.errorCallback = (errorCallback || errors.push("SwaggerRequest error callback is required."));
-    this.operation = (operation || errors.push("SwaggerRequest operation is required."));
+    this.successCallback = (successCallback||errors.push("SwaggerRequest successCallback is required."));
+    this.errorCallback = (errorCallback||errors.push("SwaggerRequest error callback is required."));
+    this.operation = (operation||errors.push("SwaggerRequest operation is required."));
     this.execution = execution;
-    this.headers = (params.headers || {});
+    this.headers = (params.headers||{});
 
-    if (errors.length > 0) {
+    if(errors.length > 0) {
         throw errors;
     }
 
@@ -918,11 +914,11 @@ var SwaggerRequest = function (type, url, params, opts, successCallback, errorCa
     var params = this.operation.parameters;
 
 
-    for (var i = 0; i < params.length; i++) {
+    for(var i = 0; i < params.length; i++) {
         var param = params[i];
-        if (param.paramType === "form")
+        if(param.paramType === "form")
             formParams.push(param);
-        else if (param.paramType === "file")
+        else if(param.paramType === "file")
             fileParams.push(param);
     }
 
@@ -933,8 +929,8 @@ var SwaggerRequest = function (type, url, params, opts, successCallback, errorCa
         }
     } else {
         // if any form params, content type must be set
-        if (formParams.length > 0) {
-            if (fileParams.length > 0)
+        if(formParams.length > 0) {
+            if(fileParams.length > 0)
                 requestContentType = "multipart/form-data";
             else
                 requestContentType = "application/x-www-form-urlencoded";
@@ -968,15 +964,15 @@ var SwaggerRequest = function (type, url, params, opts, successCallback, errorCa
         var possibleParams = {};
         var values = {};
 
-        for (var i = 0; i < formParams.length; i++) {
+        for(var i = 0; i < formParams.length; i++){
             var param = formParams[i];
             values[param.name] = param;
         }
 
         var encoded = "";
-        for (key in values) {
+        for(key in values) {
             value = this.params[key];
-            if (encoded !== "")
+            if(encoded !== "")
                 encoded += "&";
             encoded += encodeURIComponent(key) + '=' + encodeURIComponent(value);
         }
@@ -997,16 +993,16 @@ var SwaggerRequest = function (type, url, params, opts, successCallback, errorCa
             body: body,
             useJQuery: this.useJQuery,
             on: {
-                error: function (response) {
+                error: function(response) {
                     return _this.errorCallback(response, _this.opts.parent);
                 },
-                redirect: function (response) {
+                redirect: function(response) {
                     return _this.successCallback(response, _this.opts.parent);
                 },
-                307: function (response) {
+                307: function(response) {
                     return _this.successCallback(response, _this.opts.parent);
                 },
-                response: function (response) {
+                response: function(response) {
                     return _this.successCallback(response, _this.opts.parent);
                 }
             }
@@ -1030,10 +1026,10 @@ var SwaggerRequest = function (type, url, params, opts, successCallback, errorCa
     }
 };
 
-SwaggerRequest.prototype.asCurl = function () {
+SwaggerRequest.prototype.asCurl = function() {
     var results = [];
-    if (this.headers) {
-        for (key in this.headers) {
+    if(this.headers) {
+        for(key in this.headers) {
             results.push("--header \"" + key + ": " + this.headers[v] + "\"");
         }
     }
@@ -1043,22 +1039,21 @@ SwaggerRequest.prototype.asCurl = function () {
 /**
  * SwaggerHttp is a wrapper for executing requests
  */
-var SwaggerHttp = function () {
-};
+var SwaggerHttp = function() {};
 
-SwaggerHttp.prototype.execute = function (obj) {
-    if (obj && (typeof obj.useJQuery === 'boolean'))
+SwaggerHttp.prototype.execute = function(obj) {
+    if(obj && (typeof obj.useJQuery === 'boolean'))
         this.useJQuery = obj.useJQuery;
     else
         this.useJQuery = this.isIE8();
 
-    if (this.useJQuery)
+    if(this.useJQuery)
         return new JQueryHttpClient().execute(obj);
     else
         return new ShredHttpClient().execute(obj);
 }
 
-SwaggerHttp.prototype.isIE8 = function () {
+SwaggerHttp.prototype.isIE8 = function() {
     var detectedIE = false;
     if (typeof navigator !== 'undefined' && navigator.userAgent) {
         nav = navigator.userAgent.toLowerCase();
@@ -1075,17 +1070,16 @@ SwaggerHttp.prototype.isIE8 = function () {
 /*
  * JQueryHttpClient lets a browser take advantage of JQuery's cross-browser magic
  */
-var JQueryHttpClient = function (options) {
-}
+var JQueryHttpClient = function(options) {}
 
-JQueryHttpClient.prototype.execute = function (obj) {
+JQueryHttpClient.prototype.execute = function(obj) {
     var cb = obj.on;
     var request = obj;
 
     obj.type = obj.method;
     obj.cache = false;
 
-    obj.beforeSend = function (xhr) {
+    obj.beforeSend = function(xhr) {
         var key, results;
         if (obj.headers) {
             results = [];
@@ -1103,12 +1097,12 @@ JQueryHttpClient.prototype.execute = function (obj) {
     };
 
     obj.data = obj.body;
-    obj.complete = function (response, textStatus, opts) {
+    obj.complete = function(response, textStatus, opts) {
         headers = {};
         headerArray = response.getAllResponseHeaders().split(":");
 
-        for (var i = 0; i < headerArray.length / 2; i++)
-            headers[headerArray[i] = headerArray[i + 1]];
+        for(var i = 0; i < headerArray.length / 2; i++)
+            headers[headerArray[i] = headerArray[i+1]];
 
         out = {
             headers: headers,
@@ -1119,20 +1113,20 @@ JQueryHttpClient.prototype.execute = function (obj) {
             headers: headers
         };
 
-        var contentType = (response._headers["content-type"] || response._headers["Content-Type"] || null)
+        var contentType = (response._headers["content-type"]||response._headers["Content-Type"]||null)
 
-        if (contentType != null) {
-            if (contentType.indexOf("application/json") == 0 || contentType.indexOf("+json") > 0) {
-                if (response.responseText && response.responseText !== "")
+        if(contentType != null) {
+            if(contentType.indexOf("application/json") == 0 || contentType.indexOf("+json") > 0) {
+                if(response.responseText && response.responseText !== "")
                     out.obj = JSON.parse(response.responseText);
                 else
                     out.obj = {}
             }
         }
 
-        if (response.status >= 200 && response.status < 300)
+        if(response.status >= 200 && response.status < 300)
             cb.response(out);
-        else if (response.status === 0 || (response.status >= 400 && response.status < 599))
+        else if(response.status === 0 || (response.status >= 400 && response.status < 599))
             cb.error(out);
         else
             return cb.response(out);
@@ -1145,8 +1139,8 @@ JQueryHttpClient.prototype.execute = function (obj) {
 /*
  * ShredHttpClient is a light-weight, node or browser HTTP client
  */
-var ShredHttpClient = function (options) {
-    this.options = (options || {});
+var ShredHttpClient = function(options) {
+    this.options = (options||{});
     this.isInitialized = false;
 
     var identity, toString;
@@ -1165,11 +1159,11 @@ ShredHttpClient.prototype.initShred = function () {
     this.registerProcessors(this.shred);
 }
 
-ShredHttpClient.prototype.registerProcessors = function (shred) {
-    var identity = function (x) {
+ShredHttpClient.prototype.registerProcessors = function(shred) {
+    var identity = function(x) {
         return x;
     };
-    var toString = function (x) {
+    var toString = function(x) {
         return x.toString();
     };
 
@@ -1186,13 +1180,13 @@ ShredHttpClient.prototype.registerProcessors = function (shred) {
     }
 }
 
-ShredHttpClient.prototype.execute = function (obj) {
-    if (!this.isInitialized)
+ShredHttpClient.prototype.execute = function(obj) {
+    if(!this.isInitialized)
         this.initShred();
 
     var cb = obj.on, res;
 
-    var transform = function (response) {
+    var transform = function(response) {
         var out = {
             headers: response._headers,
             url: response.request.url,
@@ -1201,11 +1195,11 @@ ShredHttpClient.prototype.execute = function (obj) {
             data: response.content.data
         };
 
-        var contentType = (response._headers["content-type"] || response._headers["Content-Type"] || null)
+        var contentType = (response._headers["content-type"]||response._headers["Content-Type"]||null)
 
-        if (contentType != null) {
-            if (contentType.indexOf("application/json") == 0 || contentType.indexOf("+json") > 0) {
-                if (response.content.data && response.content.data !== "")
+        if(contentType != null) {
+            if(contentType.indexOf("application/json") == 0 || contentType.indexOf("+json") > 0) {
+                if(response.content.data && response.content.data !== "")
                     out.obj = JSON.parse(response.content.data);
                 else
                     out.obj = {}
@@ -1215,19 +1209,19 @@ ShredHttpClient.prototype.execute = function (obj) {
     };
 
     res = {
-        error: function (response) {
+        error: function(response) {
             if (obj)
                 return cb.error(transform(response));
         },
-        redirect: function (response) {
+        redirect: function(response) {
             if (obj)
                 return cb.redirect(transform(response));
         },
-        307: function (response) {
+        307: function(response) {
             if (obj)
                 return cb.redirect(transform(response));
         },
-        response: function (response) {
+        response: function(response) {
             if (obj)
                 return cb.response(transform(response));
         }
@@ -1241,20 +1235,20 @@ ShredHttpClient.prototype.execute = function (obj) {
 /**
  * SwaggerAuthorizations applys the correct authorization to an operation being executed
  */
-var SwaggerAuthorizations = function () {
+var SwaggerAuthorizations = function() {
     this.authz = {};
 };
 
-SwaggerAuthorizations.prototype.add = function (name, auth) {
+SwaggerAuthorizations.prototype.add = function(name, auth) {
     this.authz[name] = auth;
     return auth;
 };
 
-SwaggerAuthorizations.prototype.remove = function (name) {
+SwaggerAuthorizations.prototype.remove = function(name) {
     return delete this.authz[name];
 };
 
-SwaggerAuthorizations.prototype.apply = function (obj, authorizations) {
+SwaggerAuthorizations.prototype.apply = function(obj, authorizations) {
     status = null;
     for (key in this.authz) {
         value = this.authz[key];
@@ -1270,13 +1264,13 @@ SwaggerAuthorizations.prototype.apply = function (obj, authorizations) {
 /**
  * ApiKeyAuthorization allows a query param or header to be injected
  */
-var ApiKeyAuthorization = function (name, value, type) {
+var ApiKeyAuthorization = function(name, value, type) {
     this.name = name;
     this.value = value;
     this.type = type;
 };
 
-ApiKeyAuthorization.prototype.apply = function (obj, authorizations) {
+ApiKeyAuthorization.prototype.apply = function(obj, authorizations) {
     if (this.type === "query") {
         if (obj.url.indexOf('?') > 0)
             obj.url = obj.url + "&" + this.name + "=" + this.value;
@@ -1292,7 +1286,7 @@ ApiKeyAuthorization.prototype.apply = function (obj, authorizations) {
 /**
  * Password Authorization is a basic auth implementation
  */
-var PasswordAuthorization = function (name, username, password) {
+var PasswordAuthorization = function(name, username, password) {
     this.name = name;
     this.username = username;
     this.password = password;
@@ -1303,7 +1297,7 @@ var PasswordAuthorization = function (name, username, password) {
         this._btoa = require("btoa");
 };
 
-PasswordAuthorization.prototype.apply = function (obj, authorizations) {
+PasswordAuthorization.prototype.apply = function(obj, authorizations) {
     obj.headers["Authorization"] = "Basic " + this._btoa(this.username + ":" + this.password);
     return true;
 };

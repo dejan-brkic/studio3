@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mangofactory.swagger.models.ModelProvider;
+import com.mangofactory.swagger.paths.RelativeSwaggerPathProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -50,9 +53,14 @@ public class RestApiDocumentationSwaggerConfig {
     @Value("${documentation.services.hostUrl}")
     String hostUrl;
 
+    /**
+     *
+     * Autowire the bundled swagger config
+     */
     @Autowired
     private SpringSwaggerConfig springSwaggerConfig;
-
+    @Autowired
+    private ModelProvider modelProvider;
 
     /**
      * Adds the jackson scala module to the MappingJackson2HttpMessageConverter registered with spring
@@ -65,6 +73,17 @@ public class RestApiDocumentationSwaggerConfig {
         //Set to false to disable
         jacksonScalaSupport.setRegisterScalaModule(true);
         return jacksonScalaSupport;
+    }
+
+    /**
+     * Object mapper.
+     *
+     * @return the configured object mapper
+     */
+    @Bean
+    public ObjectMapper objectMapper() {
+        //This is the opportunity to override object mapper behavior
+        return new ObjectMapper();
     }
 
 
@@ -88,15 +107,19 @@ public class RestApiDocumentationSwaggerConfig {
      * API Info as it appears on the swagger-ui page
      */
     private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo("Studio 3 swagger 1.2 api", "Studio 3 api based on the swagger 1.2 spec",
-            "http://en.wikipedia.org/wiki/Terms_of_service", "somecontact@somewhere.com", "Apache 2.0",
-            "http://www.apache.org/licenses/LICENSE-2.0.html");
+        ApiInfo apiInfo = new ApiInfo(
+                "Crafter Studio Spring MVC swagger 1.2 api",
+                "Crafter Studio api based on the swagger 1.2 spec",
+                "http://en.wikipedia.org/wiki/Terms_of_service",
+                "somecontact@somewhere.com",
+                "Apache 2.0",
+                "http://www.apache.org/licenses/LICENSE-2.0.html"
+        );
         return apiInfo;
     }
 
     /**
-     * Configure a SwaggerApiResourceListing for each swagger instance within your app. e.g. 1. private  2. external
-     * apis
+     * Configure a SwaggerApiResourceListing for each swagger instance within your app. e.g. 1. private  2. external apis
      * Required to be a spring bean as spring will call the postConstruct method to bootstrap swagger scanning.
      *
      * @return
@@ -105,17 +128,19 @@ public class RestApiDocumentationSwaggerConfig {
     public SwaggerApiResourceListing swaggerApiResourceListing() {
         //The group name is important and should match the group set on ApiListingReferenceScanner
         //Note that swaggerCache() is by DefaultSwaggerController to serve the swagger json
-        SwaggerApiResourceListing swaggerApiResourceListing = new SwaggerApiResourceListing(springSwaggerConfig
-            .swaggerCache(), SWAGGER_GROUP);
+        SwaggerApiResourceListing swaggerApiResourceListing = new SwaggerApiResourceListing(springSwaggerConfig.swaggerCache(), SWAGGER_GROUP);
 
         //Set the required swagger settings
         swaggerApiResourceListing.setSwaggerGlobalSettings(swaggerGlobalSettings());
 
         //Use a custom path provider or springSwaggerConfig.defaultSwaggerPathProvider()
-        swaggerApiResourceListing.setSwaggerPathProvider(documentationPathProvider());
+        swaggerApiResourceListing.setSwaggerPathProvider(new RelativeSwaggerPathProvider());
 
         //Supply the API Info as it should appear on swagger-ui web page
         swaggerApiResourceListing.setApiInfo(apiInfo());
+
+        // Set the model provider, uses the default autowired model provider.
+        swaggerApiResourceListing.setModelProvider(modelProvider);
 
         //Global authorization - see the swagger documentation
         swaggerApiResourceListing.setAuthorizationTypes(authorizationTypes());
@@ -128,30 +153,26 @@ public class RestApiDocumentationSwaggerConfig {
         return swaggerApiResourceListing;
     }
 
+    @Bean
     /**
      * The ApiListingReferenceScanner does most of the work.
      * Scans the appropriate spring RequestMappingHandlerMappings
      * Applies the correct absolute paths to the generated swagger resources
      */
-    @Bean
     public ApiListingReferenceScanner apiListingReferenceScanner() {
         ApiListingReferenceScanner apiListingReferenceScanner = new ApiListingReferenceScanner();
 
         //Picks up all of the registered spring RequestMappingHandlerMappings for scanning
-        apiListingReferenceScanner.setRequestMappingHandlerMapping(springSwaggerConfig
-            .swaggerRequestMappingHandlerMappings());
+        apiListingReferenceScanner.setRequestMappingHandlerMapping(springSwaggerConfig.swaggerRequestMappingHandlerMappings());
 
         //Excludes any controllers with the supplied annotations
         apiListingReferenceScanner.setExcludeAnnotations(springSwaggerConfig.defaultExcludeAnnotations());
 
-        //How to group request mappings to ApiResource's typically by spring controller classes. This is a hook to
-        // provide
-        // a custom implementation of the grouping strategy. By default we use SpringGroupingStrategy. An alternative is
-        // to use ClassOrApiAnnotationResourceGrouping to group using Api annotation.
-        apiListingReferenceScanner.setResourceGroupingStrategy(new ClassOrApiAnnotationResourceGrouping());
+        //How to group request mappings to ApiResource's typically by spring controller clesses or @Api.value()
+        apiListingReferenceScanner.setResourceGroupingStrategy(springSwaggerConfig.defaultResourceGroupingStrategy());
 
         //Path provider used to generate the appropriate uri's
-        apiListingReferenceScanner.setSwaggerPathProvider(documentationPathProvider());
+        apiListingReferenceScanner.setSwaggerPathProvider(new RelativeSwaggerPathProvider());
 
         //Must match the swagger group set on the SwaggerApiResourceListing
         apiListingReferenceScanner.setSwaggerGroup(SWAGGER_GROUP);
@@ -173,11 +194,6 @@ public class RestApiDocumentationSwaggerConfig {
         return documentationPathProvider;
     }
 
-    @Bean
-    DocumentationRelativePathProvider documentationRelativePathProvider() {
-        DocumentationRelativePathProvider documentationRelativePathProvider = new DocumentationRelativePathProvider();
-        return documentationRelativePathProvider;
-    }
 
     // Relative path will be addressed in next swagger-springmvc release (seems it is already addresses in 0.8
     // .2-SNAPSHOT

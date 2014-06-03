@@ -19,14 +19,14 @@ package org.craftercms.studio.documentation.configuration;
 
 import javax.servlet.ServletContext;
 
+import com.mangofactory.swagger.paths.SwaggerPathProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.util.UriComponentsBuilder;
-import com.mangofactory.swagger.core.SwaggerPathProvider;
 
 /**
  * @author Dejan Brkic
  */
-public class DocumentationPathProvider implements SwaggerPathProvider {
+public class DocumentationPathProvider extends SwaggerPathProvider {
 
     private String hostUrl;
 
@@ -35,22 +35,6 @@ public class DocumentationPathProvider implements SwaggerPathProvider {
     private ServletContext servletContext;
 
 
-    @Override
-    public String getApiResourcePrefix() {
-        return defaultSwaggerPathProvider.getApiResourcePrefix();
-    }
-
-    public String getAppBasePath() {
-        return UriComponentsBuilder.fromHttpUrl(hostUrl).path(servletContext.getContextPath()).build().toString();
-    }
-
-    @Override
-    public String sanitizeRequestMappingPattern(final String requestMappingPattern) {
-        String result = requestMappingPattern;
-        //remove regex portion '/{businessId:\\w+}'
-        result = result.replaceAll("\\{(.*?):.*?\\}", "{$1}");
-        return result.isEmpty()? "/": result;
-    }
 
     public void setDefaultSwaggerPathProvider(final SwaggerPathProvider defaultSwaggerPathProvider) {
         this.defaultSwaggerPathProvider = defaultSwaggerPathProvider;
@@ -58,5 +42,15 @@ public class DocumentationPathProvider implements SwaggerPathProvider {
 
     public void setHostUrl(final String hostUrl) {
         this.hostUrl = hostUrl;
+    }
+
+    @Override
+    protected String applicationPath() {
+        return hostUrl + "/";
+    }
+
+    @Override
+    protected String getDocumentationPath() {
+        return hostUrl + "/";
     }
 }

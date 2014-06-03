@@ -10,7 +10,7 @@ var require = function (file, cwd) {
 
 require.paths = [];
 require.modules = {};
-require.extensions = [".js", ".coffee"];
+require.extensions = [".js",".coffee"];
 
 require._core = {
     'assert': true,
@@ -39,7 +39,7 @@ require.resolve = (function () {
 
         throw new Error("Cannot find module '" + x + "'");
 
-        function loadAsFileSync(x) {
+        function loadAsFileSync (x) {
             if (require.modules[x]) {
                 return x;
             }
@@ -50,7 +50,7 @@ require.resolve = (function () {
             }
         }
 
-        function loadAsDirectorySync(x) {
+        function loadAsDirectorySync (x) {
             x = x.replace(/\/+$/, '');
             var pkgfile = x + '/package.json';
             if (require.modules[pkgfile]) {
@@ -73,7 +73,7 @@ require.resolve = (function () {
             return loadAsFileSync(x + '/index');
         }
 
-        function loadNodeModulesSync(x, start) {
+        function loadNodeModulesSync (x, start) {
             var dirs = nodeModulesPathsSync(start);
             for (var i = 0; i < dirs.length; i++) {
                 var dir = dirs[i];
@@ -87,7 +87,7 @@ require.resolve = (function () {
             if (m) return m;
         }
 
-        function nodeModulesPathsSync(start) {
+        function nodeModulesPathsSync (start) {
             var parts;
             if (start === '/') parts = [ '' ];
             else parts = path.normalize(start).split('/');
@@ -147,7 +147,7 @@ require.define = function (filename, fn) {
     };
     require_.modules = require.modules;
     require_.define = require.define;
-    var module_ = { exports: {} };
+    var module_ = { exports : {} };
 
     require.modules[filename] = function () {
         require.modules[filename]._cached = module_.exports;
@@ -200,12 +200,10 @@ if (!process.binding) process.binding = function (name) {
     else throw new Error('No such module')
 };
 
-if (!process.cwd) process.cwd = function () {
-    return '.'
-};
+if (!process.cwd) process.cwd = function () { return '.' };
 
 require.define("path", function (require, module, exports, __dirname, __filename) {
-    function filter(xs, fn) {
+    function filter (xs, fn) {
         var res = [];
         for (var i = 0; i < xs.length; i++) {
             if (fn(xs[i], i, xs)) res.push(xs[i]);
@@ -249,7 +247,7 @@ require.define("path", function (require, module, exports, __dirname, __filename
 
 // path.resolve([from ...], to)
 // posix version
-    exports.resolve = function () {
+    exports.resolve = function() {
         var resolvedPath = '',
             resolvedAbsolute = false;
 
@@ -271,7 +269,7 @@ require.define("path", function (require, module, exports, __dirname, __filename
 // handle relative paths to be safe (might happen when process.cwd() fails)
 
 // Normalize the path
-        resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function (p) {
+        resolvedPath = normalizeArray(filter(resolvedPath.split('/'), function(p) {
             return !!p;
         }), !resolvedAbsolute).join('/');
 
@@ -280,12 +278,12 @@ require.define("path", function (require, module, exports, __dirname, __filename
 
 // path.normalize(path)
 // posix version
-    exports.normalize = function (path) {
+    exports.normalize = function(path) {
         var isAbsolute = path.charAt(0) === '/',
             trailingSlash = path.slice(-1) === '/';
 
 // Normalize the path
-        path = normalizeArray(filter(path.split('/'), function (p) {
+        path = normalizeArray(filter(path.split('/'), function(p) {
             return !!p;
         }), !isAbsolute).join('/');
 
@@ -301,15 +299,15 @@ require.define("path", function (require, module, exports, __dirname, __filename
 
 
 // posix version
-    exports.join = function () {
+    exports.join = function() {
         var paths = Array.prototype.slice.call(arguments, 0);
-        return exports.normalize(filter(paths, function (p, index) {
+        return exports.normalize(filter(paths, function(p, index) {
             return p && typeof p === 'string';
         }).join('/'));
     };
 
 
-    exports.dirname = function (path) {
+    exports.dirname = function(path) {
         var dir = splitPathRe.exec(path)[1] || '';
         var isWindows = false;
         if (!dir) {
@@ -326,7 +324,7 @@ require.define("path", function (require, module, exports, __dirname, __filename
     };
 
 
-    exports.basename = function (path, ext) {
+    exports.basename = function(path, ext) {
         var f = splitPathRe.exec(path)[2] || '';
         // TODO: make this comparison case-insensitive on windows?
         if (ext && f.substr(-1 * ext.length) === ext) {
@@ -336,7 +334,7 @@ require.define("path", function (require, module, exports, __dirname, __filename
     };
 
 
-    exports.extname = function (path) {
+    exports.extname = function(path) {
         return splitPathRe.exec(path)[3] || '';
     };
 
@@ -352,17 +350,17 @@ require.define("/shred.js", function (require, module, exports, __dirname, __fil
 // Ax is a nice logging library we wrote. You can use any logger, providing it
 // has `info`, `warn`, `debug`, and `error` methods that take a string.
     var Ax = require("ax")
-        , CookieJarLib = require("cookiejar")
+        , CookieJarLib = require( "cookiejar" )
         , CookieJar = CookieJarLib.CookieJar
         ;
 
 // Shred takes some options, including a logger and request defaults.
 
-    var Shred = function (options) {
-        options = (options || {});
+    var Shred = function(options) {
+        options = (options||{});
         this.agent = options.agent;
-        this.defaults = options.defaults || {};
-        this.log = options.logger || (new Ax({ level: "info" }));
+        this.defaults = options.defaults||{};
+        this.log = options.logger||(new Ax({ level: "info" }));
         this._sharedCookieJar = new CookieJar();
         this.logCurl = options.logCurl || false;
     };
@@ -376,7 +374,7 @@ require.define("/shred.js", function (require, module, exports, __dirname, __fil
 // object and passing along whatever default options we were given.
 
     Shred.prototype = {
-        request: function (options) {
+        request: function(options) {
             options.logger = this.log;
             options.logCurl = options.logCurl || this.logCurl;
             options.cookieJar = ( 'cookieJar' in options ) ? options.cookieJar : this._sharedCookieJar; // let them set cookieJar = null
@@ -394,8 +392,8 @@ require.define("/shred.js", function (require, module, exports, __dirname, __fil
 // Define a bunch of convenience methods so that you don't have to include
 // a `method` property in your request options.
 
-    "get put post delete".split(" ").forEach(function (method) {
-        Shred.prototype[method] = function (options) {
+    "get put post delete".split(" ").forEach(function(method) {
+        Shred.prototype[method] = function(options) {
             options.method = method;
             return this.request(options);
         };
@@ -407,7 +405,7 @@ require.define("/shred.js", function (require, module, exports, __dirname, __fil
 });
 
 require.define("/node_modules/ax/package.json", function (require, module, exports, __dirname, __filename) {
-    module.exports = {"main": "./lib/ax.js"}
+    module.exports = {"main":"./lib/ax.js"}
 });
 
 require.define("/node_modules/ax/lib/ax.js", function (require, module, exports, __dirname, __filename) {
@@ -423,11 +421,9 @@ require.define("/node_modules/ax/lib/ax.js", function (require, module, exports,
 // we can easily replace this, provide the info, debug, etc. methods are the
 // same. or, we can change Haiku to use a more standard node.js interface
 
-    var format = function (level, message) {
-        var debug = (level == "debug" || level == "error");
-        if (!message) {
-            return message.toString();
-        }
+    var format = function(level,message) {
+        var debug = (level=="debug"||level=="error");
+        if (!message) { return message.toString(); }
         if (typeof(message) == "object") {
             if (message instanceof Error && debug) {
                 return message.stack;
@@ -439,19 +435,17 @@ require.define("/node_modules/ax/lib/ax.js", function (require, module, exports,
         }
     };
 
-    var noOp = function (message) {
-        return this;
-    }
-    var makeLogger = function (level, fn) {
-        return function (message) {
-            this.stream.write(this.format(level, message) + "\n");
+    var noOp = function(message) { return this; }
+    var makeLogger = function(level,fn) {
+        return function(message) {
+            this.stream.write(this.format(level, message)+"\n");
             return this;
         }
     };
 
-    var Logger = function (options) {
+    var Logger = function(options) {
         var logger = this;
-        var options = options || {};
+        var options = options||{};
 
         // Default options
         options.level = options.level || "info";
@@ -465,24 +459,24 @@ require.define("/node_modules/ax/lib/ax.js", function (require, module, exports,
         //    logger.warn('this is going to be awesome!');
         //    //=> Haiku: this is going to be awesome!
         //
-        if (logger.options.module) {
+        if (logger.options.module){
             logger.options.prefix = logger.options.module;
         }
 
         // Write to stderr or a file
-        if (logger.options.file) {
+        if (logger.options.file){
             logger.stream = fs.createWriteStream(logger.options.file, {"flags": "a"});
         } else {
-            if (process.title === "node")
+            if(process.title === "node")
                 logger.stream = process.stderr;
-            else if (process.title === "browser")
+            else if(process.title === "browser")
                 logger.stream = function () {
                     // Work around weird console context issue: http://code.google.com/p/chromium/issues/detail?id=48662
                     return console[logger.options.level].apply(console, arguments);
                 };
         }
 
-        switch (logger.options.level) {
+        switch(logger.options.level){
             case 'debug':
                 ['debug', 'info', 'warn'].forEach(function (level) {
                     logger[level] = Logger.writer(level);
@@ -497,13 +491,13 @@ require.define("/node_modules/ax/lib/ax.js", function (require, module, exports,
     }
 
 // Used to define logger methods
-    Logger.writer = function (level) {
-        return function (message) {
+    Logger.writer = function(level){
+        return function(message){
             var logger = this;
 
-            if (process.title === "node")
+            if(process.title === "node")
                 logger.stream.write(logger.format(level, message) + '\n');
-            else if (process.title === "browser")
+            else if(process.title === "browser")
                 logger.stream(logger.format(level, message) + '\n');
 
         };
@@ -511,15 +505,12 @@ require.define("/node_modules/ax/lib/ax.js", function (require, module, exports,
 
 
     Logger.prototype = {
-        info: function () {
-        },
-        debug: function () {
-        },
-        warn: function () {
-        },
+        info: function(){},
+        debug: function(){},
+        warn: function(){},
         error: Logger.writer('error'),
-        format: function (level, message) {
-            if (!message) return '';
+        format: function(level, message){
+            if (! message) return '';
 
             var logger = this
                 , prefix = logger.options.prefix
@@ -545,29 +536,29 @@ require.define("fs", function (require, module, exports, __dirname, __filename) 
 });
 
 require.define("/node_modules/cookiejar/package.json", function (require, module, exports, __dirname, __filename) {
-    module.exports = {"main": "cookiejar.js"}
+    module.exports = {"main":"cookiejar.js"}
 });
 
 require.define("/node_modules/cookiejar/cookiejar.js", function (require, module, exports, __dirname, __filename) {
-    exports.CookieAccessInfo = CookieAccessInfo = function CookieAccessInfo(domain, path, secure, script) {
-        if (this instanceof CookieAccessInfo) {
-            this.domain = domain || undefined;
-            this.path = path || "/";
-            this.secure = !!secure;
-            this.script = !!script;
+    exports.CookieAccessInfo=CookieAccessInfo=function CookieAccessInfo(domain,path,secure,script) {
+        if(this instanceof CookieAccessInfo) {
+            this.domain=domain||undefined;
+            this.path=path||"/";
+            this.secure=!!secure;
+            this.script=!!script;
             return this;
         }
         else {
-            return new CookieAccessInfo(domain, path, secure, script)
+            return new CookieAccessInfo(domain,path,secure,script)
         }
     }
 
-    exports.Cookie = Cookie = function Cookie(cookiestr) {
-        if (cookiestr instanceof Cookie) {
+    exports.Cookie=Cookie=function Cookie(cookiestr) {
+        if(cookiestr instanceof Cookie) {
             return cookiestr;
         }
         else {
-            if (this instanceof Cookie) {
+            if(this instanceof Cookie) {
                 this.name = null;
                 this.value = null;
                 this.expiration_date = Infinity;
@@ -575,7 +566,7 @@ require.define("/node_modules/cookiejar/cookiejar.js", function (require, module
                 this.domain = null;
                 this.secure = false; //how to define?
                 this.noscript = false; //httponly
-                if (cookiestr) {
+                if(cookiestr) {
                     this.parse(cookiestr)
                 }
                 return this;
@@ -585,44 +576,44 @@ require.define("/node_modules/cookiejar/cookiejar.js", function (require, module
     }
 
     Cookie.prototype.toString = function toString() {
-        var str = [this.name + "=" + this.value];
-        if (this.expiration_date !== Infinity) {
-            str.push("expires=" + (new Date(this.expiration_date)).toGMTString());
+        var str=[this.name+"="+this.value];
+        if(this.expiration_date !== Infinity) {
+            str.push("expires="+(new Date(this.expiration_date)).toGMTString());
         }
-        if (this.domain) {
-            str.push("domain=" + this.domain);
+        if(this.domain) {
+            str.push("domain="+this.domain);
         }
-        if (this.path) {
-            str.push("path=" + this.path);
+        if(this.path) {
+            str.push("path="+this.path);
         }
-        if (this.secure) {
+        if(this.secure) {
             str.push("secure");
         }
-        if (this.noscript) {
+        if(this.noscript) {
             str.push("httponly");
         }
         return str.join("; ");
     }
 
     Cookie.prototype.toValueString = function toValueString() {
-        return this.name + "=" + this.value;
+        return this.name+"="+this.value;
     }
 
-    var cookie_str_splitter = /[:](?=\s*[a-zA-Z0-9_\-]+\s*[=])/g
+    var cookie_str_splitter=/[:](?=\s*[a-zA-Z0-9_\-]+\s*[=])/g
     Cookie.prototype.parse = function parse(str) {
-        if (this instanceof Cookie) {
-            var parts = str.split(";")
-                , pair = parts[0].match(/([^=]+)=((?:.|\n)*)/)
-                , key = pair[1]
-                , value = pair[2];
+        if(this instanceof Cookie) {
+            var parts=str.split(";")
+                , pair=parts[0].match(/([^=]+)=((?:.|\n)*)/)
+                , key=pair[1]
+                , value=pair[2];
             this.name = key;
             this.value = value;
 
-            for (var i = 1; i < parts.length; i++) {
-                pair = parts[i].match(/([^=]+)(?:=((?:.|\n)*))?/)
-                    , key = pair[1].trim().toLowerCase()
-                    , value = pair[2];
-                switch (key) {
+            for(var i=1;i<parts.length;i++) {
+                pair=parts[i].match(/([^=]+)(?:=((?:.|\n)*))?/)
+                    , key=pair[1].trim().toLowerCase()
+                    , value=pair[2];
+                switch(key) {
                     case "httponly":
                         this.noscript = true;
                         break;
@@ -653,7 +644,7 @@ require.define("/node_modules/cookiejar/cookiejar.js", function (require, module
     }
 
     Cookie.prototype.matches = function matches(access_info) {
-        if (this.noscript && access_info.script
+        if(this.noscript && access_info.script
             || this.secure && !access_info.secure
             || !this.collidesWith(access_info)) {
             return false
@@ -662,98 +653,93 @@ require.define("/node_modules/cookiejar/cookiejar.js", function (require, module
     }
 
     Cookie.prototype.collidesWith = function collidesWith(access_info) {
-        if ((this.path && !access_info.path) || (this.domain && !access_info.domain)) {
+        if((this.path && !access_info.path) || (this.domain && !access_info.domain)) {
             return false
         }
-        if (this.path && access_info.path.indexOf(this.path) !== 0) {
+        if(this.path && access_info.path.indexOf(this.path) !== 0) {
             return false;
         }
-        if (this.domain === access_info.domain) {
+        if (this.domain===access_info.domain) {
             return true;
         }
-        else if (this.domain && this.domain.charAt(0) === ".") {
-            var wildcard = access_info.domain.indexOf(this.domain.slice(1))
-            if (wildcard === -1 || wildcard !== access_info.domain.length - this.domain.length + 1) {
+        else if(this.domain && this.domain.charAt(0)===".")
+        {
+            var wildcard=access_info.domain.indexOf(this.domain.slice(1))
+            if(wildcard===-1 || wildcard!==access_info.domain.length-this.domain.length+1) {
                 return false;
             }
         }
-        else if (this.domain) {
+        else if(this.domain){
             return false
         }
         return true;
     }
 
-    exports.CookieJar = CookieJar = function CookieJar() {
-        if (this instanceof CookieJar) {
+    exports.CookieJar=CookieJar=function CookieJar() {
+        if(this instanceof CookieJar) {
             var cookies = {} //name: [Cookie]
 
             this.setCookie = function setCookie(cookie) {
                 cookie = Cookie(cookie);
                 //Delete the cookie if the set is past the current time
                 var remove = cookie.expiration_date <= Date.now();
-                if (cookie.name in cookies) {
+                if(cookie.name in cookies) {
                     var cookies_list = cookies[cookie.name];
-                    for (var i = 0; i < cookies_list.length; i++) {
+                    for(var i=0;i<cookies_list.length;i++) {
                         var collidable_cookie = cookies_list[i];
-                        if (collidable_cookie.collidesWith(cookie)) {
-                            if (remove) {
-                                cookies_list.splice(i, 1);
-                                if (cookies_list.length === 0) {
+                        if(collidable_cookie.collidesWith(cookie)) {
+                            if(remove) {
+                                cookies_list.splice(i,1);
+                                if(cookies_list.length===0) {
                                     delete cookies[cookie.name]
                                 }
                                 return false;
                             }
                             else {
-                                return cookies_list[i] = cookie;
+                                return cookies_list[i]=cookie;
                             }
                         }
                     }
-                    if (remove) {
+                    if(remove) {
                         return false;
                     }
                     cookies_list.push(cookie);
                     return cookie;
                 }
-                else if (remove) {
+                else if(remove){
                     return false;
                 }
                 else {
-                    return cookies[cookie.name] = [cookie];
+                    return cookies[cookie.name]=[cookie];
                 }
             }
             //returns a cookie
-            this.getCookie = function getCookie(cookie_name, access_info) {
+            this.getCookie = function getCookie(cookie_name,access_info) {
                 var cookies_list = cookies[cookie_name];
-                for (var i = 0; i < cookies_list.length; i++) {
+                for(var i=0;i<cookies_list.length;i++) {
                     var cookie = cookies_list[i];
-                    if (cookie.expiration_date <= Date.now()) {
-                        if (cookies_list.length === 0) {
+                    if(cookie.expiration_date <= Date.now()) {
+                        if(cookies_list.length===0) {
                             delete cookies[cookie.name]
                         }
                         continue;
                     }
-                    if (cookie.matches(access_info)) {
+                    if(cookie.matches(access_info)) {
                         return cookie;
                     }
                 }
             }
             //returns a list of cookies
             this.getCookies = function getCookies(access_info) {
-                var matches = [];
-                for (var cookie_name in cookies) {
-                    var cookie = this.getCookie(cookie_name, access_info);
+                var matches=[];
+                for(var cookie_name in cookies) {
+                    var cookie=this.getCookie(cookie_name,access_info);
                     if (cookie) {
                         matches.push(cookie);
                     }
                 }
-                matches.toString = function toString() {
-                    return matches.join(":");
-                }
-                matches.toValueString = function () {
-                    return matches.map(function (c) {
-                        return c.toValueString();
-                    }).join(';');
-                }
+                matches.toString=function toString(){return matches.join(":");}
+                matches.toValueString=function() {return matches.map(function(c){return c.toValueString();}).join(';');}
                 return matches;
             }
 
@@ -765,13 +751,13 @@ require.define("/node_modules/cookiejar/cookiejar.js", function (require, module
 
 //returns list of cookies that were set correctly
     CookieJar.prototype.setCookies = function setCookies(cookies) {
-        cookies = Array.isArray(cookies)
-            ? cookies
-            : cookies.split(cookie_str_splitter);
-        var successful = []
-        for (var i = 0; i < cookies.length; i++) {
+        cookies=Array.isArray(cookies)
+            ?cookies
+            :cookies.split(cookie_str_splitter);
+        var successful=[]
+        for(var i=0;i<cookies.length;i++) {
             var cookie = Cookie(cookies[i]);
-            if (this.setCookie(cookie)) {
+            if(this.setCookie(cookie)) {
                 successful.push(cookie);
             }
         }
@@ -795,69 +781,69 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
         ;
 
     var STATUS_CODES = HTTP.STATUS_CODES || {
-        100: 'Continue',
-        101: 'Switching Protocols',
-        102: 'Processing', // RFC 2518, obsoleted by RFC 4918
-        200: 'OK',
-        201: 'Created',
-        202: 'Accepted',
-        203: 'Non-Authoritative Information',
-        204: 'No Content',
-        205: 'Reset Content',
-        206: 'Partial Content',
-        207: 'Multi-Status', // RFC 4918
-        300: 'Multiple Choices',
-        301: 'Moved Permanently',
-        302: 'Moved Temporarily',
-        303: 'See Other',
-        304: 'Not Modified',
-        305: 'Use Proxy',
-        307: 'Temporary Redirect',
-        400: 'Bad Request',
-        401: 'Unauthorized',
-        402: 'Payment Required',
-        403: 'Forbidden',
-        404: 'Not Found',
-        405: 'Method Not Allowed',
-        406: 'Not Acceptable',
-        407: 'Proxy Authentication Required',
-        408: 'Request Time-out',
-        409: 'Conflict',
-        410: 'Gone',
-        411: 'Length Required',
-        412: 'Precondition Failed',
-        413: 'Request Entity Too Large',
-        414: 'Request-URI Too Large',
-        415: 'Unsupported Media Type',
-        416: 'Requested Range Not Satisfiable',
-        417: 'Expectation Failed',
-        418: 'I\'m a teapot', // RFC 2324
-        422: 'Unprocessable Entity', // RFC 4918
-        423: 'Locked', // RFC 4918
-        424: 'Failed Dependency', // RFC 4918
-        425: 'Unordered Collection', // RFC 4918
-        426: 'Upgrade Required', // RFC 2817
-        500: 'Internal Server Error',
-        501: 'Not Implemented',
-        502: 'Bad Gateway',
-        503: 'Service Unavailable',
-        504: 'Gateway Time-out',
-        505: 'HTTP Version not supported',
-        506: 'Variant Also Negotiates', // RFC 2295
-        507: 'Insufficient Storage', // RFC 4918
-        509: 'Bandwidth Limit Exceeded',
-        510: 'Not Extended' // RFC 2774
+        100 : 'Continue',
+        101 : 'Switching Protocols',
+        102 : 'Processing', // RFC 2518, obsoleted by RFC 4918
+        200 : 'OK',
+        201 : 'Created',
+        202 : 'Accepted',
+        203 : 'Non-Authoritative Information',
+        204 : 'No Content',
+        205 : 'Reset Content',
+        206 : 'Partial Content',
+        207 : 'Multi-Status', // RFC 4918
+        300 : 'Multiple Choices',
+        301 : 'Moved Permanently',
+        302 : 'Moved Temporarily',
+        303 : 'See Other',
+        304 : 'Not Modified',
+        305 : 'Use Proxy',
+        307 : 'Temporary Redirect',
+        400 : 'Bad Request',
+        401 : 'Unauthorized',
+        402 : 'Payment Required',
+        403 : 'Forbidden',
+        404 : 'Not Found',
+        405 : 'Method Not Allowed',
+        406 : 'Not Acceptable',
+        407 : 'Proxy Authentication Required',
+        408 : 'Request Time-out',
+        409 : 'Conflict',
+        410 : 'Gone',
+        411 : 'Length Required',
+        412 : 'Precondition Failed',
+        413 : 'Request Entity Too Large',
+        414 : 'Request-URI Too Large',
+        415 : 'Unsupported Media Type',
+        416 : 'Requested Range Not Satisfiable',
+        417 : 'Expectation Failed',
+        418 : 'I\'m a teapot', // RFC 2324
+        422 : 'Unprocessable Entity', // RFC 4918
+        423 : 'Locked', // RFC 4918
+        424 : 'Failed Dependency', // RFC 4918
+        425 : 'Unordered Collection', // RFC 4918
+        426 : 'Upgrade Required', // RFC 2817
+        500 : 'Internal Server Error',
+        501 : 'Not Implemented',
+        502 : 'Bad Gateway',
+        503 : 'Service Unavailable',
+        504 : 'Gateway Time-out',
+        505 : 'HTTP Version not supported',
+        506 : 'Variant Also Negotiates', // RFC 2295
+        507 : 'Insufficient Storage', // RFC 4918
+        509 : 'Bandwidth Limit Exceeded',
+        510 : 'Not Extended' // RFC 2774
     };
 
 // The Shred object itself constructs the `Request` object. You should rarely
 // need to do this directly.
 
-    var Request = function (options) {
+    var Request = function(options) {
         this.log = options.logger;
         this.cookieJar = options.cookieJar;
         this.encoding = options.encoding;
         this.logCurl = options.logCurl;
-        processOptions(this, options || {});
+        processOptions(this,options||{});
         createRequest(this);
     };
 
@@ -871,16 +857,14 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
 //   request object.
 
         url: {
-            get: function () {
-                if (!this.scheme) {
-                    return null;
-                }
+            get: function() {
+                if (!this.scheme) { return null; }
                 return sprintf("%s://%s:%s%s",
                     this.scheme, this.host, this.port,
                         (this.proxy ? "/" : this.path) +
                         (this.query ? ("?" + this.query) : ""));
             },
-            set: function (_url) {
+            set: function(_url) {
                 _url = parseUri(_url);
                 this.scheme = _url.protocol;
                 this.host = _url.host;
@@ -900,7 +884,7 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
 //   it will *not* modify the request headers.
 
         headers: {
-            get: function () {
+            get: function() {
                 return this.getHeaders();
             },
             enumerable: true
@@ -910,22 +894,17 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
 //   will default based on the scheme.
 
         port: {
-            get: function () {
+            get: function() {
                 if (!this._port) {
-                    switch (this.scheme) {
-                        case "https":
-                            return this._port = 443;
+                    switch(this.scheme) {
+                        case "https": return this._port = 443;
                         case "http":
-                        default:
-                            return this._port = 80;
+                        default: return this._port = 80;
                     }
                 }
                 return this._port;
             },
-            set: function (value) {
-                this._port = value;
-                return this;
-            },
+            set: function(value) { this._port = value; return this; },
             enumerable: true
         },
 
@@ -933,12 +912,11 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
 //   used to make the request. Defaults to `get`.
 
         method: {
-            get: function () {
-                return this._method = (this._method || "GET");
+            get: function() {
+                return this._method = (this._method||"GET");
             },
-            set: function (value) {
-                this._method = value;
-                return this;
+            set: function(value) {
+                this._method = value; return this;
             },
             enumerable: true
         },
@@ -948,10 +926,8 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
 //   query component for the request.
 
         query: {
-            get: function () {
-                return this._query;
-            },
-            set: function (value) {
+            get: function() {return this._query;},
+            set: function(value) {
                 var stringify = function (hash) {
                     var query = "";
                     for (var key in hash) {
@@ -979,9 +955,7 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
 //   (object).
 
         parameters: {
-            get: function () {
-                return QueryString.parse(this._query || "");
-            },
+            get: function() { return QueryString.parse(this._query||""); },
             enumerable: true
         },
 
@@ -991,16 +965,14 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
 //   object](./content.html).
 
         body: {
-            get: function () {
-                return this._body;
-            },
-            set: function (value) {
+            get: function() { return this._body; },
+            set: function(value) {
                 this._body = new Content({
                     data: value,
                     type: this.getHeader("Content-Type")
                 });
-                this.setHeader("Content-Type", this.content.type);
-                this.setHeader("Content-Length", this.content.length);
+                this.setHeader("Content-Type",this.content.type);
+                this.setHeader("Content-Length",this.content.length);
                 return this;
             },
             enumerable: true
@@ -1013,22 +985,18 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
 //   milliseconds.
 
         timeout: {
-            get: function () {
-                return this._timeout;
-            }, // in milliseconds
-            set: function (timeout) {
+            get: function() { return this._timeout; }, // in milliseconds
+            set: function(timeout) {
                 var request = this
                     , milliseconds = 0;
                 ;
                 if (!timeout) return this;
-                if (typeof timeout === "number") {
-                    milliseconds = timeout;
-                }
+                if (typeof timeout==="number") { milliseconds = timeout; }
                 else {
-                    milliseconds = (timeout.milliseconds || 0) +
-                        (1000 * ((timeout.seconds || 0) +
-                            (60 * ((timeout.minutes || 0) +
-                                (60 * (timeout.hours || 0))))));
+                    milliseconds = (timeout.milliseconds||0) +
+                        (1000 * ((timeout.seconds||0) +
+                            (60 * ((timeout.minutes||0) +
+                                (60 * (timeout.hours||0))))));
                 }
                 this._timeout = milliseconds;
                 return this;
@@ -1041,7 +1009,7 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
 // has a `body` attribute, it's preferable to use `content` since you can then
 // access the raw content data using `content.body`.
 
-    Object.defineProperty(Request.prototype, "content",
+    Object.defineProperty(Request.prototype,"content",
         Object.getOwnPropertyDescriptor(Request.prototype, "body"));
 
 // The `Request` object can be pretty overwhelming to view using the built-in
@@ -1096,7 +1064,7 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
 // `processOptions` is called from the constructor to handle all the work
 // associated with making sure we do our best to ensure we have a valid request.
 
-    var processOptions = function (request, options) {
+    var processOptions = function(request,options) {
 
         request.log.debug("Processing request options ..");
 
@@ -1133,17 +1101,18 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
         }
 
         // Set the remaining options.
-        request.query = options.query || options.parameters || request.query;
+        request.query = options.query||options.parameters||request.query ;
         request.method = options.method;
-        request.setHeader("user-agent", options.agent || "Shred");
+        request.setHeader("user-agent",options.agent||"Shred");
         request.setHeaders(options.headers);
 
         if (request.cookieJar) {
-            var cookies = request.cookieJar.getCookies(CookieAccessInfo(request.host, request.path));
+            var cookies = request.cookieJar.getCookies( CookieAccessInfo( request.host, request.path ) );
             if (cookies.length) {
-                var cookieString = request.getHeader('cookie') || '';
+                var cookieString = request.getHeader('cookie')||'';
                 for (var cookieIndex = 0; cookieIndex < cookies.length; ++cookieIndex) {
-                    if (cookieString.length && cookieString[ cookieString.length - 1 ] != ';') {
+                    if ( cookieString.length && cookieString[ cookieString.length - 1 ] != ';' )
+                    {
                         cookieString += ';';
                     }
                     cookieString += cookies[ cookieIndex ].name + '=' + cookies[ cookieIndex ].value + ';';
@@ -1153,8 +1122,8 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
         }
 
         // The content entity can be set either using the `body` or `content` attributes.
-        if (options.body || options.content) {
-            request.content = options.body || options.content;
+        if (options.body||options.content) {
+            request.content = options.body||options.content;
         }
         request.timeout = options.timeout;
 
@@ -1164,8 +1133,8 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
 // This actually makes the request and processes the response, so `createRequest`
 // is a bit of a misnomer.
 
-    var createRequest = function (request) {
-        var timeout;
+    var createRequest = function(request) {
+        var timeout ;
 
         request.log.debug("Creating request ..");
         request.log.debug(request);
@@ -1174,7 +1143,7 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
             host: request.host,
             port: request.port,
             method: request.method,
-            path: request.path + (request.query ? '?' + request.query : ""),
+            path: request.path + (request.query ? '?'+request.query : ""),
             headers: request.getHeaders(),
             // Node's HTTP/S modules will ignore this, but we are using the
             // browserify-http module in the browser for both HTTP and HTTPS, and this
@@ -1193,7 +1162,7 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
 
         // Set up the real request using the selected library. The request won't be
         // sent until we call `.end()`.
-        request._raw = http.request(reqParams, function (response) {
+        request._raw = http.request(reqParams, function(response) {
             request.log.debug("Received response ..");
 
             // We haven't timed out and we have a response, so make sure we clear the
@@ -1203,20 +1172,20 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
             // Construct a Shred `Response` object from the response. This will stream
             // the response, thus the need for the callback. We can access the response
             // entity safely once we're in the callback.
-            response = new Response(response, request, function (response) {
+            response = new Response(response, request, function(response) {
 
                 // Set up some event magic. The precedence is given first to
                 // status-specific handlers, then to responses for a given event, and then
                 // finally to the more general `response` handler. In the last case, we
                 // need to first make sure we're not dealing with a a redirect.
-                var emit = function (event) {
+                var emit = function(event) {
                     var emitter = request.emitter;
                     var textStatus = STATUS_CODES[response.status] ? STATUS_CODES[response.status].toLowerCase() : null;
                     if (emitter.listeners(response.status).length > 0 || emitter.listeners(textStatus).length > 0) {
                         emitter.emit(response.status, response);
                         emitter.emit(textStatus, response);
                     } else {
-                        if (emitter.listeners(event).length > 0) {
+                        if (emitter.listeners(event).length>0) {
                             emitter.emit(event, response);
                         } else if (!response.isRedirect) {
                             emitter.emit("response", response);
@@ -1249,11 +1218,11 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
         // takes a response. We don't response handlers to have to check for a null
         // value. However, we [should introduce a different event
         // type](https://github.com/spire-io/shred/issues/3) for this type of error.
-        request._raw.on("error", function (error) {
+        request._raw.on("error", function(error) {
             request.emitter.emit("request_error", error);
         });
 
-        request._raw.on("socket", function (socket) {
+        request._raw.on("socket", function(socket) {
             request.emitter.emit("socket", socket);
         });
 
@@ -1271,18 +1240,18 @@ require.define("/shred/request.js", function (require, module, exports, __dirnam
         // underlying request object.
         if (request.content) {
             request.log.debug("Streaming body: '" +
-                request.content.data.slice(0, 59) + "' ... ");
+                request.content.data.slice(0,59) + "' ... ");
             request._raw.write(request.content.data);
         }
 
         // Finally, we need to set up the timeout. We do this last so that we don't
         // start the clock ticking until the last possible moment.
         if (request.timeout) {
-            timeout = setTimeout(function () {
+            timeout = setTimeout(function() {
                 request.log.debug("Timeout fired, aborting request ...");
                 request._raw.abort();
                 request.emitter.emit("timeout", request);
-            }, request.timeout);
+            },request.timeout);
         }
 
         // The `.end()` method will cause the request to fire. Technically, it might
@@ -1336,11 +1305,11 @@ require.define("/shred/parseUri.js", function (require, module, exports, __dirna
 // (c) Steven Levithan <stevenlevithan.com>
 // MIT License
 
-    function parseUri(str) {
-        var o = parseUri.options,
-            m = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
+    function parseUri (str) {
+        var o   = parseUri.options,
+            m   = o.parser[o.strictMode ? "strict" : "loose"].exec(str),
             uri = {},
-            i = 14;
+            i   = 14;
 
         while (i--) uri[o.key[i]] = m[i] || "";
 
@@ -1354,14 +1323,14 @@ require.define("/shred/parseUri.js", function (require, module, exports, __dirna
 
     parseUri.options = {
         strictMode: false,
-        key: ["source", "protocol", "authority", "userInfo", "user", "password", "host", "port", "relative", "path", "directory", "file", "query", "anchor"],
-        q: {
-            name: "queryKey",
+        key: ["source","protocol","authority","userInfo","user","password","host","port","relative","path","directory","file","query","anchor"],
+        q:   {
+            name:   "queryKey",
             parser: /(?:^|&)([^&=]*)=?([^&]*)/g
         },
         parser: {
             strict: /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?((((?:[^?#\/]*\/)*)([^?#]*))(?:\?([^#]*))?(?:#(.*))?)/,
-            loose: /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
+            loose:  /^(?:(?![^:@]+:[^:@\/]*@)([^:\/?#.]+):)?(?:\/\/)?((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?)(((\/(?:[^?#](?![^?#\/]*\.[^?#\/.]+(?:[?#]|$)))*\/?)?([^?#\/]*))(?:\?([^#]*))?(?:#(.*))?)/
         }
     };
 
@@ -1370,8 +1339,7 @@ require.define("/shred/parseUri.js", function (require, module, exports, __dirna
 });
 
 require.define("events", function (require, module, exports, __dirname, __filename) {
-    if (!process.EventEmitter) process.EventEmitter = function () {
-    };
+    if (!process.EventEmitter) process.EventEmitter = function () {};
 
     var EventEmitter = exports.EventEmitter = process.EventEmitter;
     var isArray = typeof Array.isArray === 'function'
@@ -1388,17 +1356,18 @@ require.define("events", function (require, module, exports, __dirname, __filena
 // Obviously not all Emitters should be limited to 10. This function allows
 // that to be increased. Set to zero for unlimited.
     var defaultMaxListeners = 10;
-    EventEmitter.prototype.setMaxListeners = function (n) {
+    EventEmitter.prototype.setMaxListeners = function(n) {
         if (!this._events) this._events = {};
         this._events.maxListeners = n;
     };
 
 
-    EventEmitter.prototype.emit = function (type) {
+    EventEmitter.prototype.emit = function(type) {
         // If there is no 'error' event listener then throw.
         if (type === 'error') {
             if (!this._events || !this._events.error ||
-                (isArray(this._events.error) && !this._events.error.length)) {
+                (isArray(this._events.error) && !this._events.error.length))
+            {
                 if (arguments[1] instanceof Error) {
                     throw arguments[1]; // Unhandled 'error' event
                 } else {
@@ -1447,7 +1416,7 @@ require.define("events", function (require, module, exports, __dirname, __filena
 
 // EventEmitter is defined in src/node_events.cc
 // EventEmitter.prototype.emit() is also defined there.
-    EventEmitter.prototype.addListener = function (type, listener) {
+    EventEmitter.prototype.addListener = function(type, listener) {
         if ('function' !== typeof listener) {
             throw new Error('addListener only takes instances of Function');
         }
@@ -1494,7 +1463,7 @@ require.define("events", function (require, module, exports, __dirname, __filena
 
     EventEmitter.prototype.on = EventEmitter.prototype.addListener;
 
-    EventEmitter.prototype.once = function (type, listener) {
+    EventEmitter.prototype.once = function(type, listener) {
         var self = this;
         self.on(type, function g() {
             self.removeListener(type, g);
@@ -1504,7 +1473,7 @@ require.define("events", function (require, module, exports, __dirname, __filena
         return this;
     };
 
-    EventEmitter.prototype.removeListener = function (type, listener) {
+    EventEmitter.prototype.removeListener = function(type, listener) {
         if ('function' !== typeof listener) {
             throw new Error('removeListener only takes instances of Function');
         }
@@ -1527,13 +1496,13 @@ require.define("events", function (require, module, exports, __dirname, __filena
         return this;
     };
 
-    EventEmitter.prototype.removeAllListeners = function (type) {
+    EventEmitter.prototype.removeAllListeners = function(type) {
         // does not use listeners(), so no side effect of creating _events[type]
         if (type && this._events && this._events[type]) this._events[type] = null;
         return this;
     };
 
-    EventEmitter.prototype.listeners = function (type) {
+    EventEmitter.prototype.listeners = function(type) {
         if (!this._events) this._events = {};
         if (!this._events[type]) this._events[type] = [];
         if (!isArray(this._events[type])) {
@@ -1545,7 +1514,7 @@ require.define("events", function (require, module, exports, __dirname, __filena
 });
 
 require.define("/node_modules/sprintf/package.json", function (require, module, exports, __dirname, __filename) {
-    module.exports = {"main": "./lib/sprintf"}
+    module.exports = {"main":"./lib/sprintf"}
 });
 
 require.define("/node_modules/sprintf/lib/sprintf.js", function (require, module, exports, __dirname, __filename) {
@@ -1612,25 +1581,23 @@ require.define("/node_modules/sprintf/lib/sprintf.js", function (require, module
      - initial release
      **/
 
-    var sprintf = (function () {
+    var sprintf = (function() {
         function get_type(variable) {
             return Object.prototype.toString.call(variable).slice(8, -1).toLowerCase();
         }
-
         function str_repeat(input, multiplier) {
-            for (var output = []; multiplier > 0; output[--multiplier] = input) {/* do nothing */
-            }
+            for (var output = []; multiplier > 0; output[--multiplier] = input) {/* do nothing */}
             return output.join('');
         }
 
-        var str_format = function () {
+        var str_format = function() {
             if (!str_format.cache.hasOwnProperty(arguments[0])) {
                 str_format.cache[arguments[0]] = str_format.parse(arguments[0]);
             }
             return str_format.format.call(null, str_format.cache[arguments[0]], arguments);
         };
 
-        str_format.format = function (parse_tree, argv) {
+        str_format.format = function(parse_tree, argv) {
             var cursor = 1, tree_length = parse_tree.length, node_type = '', arg, output = [], i, k, match, pad, pad_character, pad_length;
             for (i = 0; i < tree_length; i++) {
                 node_type = get_type(parse_tree[i]);
@@ -1659,38 +1626,18 @@ require.define("/node_modules/sprintf/lib/sprintf.js", function (require, module
                         throw(sprintf('[sprintf] expecting number but found %s', get_type(arg)));
                     }
                     switch (match[8]) {
-                        case 'b':
-                            arg = arg.toString(2);
-                            break;
-                        case 'c':
-                            arg = String.fromCharCode(arg);
-                            break;
-                        case 'd':
-                            arg = parseInt(arg, 10);
-                            break;
-                        case 'e':
-                            arg = match[7] ? arg.toExponential(match[7]) : arg.toExponential();
-                            break;
-                        case 'f':
-                            arg = match[7] ? parseFloat(arg).toFixed(match[7]) : parseFloat(arg);
-                            break;
-                        case 'o':
-                            arg = arg.toString(8);
-                            break;
-                        case 's':
-                            arg = ((arg = String(arg)) && match[7] ? arg.substring(0, match[7]) : arg);
-                            break;
-                        case 'u':
-                            arg = Math.abs(arg);
-                            break;
-                        case 'x':
-                            arg = arg.toString(16);
-                            break;
-                        case 'X':
-                            arg = arg.toString(16).toUpperCase();
-                            break;
+                        case 'b': arg = arg.toString(2); break;
+                        case 'c': arg = String.fromCharCode(arg); break;
+                        case 'd': arg = parseInt(arg, 10); break;
+                        case 'e': arg = match[7] ? arg.toExponential(match[7]) : arg.toExponential(); break;
+                        case 'f': arg = match[7] ? parseFloat(arg).toFixed(match[7]) : parseFloat(arg); break;
+                        case 'o': arg = arg.toString(8); break;
+                        case 's': arg = ((arg = String(arg)) && match[7] ? arg.substring(0, match[7]) : arg); break;
+                        case 'u': arg = Math.abs(arg); break;
+                        case 'x': arg = arg.toString(16); break;
+                        case 'X': arg = arg.toString(16).toUpperCase(); break;
                     }
-                    arg = (/[def]/.test(match[8]) && match[3] && arg >= 0 ? '+' + arg : arg);
+                    arg = (/[def]/.test(match[8]) && match[3] && arg >= 0 ? '+'+ arg : arg);
                     pad_character = match[4] ? match[4] == '0' ? '0' : match[4].charAt(1) : ' ';
                     pad_length = match[6] - String(arg).length;
                     pad = match[6] ? str_repeat(pad_character, pad_length) : '';
@@ -1702,7 +1649,7 @@ require.define("/node_modules/sprintf/lib/sprintf.js", function (require, module
 
         str_format.cache = {};
 
-        str_format.parse = function (fmt) {
+        str_format.parse = function(fmt) {
             var _fmt = fmt, match = [], parse_tree = [], arg_names = 0;
             while (_fmt) {
                 if ((match = /^[^\x25]+/.exec(_fmt)) !== null) {
@@ -1753,7 +1700,7 @@ require.define("/node_modules/sprintf/lib/sprintf.js", function (require, module
         return str_format;
     })();
 
-    var vsprintf = function (fmt, argv) {
+    var vsprintf = function(fmt, argv) {
         argv.unshift(fmt);
         return sprintf.apply(null, argv);
     };
@@ -1767,7 +1714,7 @@ require.define("/shred/response.js", function (require, module, exports, __dirna
 
     var Content = require("./content")
         , HeaderMixins = require("./mixins/headers")
-        , CookieJarLib = require("cookiejar")
+        , CookieJarLib = require( "cookiejar" )
         , Cookie = CookieJarLib.Cookie
         ;
 
@@ -1791,13 +1738,13 @@ require.define("/shred/response.js", function (require, module, exports, __dirna
 // `Request` object handles this, getting the raw response object and passing it
 // in here, along with the request. The callback allows us to stream the response
 // and then use the callback to let the request know when it's ready.
-    var Response = function (raw, request, callback) {
+    var Response = function(raw, request, callback) {
         var response = this;
         this._raw = raw;
 
         // The `._setHeaders` method is "private"; you can't otherwise set headers on
         // the response.
-        this._setHeaders.call(this, raw.headers);
+        this._setHeaders.call(this,raw.headers);
 
         // store any cookies
         if (request.cookieJar && this.getHeader('set-cookie')) {
@@ -1842,11 +1789,11 @@ require.define("/shred/response.js", function (require, module, exports, __dirna
         // to preserve binary data.
         var chunkBuffers = [];
         var dataLength = 0;
-        raw.on("data", function (chunk) {
+        raw.on("data", function(chunk) {
             chunkBuffers.push(chunk);
             dataLength += chunk.length;
         });
-        raw.on("end", function () {
+        raw.on("end", function() {
             var body;
             if (typeof Buffer === 'undefined') {
                 // Just concatinate into a string
@@ -1868,19 +1815,19 @@ require.define("/shred/response.js", function (require, module, exports, __dirna
                 callback(response);
             }
 
-            if (zlib && response.getHeader("Content-Encoding") === 'gzip') {
+            if (zlib && response.getHeader("Content-Encoding") === 'gzip'){
                 zlib.gunzip(body, function (err, gunzippedBody) {
-                    if (Iconv && response.request.encoding) {
-                        body = Iconv.fromEncoding(gunzippedBody, response.request.encoding);
+                    if (Iconv && response.request.encoding){
+                        body = Iconv.fromEncoding(gunzippedBody,response.request.encoding);
                     } else {
                         body = gunzippedBody.toString();
                     }
                     setBodyAndFinish(body);
                 })
             }
-            else {
-                if (response.request.encoding) {
-                    body = Iconv.fromEncoding(body, response.request.encoding);
+            else{
+                if (response.request.encoding){
+                    body = Iconv.fromEncoding(body,response.request.encoding);
                 }
                 setBodyAndFinish(body);
             }
@@ -1893,7 +1840,7 @@ require.define("/shred/response.js", function (require, module, exports, __dirna
 // direction](https://github.com/spire-io/shred/issues/2).
 
     Response.prototype = {
-        inspect: function () {
+        inspect: function() {
             var response = this;
             var headers = this.format_headers();
             var summary = ["<Shred Response> ", response.status].join(" ")
@@ -1917,9 +1864,7 @@ require.define("/shred/response.js", function (require, module, exports, __dirna
 
 // - **status**. The HTTP status code for the response. 
         status: {
-            get: function () {
-                return this._raw.statusCode;
-            },
+            get: function() { return this._raw.statusCode; },
             enumerable: true
         },
 
@@ -1929,24 +1874,20 @@ require.define("/shred/response.js", function (require, module, exports, __dirna
 //   `content.data`. The original raw content entity is available as
 //   `content.body`.
         body: {
-            get: function () {
-                return this._body;
-            }
+            get: function() { return this._body; }
         },
         content: {
-            get: function () {
-                return this.body;
-            },
+            get: function() { return this.body; },
             enumerable: true
         },
 
 // - **isRedirect**. Is the response a redirect? These are responses with 3xx
 //   status and a `Location` header.
         isRedirect: {
-            get: function () {
-                return (this.status > 299
-                    && this.status < 400
-                    && this.getHeader("Location"));
+            get: function() {
+                return (this.status>299
+                    &&this.status<400
+                    &&this.getHeader("Location"));
             },
             enumerable: true
         },
@@ -1954,7 +1895,7 @@ require.define("/shred/response.js", function (require, module, exports, __dirna
 // - **isError**. Is the response an error? These are responses with status of
 //   400 or greater.
         isError: {
-            get: function () {
+            get: function() {
                 return (this.status === 0 || this.status > 399)
             },
             enumerable: true
@@ -1970,7 +1911,7 @@ require.define("/shred/response.js", function (require, module, exports, __dirna
 // xhr.getHeader still works correctly.
     var getHeader = Response.prototype.getHeader;
     Response.prototype.getHeader = function (name) {
-        return (getHeader.call(this, name) ||
+        return (getHeader.call(this,name) ||
             (typeof this._raw.getHeader === 'function' && this._raw.getHeader(name)));
     };
 
@@ -1992,7 +1933,7 @@ require.define("/shred/content.js", function (require, module, exports, __dirnam
 // The `Content` constructor takes an options object, which *must* have either a
 // `body` or `data` property and *may* have a `type` property indicating the
 // media type. If there is no `type` attribute, a default will be inferred.
-    var Content = function (options) {
+    var Content = function(options) {
         this.body = options.body;
         this.data = options.data;
         this.type = options.type;
@@ -2008,29 +1949,27 @@ require.define("/shred/content.js", function (require, module, exports, __dirnam
 
 
 // `Content` objects have the following attributes:
-    Object.defineProperties(Content.prototype, {
+    Object.defineProperties(Content.prototype,{
 
 // - **type**. Typically accessed as `content.type`, reflects the `content-type`
 //   header associated with the request or response. If not passed as an options
 //   to the constructor or set explicitly, it will infer the type the `data`
 //   attribute, if possible, and, failing that, will default to `text/plain`.
         type: {
-            get: function () {
+            get: function() {
                 if (this._type) {
                     return this._type;
                 } else {
                     if (this._data) {
-                        switch (typeof this._data) {
-                            case "string":
-                                return "text/plain";
-                            case "object":
-                                return "application/json";
+                        switch(typeof this._data) {
+                            case "string": return "text/plain";
+                            case "object": return "application/json";
                         }
                     }
                 }
                 return "text/plain";
             },
-            set: function (value) {
+            set: function(value) {
                 this._type = value;
                 return this;
             },
@@ -2044,15 +1983,15 @@ require.define("/shred/content.js", function (require, module, exports, __dirnam
 //   directly, in which case the conversion will be done the other way, to infer
 //   the `body` attribute.
         data: {
-            get: function () {
+            get: function() {
                 if (this._body) {
                     return this.processor.parser(this._body);
                 } else {
                     return this._data;
                 }
             },
-            set: function (data) {
-                if (this._body && data) Errors.setDataWithBody(this);
+            set: function(data) {
+                if (this._body&&data) Errors.setDataWithBody(this);
                 this._data = data;
                 return this;
             },
@@ -2064,15 +2003,15 @@ require.define("/shred/content.js", function (require, module, exports, __dirnam
 //   `data` attribute, the `body` attribute will be inferred and vice-versa. If
 //   you attempt to set both, an exception is raised.
         body: {
-            get: function () {
+            get: function() {
                 if (this._data) {
                     return this.processor.stringify(this._data);
                 } else {
                     return this.processor.stringify(this._body);
                 }
             },
-            set: function (body) {
-                if (this._data && body) Errors.setBodyWithData(this);
+            set: function(body) {
+                if (this._data&&body) Errors.setBodyWithData(this);
                 this._body = body;
                 return this;
             },
@@ -2085,7 +2024,7 @@ require.define("/shred/content.js", function (require, module, exports, __dirnam
 //   `application/json` and other JSON-based media types (including custom media
 //   types with `+json`). You can add your own processors. See below.
         processor: {
-            get: function () {
+            get: function() {
                 var processor = Content.processors[this.type];
                 if (processor) {
                     return processor;
@@ -2094,10 +2033,10 @@ require.define("/shred/content.js", function (require, module, exports, __dirnam
                     // content type. ex: application/vnd.foobar.baz+json will match json.
                     var main = this.type.split(";")[0];
                     var parts = main.split(/\+|\//);
-                    for (var i = 0, l = parts.length; i < l; i++) {
+                    for (var i=0, l=parts.length; i < l; i++) {
                         processor = Content.processors[parts[i]]
                     }
-                    return processor || {parser: identity, stringify: toString};
+                    return processor || {parser:identity,stringify:toString};
                 }
             },
             enumerable: true
@@ -2106,7 +2045,7 @@ require.define("/shred/content.js", function (require, module, exports, __dirnam
 // - **length**. Typically accessed as `content.length`, returns the length in
 //   bytes of the raw content entity.
         length: {
-            get: function () {
+            get: function() {
                 if (typeof Buffer !== 'undefined') {
                     return Buffer.byteLength(this.body);
                 }
@@ -2124,12 +2063,12 @@ require.define("/shred/content.js", function (require, module, exports, __dirnam
 //   into a Javascript data type.
 // - **stringify**. The function used to convert a Javascript data type into a
 //   raw content entity.
-    Content.registerProcessor = function (types, processor) {
+    Content.registerProcessor = function(types,processor) {
 
 // You can pass an array of types that will trigger this processor, or just one.
 // We determine the array via duck-typing here.
         if (types.forEach) {
-            types.forEach(function (type) {
+            types.forEach(function(type) {
                 Content.processors[type] = processor;
             });
         } else {
@@ -2139,35 +2078,30 @@ require.define("/shred/content.js", function (require, module, exports, __dirnam
     };
 
 // Register the identity processor, which is used for text-based media types.
-    var identity = function (x) {
-            return x;
-        }
-        , toString = function (x) {
-            return x.toString();
-        }
+    var identity = function(x) { return x; }
+        , toString = function(x) { return x.toString(); }
     Content.registerProcessor(
-        ["text/html", "text/plain", "text"],
+        ["text/html","text/plain","text"],
         { parser: identity, stringify: toString });
 
 // Register the JSON processor, which is used for JSON-based media types.
     Content.registerProcessor(
-        ["application/json; charset=utf-8", "application/json", "json"],
+        ["application/json; charset=utf-8","application/json","json"],
         {
-            parser: function (string) {
+            parser: function(string) {
                 return JSON.parse(string);
             },
-            stringify: function (data) {
-                return JSON.stringify(data);
-            }});
+            stringify: function(data) {
+                return JSON.stringify(data); }});
 
 // Error functions are defined separately here in an attempt to make the code
 // easier to read.
     var Errors = {
-        setDataWithBody: function (object) {
+        setDataWithBody: function(object) {
             throw new Error("Attempt to set data attribute of a content object " +
                 "when the body attributes was already set.");
         },
-        setBodyWithData: function (object) {
+        setBodyWithData: function(object) {
             throw new Error("Attempt to set body attribute of a content object " +
                 "when the data attributes was already set.");
         }
@@ -2196,42 +2130,40 @@ require.define("/shred/mixins/headers.js", function (require, module, exports, _
 // Convert headers to corset-case. **Example:** `CONTENT-TYPE` will be converted
 // to `Content-Type`.
 
-    var corsetCase = function (string) {
+    var corsetCase = function(string) {
         return string.toLowerCase()
             //.replace("_","-")
             .replace(/(^|-)(\w)/g,
-            function (s) {
-                return s.toUpperCase();
-            });
+            function(s) { return s.toUpperCase(); });
     };
 
 // We suspect that `initializeHeaders` was once more complicated ...
-    var initializeHeaders = function (object) {
+    var initializeHeaders = function(object) {
         return {};
     };
 
 // Access the `_headers` property using lazy initialization. **Warning:** If you
 // mix this into an object that is using the `_headers` property already, you're
 // going to have trouble.
-    var $H = function (object) {
-        return object._headers || (object._headers = initializeHeaders(object));
+    var $H = function(object) {
+        return object._headers||(object._headers=initializeHeaders(object));
     };
 
 // Hide the implementations as private functions, separate from how we expose them.
 
 // The "real" `getHeader` function: get the header after normalizing the name.
-    var getHeader = function (object, name) {
+    var getHeader = function(object,name) {
         return $H(object)[corsetCase(name)];
     };
 
 // The "real" `getHeader` function: get one or more headers, or all of them
 // if you don't ask for any specifics. 
-    var getHeaders = function (object, names) {
-        var keys = (names && names.length > 0) ? names : Object.keys($H(object));
-        var hash = keys.reduce(function (hash, key) {
-            hash[key] = getHeader(object, key);
+    var getHeaders = function(object,names) {
+        var keys = (names && names.length>0) ? names : Object.keys($H(object));
+        var hash = keys.reduce(function(hash,key) {
+            hash[key] = getHeader(object,key);
             return hash;
-        }, {});
+        },{});
         // Freeze the resulting hash so you don't mistakenly think you're modifying
         // the real headers.
         Object.freeze(hash);
@@ -2239,17 +2171,14 @@ require.define("/shred/mixins/headers.js", function (require, module, exports, _
     };
 
 // The "real" `setHeader` function: set a header, after normalizing the name.
-    var setHeader = function (object, name, value) {
+    var setHeader = function(object,name,value) {
         $H(object)[corsetCase(name)] = value;
         return object;
     };
 
 // The "real" `setHeaders` function: set multiple headers based on a hash.
-    var setHeaders = function (object, hash) {
-        for (var key in hash) {
-            setHeader(object, key, hash[key]);
-        }
-        ;
+    var setHeaders = function(object,hash) {
+        for( var key in hash ) { setHeader(object,key,hash[key]); };
         return this;
     };
 
@@ -2258,46 +2187,26 @@ require.define("/shred/mixins/headers.js", function (require, module, exports, _
     module.exports = {
 
         // Add getters.
-        getters: function (constructor) {
-            constructor.prototype.getHeader = function (name) {
-                return getHeader(this, name);
-            };
-            constructor.prototype.getHeaders = function () {
-                return getHeaders(this, arguments);
-            };
+        getters: function(constructor) {
+            constructor.prototype.getHeader = function(name) { return getHeader(this,name); };
+            constructor.prototype.getHeaders = function() { return getHeaders(this,arguments); };
         },
         // Add setters but as "private" methods.
-        privateSetters: function (constructor) {
-            constructor.prototype._setHeader = function (key, value) {
-                return setHeader(this, key, value);
-            };
-            constructor.prototype._setHeaders = function (hash) {
-                return setHeaders(this, hash);
-            };
+        privateSetters: function(constructor) {
+            constructor.prototype._setHeader = function(key,value) { return setHeader(this,key,value); };
+            constructor.prototype._setHeaders = function(hash) { return setHeaders(this,hash); };
         },
         // Add setters.
-        setters: function (constructor) {
-            constructor.prototype.setHeader = function (key, value) {
-                return setHeader(this, key, value);
-            };
-            constructor.prototype.setHeaders = function (hash) {
-                return setHeaders(this, hash);
-            };
+        setters: function(constructor) {
+            constructor.prototype.setHeader = function(key,value) { return setHeader(this,key,value); };
+            constructor.prototype.setHeaders = function(hash) { return setHeaders(this,hash); };
         },
         // Add both getters and setters.
-        gettersAndSetters: function (constructor) {
-            constructor.prototype.getHeader = function (name) {
-                return getHeader(this, name);
-            };
-            constructor.prototype.getHeaders = function () {
-                return getHeaders(this, arguments);
-            };
-            constructor.prototype.setHeader = function (key, value) {
-                return setHeader(this, key, value);
-            };
-            constructor.prototype.setHeaders = function (hash) {
-                return setHeaders(this, hash);
-            };
+        gettersAndSetters: function(constructor) {
+            constructor.prototype.getHeader = function(name) { return getHeader(this,name); };
+            constructor.prototype.getHeaders = function() { return getHeaders(this,arguments); };
+            constructor.prototype.setHeader = function(key,value) { return setHeader(this,key,value); };
+            constructor.prototype.setHeaders = function(hash) { return setHeaders(this,hash); };
         },
     };
 
@@ -2310,10 +2219,10 @@ require.define("/node_modules/iconv-lite/package.json", function (require, modul
 require.define("/node_modules/iconv-lite/index.js", function (require, module, exports, __dirname, __filename) {
     // Module exports
     var iconv = module.exports = {
-        toEncoding: function (str, encoding) {
+        toEncoding: function(str, encoding) {
             return iconv.getCodec(encoding).toEncoding(str);
         },
-        fromEncoding: function (buf, encoding) {
+        fromEncoding: function(buf, encoding) {
             return iconv.getCodec(encoding).fromEncoding(buf);
         },
 
@@ -2321,7 +2230,7 @@ require.define("/node_modules/iconv-lite/index.js", function (require, module, e
         defaultCharSingleByte: '?',
 
         // Get correct codec for given encoding.
-        getCodec: function (encoding) {
+        getCodec: function(encoding) {
             var enc = encoding || "utf8";
             var codecOptions = undefined;
             while (1) {
@@ -2343,18 +2252,18 @@ require.define("/node_modules/iconv-lite/index.js", function (require, module, e
                 // Codec itself.
                     return codec(codecOptions);
                 else
-                    throw new Error("Encoding not recognized: '" + encoding + "' (searched as: '" + enc + "')");
+                    throw new Error("Encoding not recognized: '" + encoding + "' (searched as: '"+enc+"')");
             }
         },
 
         // Define basic encodings
         encodings: {
-            internal: function (options) {
+            internal: function(options) {
                 return {
-                    toEncoding: function (str) {
+                    toEncoding: function(str) {
                         return new Buffer(ensureString(str), options.originalEncoding);
                     },
-                    fromEncoding: function (buf) {
+                    fromEncoding: function(buf) {
                         return ensureBuffer(buf).toString(options.originalEncoding);
                     }
                 };
@@ -2366,10 +2275,10 @@ require.define("/node_modules/iconv-lite/index.js", function (require, module, e
             base64: "internal",
 
             // Codepage single-byte encodings.
-            singlebyte: function (options) {
+            singlebyte: function(options) {
                 // Prepare chars if needed
                 if (!options.chars || (options.chars.length !== 128 && options.chars.length !== 256))
-                    throw new Error("Encoding '" + options.type + "' has incorrect 'chars' (must be of len 128 or 256)");
+                    throw new Error("Encoding '"+options.type+"' has incorrect 'chars' (must be of len 128 or 256)");
 
                 if (options.chars.length === 128)
                     options.chars = asciiString + options.chars;
@@ -2388,7 +2297,7 @@ require.define("/node_modules/iconv-lite/index.js", function (require, module, e
                 }
 
                 return {
-                    toEncoding: function (str) {
+                    toEncoding: function(str) {
                         str = ensureString(str);
 
                         var buf = new Buffer(str.length);
@@ -2398,18 +2307,17 @@ require.define("/node_modules/iconv-lite/index.js", function (require, module, e
 
                         return buf;
                     },
-                    fromEncoding: function (buf) {
+                    fromEncoding: function(buf) {
                         buf = ensureBuffer(buf);
 
                         // Strings are immutable in JS -> we use ucs2 buffer to speed up computations.
                         var charsBuf = options.charsBuf;
-                        var newBuf = new Buffer(buf.length * 2);
+                        var newBuf = new Buffer(buf.length*2);
                         var idx1 = 0, idx2 = 0;
                         for (var i = 0, _len = buf.length; i < _len; i++) {
-                            idx1 = buf[i] * 2;
-                            idx2 = i * 2;
+                            idx1 = buf[i]*2; idx2 = i*2;
                             newBuf[idx2] = charsBuf[idx1];
-                            newBuf[idx2 + 1] = charsBuf[idx1 + 1];
+                            newBuf[idx2+1] = charsBuf[idx1+1];
                         }
                         return newBuf.toString('ucs2');
                     }
@@ -2417,12 +2325,12 @@ require.define("/node_modules/iconv-lite/index.js", function (require, module, e
             },
 
             // Codepage double-byte encodings.
-            table: function (options) {
+            table: function(options) {
                 var table = options.table, key, revCharsTable = options.revCharsTable;
                 if (!table) {
-                    throw new Error("Encoding '" + options.type + "' has incorect 'table' option");
+                    throw new Error("Encoding '" + options.type +"' has incorect 'table' option");
                 }
-                if (!revCharsTable) {
+                if(!revCharsTable) {
                     revCharsTable = options.revCharsTable = {};
                     for (key in table) {
                         revCharsTable[table[key]] = parseInt(key);
@@ -2430,7 +2338,7 @@ require.define("/node_modules/iconv-lite/index.js", function (require, module, e
                 }
 
                 return {
-                    toEncoding: function (str) {
+                    toEncoding: function(str) {
                         str = ensureString(str);
                         var strLen = str.length;
                         var bufLen = strLen;
@@ -2453,7 +2361,7 @@ require.define("/node_modules/iconv-lite/index.js", function (require, module, e
                         }
                         return newBuf;
                     },
-                    fromEncoding: function (buf) {
+                    fromEncoding: function(buf) {
                         buf = ensureBuffer(buf);
                         var bufLen = buf.length, strLen = 0;
                         for (var i = 0; i < bufLen; i++) {
@@ -2461,10 +2369,10 @@ require.define("/node_modules/iconv-lite/index.js", function (require, module, e
                             if (buf[i] & 0x80) //the high bit is 1, so this byte is gbkcode's high byte.skip next byte
                                 i++;
                         }
-                        var newBuf = new Buffer(strLen * 2), unicode, gbkcode,
+                        var newBuf = new Buffer(strLen*2), unicode, gbkcode,
                             defaultChar = iconv.defaultCharUnicode.charCodeAt(0);
 
-                        for (var i = 0, j = 0; i < bufLen; i++, j += 2) {
+                        for (var i = 0, j = 0; i < bufLen; i++, j+=2) {
                             gbkcode = buf[i];
                             if (gbkcode & 0x80) {
                                 gbkcode = (gbkcode << 8) + buf[++i];
@@ -2473,7 +2381,7 @@ require.define("/node_modules/iconv-lite/index.js", function (require, module, e
                                 unicode = gbkcode;
                             }
                             newBuf[j] = unicode & 0xFF; //low byte
-                            newBuf[j + 1] = unicode >> 8; //high byte
+                            newBuf[j+1] = unicode >> 8; //high byte
                         }
                         return newBuf.toString('ucs2');
                     }
@@ -2487,30 +2395,30 @@ require.define("/node_modules/iconv-lite/index.js", function (require, module, e
     iconv.decode = iconv.fromEncoding;
 
 // Load other encodings from files in /encodings dir.
-    var encodingsDir = __dirname + "/encodings/",
+    var encodingsDir = __dirname+"/encodings/",
         fs = require('fs');
-    fs.readdirSync(encodingsDir).forEach(function (file) {
-        if (fs.statSync(encodingsDir + file).isDirectory()) return;
+    fs.readdirSync(encodingsDir).forEach(function(file) {
+        if(fs.statSync(encodingsDir + file).isDirectory()) return;
         var encodings = require(encodingsDir + file)
         for (var key in encodings)
             iconv.encodings[key] = encodings[key]
     });
 
 // Utilities
-    var asciiString = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f' +
+    var asciiString = '\x00\x01\x02\x03\x04\x05\x06\x07\x08\t\n\x0b\x0c\r\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f'+
         ' !"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\x7f';
 
-    var ensureBuffer = function (buf) {
+    var ensureBuffer = function(buf) {
         buf = buf || new Buffer(0);
         return (buf instanceof Buffer) ? buf : new Buffer(buf.toString(), "utf8");
     }
 
-    var ensureString = function (str) {
+    var ensureString = function(str) {
         str = str || "";
         return (str instanceof String) ? str : str.toString((str instanceof Buffer) ? 'utf8' : undefined);
     }
 
-    var getType = function (obj) {
+    var getType = function(obj) {
         return Object.prototype.toString.call(obj).slice(8, -1);
     }
 
@@ -2518,7 +2426,7 @@ require.define("/node_modules/iconv-lite/index.js", function (require, module, e
 });
 
 require.define("/node_modules/http-browserify/package.json", function (require, module, exports, __dirname, __filename) {
-    module.exports = {"main": "index.js", "browserify": "browser.js"}
+    module.exports = {"main":"index.js","browserify":"browser.js"}
 });
 
 require.define("/node_modules/http-browserify/browser.js", function (require, module, exports, __dirname, __filename) {
@@ -2558,7 +2466,7 @@ require.define("/node_modules/http-browserify/browser.js", function (require, mo
             ];
             for (var i = 0; i < axs.length; i++) {
                 try {
-                    var ax = new (window.ActiveXObject)(axs[i]);
+                    var ax = new(window.ActiveXObject)(axs[i]);
                     return function () {
                         if (ax) {
                             var ax_ = ax;
@@ -2566,12 +2474,11 @@ require.define("/node_modules/http-browserify/browser.js", function (require, mo
                             return ax_;
                         }
                         else {
-                            return new (window.ActiveXObject)(axs[i]);
+                            return new(window.ActiveXObject)(axs[i]);
                         }
                     };
                 }
-                catch (e) {
-                }
+                catch (e) {}
             }
             throw new Error('ajax not supported in this browser')
         }
@@ -2581,58 +2488,58 @@ require.define("/node_modules/http-browserify/browser.js", function (require, mo
     })();
 
     http.STATUS_CODES = {
-        100: 'Continue',
-        101: 'Switching Protocols',
-        102: 'Processing', // RFC 2518, obsoleted by RFC 4918
-        200: 'OK',
-        201: 'Created',
-        202: 'Accepted',
-        203: 'Non-Authoritative Information',
-        204: 'No Content',
-        205: 'Reset Content',
-        206: 'Partial Content',
-        207: 'Multi-Status', // RFC 4918
-        300: 'Multiple Choices',
-        301: 'Moved Permanently',
-        302: 'Moved Temporarily',
-        303: 'See Other',
-        304: 'Not Modified',
-        305: 'Use Proxy',
-        307: 'Temporary Redirect',
-        400: 'Bad Request',
-        401: 'Unauthorized',
-        402: 'Payment Required',
-        403: 'Forbidden',
-        404: 'Not Found',
-        405: 'Method Not Allowed',
-        406: 'Not Acceptable',
-        407: 'Proxy Authentication Required',
-        408: 'Request Time-out',
-        409: 'Conflict',
-        410: 'Gone',
-        411: 'Length Required',
-        412: 'Precondition Failed',
-        413: 'Request Entity Too Large',
-        414: 'Request-URI Too Large',
-        415: 'Unsupported Media Type',
-        416: 'Requested Range Not Satisfiable',
-        417: 'Expectation Failed',
-        418: 'I\'m a teapot', // RFC 2324
-        422: 'Unprocessable Entity', // RFC 4918
-        423: 'Locked', // RFC 4918
-        424: 'Failed Dependency', // RFC 4918
-        425: 'Unordered Collection', // RFC 4918
-        426: 'Upgrade Required', // RFC 2817
-        500: 'Internal Server Error',
-        501: 'Not Implemented',
-        502: 'Bad Gateway',
-        503: 'Service Unavailable',
-        504: 'Gateway Time-out',
-        505: 'HTTP Version not supported',
-        506: 'Variant Also Negotiates', // RFC 2295
-        507: 'Insufficient Storage', // RFC 4918
-        509: 'Bandwidth Limit Exceeded',
-        510: 'Not Extended' // RFC 2774
+        100 : 'Continue',
+        101 : 'Switching Protocols',
+        102 : 'Processing', // RFC 2518, obsoleted by RFC 4918
+        200 : 'OK',
+        201 : 'Created',
+        202 : 'Accepted',
+        203 : 'Non-Authoritative Information',
+        204 : 'No Content',
+        205 : 'Reset Content',
+        206 : 'Partial Content',
+        207 : 'Multi-Status', // RFC 4918
+        300 : 'Multiple Choices',
+        301 : 'Moved Permanently',
+        302 : 'Moved Temporarily',
+        303 : 'See Other',
+        304 : 'Not Modified',
+        305 : 'Use Proxy',
+        307 : 'Temporary Redirect',
+        400 : 'Bad Request',
+        401 : 'Unauthorized',
+        402 : 'Payment Required',
+        403 : 'Forbidden',
+        404 : 'Not Found',
+        405 : 'Method Not Allowed',
+        406 : 'Not Acceptable',
+        407 : 'Proxy Authentication Required',
+        408 : 'Request Time-out',
+        409 : 'Conflict',
+        410 : 'Gone',
+        411 : 'Length Required',
+        412 : 'Precondition Failed',
+        413 : 'Request Entity Too Large',
+        414 : 'Request-URI Too Large',
+        415 : 'Unsupported Media Type',
+        416 : 'Requested Range Not Satisfiable',
+        417 : 'Expectation Failed',
+        418 : 'I\'m a teapot', // RFC 2324
+        422 : 'Unprocessable Entity', // RFC 4918
+        423 : 'Locked', // RFC 4918
+        424 : 'Failed Dependency', // RFC 4918
+        425 : 'Unordered Collection', // RFC 4918
+        426 : 'Upgrade Required', // RFC 2817
+        500 : 'Internal Server Error',
+        501 : 'Not Implemented',
+        502 : 'Bad Gateway',
+        503 : 'Service Unavailable',
+        504 : 'Gateway Time-out',
+        505 : 'HTTP Version not supported',
+        506 : 'Variant Also Negotiates', // RFC 2295
+        507 : 'Insufficient Storage', // RFC 4918
+        509 : 'Bandwidth Limit Exceeded',
+        510 : 'Not Extended' // RFC 2774
     };
 
 });
@@ -2715,11 +2622,11 @@ require.define("/node_modules/http-browserify/lib/response.js", function (requir
     Response.prototype = new EventEmitter;
 
     var capable = {
-        streaming: true,
-        status2: true
+        streaming : true,
+        status2 : true
     };
 
-    function parseHeaders(xhr) {
+    function parseHeaders (xhr) {
         var lines = xhr.getAllResponseHeaders().split(/\r?\n/);
         var headers = {};
         for (var i = 0; i < lines.length; i++) {
@@ -2786,8 +2693,7 @@ require.define("/node_modules/http-browserify/lib/response.js", function (requir
                     this.emit('ready');
                 }
             }
-            catch (err) {
-            }
+            catch (err) {}
 
             try {
                 this.write();
