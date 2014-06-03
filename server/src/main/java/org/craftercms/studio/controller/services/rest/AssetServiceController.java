@@ -17,6 +17,12 @@
 
 package org.craftercms.studio.controller.services.rest;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
+import com.wordnik.swagger.annotations.ApiResponse;
+import com.wordnik.swagger.annotations.ApiResponses;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -46,11 +52,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiParam;
-import com.wordnik.swagger.annotations.ApiResponse;
-import com.wordnik.swagger.annotations.ApiResponses;
+
 
 /**
  * Asset controller.
@@ -61,7 +63,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 
 @Controller
 @RequestMapping(value = "/api/1/content/asset")
-@Api(value = "AssetService", description = "Asset RESTful Services", position = DocumentationServiceOrder.ASSET_SERVICE)
+@Api(value = "Asset Service", description = "Asset RESTful Services", position = DocumentationServiceOrder.ASSET_SERVICE)
 public class AssetServiceController {
 
     @Autowired
@@ -194,7 +196,7 @@ public class AssetServiceController {
                                @ApiParam(name = "item_id", required = true, value = "String") @RequestParam(value =
                                    "item_id") final String itemId,
 
-                               HttpServletResponse response) throws StudioException {
+                               final HttpServletResponse response) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId id = new ItemId(itemId);
