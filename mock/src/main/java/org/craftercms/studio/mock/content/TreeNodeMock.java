@@ -9,6 +9,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.craftercms.studio.commons.dto.Item;
 
+/**
+ * Tree node mock.
+ */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "node")
 public class TreeNodeMock {
@@ -29,11 +32,11 @@ public class TreeNodeMock {
         this.children = children;
     }
 
-    public void addChild(Item child) {
+    public void addChild(final Item child) {
         addChild(new TreeNodeMock(child, this, null));
     }
 
-    public void addChild(TreeNodeMock treeNode) {
+    public void addChild(final TreeNodeMock treeNode) {
         if (this.children == null) {
             children = new HashSet<TreeNodeMock>();
         }

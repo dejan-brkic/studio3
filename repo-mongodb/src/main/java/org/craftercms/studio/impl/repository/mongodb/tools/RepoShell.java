@@ -17,6 +17,13 @@
 
 package org.craftercms.studio.impl.repository.mongodb.tools;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+import ch.qos.logback.core.rolling.FixedWindowRollingPolicy;
+import ch.qos.logback.core.rolling.RollingFileAppender;
+import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,12 +33,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.LoggerContext;
-import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
-import ch.qos.logback.core.rolling.FixedWindowRollingPolicy;
-import ch.qos.logback.core.rolling.RollingFileAppender;
-import ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy;
 import javolution.util.FastList;
 import org.apache.commons.lang3.StringUtils;
 import org.craftercms.studio.commons.exception.StudioException;
@@ -88,7 +89,7 @@ public class RepoShell {
      * @throws InstantiationException If Actions can't be instantiated.
      * @throws ClassNotFoundException If Actions can't be found.
      */
-    public RepoShell(ApplicationContext ctx) throws IllegalAccessException, InstantiationException,
+    public RepoShell(final ApplicationContext ctx) throws IllegalAccessException, InstantiationException,
         ClassNotFoundException {
         in = new BufferedReader(new InputStreamReader(System.in));
         out = System.out;
@@ -108,12 +109,12 @@ public class RepoShell {
      * @param args Application Args
      * @throws Exception If Spring context can't be load.
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(final String[] args) throws Exception {
         try {
             System.out.println("Starting Mongo Repo Console ... ");
             configLogger();
-            ApplicationContext ctx = new ClassPathXmlApplicationContext
-                ("classpath:/craftercms/studio/craftercms-mongo-repository.xml");
+            ApplicationContext ctx =
+                    new ClassPathXmlApplicationContext("classpath:/craftercms/studio/craftercms-mongo-repository.xml");
             new RepoShell(ctx).run();
         } catch (Throwable ex) {
             System.out.printf("Unable to start due a internal error %s ," +
@@ -255,7 +256,7 @@ public class RepoShell {
          *
          * @param actions Action Registry.
          */
-        public HelpAction(List<AbstractAction> actions) {
+        public HelpAction(final List<AbstractAction> actions) {
             super();
             this.actions = actions;
         }

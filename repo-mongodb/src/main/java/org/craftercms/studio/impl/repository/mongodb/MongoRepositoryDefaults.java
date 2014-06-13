@@ -30,7 +30,7 @@ public final class MongoRepositoryDefaults {
      */
     public static final String PATH_VALIDATION_REGEX = "(?!.*//.*)(?!.*/ .*)/{1}([^\\\\(){}:\\*\\?<>\\|\\\"\\'])*";
     /**
-     * If a path is not found, should the system created (like *ix mkdir -p)
+     * If a path is not found, should the system created (like *ix mkdir -p).
      */
     public static final String REPO_MKDIRS = "studio.repocitory.mongodb.mkdirs";
 

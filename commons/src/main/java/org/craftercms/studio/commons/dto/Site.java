@@ -32,7 +32,7 @@ public class Site {
         return siteId;
     }
 
-    public void setSiteId(String siteId) {
+    public void setSiteId(final String siteId) {
         this.siteId = siteId;
     }
 
@@ -40,7 +40,7 @@ public class Site {
         return siteName;
     }
 
-    public void setSiteName(String siteName) {
+    public void setSiteName(final String siteName) {
         this.siteName = siteName;
     }
 }

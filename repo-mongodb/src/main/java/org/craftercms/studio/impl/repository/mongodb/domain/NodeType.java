@@ -17,7 +17,7 @@ public enum NodeType {
      */
     FOLDER;
 
-    public static NodeType fromString(String nodeType) {
+    public static NodeType fromString(final String nodeType) {
         if (nodeType.equalsIgnoreCase("FILE")) {
             return NodeType.FILE;
         } else {

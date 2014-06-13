@@ -45,7 +45,7 @@ public class FormatterRegistryImpl implements FormatterRegistry {
     }
 
     @Override
-    public void registerFormatter(Class<? extends Exception> clazz, ExceptionFormatter formatter) {
+    public void registerFormatter(final Class<? extends Exception> clazz, final ExceptionFormatter formatter) {
         if (this.formatterMap == null) {
             this.formatterMap = new FastMap<>();
         }
@@ -56,7 +56,7 @@ public class FormatterRegistryImpl implements FormatterRegistry {
     }
 
     @Override
-    public ExceptionFormatter getFormatter(Class<? extends Exception> clazz) {
+    public ExceptionFormatter getFormatter(final Class<? extends Exception> clazz) {
         if (this.formatterMap == null) {
             this.formatterMap = new FastMap<>();
         }
@@ -73,7 +73,7 @@ public class FormatterRegistryImpl implements FormatterRegistry {
     }
 
     @Override
-    public String getFormattedMessage(Exception exception) {
+    public String getFormattedMessage(final Exception exception) {
         final ExceptionFormatter formatter = this.getFormatter(exception.getClass());
         return formatter.getFormattedMessage(exception);
     }

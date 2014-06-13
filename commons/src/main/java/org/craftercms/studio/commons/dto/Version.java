@@ -80,7 +80,7 @@ public class Version implements Comparable<Version> {
     }
 
     /**
-     * Comment setter
+     * Comment setter.
      *
      * @param comment comment
      */

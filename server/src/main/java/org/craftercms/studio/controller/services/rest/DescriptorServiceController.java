@@ -17,6 +17,12 @@
 
 package org.craftercms.studio.controller.services.rest;
 
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
+import com.wordnik.swagger.annotations.ApiResponse;
+import com.wordnik.swagger.annotations.ApiResponses;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -41,11 +47,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiParam;
-import com.wordnik.swagger.annotations.ApiResponse;
-import com.wordnik.swagger.annotations.ApiResponses;
 
 /**
  * Descriptor Service RESTful Controller.
@@ -62,7 +63,7 @@ public class DescriptorServiceController {
      * Descriptor Service instance.
      */
     @Autowired
-    DescriptorService descriptorService;
+    private DescriptorService descriptorService;
 
     /**
      * Create a new descriptor.
@@ -103,8 +104,8 @@ public class DescriptorServiceController {
         @RequestParam(value = "file") final MultipartFile file,
 
         @ApiParam(name = "properties", required = false, value = "Map<String, String>")
-        @RequestParam(value = "properties", required = false) final Map<String,
-            String> properties) throws StudioException {
+        @RequestParam(value = "properties", required = false) final Map<String, String> properties
+    ) throws StudioException {
         Context context = RestControllerUtils.createMockContext();
         InputStream content = null;
         try {
@@ -155,8 +156,8 @@ public class DescriptorServiceController {
         @RequestParam(value = "content", required = true) final String content,
 
         @ApiParam(name = "properties", required = false, value = "Map<String, String>")
-        @RequestParam(value = "properties", required = false) final Map<String,
-            String> properties) throws StudioException {
+        @RequestParam(value = "properties", required = false) final Map<String, String> properties
+    ) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         Item item = descriptorService.create(context, site, contentTypeId, parentId, fileName, content, properties);
@@ -231,7 +232,8 @@ public class DescriptorServiceController {
         @RequestParam(value = "parent_id", required = true) final String parentId,
 
         @ApiParam(name = "file_name", required = true, value = "String")
-        @RequestParam(value = "file_name", required = true) final String fileName) throws StudioException {
+        @RequestParam(value = "file_name", required = true) final String fileName
+    ) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = new ItemId(itemId);
@@ -262,7 +264,8 @@ public class DescriptorServiceController {
         @PathVariable final String site,
 
         @ApiParam(name = "item_id", required = true, value = "String")
-        @RequestParam(value = "item_id", required = true) final String itemId) throws StudioException {
+        @RequestParam(value = "item_id", required = true) final String itemId
+    ) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = new ItemId(itemId);
@@ -292,7 +295,8 @@ public class DescriptorServiceController {
             @PathVariable final String site,
 
             @ApiParam(name = "item_id", required = true, value = "String")
-            @RequestParam(value = "item_id") final String itemId) throws StudioException {
+            @RequestParam(value = "item_id") final String itemId
+    ) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         return descriptorService.getTextContent(context, site, itemId);
@@ -320,16 +324,17 @@ public class DescriptorServiceController {
     public Item update(
 
         @ApiParam(name = "site", required = true, value = "String")
-        @PathVariable String site,
+        @PathVariable final String site,
 
-        @ApiParam(name = "item_id", required = true, value = "String") @RequestParam(value = "item_id",
-            required = true) String itemId,
+        @ApiParam(name = "item_id", required = true, value = "String")
+        @RequestParam(value = "item_id", required = true) final String itemId,
 
-        @ApiParam(name = "file", required = true, value = "MultipartFile") @RequestParam(value = "file",
-            required = true) MultipartFile file,
+        @ApiParam(name = "file", required = true, value = "MultipartFile")
+        @RequestParam(value = "file", required = true) final MultipartFile file,
 
-        @ApiParam(name = "properties", required = false, value = "Map<String, String>") @RequestParam(value =
-            "properties", required = false) Map<String, String> properties) throws StudioException {
+        @ApiParam(name = "properties", required = false, value = "Map<String, String>")
+        @RequestParam(value = "properties", required = false) final Map<String, String> properties
+    ) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = new ItemId(itemId);
@@ -353,8 +358,9 @@ public class DescriptorServiceController {
      * @return item
      * @throws StudioException
      */
-    @ApiResponses({@ApiResponse(code = 200, message = "Success", response = Item.class), @ApiResponse(code = 400,
-        message = "Bad request")})
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Item.class),
+            @ApiResponse(code = 400, message = "Bad request")})
     @RequestMapping(
         value = "/update/{site}",
         method = RequestMethod.POST,
@@ -373,8 +379,8 @@ public class DescriptorServiceController {
         @RequestParam(value = "content", required = true) final String content,
 
         @ApiParam(name = "content", required = false, value = "Map<String, String>")
-        @RequestParam(value = "properties", required = false) final Map<String,
-            String> properties) throws StudioException {
+        @RequestParam(value = "properties", required = false) final Map<String, String> properties
+    ) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = new ItemId(itemId);
@@ -403,7 +409,8 @@ public class DescriptorServiceController {
         @PathVariable final String site,
 
         @ApiParam(name = "item_id", required = true, value = "String")
-        @RequestParam(value = "item_id", required = true) final String itemId) throws StudioException {
+        @RequestParam(value = "item_id", required = true) final String itemId
+    ) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = new ItemId(itemId);
@@ -432,7 +439,8 @@ public class DescriptorServiceController {
         @PathVariable final String site,
 
         @ApiParam(name = "site", required = true, value = "String")
-        @RequestParam(value = "query", required = true) final String query) throws StudioException {
+        @RequestParam(value = "query", required = true) final String query
+    ) throws StudioException {
 
         throw ErrorManager.createError(StudioServerErrorCode.NOT_IMPLEMENTED);
     }
@@ -460,7 +468,8 @@ public class DescriptorServiceController {
         @PathVariable final String site,
 
         @ApiParam(name = "item_id", required = false, value = "String")
-        @RequestParam(value = "item_id", required = false) final String itemId) throws StudioException {
+        @RequestParam(value = "item_id", required = false) final String itemId
+    ) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
         ItemId descriptorItemId = null;

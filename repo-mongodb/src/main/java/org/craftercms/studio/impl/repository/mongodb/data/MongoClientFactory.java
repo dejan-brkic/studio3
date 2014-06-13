@@ -1,13 +1,14 @@
 package org.craftercms.studio.impl.repository.mongodb.data;
 
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.ServerAddress;
+
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.FactoryBean;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
-import com.mongodb.ServerAddress;
 
 /**
  */

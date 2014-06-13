@@ -45,10 +45,15 @@ public class AuditController {
     public AuditController() {
     }
 
-    @RequestMapping(value = "/activity/{site}", produces = "application/json", method = RequestMethod.GET)
+    @RequestMapping(
+            value = "/activity/{site}",
+            produces = "application/json",
+            method = RequestMethod.GET)
     @ResponseBody
-    public List<Activity> getActivities(@PathVariable final String site, @RequestParam(required = false) final
-    List<String> filters) throws StudioException {
+    public List<Activity> getActivities(
+            @PathVariable final String site,
+            @RequestParam(required = false) final List<String> filters
+    ) throws StudioException {
         this.log.debug("Retrieving list of activities for {} using filters {}", site, filters);
         return this.auditService.getActivities(null, site, filters);
     }
@@ -62,11 +67,17 @@ public class AuditController {
      * @return The Activity that have been save
      * @throws org.craftercms.studio.commons.exception.StudioException If the given object is not valid
      */
-    @RequestMapping(value = "/log/{site}", produces = MediaType.APPLICATION_JSON_VALUE,
-        consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+    @RequestMapping(
+            value = "/log/{site}",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            method = RequestMethod.POST)
     @ResponseBody
-    public Activity logActivity(@PathVariable final String site, @Valid @RequestBody final Activity activity,
-                                final BindingResult result) throws StudioException {
+    public Activity logActivity(
+            @PathVariable final String site,
+            @Valid @RequestBody final Activity activity,
+            final BindingResult result
+    ) throws StudioException {
         if (result.hasErrors()) {
             this.log.error("Unable to save a activity since is not valid");
             throw ErrorManager.createError(StudioServerErrorCode.VALIDATION_ERROR);

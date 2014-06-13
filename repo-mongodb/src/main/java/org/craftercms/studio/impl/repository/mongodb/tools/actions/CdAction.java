@@ -28,8 +28,8 @@ import org.craftercms.studio.impl.repository.mongodb.tools.RepoShellContext;
  */
 public class CdAction extends AbstractAction {
 
-    private final static String CD_COMMAND = "cd";
-    private final static String INTERNAL = "INTERNAL";
+    private static final String CD_COMMAND = "cd";
+    private static final String INTERNAL = "INTERNAL";
 
     @Override
     public boolean responseTo(final String action) {

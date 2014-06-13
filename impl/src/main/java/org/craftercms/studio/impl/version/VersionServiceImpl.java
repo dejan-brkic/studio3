@@ -36,7 +36,7 @@ import org.craftercms.studio.impl.exception.StudioImplErrorCode;
  */
 public class VersionServiceImpl implements VersionService {
 
-    org.craftercms.studio.repo.content.VersionService versionService;
+    private org.craftercms.studio.repo.content.VersionService versionService;
 
     @Override
     public Tree<Version> history(final Context context, final String itemId) throws StudioException {

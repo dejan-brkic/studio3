@@ -53,8 +53,12 @@ public class SecurityController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Context login(@RequestParam(required = true) final String username, @RequestParam(required = true) final
-    String password, final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
+    public Context login(
+            @RequestParam(required = true) final String username,
+            @RequestParam(required = true) final String password,
+            final HttpServletRequest request,
+            final HttpServletResponse response
+    ) throws StudioException {
         if (StringUtils.isEmpty(username) || StringUtils.isEmpty(password)) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return null;
@@ -84,7 +88,7 @@ public class SecurityController {
 
     @RequestMapping(value = "/update_user", method = RequestMethod.POST)
     @ResponseBody
-    public String updateUser(@Valid @RequestBody UpdateUserRequest requestBody) throws StudioException {
+    public String updateUser(@Valid @RequestBody final UpdateUserRequest requestBody) throws StudioException {
         return this.securityService.updateUser(null, requestBody.getUser(), requestBody.getPassword(),
             requestBody.getRole());
     }

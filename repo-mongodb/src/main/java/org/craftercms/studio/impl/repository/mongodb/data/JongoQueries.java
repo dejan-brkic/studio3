@@ -71,7 +71,7 @@ public class JongoQueries {
      * @param name Name of the query.
      * @return Query with the given name. Null if nothing with that name if found.
      */
-    public String get(String name) {
+    public String get(final String name) {
         return properties.getProperty(name);
     }
 

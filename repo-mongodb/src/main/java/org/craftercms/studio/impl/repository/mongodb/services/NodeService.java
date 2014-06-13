@@ -33,7 +33,7 @@ public interface NodeService {
     /**
      * Node Collection name.
      */
-    static final String NODES_COLLECTION = "nodes";
+    final String NODES_COLLECTION = "nodes";
 
     /**
      * Creates a File Node.
@@ -172,7 +172,7 @@ public interface NodeService {
     InputStream getFile(String fileId) throws StudioException;
 
     /**
-     * Gets all the children nodes for the given node<br/>
+     * Gets all the children nodes for the given node.<br/>
      * (Children  are nodes which ancestors are the same of the  given nodeId + the given Node)
      *
      * @param nodeId Node id of the parent

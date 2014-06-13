@@ -39,5 +39,5 @@ public interface LoVService {
     <T> List<T> getLoV(String ticket, String lovName, Class<T> type);
 
     // fixme todo
-    <T> void updateLoV(String ticket, String lovName, Class<T> type, List<T> LoV);
+    <T> void updateLoV(String ticket, String lovName, Class<T> type, List<T> lov);
 }

@@ -18,11 +18,11 @@
 package org.craftercms.studio.documentation.configuration;
 
 /**
- * Utility class for Documentation Service order
+ * Utility class for Documentation Service order.
  *
  * @author Dejan Brkic
  */
-public class DocumentationServiceOrder {
+public final class DocumentationServiceOrder {
 
     /**
      * Order value for Asset Service.

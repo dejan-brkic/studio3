@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class ItemId implements Serializable {
     private static final long serialVersionUID = 19678608701816182L;
 
-    String itemId;
+    private String itemId;
 
     public ItemId(final String itemId) {
         this.itemId = itemId;

@@ -6,6 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+/**
+ * Lock Handle Validator.
+ */
 public class LockHandleValidator implements Validator {
     private Logger log = LoggerFactory.getLogger(LockHandleValidator.class);
 

@@ -33,7 +33,7 @@ import org.craftercms.studio.impl.repository.mongodb.tools.AbstractAction;
 import org.craftercms.studio.impl.repository.mongodb.tools.RepoShellContext;
 
 /**
- * Imports from a given Zipfile content
+ * Imports from a given Zipfile content.
  */
 public class ImportAction extends AbstractAction {
 
@@ -84,7 +84,7 @@ public class ImportAction extends AbstractAction {
     }
 
     /**
-     * Gets the File Folder path base on the path
+     * Gets the File Folder path base on the path.
      *
      * @param path Full path of the file
      * @return the Files Folder
@@ -94,7 +94,7 @@ public class ImportAction extends AbstractAction {
     }
 
     /**
-     * Reads the ZipEntry and returns it as a InputStream (ByteArrayInputStream)
+     * Reads the ZipEntry and returns it as a InputStream (ByteArrayInputStream).
      *
      * @param zipInputStream ZipStream to be read.
      * @return A InputStream with the entry.

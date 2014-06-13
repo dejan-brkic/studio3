@@ -16,6 +16,9 @@
  */
 package org.craftercms.studio.controller.services.rest;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -38,8 +41,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Workflow controller.
@@ -53,7 +54,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class WorkflowController {
 
     /**
-     * Workflow Manager instance
+     * Workflow Manager instance.
      */
     @Autowired
     private WorkflowManager workflowManager;
@@ -69,28 +70,36 @@ public class WorkflowController {
 
     @RequestMapping(value = "/package/{site}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Item> getPackage(@PathVariable final String site, @RequestParam(required = true) final String
-        packageId) throws StudioException {
+    public List<Item> getPackage(@PathVariable final String site,
+                                 @RequestParam(required = true) final String packageId) throws StudioException {
         return this.workflowManager.getPackage(packageId);
     }
 
     @RequestMapping(value = "/packages/{site}", method = RequestMethod.GET)
     @ResponseBody
-    public List<WorkflowPackage> getPackages(@PathVariable final String site, @RequestParam(required = true) final
-    List<String> filters) throws StudioException {
+    public List<WorkflowPackage> getPackages(
+            @PathVariable final String site,
+            @RequestParam(required = true) final List<String> filters
+    ) throws StudioException {
         return this.workflowManager.getPackages(site, null);
     }
 
     @RequestMapping(value = "/transitions/{site}", method = RequestMethod.GET)
     @ResponseBody
-    public List<WorkflowTransition> transitions(@PathVariable final String site, @RequestParam(required = true) final
-    String packageId) throws StudioException {
+    public List<WorkflowTransition> transitions(
+            @PathVariable final String site,
+            @RequestParam(required = true) final String packageId
+    ) throws StudioException {
         return this.workflowManager.getTransitions(packageId);
     }
 
     @RequestMapping(value = "/transition/{site}", method = RequestMethod.POST)
-    public void transition(@PathVariable final String site, @Valid @RequestBody WorkflowTransitionRequest
-        requestBody, final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
+    public void transition(
+            @PathVariable final String site,
+            @Valid @RequestBody WorkflowTransitionRequest requestBody,
+            final HttpServletRequest request,
+            final HttpServletResponse response
+    ) throws StudioException {
         this.workflowManager.transition(requestBody.getPackageId(), requestBody.getTransition(),
             requestBody.getParams());
     }
@@ -108,8 +117,12 @@ public class WorkflowController {
     }
 
     @RequestMapping(value = "/cancel/{site}", method = RequestMethod.POST)
-    public void cancel(@PathVariable final String site, @RequestParam(required = true) final String packageId,
-                       final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
+    public void cancel(
+            @PathVariable final String site,
+            @RequestParam(required = true) final String packageId,
+            final HttpServletRequest request,
+            final HttpServletResponse response
+    ) throws StudioException {
         this.workflowManager.cancel(packageId);
     }
 }

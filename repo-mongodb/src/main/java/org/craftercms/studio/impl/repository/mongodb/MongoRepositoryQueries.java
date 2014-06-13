@@ -17,7 +17,10 @@
 
 package org.craftercms.studio.impl.repository.mongodb;
 
-public class MongoRepositoryQueries {
+/**
+ * Mongo repository queries.
+ */
+public final class MongoRepositoryQueries {
 
     /**
      * Gets node where ancestors $size is 0.
@@ -42,7 +45,7 @@ public class MongoRepositoryQueries {
      */
     public static final String GET_BY_ANCESTORS_AND_NAME = "studio.repo.mongodb.query.getByAncestorsAndName";
     /**
-     * Gets all the Ancestors information <b>Uses Aggregation Framework</b>
+     * Gets all the Ancestors information <b>Uses Aggregation Framework</b>.
      */
     public static final String GET_ANCESTORS = "studio.repo.mongodb.query.getAncestors";
     /**

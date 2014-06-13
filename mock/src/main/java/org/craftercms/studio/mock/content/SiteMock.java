@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import org.craftercms.studio.commons.dto.Site;
 
 /**
- * Site DTO Mock
+ * Site DTO Mock.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SiteMock extends Site {

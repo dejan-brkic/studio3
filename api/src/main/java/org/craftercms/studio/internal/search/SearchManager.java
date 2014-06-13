@@ -18,7 +18,7 @@
 package org.craftercms.studio.internal.search;
 
 /**
- * Search Manager
+ * Search Manager.
  */
 public interface SearchManager {
 }

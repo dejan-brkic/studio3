@@ -17,26 +17,27 @@
 
 package org.craftercms.studio.documentation.configuration;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mangofactory.swagger.models.ModelProvider;
 import com.mangofactory.swagger.paths.RelativeSwaggerPathProvider;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import com.mangofactory.swagger.configuration.JacksonScalaSupport;
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
 import com.mangofactory.swagger.configuration.SwaggerGlobalSettings;
-import com.mangofactory.swagger.core.ClassOrApiAnnotationResourceGrouping;
 import com.mangofactory.swagger.core.SwaggerApiResourceListing;
 import com.mangofactory.swagger.scanners.ApiListingReferenceScanner;
 import com.wordnik.swagger.model.ApiInfo;
 import com.wordnik.swagger.model.ApiKey;
 import com.wordnik.swagger.model.AuthorizationType;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
 
 /**
  * Swagger configuration for REST API Documentation.
@@ -55,7 +56,7 @@ public class RestApiDocumentationSwaggerConfig {
 
     /**
      *
-     * Autowire the bundled swagger config
+     * Autowire the bundled swagger config.
      */
     @Autowired
     private SpringSwaggerConfig springSwaggerConfig;
@@ -63,7 +64,7 @@ public class RestApiDocumentationSwaggerConfig {
     private ModelProvider modelProvider;
 
     /**
-     * Adds the jackson scala module to the MappingJackson2HttpMessageConverter registered with spring
+     * Adds the jackson scala module to the MappingJackson2HttpMessageConverter registered with spring.
      * Swagger core models are scala so we need to be able to convert to JSON
      * Also registers some custom serializers needed to transform swagger models to swagger-ui required json format
      */
@@ -88,7 +89,7 @@ public class RestApiDocumentationSwaggerConfig {
 
 
     /**
-     * Global swagger settings
+     * Global swagger settings.
      */
     @Bean
     public SwaggerGlobalSettings swaggerGlobalSettings() {
@@ -104,7 +105,7 @@ public class RestApiDocumentationSwaggerConfig {
 
 
     /**
-     * API Info as it appears on the swagger-ui page
+     * API Info as it appears on the swagger-ui page.
      */
     private ApiInfo apiInfo() {
         ApiInfo apiInfo = new ApiInfo(
@@ -223,7 +224,7 @@ public class RestApiDocumentationSwaggerConfig {
     }
       */
     private List<AuthorizationType> authorizationTypes() {
-        ArrayList<AuthorizationType> authorizationTypes = new ArrayList<AuthorizationType>();
+        List<AuthorizationType> authorizationTypes = new ArrayList<AuthorizationType>();
         authorizationTypes.add(new ApiKey("x-auth-token", "header"));
         return authorizationTypes;
     }
