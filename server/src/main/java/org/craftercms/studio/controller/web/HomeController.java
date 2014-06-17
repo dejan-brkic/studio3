@@ -53,7 +53,7 @@ public class HomeController {
     }
 
     @ExceptionHandler(NoSuchRequestHandlingMethodException.class)
-    public String exception(HttpServletRequest request) {
+    public String exception(final HttpServletRequest request) {
         System.out.println("ASDDSADSADSADS" + request.getRequestURL());
         return INDEX_VIEW;
     }

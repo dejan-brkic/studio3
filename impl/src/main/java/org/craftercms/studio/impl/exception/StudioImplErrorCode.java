@@ -20,10 +20,15 @@ package org.craftercms.studio.impl.exception;
 import org.craftercms.studio.commons.exception.ErrorCode;
 
 /**
+ * Studio implementation error codes.
+ *
  * @author Dejan Brkic
  */
 public class StudioImplErrorCode extends ErrorCode {
 
+    /**
+     * Module ID.
+     */
     public static final String MODULE_ID = "studio-impl";
 
 

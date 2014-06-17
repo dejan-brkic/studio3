@@ -38,7 +38,7 @@ public class ValidationException extends StudioException {
      * @param code   Exception Summary Message
      * @param errors List of all validation errors
      */
-    public ValidationException(String code, List<ObjectError> errors) {
+    public ValidationException(final String code, final  List<ObjectError> errors) {
         super(code, "Validation Error");
         this.errors = errors;
     }

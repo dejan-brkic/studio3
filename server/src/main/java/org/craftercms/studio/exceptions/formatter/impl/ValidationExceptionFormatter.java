@@ -43,7 +43,7 @@ public class ValidationExceptionFormatter extends AbstractExceptionFormatter {
     }
 
     @Override
-    public JSONObject generateDetailMessage(Exception ex) throws JSONException {
+    public JSONObject generateDetailMessage(final Exception ex) throws JSONException {
         final JSONObject returnJson = new JSONObject();
         if (ex instanceof ValidationException) {
             final ValidationException validationException = (ValidationException)ex;

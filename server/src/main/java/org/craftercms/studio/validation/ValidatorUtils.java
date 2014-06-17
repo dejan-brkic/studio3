@@ -15,12 +15,12 @@ import org.springframework.validation.Errors;
 public final class ValidatorUtils {
 
     /**
-     * Hides CTOR
+     * Hides CTOR.
      */
     private ValidatorUtils() {
     }
 
-    public static void validateStringNotEmpty(final Object toValidate, Errors errors, String... fields) {
+    public static void validateStringNotEmpty(final Object toValidate, final Errors errors, final String... fields) {
         Logger log = LoggerFactory.getLogger(ValidatorUtils.class);
         log.debug("Validating fields {} of {} ", fields, toValidate.getClass().getName());
         final BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(toValidate);

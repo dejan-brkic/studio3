@@ -17,6 +17,11 @@
 
 package org.craftercms.studio.impl.repository.mongodb.services.impl;
 
+import com.mongodb.MongoException;
+import com.mongodb.gridfs.GridFS;
+import com.mongodb.gridfs.GridFSDBFile;
+import com.mongodb.gridfs.GridFSInputFile;
+
 import java.io.InputStream;
 
 import org.apache.commons.lang.StringUtils;
@@ -28,10 +33,7 @@ import org.craftercms.studio.impl.repository.mongodb.exception.MongodbRepoErrorC
 import org.craftercms.studio.impl.repository.mongodb.services.GridFSService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.mongodb.MongoException;
-import com.mongodb.gridfs.GridFS;
-import com.mongodb.gridfs.GridFSDBFile;
-import com.mongodb.gridfs.GridFSInputFile;
+
 
 /**
  * Default GridFS implementation.
@@ -112,7 +114,7 @@ public class GridFSServiceImpl implements GridFSService {
         }
     }
 
-    public void setJongoCollectionFactory(JongoCollectionFactory jongoCollectionFactory) {
+    public void setJongoCollectionFactory(final JongoCollectionFactory jongoCollectionFactory) {
         this.gridFs = new GridFS(jongoCollectionFactory.getDatabase());
     }
 }

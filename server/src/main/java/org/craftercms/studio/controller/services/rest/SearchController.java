@@ -42,7 +42,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SearchController {
 
     /**
-     * Search Manager instance
+     * Search Manager instance.
      */
     @Autowired
     private SearchService searchService;

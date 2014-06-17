@@ -17,10 +17,11 @@
 
 package org.craftercms.studio.impl.repository.mongodb.data;
 
-import org.springframework.beans.factory.FactoryBean;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.ReadPreference;
 import com.mongodb.WriteConcern;
+
+import org.springframework.beans.factory.FactoryBean;
 
 /**
  * Spring helper for Create a MongoClient.

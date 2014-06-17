@@ -51,8 +51,12 @@ public class VersionController {
      */
     @RequestMapping(value = "/history/{site}", method = RequestMethod.GET)
     @ResponseBody
-    public Tree<Version> getVersionHistory(@PathVariable final String site, @RequestParam(required = true) final
-    String itemId, final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
+    public Tree<Version> getVersionHistory(
+            @PathVariable final String site,
+            @RequestParam(required = true) final String itemId,
+            final HttpServletRequest request,
+            final HttpServletResponse response
+    ) throws StudioException {
         return this.versionService.history(null, itemId);
     }
 

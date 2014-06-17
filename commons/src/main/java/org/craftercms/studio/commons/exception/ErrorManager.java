@@ -27,6 +27,8 @@ import java.util.ResourceBundle;
  */
 public final class ErrorManager {
 
+    public static final String SYSTEM_ERROR = "SYSTEM ERROR";
+
     private static ErrorManager instance;
     protected Map<String, ResourceBundle> errorMap;
 
@@ -52,7 +54,7 @@ public final class ErrorManager {
                 return error;
             }
         }
-        return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
+        return StudioException.createStudioException(null, SYSTEM_ERROR, SYSTEM_ERROR);
     }
 
     public static StudioException createError(final ErrorCode errorCode, final Exception cause) {
@@ -65,7 +67,7 @@ public final class ErrorManager {
                 return error;
             }
         }
-        return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
+        return StudioException.createStudioException(null, SYSTEM_ERROR, SYSTEM_ERROR);
 
     }
 
@@ -78,7 +80,7 @@ public final class ErrorManager {
                 return error;
             }
         }
-        return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
+        return StudioException.createStudioException(null, SYSTEM_ERROR, SYSTEM_ERROR);
     }
 
     public static StudioException createError(final ErrorCode errorCode, final Exception cause, final String... args) {
@@ -91,7 +93,7 @@ public final class ErrorManager {
                 return error;
             }
         }
-        return StudioException.createStudioException(null, "SYSTEM ERROR", "SYSTEM ERROR");
+        return StudioException.createStudioException(null, SYSTEM_ERROR, SYSTEM_ERROR);
     }
 
     public Map<String, ResourceBundle> getErrorMap() {

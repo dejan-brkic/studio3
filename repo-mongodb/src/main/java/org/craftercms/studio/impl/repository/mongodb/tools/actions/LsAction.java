@@ -55,7 +55,7 @@ public class LsAction extends AbstractAction {
         ls(children, context);
     }
 
-    private void ls(Iterable<Node> children, RepoShellContext context) {
+    private void ls(final Iterable<Node> children, final RepoShellContext context) {
         for (Node node : children) {
             context.getOut().print("\t");
             if (context.getNodeService().isNodeFolder(node)) {

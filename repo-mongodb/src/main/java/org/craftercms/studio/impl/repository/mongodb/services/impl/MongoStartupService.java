@@ -33,7 +33,7 @@ public class MongoStartupService implements ApplicationListener {
      */
     private Logger log = LoggerFactory.getLogger(MongoStartupService.class);
     /**
-     * Data Service
+     * Data Service.
      */
     private MongodbDataService mongodbDataService;
 
@@ -122,7 +122,7 @@ public class MongoStartupService implements ApplicationListener {
     }
 
 
-    public void setMongodbDataService(MongodbDataService mongodbDataService) {
+    public void setMongodbDataService(final MongodbDataService mongodbDataService) {
         this.mongodbDataService = mongodbDataService;
     }
 }

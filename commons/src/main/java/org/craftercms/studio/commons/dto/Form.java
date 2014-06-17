@@ -42,7 +42,7 @@ public class Form {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -50,7 +50,7 @@ public class Form {
         return this.siteId;
     }
 
-    public void setSiteId(String siteId) {
+    public void setSiteId(final String siteId) {
         this.siteId = siteId;
     }
 
@@ -58,7 +58,7 @@ public class Form {
         return this.siteName;
     }
 
-    public void setSiteName(String siteName) {
+    public void setSiteName(final String siteName) {
         this.siteName = siteName;
     }
 
@@ -66,7 +66,7 @@ public class Form {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -74,7 +74,7 @@ public class Form {
         return this.schema;
     }
 
-    public void setSchema(Map<String, Object> schema) {
+    public void setSchema(final Map<String, Object> schema) {
         this.schema = schema;
     }
 }

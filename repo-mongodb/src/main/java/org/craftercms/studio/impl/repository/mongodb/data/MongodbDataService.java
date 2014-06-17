@@ -1,5 +1,8 @@
 package org.craftercms.studio.impl.repository.mongodb.data;
 
+import com.mongodb.CommandResult;
+import com.mongodb.MongoException;
+import com.mongodb.WriteResult;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
@@ -11,9 +14,6 @@ import org.craftercms.studio.impl.repository.mongodb.exception.MongodbRepoErrorC
 import org.jongo.MongoCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.mongodb.CommandResult;
-import com.mongodb.MongoException;
-import com.mongodb.WriteResult;
 
 /**
  * Simple interface to interact with Jongo/MongoDB.<br/>
@@ -76,7 +76,7 @@ public class MongodbDataService {
      * @param params         Params of the json.
      * @throws org.craftercms.studio.commons.exception.StudioException
      */
-    public void save(String collectionName, final String queryName, final Object... params) throws StudioException {
+    public void save(final String collectionName, final String queryName, final Object... params) throws StudioException {
         try {
 
             log.debug("About to save {} in to collection {}", queryName, collectionName);
@@ -125,7 +125,8 @@ public class MongodbDataService {
     }
 
     /**
-     * Finds all documents of the given collection that match the template queryName<br/>
+     * Finds all documents of the given collection that match the template queryName.
+     * <br/>
      *
      * @param collectionName Collection where the queryName will be run.
      * @param queryName      Name of the  Template Query to be look in default-queries.xml or custom-queries
@@ -140,7 +141,7 @@ public class MongodbDataService {
      * mapping exception happen.
      */
     public <T> Iterable<T> find(final String collectionName, final Class<T> clazz, final String queryName,
-                                Object... params) throws StudioException {
+                                final Object... params) throws StudioException {
         return internalFind(collectionName, clazz, queryName, params);
     }
 
@@ -156,7 +157,7 @@ public class MongodbDataService {
      * mapping exception happen.
      */
     public Node findOne(final String collectionName, final Class<Node> clazz, final String queryName,
-                        Object... params) throws StudioException {
+                        final Object... params) throws StudioException {
         try {
             return jongoCollectionFactory.getCollection(collectionName).findOne(getQuery(queryName), params).as(clazz);
         } catch (MongoException ex) {
@@ -294,7 +295,7 @@ public class MongodbDataService {
 
     }
 
-    public String getQuery(String queryName) throws StudioException {
+    public String getQuery(final String queryName) throws StudioException {
         String query = jongoQueries.get(queryName);
         if (StringUtils.isBlank(query)) {
             log.debug("Query with name {} can't be found or is empty", queryName);
@@ -304,7 +305,7 @@ public class MongodbDataService {
         }
     }
 
-    public void deleteNode(String collectionName, String itemId) throws StudioException {
+    public void deleteNode(final String collectionName, final String itemId) throws StudioException {
         MongoCollection collection = jongoCollectionFactory.getCollection(collectionName);
         String query = getQuery(MongoRepositoryQueries.GET_BY_GEN_ID);
         collection.remove(query, itemId);
@@ -313,14 +314,14 @@ public class MongodbDataService {
     /**
      * Sets the JongoCollection Factory.
      *
-     * @param jongoCollectionFactory
+     * @param jongoCollectionFactory collection factory
      */
-    public void setJongoCollectionFactory(JongoCollectionFactory jongoCollectionFactory) {
+    public void setJongoCollectionFactory(final JongoCollectionFactory jongoCollectionFactory) {
         this.jongoCollectionFactory = jongoCollectionFactory;
     }
 
 
-    public void setJongoQueries(JongoQueries jongoQueries) {
+    public void setJongoQueries(final JongoQueries jongoQueries) {
         this.jongoQueries = jongoQueries;
     }
 

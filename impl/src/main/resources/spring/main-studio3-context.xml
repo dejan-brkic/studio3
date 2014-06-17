@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop" xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <aop:aspectj-autoproxy/>
 
+    <context:annotation-config/>
+
+    <!--context:component-scan base-package="org.craftercms.studio.spring.configuration"/ -->
+
     <import resource="classpath*:craftercms/studio/craftercms-mongo-repository.xml"/>
+
+    <bean name="EBusConfig" class="org.craftercms.studio.spring.configuration.EBusConfig" />
 
     <bean name="studio.impl.properties"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -73,6 +82,12 @@
     </bean>
 
     <bean id="SimplePreviewDeployer" class="org.craftercms.studio.internal.content.impl.SimplePreviewDeployerAspect">
+        <property name="enabled" value="false"/>
+        <property name="previewStoreRootPath" value="${deployer.root}"/>
+        <property name="contentManager" ref="ContentManager"/>
+    </bean>
+
+    <bean id="PreviewDeployer" class="org.craftercms.studio.impl.deployment.PreviewDeployer">
         <property name="enabled" value="true"/>
         <property name="previewStoreRootPath" value="${deployer.root}"/>
         <property name="contentManager" ref="ContentManager"/>

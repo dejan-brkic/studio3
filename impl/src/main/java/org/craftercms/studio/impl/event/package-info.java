@@ -15,16 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.mock.content;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-
-import org.craftercms.studio.commons.dto.Site;
-
 /**
- * Site DTO Mock.
+ * Default implementation of event module.
+ * @since 3.0
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-public class SiteMock extends Site {
-}
+package org.craftercms.studio.impl.event;

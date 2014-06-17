@@ -1,5 +1,9 @@
 package org.craftercms.studio.commons.dto;
 
+/**
+ * Tree structure.
+ * @param <T> type stored in tree
+ */
 public class Tree<T extends Comparable<T>> {
 
     private TreeNode<T> rootNode;

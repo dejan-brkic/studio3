@@ -23,7 +23,7 @@ public final class RestControllerUtils {
      * @param map  Map in which the keys will be remove
      * @param keys keys to be remove from the map
      */
-    public static void removeParamters(Map<String, Object> map, String... keys) {
+    public static void removeParamters(final Map<String, Object> map, final String... keys) {
         final Logger log = LoggerFactory.getLogger(RestControllerUtils.class);
         log.debug("About to filter from {} {}", map, keys);
         for (String keyToRemove : keys) {

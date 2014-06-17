@@ -16,8 +16,13 @@
             <groupId>org.craftercms</groupId>
             <artifactId>studio-commons</artifactId>
             <version>${project.parent.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.mangofactory</groupId>
+                    <artifactId>swagger-springmvc</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
-
 
 </project>

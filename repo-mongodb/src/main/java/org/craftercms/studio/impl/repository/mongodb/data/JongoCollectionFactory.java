@@ -17,14 +17,17 @@
 
 package org.craftercms.studio.impl.repository.mongodb.data;
 
-import org.apache.commons.lang3.StringUtils;
-import org.jongo.Jongo;
-import org.jongo.MongoCollection;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 
+import org.apache.commons.lang3.StringUtils;
+import org.jongo.Jongo;
+import org.jongo.MongoCollection;
 
+/**
+ * Jongo Collection Factory.
+ */
 public class JongoCollectionFactory {
 
 
@@ -55,7 +58,7 @@ public class JongoCollectionFactory {
         return db;
     }
 
-    public void setMongo(MongoClient mongo) {
+    public void setMongo(final MongoClient mongo) {
         this.mongo = mongo;
     }
 

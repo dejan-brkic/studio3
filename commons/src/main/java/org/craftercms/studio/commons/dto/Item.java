@@ -16,16 +16,16 @@
  */
 package org.craftercms.studio.commons.dto;
 
-import java.io.InputStream;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.wordnik.swagger.annotations.ApiModel;
 import com.wordnik.swagger.annotations.ApiModelProperty;
+
+import java.io.InputStream;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Content item transport object.
@@ -39,17 +39,17 @@ import com.wordnik.swagger.annotations.ApiModelProperty;
 public class Item implements Comparable<Item> {
     // Fundamental
     /**
-     * Crafter Studio item id
+     * Crafter Studio item id.
      */
     @ApiModelProperty(value = "Item id")
     private ItemId id;
     /**
-     * Object Version Number: Monotonically increasing number on persist
+     * Object Version Number: Monotonically increasing number on persist.
      */
     @ApiModelProperty(value = "Object version")
     private int objectVersionNumber;
     /**
-     * List of ancestors in TODO order
+     * List of ancestors in TODO order.
      */
     @ApiModelProperty(value = "List of ancestors")
     private List<ItemId> ancestors;
@@ -94,12 +94,12 @@ public class Item implements Comparable<Item> {
     @JsonIgnore
     private InputStream inputStream;
     /**
-     * User id of the lock owner, null if item is not locked
+     * User id of the lock owner, null if item is not locked.
      */
     @ApiModelProperty(value = "Lock owner")
     private String lockOwner;
     /**
-     * The URL to preview this item, null if item is not previewable
+     * The URL to preview this item, null if item is not previewable.
      */
     @ApiModelProperty(value = "Preview url for item")
     private String previewUrl;
@@ -122,7 +122,7 @@ public class Item implements Comparable<Item> {
     public Item() {
     }
 
-    public Item(Item original) {
+    public Item(final Item original) {
 
     }
 
@@ -131,7 +131,7 @@ public class Item implements Comparable<Item> {
         return inputStream;
     }
 
-    public void setInputStream(InputStream inputStream) {
+    public void setInputStream(final InputStream inputStream) {
         this.inputStream = inputStream;
     }
 
@@ -152,7 +152,7 @@ public class Item implements Comparable<Item> {
         return this.id;
     }
 
-    public void setId(ItemId id) {
+    public void setId(final ItemId id) {
         this.id = id;
     }
 
@@ -161,7 +161,7 @@ public class Item implements Comparable<Item> {
         return this.repoId;
     }
 
-    public void setRepoId(String repoId) {
+    public void setRepoId(final String repoId) {
         this.repoId = repoId;
     }
 
@@ -170,7 +170,7 @@ public class Item implements Comparable<Item> {
         return this.label;
     }
 
-    public void setLabel(String label) {
+    public void setLabel(final String label) {
         this.label = label;
     }
 
@@ -179,7 +179,7 @@ public class Item implements Comparable<Item> {
         return this.fileName;
     }
 
-    public void setFileName(String fileName) {
+    public void setFileName(final String fileName) {
         this.fileName = fileName;
     }
 
@@ -188,7 +188,7 @@ public class Item implements Comparable<Item> {
         return this.path;
     }
 
-    public void setPath(String path) {
+    public void setPath(final String path) {
         this.path = path;
     }
 
@@ -197,7 +197,7 @@ public class Item implements Comparable<Item> {
         return this.previewUrl;
     }
 
-    public void setPreviewUrl(String previewUrl) {
+    public void setPreviewUrl(final String previewUrl) {
         this.previewUrl = previewUrl;
     }
 
@@ -206,7 +206,7 @@ public class Item implements Comparable<Item> {
         return this.mimeType;
     }
 
-    public void setMimeType(String mimeType) {
+    public void setMimeType(final String mimeType) {
         this.mimeType = mimeType;
     }
 
@@ -215,7 +215,7 @@ public class Item implements Comparable<Item> {
         return this.contentType;
     }
 
-    public void setContentType(String contentType) {
+    public void setContentType(final String contentType) {
         this.contentType = contentType;
     }
 
@@ -224,7 +224,7 @@ public class Item implements Comparable<Item> {
         return this.state;
     }
 
-    public void setState(String state) {
+    public void setState(final String state) {
         this.state = state;
     }
 
@@ -233,7 +233,7 @@ public class Item implements Comparable<Item> {
         return this.disabled;
     }
 
-    public void setDisabled(boolean disabled) {
+    public void setDisabled(final boolean disabled) {
         this.disabled = disabled;
     }
 
@@ -242,7 +242,7 @@ public class Item implements Comparable<Item> {
         return this.lastModifiedDate;
     }
 
-    public void setLastModifiedDate(Date lastModifiedDate) {
+    public void setLastModifiedDate(final Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 
@@ -251,7 +251,7 @@ public class Item implements Comparable<Item> {
         return this.placeInNav;
     }
 
-    public void setPlaceInNav(boolean placeInNav) {
+    public void setPlaceInNav(final boolean placeInNav) {
         this.placeInNav = placeInNav;
     }
 
@@ -260,7 +260,7 @@ public class Item implements Comparable<Item> {
         return this.lockOwner;
     }
 
-    public void setLockOwner(String lockOwner) {
+    public void setLockOwner(final String lockOwner) {
         this.lockOwner = lockOwner;
     }
 
@@ -269,7 +269,7 @@ public class Item implements Comparable<Item> {
         return this.renderingTemplates;
     }
 
-    public void setRenderingTemplates(List<String> renderingTemplates) {
+    public void setRenderingTemplates(final List<String> renderingTemplates) {
         this.renderingTemplates = renderingTemplates;
     }
 
@@ -278,7 +278,7 @@ public class Item implements Comparable<Item> {
         return this.scheduledDate;
     }
 
-    public void setScheduledDate(Date scheduledDate) {
+    public void setScheduledDate(final Date scheduledDate) {
         this.scheduledDate = scheduledDate;
     }
 
@@ -287,7 +287,7 @@ public class Item implements Comparable<Item> {
         return this.packages;
     }
 
-    public void setPackages(List<String> packages) {
+    public void setPackages(final List<String> packages) {
         this.packages = packages;
     }
 
@@ -296,7 +296,7 @@ public class Item implements Comparable<Item> {
         return this.properties;
     }
 
-    public void setProperties(Map<String, Object> properties) {
+    public void setProperties(final Map<String, Object> properties) {
         this.properties = properties;
     }
 

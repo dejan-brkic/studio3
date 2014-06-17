@@ -77,7 +77,7 @@ public class TemplateServiceImpl implements TemplateService {
         }
     }
 
-    private Item createTemplateItem(String fileName) {
+    private Item createTemplateItem(final String fileName) {
         Item item = new Item();
         item.setCreatedBy(RandomStringUtils.random(10));
         item.setFileName(fileName);
@@ -230,32 +230,31 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public List<Item> list(final Context context, final String site, final ItemId itemId) throws StudioException {
-        if (context != null && securityService.validate(context)) {
-            if (itemId != null) {
-                return contentManager.list(context, site, itemId.getItemId());
-            } else {
-                String rootItemId = pathService.getItemIdByPath(context.getTicket(), site, repoRootPath);
-                if (StringUtils.isEmpty(rootItemId)) {
-                    int lastIndex = repoRootPath.lastIndexOf("/");
-                    String rootParent = "/";
-                    String folderName = repoRootPath;
-                    if (lastIndex > 0) {
-                        rootParent = repoRootPath.substring(0, lastIndex - 1);
-                        folderName = repoRootPath.substring(lastIndex + 1);
-                    } else {
-                        if (repoRootPath.startsWith("/")) {
-                            folderName = repoRootPath.substring(1);
-                        }
-                    }
-                    Item rootItem = contentManager.createFolder(context, site, rootParent, folderName);
-                    rootItemId = rootItem.getId().toString();
-                }
-                return contentManager.list(context, site, rootItemId);
-            }
-
-        } else {
+        if (!(context != null && securityService.validate(context))) {
             throw ErrorManager.createError(StudioImplErrorCode.INVALID_CONTEXT);
         }
+        if (itemId != null) {
+            return contentManager.list(context, site, itemId.getItemId());
+        } else {
+            String rootItemId = pathService.getItemIdByPath(context.getTicket(), site, repoRootPath);
+            if (StringUtils.isEmpty(rootItemId)) {
+                int lastIndex = repoRootPath.lastIndexOf("/");
+                String rootParent = "/";
+                String folderName = repoRootPath;
+                if (lastIndex > 0) {
+                    rootParent = repoRootPath.substring(0, lastIndex - 1);
+                    folderName = repoRootPath.substring(lastIndex + 1);
+                } else {
+                    if (repoRootPath.startsWith("/")) {
+                        folderName = repoRootPath.substring(1);
+                    }
+                }
+                Item rootItem = contentManager.createFolder(context, site, rootParent, folderName);
+                rootItemId = rootItem.getId().toString();
+            }
+            return contentManager.list(context, site, rootItemId);
+        }
+
     }
 
     public void setContentManager(final ContentManager contentManager) {

@@ -20,17 +20,33 @@ package org.craftercms.studio.exceptions;
 import org.craftercms.studio.commons.exception.ErrorCode;
 
 /**
+ * Studio Server error codes.
+ *
  * @author Dejan Brkic
  */
-public class StudioServerErrorCode extends ErrorCode {
+public final class StudioServerErrorCode extends ErrorCode {
 
+    /**
+     * Module ID.
+     */
     public static final String MODULE_ID = "server";
 
+    /**
+     * File upload IO error.
+     */
     public static final ErrorCode FILE_UPLOAD_IO_ERROR = new StudioServerErrorCode("SERVER-001");
+
+    /**
+     * System Error.
+     */
     public static final ErrorCode SYSTEM_ERROR = new StudioServerErrorCode("SERVER-002");
+
+    /**
+     * Validation error.
+     */
     public static final ErrorCode VALIDATION_ERROR = new StudioServerErrorCode("SERVER-003");
 
-    private StudioServerErrorCode(String code) {
+    private StudioServerErrorCode(final String code) {
         super(MODULE_ID, code);
     }
 }

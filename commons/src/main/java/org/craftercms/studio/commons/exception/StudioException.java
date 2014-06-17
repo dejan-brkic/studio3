@@ -30,7 +30,7 @@ public class StudioException extends Exception {
 
     private static final long serialVersionUID = 8822403836288820982L;
 
-    private String errorCode;
+    private final String errorCode;
 
     /**
      * Construct with an error code and cause exception.
@@ -58,37 +58,38 @@ public class StudioException extends Exception {
      *
      * @param errorCode
      */
-    protected StudioException(final String errorCode, final String message, Exception exc) {
+    protected StudioException(final String errorCode, final String message, final Exception exc) {
         super(message, exc);
         this.errorCode = errorCode;
     }
 
-    public static StudioException createStudioException(ResourceBundle messageBundle, String errorCode) {
+    public static StudioException createStudioException(final ResourceBundle messageBundle, final String errorCode) {
 
         StudioException exception = null;
         if (messageBundle != null) {
             String message = messageBundle.getString(errorCode);
             exception = new StudioException(errorCode, message);
         } else {
-            exception = new StudioException("SYSTEM ERROR", "SYSTEM ERROR");
+            exception = new StudioException(ErrorManager.SYSTEM_ERROR, ErrorManager.SYSTEM_ERROR);
         }
         return exception;
     }
 
-    public static StudioException createStudioException(ResourceBundle messageBundle, String errorCode, Exception exc) {
+    public static StudioException createStudioException(final ResourceBundle messageBundle, final String errorCode,
+                                                        final Exception exc) {
 
         StudioException exception = null;
         if (messageBundle != null) {
             String message = messageBundle.getString(errorCode);
             exception = new StudioException(errorCode, message, exc);
         } else {
-            exception = new StudioException("SYSTEM ERROR", "SYSTEM ERROR", exc);
+            exception = new StudioException(ErrorManager.SYSTEM_ERROR, ErrorManager.SYSTEM_ERROR, exc);
         }
         return exception;
     }
 
-    public static StudioException createStudioException(ResourceBundle messageBundle, String errorCode,
-                                                        String... args) {
+    public static StudioException createStudioException(final ResourceBundle messageBundle, final String errorCode,
+                                                        final String... args) {
 
         StudioException exception = null;
         if (messageBundle != null) {
@@ -98,13 +99,13 @@ public class StudioException extends Exception {
             }
             exception = new StudioException(errorCode, message);
         } else {
-            exception = new StudioException("SYSTEM ERROR", "SYSTEM ERROR");
+            exception = new StudioException(ErrorManager.SYSTEM_ERROR, ErrorManager.SYSTEM_ERROR);
         }
         return exception;
     }
 
-    public static StudioException createStudioException(ResourceBundle messageBundle, String errorCode,
-                                                        Exception exc, String... args) {
+    public static StudioException createStudioException(final ResourceBundle messageBundle, final String errorCode,
+                                                        final Exception exc, final String... args) {
 
         StudioException exception = null;
         if (messageBundle != null) {
@@ -114,7 +115,7 @@ public class StudioException extends Exception {
             }
             exception = new StudioException(errorCode, message, exc);
         } else {
-            exception = new StudioException("SYSTEM ERROR", "SYSTEM ERROR", exc);
+            exception = new StudioException(ErrorManager.SYSTEM_ERROR, ErrorManager.SYSTEM_ERROR, exc);
         }
         return exception;
     }

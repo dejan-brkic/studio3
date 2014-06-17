@@ -15,16 +15,38 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.mock.content;
-
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-
-import org.craftercms.studio.commons.dto.Site;
+package org.craftercms.studio.impl.event;
 
 /**
- * Site DTO Mock.
+ * Repository event message
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-public class SiteMock extends Site {
+public class RepositoryEventMessage {
+
+    private String site;
+    private String path;
+    private String itemId;
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(String itemId) {
+        this.itemId = itemId;
+    }
 }

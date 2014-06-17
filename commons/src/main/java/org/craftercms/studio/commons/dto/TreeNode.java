@@ -1,11 +1,15 @@
 package org.craftercms.studio.commons.dto;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Tree node of type T
+ * @param <T>
+ */
 public class TreeNode<T extends Comparable<T>> {
 
     @JsonProperty
@@ -24,11 +28,11 @@ public class TreeNode<T extends Comparable<T>> {
         this.children = children;
     }
 
-    public void addChild(T child) {
+    public void addChild(final T child) {
         addChild(new TreeNode<>(child, this, null));
     }
 
-    public void addChild(TreeNode<T> treeNode) {
+    public void addChild(final TreeNode<T> treeNode) {
         if (this.children == null) {
             children = new HashSet<TreeNode<T>>();
         }

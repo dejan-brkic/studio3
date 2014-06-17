@@ -57,7 +57,7 @@ public class SimplePreviewDeployerAspect {
      */
 
     @Before(value = "execution(* org.craftercms.studio.internal.content.ContentManager.create(..))")
-    public void createContent(JoinPoint joinPoint) {
+    public void createContent(final JoinPoint joinPoint) {
         if (!enabled) {
             return;
         }
@@ -78,7 +78,7 @@ public class SimplePreviewDeployerAspect {
                InputStream content) throws StudioException;
      */
     @Before(value = "execution(* org.craftercms.studio.internal.content.ContentManager.write(..))")
-    public void updateContent(JoinPoint joinPoint) {
+    public void updateContent(final JoinPoint joinPoint) {
         if (!enabled) {
             return;
         }
@@ -105,7 +105,7 @@ public class SimplePreviewDeployerAspect {
         }
     }
 
-    protected void writeFile(String path, String filename, final InputStream content) throws IOException {
+    protected void writeFile(final String path, final String filename, final InputStream content) throws IOException {
 
         //BufferedInputStream contentStream = new BufferedInputStream(content);
         StringBuilder sbSavePath = new StringBuilder(previewStoreRootPath);
@@ -151,7 +151,7 @@ public class SimplePreviewDeployerAspect {
     void delete(Context context, List<Item> itemsToDelete) throws StudioException;
      */
     @Before(value = "execution(* org.craftercms.studio.internal.content.ContentManager.delete(..))")
-    public void deleteContent(JoinPoint joinPoint) {
+    public void deleteContent(final JoinPoint joinPoint) {
         if (!enabled) {
             return;
         }

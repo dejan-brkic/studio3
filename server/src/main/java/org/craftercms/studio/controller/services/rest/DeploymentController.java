@@ -59,10 +59,14 @@ public class DeploymentController {
      * @param filters Filters.
      * @return List of items
      */
-    @RequestMapping(value = "/history/{site}", method = RequestMethod.GET)
+    @RequestMapping(
+            value = "/history/{site}",
+            method = RequestMethod.GET)
     @ResponseBody
-    public List<Item> history(@PathVariable final String site, @RequestParam(required = false) final List<String>
-        filters) throws StudioException {
+    public List<Item> history(
+            @PathVariable final String site,
+            @RequestParam(required = false) final List<String> filters
+    ) throws StudioException {
         return this.deploymentManager.history(null, site, filters);
     }
 
@@ -73,10 +77,14 @@ public class DeploymentController {
      * @param environment Publishing environment.
      * @return List of deployment channels
      */
-    @RequestMapping(value = "/channels/{site}", method = RequestMethod.GET)
+    @RequestMapping(
+            value = "/channels/{site}",
+            method = RequestMethod.GET)
     @ResponseBody
-    public List<DeploymentChannel> history(@PathVariable final String site, @RequestParam(required = true) final
-    String environment) throws StudioException {
+    public List<DeploymentChannel> history(
+            @PathVariable final String site,
+            @RequestParam(required = true) final String environment
+    ) throws StudioException {
         return this.deploymentManager.channels(null, site, environment);
     }
 
@@ -89,10 +97,15 @@ public class DeploymentController {
      * @param response Http response
      * @throws StudioException
      */
-    @RequestMapping(value = "/update_channel/{site}", method = RequestMethod.POST)
-    public void updateChannel(@PathVariable final String site, @Valid @RequestBody final DeploymentChannel channel,
-                              final HttpServletRequest request, final HttpServletResponse response) throws
-        StudioException {
+    @RequestMapping(
+            value = "/update_channel/{site}",
+            method = RequestMethod.POST)
+    public void updateChannel(
+            @PathVariable final String site,
+            @Valid @RequestBody final DeploymentChannel channel,
+            final HttpServletRequest request,
+            final HttpServletResponse response
+    ) throws StudioException {
         this.deploymentManager.updateChannel(null, site, channel);
     }
 
@@ -101,14 +114,17 @@ public class DeploymentController {
      *
      * @param site     site
      * @param channel  deployment channel
-     * @param request  http request
      * @param response http response
      * @throws StudioException
      */
-    @RequestMapping(value = "/remove_channel/{site}", method = RequestMethod.POST)
-    public void removeChannel(@PathVariable final String site, @Valid @RequestBody final DeploymentChannel channel,
-                              final HttpServletRequest request, final HttpServletResponse response) throws
-        StudioException {
+    @RequestMapping(
+            value = "/remove_channel/{site}",
+            method = RequestMethod.POST)
+    public void removeChannel(
+            @PathVariable final String site,
+            @Valid @RequestBody final DeploymentChannel channel,
+            final HttpServletResponse response
+    ) throws StudioException {
         this.deploymentManager.removeChannel(null, site, channel);
     }
 
@@ -121,9 +137,15 @@ public class DeploymentController {
      * @param response http response
      * @throws StudioException
      */
-    @RequestMapping(value = "/deploy/{site}", method = RequestMethod.POST)
-    public void deploy(@PathVariable final String site, @RequestParam(required = true) final List<String> itemIds,
-                       final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
+    @RequestMapping(
+            value = "/deploy/{site}",
+            method = RequestMethod.POST)
+    public void deploy(
+            @PathVariable final String site,
+            @RequestParam(required = true) final List<String> itemIds,
+            final HttpServletRequest request,
+            final HttpServletResponse response
+    ) throws StudioException {
         this.deploymentManager.deploy(null, site, itemIds);
     }
 
@@ -134,10 +156,14 @@ public class DeploymentController {
      * @param channel deployment channel
      * @return status message
      */
-    @RequestMapping(value = "/status/{site}", method = RequestMethod.GET)
+    @RequestMapping(
+            value = "/status/{site}",
+            method = RequestMethod.GET)
     @ResponseBody
-    public String status(@PathVariable final String site, @Valid @RequestBody final DeploymentChannel channel) throws
-        StudioException {
+    public String status(
+            @PathVariable final String site,
+            @Valid @RequestBody final DeploymentChannel channel
+    ) throws  StudioException {
         return this.deploymentManager.status(null, site, channel);
     }
 
@@ -148,10 +174,14 @@ public class DeploymentController {
      * @param channel deployment channel
      * @return timestamp
      */
-    @RequestMapping(value = "/version/{site}", method = RequestMethod.GET)
+    @RequestMapping(
+            value = "/version/{site}",
+            method = RequestMethod.GET)
     @ResponseBody
-    public long version(@PathVariable final String site, @Valid @RequestBody final DeploymentChannel channel) throws
-        StudioException {
+    public long version(
+            @PathVariable final String site,
+            @Valid @RequestBody final DeploymentChannel channel
+    ) throws StudioException {
         return this.deploymentManager.version(null, site, channel);
     }
 
@@ -161,9 +191,15 @@ public class DeploymentController {
      * @param site    site
      * @param channel deployment channel
      */
-    @RequestMapping(value = "/abort/{site}", method = RequestMethod.POST)
-    public void abort(@PathVariable final String site, @Valid @RequestBody final DeploymentChannel channel,
-                      final HttpServletRequest request, final HttpServletResponse response) throws StudioException {
+    @RequestMapping(
+            value = "/abort/{site}",
+            method = RequestMethod.POST)
+    public void abort(
+            @PathVariable final String site,
+            @Valid @RequestBody final DeploymentChannel channel,
+            final HttpServletRequest request,
+            final HttpServletResponse response
+    ) throws StudioException {
         this.deploymentManager.abort(null, site, channel);
     }
 }

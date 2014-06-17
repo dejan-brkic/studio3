@@ -20,6 +20,7 @@ package org.craftercms.studio.mock.exception;
 import org.craftercms.studio.commons.exception.ErrorCode;
 
 /**
+ * Error Codes for Mocks module.
  * @author Dejan Brkic
  */
 public class MockErrorCode extends ErrorCode {

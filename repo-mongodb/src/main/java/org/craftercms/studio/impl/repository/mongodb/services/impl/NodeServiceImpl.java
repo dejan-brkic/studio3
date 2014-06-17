@@ -61,7 +61,7 @@ public class NodeServiceImpl implements NodeService {
      */
     private GridFSService gridFSService;
     /**
-     * Path Services
+     * Path Services.
      */
     private PathService pathServices;
     /**
@@ -77,7 +77,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Node createFileNode(final Node parent, final String fileName, String label, final String creatorName,
+    public Node createFileNode(final Node parent, final String fileName, final String label, final String creatorName,
                                final InputStream content) throws StudioException {
         log.debug("Validating params for creating a new Folder Node");
         if (parent == null) {
@@ -237,7 +237,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public Node getSiteNode(String siteName) throws StudioException {
+    public Node getSiteNode(final String siteName) throws StudioException {
         return findNodeByAncestorsAndName(Arrays.asList(getRootNode().getId()), siteName);
     }
 
@@ -276,7 +276,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
     @Override
-    public String getNodePath(Node node) throws StudioException {
+    public String getNodePath(final Node node) throws StudioException {
         //make it bigger so it will not have to resize it for a bit.
         StringBuilder builder = new StringBuilder(DEFAULT_BUILDER_SIZE);
         //First Add the Node with the given ID
@@ -316,7 +316,7 @@ public class NodeServiceImpl implements NodeService {
     }
 
 
-    private boolean isNodeUniqueNodeInTree(Node nodeToValidate) throws StudioException {
+    private boolean isNodeUniqueNodeInTree(final Node nodeToValidate) throws StudioException {
         return dataService.findOne(NODES_COLLECTION, Node.class, MongoRepositoryQueries.GET_BY_ANCESTORS_AND_NAME,
             nodeToValidate.getId(), nodeToValidate.getCore().getNodeName()) == null;
     }
@@ -367,11 +367,11 @@ public class NodeServiceImpl implements NodeService {
         this.gridFSService = gridFSService;
     }
 
-    public void setPathServices(PathService pathServices) {
+    public void setPathServices(final PathService pathServices) {
         this.pathServices = pathServices;
     }
 
-    public void setDataService(MongodbDataService dataService) {
+    public void setDataService(final MongodbDataService dataService) {
         this.dataService = dataService;
     }
 
