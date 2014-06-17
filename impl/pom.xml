@@ -26,6 +26,13 @@
             <artifactId>studio-repo-api</artifactId>
             <version>3.0.0-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.craftercms</groupId>
+            <artifactId>crafter-commons-ebus</artifactId>
+            <version>2.5.0-SNAPSHOT</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>

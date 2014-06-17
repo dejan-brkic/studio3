@@ -13,20 +13,28 @@ import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.dto.TreeNode;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.event.RepositoryEventMessage;
 import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 import org.craftercms.studio.internal.content.ContentManager;
 import org.craftercms.studio.repo.content.ContentService;
 import org.craftercms.studio.repo.content.PathService;
+import org.springframework.beans.factory.annotation.Autowired;
+import reactor.core.Reactor;
+import reactor.event.Event;
 
 /**
  * Repository Manager Implementation.
  *
  * @author Dejan Brkic
  */
+
 public class ContentManagerImpl implements ContentManager {
 
     private ContentService contentService;
     private PathService pathService;
+
+    @Autowired
+    private Reactor repositoryReactor;
 
     @Override
     public ItemId create(final Context context, final String site, final String path, final Item item,
@@ -46,6 +54,11 @@ public class ContentManagerImpl implements ContentManager {
 
         Item item = contentService.read(context.getTicket(), site, itemId.getItemId());
         contentService.update(context.getTicket(), item, content);
+        RepositoryEventMessage message = new RepositoryEventMessage();
+        message.setItemId(item.getId().getItemId());
+        message.setSite(site);
+        message.setPath(item.getPath());
+        repositoryReactor.notify("repository.update", Event.wrap(message));
     }
 
     @Override
