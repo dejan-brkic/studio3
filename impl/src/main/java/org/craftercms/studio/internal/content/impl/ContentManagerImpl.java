@@ -13,6 +13,7 @@ import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.dto.TreeNode;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.event.RepositoryEventBulkOpMessage;
 import org.craftercms.studio.impl.event.RepositoryEventMessage;
 import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 import org.craftercms.studio.internal.content.ContentManager;
@@ -40,6 +41,11 @@ public class ContentManagerImpl implements ContentManager {
     public ItemId create(final Context context, final String site, final String path, final Item item,
                          final InputStream content) throws StudioException {
         Item newItem = contentService.create(context.getTicket(), site, path, item, content);
+        RepositoryEventMessage message = new RepositoryEventMessage();
+        message.setItemId(newItem.getId().getItemId());
+        message.setSite(site);
+        message.setPath(newItem.getPath());
+        repositoryReactor.notify("repository.create", Event.wrap(message));
         return newItem.getId();
     }
 
@@ -63,9 +69,14 @@ public class ContentManagerImpl implements ContentManager {
 
     @Override
     public void delete(final Context context, final List<Item> itemsToDelete) throws StudioException {
+        List<String> deletedPaths = new ArrayList<String>();
         for (Item item : itemsToDelete) {
             contentService.delete(context.getTicket(), item.getId().getItemId());
+            deletedPaths.add(item.getPath());
         }
+        RepositoryEventBulkOpMessage message = new RepositoryEventBulkOpMessage();
+        message.setAffectedPaths(deletedPaths);
+        repositoryReactor.notify("repository.delete", Event.wrap(message));
     }
 
     @Override

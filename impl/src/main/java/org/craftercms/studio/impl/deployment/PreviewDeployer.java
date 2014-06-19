@@ -5,6 +5,7 @@ import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.Tenant;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.event.RepositoryEventBulkOpMessage;
 import org.craftercms.studio.impl.event.RepositoryEventMessage;
 import org.craftercms.studio.internal.content.ContentManager;
 import org.craftrercms.commons.ebus.annotations.EListener;
@@ -18,6 +19,7 @@ import reactor.event.Event;
 import reactor.spring.annotation.Selector;
 
 import java.io.*;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -35,6 +37,24 @@ public class PreviewDeployer {
     private ContentManager contentManager;
 
     private Context dummyContext = new Context(UUID.randomUUID().toString(), new Tenant());
+
+    @EventHandler(event = "repository.create", ebus = "@repositoryReactor", type = EventSelectorType.REGEX)
+    public void onContentCreate(Event<RepositoryEventMessage> event) throws StudioException {
+        if (!enabled) {
+            return;
+        }
+
+        RepositoryEventMessage message = event.getData();
+        Item item = contentManager.read(dummyContext, message.getSite(), message.getItemId());
+        String path = message.getPath();
+        InputStream content = item.getInputStream();
+
+        try {
+            writeFile(path, content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @EventHandler(event = "repository.update", ebus = "@repositoryReactor", type = EventSelectorType.REGEX)
     public void onContentUpdate(Event<RepositoryEventMessage> event) throws StudioException {
@@ -93,6 +113,27 @@ public class PreviewDeployer {
             IOUtils.closeQuietly(outputStream);
         }
 
+    }
+
+    @EventHandler(event = "repository.delete", ebus = "@repositoryReactor", type = EventSelectorType.REGEX)
+    public void onContentDelete(Event<RepositoryEventBulkOpMessage> event) {
+        if (!enabled) {
+            return;
+        }
+
+        RepositoryEventBulkOpMessage message = event.getData();
+        List<String> affectedPaths = message.getAffectedPaths();
+        for (String path : affectedPaths) {
+            StringBuilder sbDeletePath = new StringBuilder(previewStoreRootPath);
+            sbDeletePath.append(File.separator);
+            sbDeletePath.append(path);
+            String deletePath = sbDeletePath.toString();
+            deletePath = deletePath.replaceAll(File.separator + "+", File.separator);
+            File file = new File(deletePath);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
     }
 
     public String getPreviewStoreRootPath() {
