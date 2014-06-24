@@ -19,6 +19,7 @@ package org.craftercms.studio.impl.content;
 
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -35,6 +36,7 @@ import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.impl.AbstractServiceTest;
 import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 import org.craftercms.studio.internal.content.ContentManager;
+import org.craftercms.studio.repo.content.PathService;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -68,9 +70,12 @@ public class AssetServiceImplTest extends AbstractServiceTest {
     @Autowired
     private SecurityService securityServiceMock;
 
+    @Autowired
+    private PathService pathServiceMock;
+
     @Override
     protected void resetMocks() {
-        reset(contentManagerMock, securityServiceMock);
+        reset(contentManagerMock, securityServiceMock, pathServiceMock);
     }
 
     /**
@@ -1598,5 +1603,205 @@ public class AssetServiceImplTest extends AbstractServiceTest {
             return;
         }
         fail();
+    }
+
+    /**
+     * Use case 45:
+     * Test list method.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testList() throws Exception {
+        // Set up mock objects
+        when(this.contentManagerMock.list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString())).thenReturn(createItemListMock());
+        when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
+
+        // set up parameters
+        Context context = new Context(UUID.randomUUID().toString(), new Tenant());
+        String site = RandomStringUtils.random(10);
+        String assetId = RandomStringUtils.random(10);
+        ItemId assetItemId = new ItemId(assetId);
+
+        // execute list method
+        List<Item> itemList = assetServiceSUT.list(context, site, assetItemId);
+
+        verify(contentManagerMock, times(1)).list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+        verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
+    }
+
+    /**
+     * Use case 46:
+     * Test list method using null context.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testListNullContext() throws Exception {
+        // Set up mock objects
+        when(this.contentManagerMock.list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString())).thenReturn(createItemListMock());
+        when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
+
+        // set up parameters
+        String site = RandomStringUtils.random(10);
+        String assetId = RandomStringUtils.random(10);
+        ItemId assetItemId = new ItemId(assetId);
+
+        // execute list method
+        try {
+            List<Item> itemList = assetServiceSUT.list(null, site, assetItemId);
+        } catch (StudioException expectedException) {
+            assertEquals(StudioImplErrorCode.INVALID_CONTEXT.getCode(), expectedException.getErrorCode());
+            verify(contentManagerMock, times(0)).list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+            verify(securityServiceMock, times(0)).validate(Mockito.any(Context.class));
+            return;
+        }
+        fail();
+    }
+
+    /**
+     * Use case 47:
+     * Test list method using invalid context.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testListInvalidContext() throws Exception {
+        // Set up mock objects
+        when(this.contentManagerMock.list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString())).thenReturn(createItemListMock());
+        when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(false);
+
+        // set up parameters
+        Context context = new Context(UUID.randomUUID().toString(), new Tenant());
+        String site = RandomStringUtils.random(10);
+        String assetId = RandomStringUtils.random(10);
+        ItemId assetItemId = new ItemId(assetId);
+
+        // execute list method
+        try {
+            List<Item> itemList = assetServiceSUT.list(context, site, assetItemId);
+        } catch (StudioException expectedException) {
+            assertEquals(StudioImplErrorCode.INVALID_CONTEXT.getCode(), expectedException.getErrorCode());
+            verify(contentManagerMock, times(0)).list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+            verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
+            return;
+        }
+        fail();
+    }
+
+    /**
+     * Use case 48:
+     * Test list method using invalid site.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testListInvalidSite() throws Exception {
+        // Set up mock objects
+        doThrow(ErrorManager.createError(StudioImplErrorCode.INVALID_SITE, "Unit test.")).
+                when(this.contentManagerMock).
+                list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+        when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
+
+        // set up parameters
+        Context context = new Context(UUID.randomUUID().toString(), new Tenant());
+        String site = RandomStringUtils.random(10);
+        String assetId = RandomStringUtils.random(10);
+        ItemId assetItemId = new ItemId(assetId);
+
+        // execute list method
+        try {
+            List<Item> itemList = assetServiceSUT.list(context, site, assetItemId);
+        } catch (StudioException expectedException) {
+            assertEquals(StudioImplErrorCode.INVALID_SITE.getCode(), expectedException.getErrorCode());
+            verify(contentManagerMock, times(1)).list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+            verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
+            return;
+        }
+        fail();
+    }
+
+    /**
+     * Use case 48:
+     * Test list method using invalid item.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testListInvalidItem() throws Exception {
+        // Set up mock objects
+        doThrow(ErrorManager.createError(StudioImplErrorCode.ITEM_NOT_FOUND, "Unit test")).
+                when(this.contentManagerMock).
+                list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+        when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
+
+        // set up parameters
+        Context context = new Context(UUID.randomUUID().toString(), new Tenant());
+        String site = RandomStringUtils.random(10);
+        String assetId = RandomStringUtils.random(10);
+        ItemId assetItemId = new ItemId(assetId);
+
+        // execute list method
+        try {
+            List<Item> itemList = assetServiceSUT.list(context, site, assetItemId);
+        } catch (StudioException expectedException) {
+            assertEquals(StudioImplErrorCode.ITEM_NOT_FOUND.getCode(), expectedException.getErrorCode());
+            verify(contentManagerMock, times(1)).list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+            verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
+            return;
+        }
+        fail();
+    }
+
+    /**
+     * Use case 49:
+     * Test list method without Item ID.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testListItemIdNull() throws Exception {
+        // Set up mock objects
+        when(this.contentManagerMock.list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString())).thenReturn(createItemListMock());
+        when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
+        when(pathServiceMock.getItemIdByPath(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(UUID.randomUUID().toString());
+
+        // set up parameters
+        Context context = new Context(UUID.randomUUID().toString(), new Tenant());
+        String site = RandomStringUtils.random(10);
+
+        // execute list method
+        List<Item> itemList = assetServiceSUT.list(context, site, null);
+
+        verify(contentManagerMock, times(1)).list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+        verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
+        verify(pathServiceMock, times(1)).getItemIdByPath(Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
+    }
+
+    /**
+     * Use case 50:
+     * Test list method without Item ID and root repo path does not exist.
+     *
+     * @throws java.lang.Exception
+     */
+    @Test
+    public void testListItemIdNullRootRepoPathDoesNotExist() throws Exception {
+        // Set up mock objects
+        when(contentManagerMock.list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString())).thenReturn(createItemListMock());
+        when(contentManagerMock.createFolder(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(createItemMock());
+        when(securityServiceMock.validate(Mockito.any(Context.class))).thenReturn(true);
+        when(pathServiceMock.getItemIdByPath(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(null);
+
+        // set up parameters
+        Context context = new Context(UUID.randomUUID().toString(), new Tenant());
+        String site = RandomStringUtils.random(10);
+
+        // execute list method
+        List<Item> itemList = assetServiceSUT.list(context, site, null);
+
+        verify(contentManagerMock, times(1)).list(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString());
+        verify(contentManagerMock, times(1)).createFolder(Mockito.any(Context.class), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
+        verify(securityServiceMock, times(1)).validate(Mockito.any(Context.class));
+        verify(pathServiceMock, times(1)).getItemIdByPath(Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
     }
 }

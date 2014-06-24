@@ -20,11 +20,17 @@
 
     <bean id="blueprintsManagerSUT" class="org.craftercms.studio.impl.blueprints.BlueprintsManagerImpl"/>
 
-    <bean id="assetServiceSUT" class="org.craftercms.studio.impl.content.AssetServiceImpl"/>
+    <bean id="assetServiceSUT" class="org.craftercms.studio.impl.content.AssetServiceImpl">
+        <property name="repoRootPath" value="/static-assets"/>
+    </bean>
 
-    <bean id="templateServiceSUT" class="org.craftercms.studio.impl.content.TemplateServiceImpl"/>
+    <bean id="templateServiceSUT" class="org.craftercms.studio.impl.content.TemplateServiceImpl">
+        <property name="repoRootPath" value="/templates"/>
+    </bean>
 
-    <bean id="descriptorServiceSUT" class="org.craftercms.studio.impl.content.DescriptorServiceImpl"/>
+    <bean id="descriptorServiceSUT" class="org.craftercms.studio.impl.content.DescriptorServiceImpl">
+        <property name="repoRootPath" value="/site"/>
+    </bean>
 
     <bean id="contentTypeServiceSUT" class="org.craftercms.studio.impl.content.ContentTypeServiceImpl"/>
 
@@ -40,6 +46,10 @@
 
     <bean id="versionServiceMock" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="org.craftercms.studio.repo.content.VersionService"/>
+    </bean>
+
+    <bean id="pathServiceMock" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.craftercms.studio.repo.content.PathService" />
     </bean>
 
 </beans>
