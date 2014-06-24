@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2007-2013 Crafter Software Corporation.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.craftercms.studio.impl.deployment;
 
 import org.apache.commons.io.IOUtils;
@@ -5,6 +22,7 @@ import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.Tenant;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.event.EventConstants;
 import org.craftercms.studio.impl.event.RepositoryEventBulkOpMessage;
 import org.craftercms.studio.impl.event.RepositoryEventMessage;
 import org.craftercms.studio.internal.content.ContentManager;
@@ -13,10 +31,7 @@ import org.craftrercms.commons.ebus.annotations.EventHandler;
 import org.craftrercms.commons.ebus.annotations.EventSelectorType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import reactor.core.Reactor;
 import reactor.event.Event;
-import reactor.spring.annotation.Selector;
 
 import java.io.*;
 import java.util.List;
@@ -38,7 +53,10 @@ public class PreviewDeployer {
 
     private Context dummyContext = new Context(UUID.randomUUID().toString(), new Tenant());
 
-    @EventHandler(event = "repository.create", ebus = "@repositoryReactor", type = EventSelectorType.REGEX)
+    @EventHandler(
+            event = EventConstants.REPOSITORY_CREATE_EVENT,
+            ebus = EventConstants.REPOSITORY_REACTOR,
+            type = EventSelectorType.REGEX)
     public void onContentCreate(Event<RepositoryEventMessage> event) throws StudioException {
         if (!enabled) {
             return;
@@ -56,7 +74,10 @@ public class PreviewDeployer {
         }
     }
 
-    @EventHandler(event = "repository.update", ebus = "@repositoryReactor", type = EventSelectorType.REGEX)
+    @EventHandler(
+            event = EventConstants.REPOSITORY_UPDATE_EVENT,
+            ebus = EventConstants.REPOSITORY_REACTOR,
+            type = EventSelectorType.REGEX)
     public void onContentUpdate(Event<RepositoryEventMessage> event) throws StudioException {
 
         if (!enabled) {
@@ -115,7 +136,10 @@ public class PreviewDeployer {
 
     }
 
-    @EventHandler(event = "repository.delete", ebus = "@repositoryReactor", type = EventSelectorType.REGEX)
+    @EventHandler(
+            event = EventConstants.REPOSITORY_DELETE_EVENT,
+            ebus = EventConstants.REPOSITORY_REACTOR,
+            type = EventSelectorType.REGEX)
     public void onContentDelete(Event<RepositoryEventBulkOpMessage> event) {
         if (!enabled) {
             return;

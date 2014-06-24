@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2007-2013 Crafter Software Corporation.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package org.craftercms.studio.internal.content.impl;
 
 import java.io.InputStream;
@@ -13,6 +30,7 @@ import org.craftercms.studio.commons.dto.Tree;
 import org.craftercms.studio.commons.dto.TreeNode;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.impl.event.EventConstants;
 import org.craftercms.studio.impl.event.RepositoryEventBulkOpMessage;
 import org.craftercms.studio.impl.event.RepositoryEventMessage;
 import org.craftercms.studio.impl.exception.StudioImplErrorCode;
@@ -45,7 +63,7 @@ public class ContentManagerImpl implements ContentManager {
         message.setItemId(newItem.getId().getItemId());
         message.setSite(site);
         message.setPath(newItem.getPath());
-        repositoryReactor.notify("repository.create", Event.wrap(message));
+        repositoryReactor.notify(EventConstants.REPOSITORY_CREATE_EVENT, Event.wrap(message));
         return newItem.getId();
     }
 
@@ -64,7 +82,7 @@ public class ContentManagerImpl implements ContentManager {
         message.setItemId(item.getId().getItemId());
         message.setSite(site);
         message.setPath(item.getPath());
-        repositoryReactor.notify("repository.update", Event.wrap(message));
+        repositoryReactor.notify(EventConstants.REPOSITORY_UPDATE_EVENT, Event.wrap(message));
     }
 
     @Override
@@ -76,7 +94,7 @@ public class ContentManagerImpl implements ContentManager {
         }
         RepositoryEventBulkOpMessage message = new RepositoryEventBulkOpMessage();
         message.setAffectedPaths(deletedPaths);
-        repositoryReactor.notify("repository.delete", Event.wrap(message));
+        repositoryReactor.notify(EventConstants.REPOSITORY_DELETE_EVENT, Event.wrap(message));
     }
 
     @Override
