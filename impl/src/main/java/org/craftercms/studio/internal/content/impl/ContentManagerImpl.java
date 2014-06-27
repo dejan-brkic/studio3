@@ -87,6 +87,9 @@ public class ContentManagerImpl implements ContentManager {
 
     @Override
     public void delete(final Context context, final List<Item> itemsToDelete) throws StudioException {
+        if (itemsToDelete == null || itemsToDelete.size() < 1) {
+            return;
+        }
         List<String> deletedPaths = new ArrayList<String>();
         for (Item item : itemsToDelete) {
             contentService.delete(context.getTicket(), item.getId().getItemId());
@@ -113,15 +116,19 @@ public class ContentManagerImpl implements ContentManager {
 
         // Get only direct children (depth=1) and no filters
         Tree<Item> resultTree = contentService.getChildren(context.getTicket(), site, itemId, 1, null);
-        TreeNode<Item> parent = resultTree.getRootNode();
-        List<Item> toRet = new ArrayList<Item>();
-        Set<TreeNode<Item>> children = parent.getChildren();
-        if (children != null && children.size() > 0) {
-            for (TreeNode<Item> child : children) {
-                toRet.add(child.getValue());
+        if (resultTree != null) {
+            TreeNode<Item> parent = resultTree.getRootNode();
+            List<Item> toRet = new ArrayList<Item>();
+            Set<TreeNode<Item>> children = parent.getChildren();
+            if (children != null && children.size() > 0) {
+                for (TreeNode<Item> child : children) {
+                    toRet.add(child.getValue());
+                }
             }
+            return toRet;
+        } else {
+            return null;
         }
-        return toRet;
     }
 
     @Override

@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       ">
 
+    <context:annotation-config/>
+
+    <bean class="org.craftercms.studio.spring.configuration.EBusConfigTesting"/>
 
     <bean id="versionManagerSUT" class="org.craftercms.studio.impl.version.VersionServiceImpl"/>
 
@@ -34,6 +40,8 @@
 
     <bean id="contentTypeServiceSUT" class="org.craftercms.studio.impl.content.ContentTypeServiceImpl"/>
 
+    <bean id="contentManagerSUT" class="org.craftercms.studio.internal.content.impl.ContentManagerImpl" />
+
 
     <!-- Mock beans -->
     <bean id="contentManagerMock" class="org.mockito.Mockito" factory-method="mock">
@@ -51,5 +59,10 @@
     <bean id="pathServiceMock" class="org.mockito.Mockito" factory-method="mock">
         <constructor-arg value="org.craftercms.studio.repo.content.PathService" />
     </bean>
+
+    <bean id="contentServiceMock" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="org.craftercms.studio.repo.content.ContentService" />
+    </bean>
+
 
 </beans>

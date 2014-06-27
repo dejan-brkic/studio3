@@ -26,12 +26,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.RandomStringUtils;
-import org.craftercms.studio.commons.dto.Activity;
-import org.craftercms.studio.commons.dto.DeploymentChannel;
-import org.craftercms.studio.commons.dto.Form;
-import org.craftercms.studio.commons.dto.Item;
-import org.craftercms.studio.commons.dto.ItemId;
-import org.craftercms.studio.commons.dto.WorkflowTransition;
+import org.craftercms.studio.commons.dto.*;
 import org.craftercms.studio.commons.extractor.ItemExtractor;
 import org.craftercms.studio.commons.filter.ItemFilter;
 import org.craftercms.studio.commons.filter.WorkflowPackageFilter;
@@ -208,5 +203,22 @@ public abstract class AbstractServiceTest {
             map.put(RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphanumeric(20));
         }
         return map;
+    }
+
+    protected Tree<Item> createItemTreeMock() {
+        Item root = createItemMock();
+        Tree<Item> itemTreeMock = new Tree<Item>(root);
+        TreeNode<Item> rootNode = itemTreeMock.getRootNode();
+        for (int i = 0; i < 1 + (int)(3 * Math.random()); i++) {
+            Item item = createItemMock();
+            rootNode.addChild(item);
+        }
+        for (TreeNode<Item> nodeItem : rootNode.getChildren()) {
+            for (int i = 0; i < 1 + (int)(3 * Math.random()); i++) {
+                Item item = createItemMock();
+                nodeItem.addChild(item);
+            }
+        }
+        return itemTreeMock;
     }
 }
