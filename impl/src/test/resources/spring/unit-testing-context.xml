@@ -42,6 +42,12 @@
 
     <bean id="contentManagerSUT" class="org.craftercms.studio.internal.content.impl.ContentManagerImpl" />
 
+<!--    <bean id="previewDeployerSUT" class="org.craftercms.studio.impl.deployment.PreviewDeployer">
+        <property name="enabled" value="true"/>
+        <property name="previewStoreRootPath" value="tests/preview-content"/>
+    </bean>-->
+
+
 
     <!-- Mock beans -->
     <bean id="contentManagerMock" class="org.mockito.Mockito" factory-method="mock">

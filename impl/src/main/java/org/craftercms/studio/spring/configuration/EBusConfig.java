@@ -8,7 +8,9 @@ import reactor.core.Reactor;
 import reactor.core.spec.Reactors;
 
 /**
- * Created by dejanbrkic on 6/13/14.
+ * EBus spring configuration.
+ *
+ * @author Dejan Brkic
  */
 @Configuration
 @EnableEBus

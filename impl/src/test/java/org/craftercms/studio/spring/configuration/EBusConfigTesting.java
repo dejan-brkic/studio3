@@ -17,6 +17,7 @@
 
 package org.craftercms.studio.spring.configuration;
 
+import org.craftercms.studio.impl.deployment.PreviewDeployer;
 import org.craftrercms.commons.ebus.annotations.EnableEBus;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
@@ -26,16 +27,35 @@ import reactor.core.Reactor;
 import reactor.core.spec.Reactors;
 
 /**
- * Created by dejanbrkic on 6/25/14.
+ * EBus configuration for tests.
+ *
+ * @author Dejan Brkic
  */
 @Configuration
 @EnableEBus
 public class EBusConfigTesting {
 
+    public final static String TEST_PREVIEW_CONTENT_ROOT = "tests/preview-content";
+
     @Bean
     public Reactor repositoryReactorMock(Environment env) {
         Reactor reactor = Reactors.reactor().env(env).dispatcher(Environment.THREAD_POOL).get();
         Reactor spy = Mockito.spy(reactor);
+        return spy;
+    }
+
+    @Bean
+    public Reactor repositoryReactor(Environment env) {
+        Reactor reactor = Reactors.reactor().env(env).dispatcher(Environment.THREAD_POOL).get();
+        return reactor;
+    }
+
+    @Bean
+    public PreviewDeployer previewDeployerSUT() {
+        PreviewDeployer previewDeployer = new PreviewDeployer();
+        previewDeployer.setEnabled(true);
+        previewDeployer.setPreviewStoreRootPath(TEST_PREVIEW_CONTENT_ROOT);
+        PreviewDeployer spy = Mockito.spy(previewDeployer);
         return spy;
     }
 }
