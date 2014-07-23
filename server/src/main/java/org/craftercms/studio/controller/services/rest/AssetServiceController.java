@@ -38,7 +38,6 @@ import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.documentation.configuration.DocumentationServiceOrder;
 import org.craftercms.studio.exceptions.StudioServerErrorCode;
 import org.craftercms.studio.utils.RestControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,8 +64,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping(value = "/api/1/content/asset")
 @Api(
         value = "Asset Service",
-        description = "Asset RESTful Services",
-        position = DocumentationServiceOrder.ASSET_SERVICE
+        description = "Asset RESTful Services"
 )
 public class AssetServiceController {
 
