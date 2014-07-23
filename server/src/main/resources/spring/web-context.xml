@@ -78,7 +78,7 @@
 
     <!-- freemarker config -->
     <beans:bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <beans:property name="templateLoaderPath" value="/WEB-INF/views/"/>
+        <beans:property name="templateLoaderPaths" value="/WEB-INF/views/,classpath:/views/"/>
     </beans:bean>
 
     <!--
@@ -93,8 +93,12 @@
         <beans:property name="suffix" value=".ftl"/>
     </beans:bean>
 
-    <beans:import resource="classpath*:/spring/rest-api-documentation-context.xml"/>
+
+    <beans:import resource="classpath*:/crafter/api-documentation/api-documentation-context.xml"/>
+
+
     <beans:import resource="classpath*:/crafter/studio/server/exception/error-messages-context.xml"/>
+
 
     <beans:import resource="classpath*:/spring/*-studio3-web-context.xml"/>
     <beans:import resource="classpath*:/extension/studio3/*-studio3-web-context.xml"/>

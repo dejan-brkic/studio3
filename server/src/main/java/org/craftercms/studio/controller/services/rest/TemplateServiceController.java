@@ -35,7 +35,6 @@ import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.craftercms.studio.documentation.configuration.DocumentationServiceOrder;
 import org.craftercms.studio.exceptions.StudioServerErrorCode;
 import org.craftercms.studio.utils.RestControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +59,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/1/template")
 @Api(
         value = "TemplateService",
-        description = "Template RESTful services",
-        position = DocumentationServiceOrder.TEMPLATE_SERVICE)
+        description = "Template RESTful services")
 public class TemplateServiceController {
 
     @Autowired
