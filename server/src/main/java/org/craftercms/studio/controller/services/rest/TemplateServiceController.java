@@ -58,8 +58,10 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/api/1/template")
 @Api(
-        value = "TemplateService",
-        description = "Template RESTful services")
+        value = "Template Services",
+        description = "Template RESTful services",
+        position = 3
+)
 public class TemplateServiceController {
 
     @Autowired
