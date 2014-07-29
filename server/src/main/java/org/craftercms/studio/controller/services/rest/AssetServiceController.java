@@ -63,8 +63,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping(value = "/api/1/content/asset")
 @Api(
-        value = "Asset Service",
-        description = "Asset RESTful Services"
+        value = "Asset Services",
+        description = "Asset RESTful Services",
+        position = 1
 )
 public class AssetServiceController {
 

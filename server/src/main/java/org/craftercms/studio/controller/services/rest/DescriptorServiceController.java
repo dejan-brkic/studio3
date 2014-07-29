@@ -56,7 +56,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 @RequestMapping("/api/1/descriptor")
-@Api(value = "Descriptor Services", description = "Descriptor Services")
+@Api(value = "Descriptor Services", description = "Descriptor Services", position = 2)
 public class DescriptorServiceController {
 
     /**
