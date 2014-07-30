@@ -52,7 +52,6 @@ public class ContentManagerImpl implements ContentManager {
     private ContentService contentService;
     private PathService pathService;
 
-    @Autowired
     private Reactor repositoryReactor;
 
     @Override
@@ -150,5 +149,9 @@ public class ContentManagerImpl implements ContentManager {
 
     public void setPathService(final PathService pathService) {
         this.pathService = pathService;
+    }
+
+    public void setRepositoryReactor(Reactor repositoryReactor) {
+        this.repositoryReactor = repositoryReactor;
     }
 }

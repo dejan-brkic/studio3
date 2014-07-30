@@ -18,7 +18,7 @@
 package org.craftercms.studio.spring.configuration;
 
 import org.craftercms.studio.impl.deployment.PreviewDeployer;
-import org.craftrercms.commons.ebus.annotations.EnableEBus;
+import org.craftercms.commons.ebus.annotations.EnableEBus;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
