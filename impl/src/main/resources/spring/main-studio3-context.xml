@@ -10,11 +10,14 @@
 
     <context:annotation-config/>
 
-    <!--context:component-scan base-package="org.craftercms.studio.spring.configuration"/ -->
+    <import resource="classpath*:/crafter/ebus/ebus-context.xml"/>
+    <context:component-scan base-package="org.craftercms.commons.ebus"/>
+
+    <bean name="repositoryReactor" factory-bean="reactorFactory" factory-method="createReactor"/>
 
     <import resource="classpath*:craftercms/studio/craftercms-mongo-repository.xml"/>
 
-    <bean name="EBusConfig" class="org.craftercms.studio.spring.configuration.EBusConfig" />
+
 
     <bean name="studio.impl.properties"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -79,6 +82,7 @@
     <bean id="ContentManager" class="org.craftercms.studio.internal.content.impl.ContentManagerImpl">
         <property name="contentService" ref="studio.repo.contentService"/>
         <property name="pathService" ref="studio.repo.pathServices"/>
+        <property name="repositoryReactor" ref="repositoryReactor"/>
     </bean>
 
     <bean id="SimplePreviewDeployer" class="org.craftercms.studio.internal.content.impl.SimplePreviewDeployerAspect">
