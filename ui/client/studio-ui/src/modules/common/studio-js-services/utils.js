@@ -29,7 +29,7 @@ define(function(require) {
 
         var path = [],
             override = overrideObj || {},
-            location, protocol, domain, port;
+            location, protocol, domain, port, webapp;
 
         // Better not assume that the window object exists
         location = window && window.location || {};
@@ -44,6 +44,8 @@ define(function(require) {
                         !isNaN(+this.config.server.port)) ? this.config.server.port :
                             location.port;
 
+        webapp = override.webapp || this.config.server.webapp;
+
         if (protocol && domain) {
             path.push(protocol);
             path.push('//');
@@ -52,6 +54,10 @@ define(function(require) {
             if (port) {
                 path.push(':');
                 path.push(port);
+            }
+            if (webapp) {
+                path.push('/');
+                path.push(webapp);
             }
         }
         path.push('/');

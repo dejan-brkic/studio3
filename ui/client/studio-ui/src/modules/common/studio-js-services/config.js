@@ -3,6 +3,7 @@
 define({
     server: {
         domain: '',
+        webapp: 'studio',
         protocol: 'http:'
     },
     site: '',

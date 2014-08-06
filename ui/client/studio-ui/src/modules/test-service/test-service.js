@@ -20,7 +20,8 @@ define(['require',
 
         NgRegistry
             .addState('test', {
-                url: '/test-service',
+                // TODO: resolve /studio part from external config file, right now is hardcoded
+                url: '/studio/test-service',
                 templateUrl: require.toUrl('./templates/test-service.tpl.html'),
                 resolve: {
                     content: ['Language', function (Language) {
@@ -132,12 +133,13 @@ define(['require',
                     $scope.submitCode = function (action, fileType, nodeSelected) {
                         var content = editor.getSession().getValue(),
                             itemId = nodeSelected && nodeSelected.id && nodeSelected.id.itemId,
-                            fileName;
+                            fileName, folderName;
 
                         if (content) {
 
                             if (action === 'create') {
 
+                                folderName = prompt('Plese type in a folder name');
                                 fileName = prompt('Please type in a file name');
 
                                 if (!fileName) {
@@ -148,7 +150,7 @@ define(['require',
                                 if (fileType === 'descriptor') {
                                     serviceProvider.Descriptor.create({
                                         content_type_id: 'sampleId',
-                                        parent_id: itemId || '/site',
+                                        parent_id: folderName, //itemId || '/site',
                                         file_name: fileName,
                                         content: content
                                     }).then( function(descriptor) {
@@ -159,7 +161,7 @@ define(['require',
                                     });
                                 } else if (fileType === 'template') {
                                     serviceProvider.Template.create({
-                                        parent_id: itemId || '/templates',
+                                        parent_id: folderName, //itemId || '/templates',
                                         file_name: fileName,
                                         content: content
                                     }).then( function(template) {
