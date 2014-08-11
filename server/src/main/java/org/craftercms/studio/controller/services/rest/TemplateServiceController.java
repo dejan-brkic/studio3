@@ -213,10 +213,10 @@ public class TemplateServiceController {
     @ResponseBody
     public String getTextContent(
             @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable String site,
+            @PathVariable final String site,
 
             @ApiParam(name = "item_id", required = true, value = "String")
-            @RequestParam(value = "item_id") String itemId
+            @RequestParam(value = "item_id") final String itemId
     ) throws StudioException {
 
         Context context = RestControllerUtils.createMockContext();
@@ -386,10 +386,10 @@ public class TemplateServiceController {
     public List<Item> list(
 
             @ApiParam(name = "site", required = true, value = "String")
-            @PathVariable String site,
+            @PathVariable final String site,
 
             @ApiParam(name = "item_id", required = false, value = "String")
-            @RequestParam(value = "item_id", required = false) String itemId
+            @RequestParam(value = "item_id", required = false) final String itemId
     ) throws StudioException {
         Context context = RestControllerUtils.createMockContext();
         ItemId templateItemId = null;

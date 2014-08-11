@@ -18,7 +18,9 @@
 package org.craftercms.studio.impl.event;
 
 /**
- * Repository event message
+ * Repository event message.
+ *
+ * @author Dejan Brkic
  */
 public class RepositoryEventMessage {
 
@@ -30,7 +32,7 @@ public class RepositoryEventMessage {
         return site;
     }
 
-    public void setSite(String site) {
+    public void setSite(final String site) {
         this.site = site;
     }
 
@@ -38,7 +40,7 @@ public class RepositoryEventMessage {
         return path;
     }
 
-    public void setPath(String path) {
+    public void setPath(final String path) {
         this.path = path;
     }
 
@@ -46,7 +48,7 @@ public class RepositoryEventMessage {
         return itemId;
     }
 
-    public void setItemId(String itemId) {
+    public void setItemId(final String itemId) {
         this.itemId = itemId;
     }
 }

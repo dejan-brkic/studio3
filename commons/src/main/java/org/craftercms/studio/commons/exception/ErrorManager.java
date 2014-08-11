@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 /**
+ * Helper class to register and create errors.
+ *
  * @author Dejan Brkic
  */
 public final class ErrorManager {

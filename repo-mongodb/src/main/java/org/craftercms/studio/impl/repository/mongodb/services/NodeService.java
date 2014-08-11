@@ -33,7 +33,7 @@ public interface NodeService {
     /**
      * Node Collection name.
      */
-    final String NODES_COLLECTION = "nodes";
+    String NODES_COLLECTION = "nodes";
 
     /**
      * Creates a File Node.

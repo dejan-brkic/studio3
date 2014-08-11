@@ -15,33 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.craftercms.studio.impl.event;
-
-import java.util.List;
+package org.craftercms.studio.commons.util;
 
 /**
- * Repository Event Message for bulk operations.
+ * Utility class for constants used across Studio.
  *
  * @author Dejan Brkic
  */
-public class RepositoryEventBulkOpMessage {
+public final class StudioConstants {
 
-    private String site;
-    private List<String> affectedPaths;
+    public static final String PATH_SEPARATOR = "/";
 
-    public String getSite() {
-        return site;
-    }
-
-    public void setSite(final String site) {
-        this.site = site;
-    }
-
-    public List<String> getAffectedPaths() {
-        return affectedPaths;
-    }
-
-    public void setAffectedPaths(final List<String> affectedPaths) {
-        this.affectedPaths = affectedPaths;
-    }
+    private StudioConstants() {}
 }

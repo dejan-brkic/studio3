@@ -17,6 +17,17 @@
 
 package org.craftercms.studio.impl.deployment;
 
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.List;
+import java.util.UUID;
+
 import org.apache.commons.io.IOUtils;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
@@ -33,9 +44,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.event.Event;
 
-import java.io.*;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Preview deployer.
@@ -57,7 +65,7 @@ public class PreviewDeployer {
             event = EventConstants.REPOSITORY_CREATE_EVENT,
             ebus = EventConstants.REPOSITORY_REACTOR,
             type = EventSelectorType.REGEX)
-    public void onContentCreate(Event<RepositoryEventMessage> event) throws StudioException {
+    public void onContentCreate(final Event<RepositoryEventMessage> event) throws StudioException {
         if (!enabled) {
             return;
         }
@@ -78,7 +86,7 @@ public class PreviewDeployer {
             event = EventConstants.REPOSITORY_UPDATE_EVENT,
             ebus = EventConstants.REPOSITORY_REACTOR,
             type = EventSelectorType.REGEX)
-    public void onContentUpdate(Event<RepositoryEventMessage> event) throws StudioException {
+    public void onContentUpdate(final Event<RepositoryEventMessage> event) throws StudioException {
 
         if (!enabled) {
             return;
@@ -140,7 +148,7 @@ public class PreviewDeployer {
             event = EventConstants.REPOSITORY_DELETE_EVENT,
             ebus = EventConstants.REPOSITORY_REACTOR,
             type = EventSelectorType.REGEX)
-    public void onContentDelete(Event<RepositoryEventBulkOpMessage> event) {
+    public void onContentDelete(final Event<RepositoryEventBulkOpMessage> event) {
         if (!enabled) {
             return;
         }
@@ -172,7 +180,7 @@ public class PreviewDeployer {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(final boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -180,7 +188,7 @@ public class PreviewDeployer {
         return contentManager;
     }
 
-    public void setContentManager(ContentManager contentManager) {
+    public void setContentManager(final ContentManager contentManager) {
         this.contentManager = contentManager;
     }
 }

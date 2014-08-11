@@ -32,7 +32,6 @@ import org.apache.commons.lang.StringUtils;
 import org.craftercms.studio.api.dependency.DependencyManager;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
@@ -102,8 +101,7 @@ public class DependencyController {
         List<Item> items = null;
         try {
             items = mapper.readValue(dependencies.getBytes(StandardCharsets.UTF_8),
-                new TypeReference<List<Item>>() {
-            });
+                new TypeReference<List<Item>>() {});
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
