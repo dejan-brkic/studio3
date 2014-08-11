@@ -38,7 +38,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/api/1/version")
 public class VersionController {
 
-    @Autowired
     private VersionService versionService;
 
     /**

@@ -56,40 +56,13 @@
         <property name="pathService" ref="studio.repo.pathServices"/>
     </bean>
 
-    <bean id="AnalyticsService" class="org.craftercms.studio.impl.analytics.AnalyticsServiceImpl">
-    </bean>
-
-    <bean id="AuditManager" class="org.craftercms.studio.impl.audit.AuditServiceImpl"/>
-
-    <bean id="ConfigurationManager" class="org.craftercms.studio.impl.configuration.ConfigurationServiceImpl"/>
-
-    <bean id="DependencyManager" class="org.craftercms.studio.impl.dependency.DependencyManagerImpl"/>
-
-    <bean id="DeploymentManager" class="org.craftercms.studio.impl.deployment.DeploymentManagerImpl"/>
-
-    <bean id="FormsManager" class="org.craftercms.studio.impl.forms.FormServiceImpl"/>
-
-    <bean id="LifecycleManager" class="org.craftercms.studio.impl.lifecycle.LifecycleManagerImpl"/>
-
-    <bean id="SearchManager" class="org.craftercms.studio.impl.search.SearchServiceImpl"/>
-
-    <bean id="SecurityManager" class="org.craftercms.studio.impl.security.SecurityServiceImpl"/>
-
-    <bean id="VersionManager" class="org.craftercms.studio.impl.content.VersionServiceImpl"/>
-
-    <bean id="WorkflowManager" class="org.craftercms.studio.impl.workflow.WorkflowManagerImpl"/>
-
     <bean id="ContentManager" class="org.craftercms.studio.internal.content.impl.ContentManagerImpl">
         <property name="contentService" ref="studio.repo.contentService"/>
         <property name="pathService" ref="studio.repo.pathServices"/>
         <property name="repositoryReactor" ref="repositoryReactor"/>
     </bean>
 
-    <bean id="SimplePreviewDeployer" class="org.craftercms.studio.internal.content.impl.SimplePreviewDeployerAspect">
-        <property name="enabled" value="false"/>
-        <property name="previewStoreRootPath" value="${deployer.root}"/>
-        <property name="contentManager" ref="ContentManager"/>
-    </bean>
+    <bean id="SecurityManager" class="org.craftercms.studio.impl.security.SecurityServiceImpl"/>
 
     <bean id="PreviewDeployer" class="org.craftercms.studio.impl.deployment.PreviewDeployer">
         <property name="enabled" value="true"/>

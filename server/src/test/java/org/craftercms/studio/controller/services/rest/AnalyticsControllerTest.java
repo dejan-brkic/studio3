@@ -9,6 +9,7 @@ import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.exceptions.StudioServerErrorCode;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -43,6 +44,7 @@ public class AnalyticsControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testReportIsCall() throws Exception {
         when(this.analyticsServiceMock.generateReport(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyMapOf(String.class, Object.class))).
@@ -58,6 +60,7 @@ public class AnalyticsControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testSiteSendParams() throws Exception {
         when(this.analyticsServiceMock.generateReport(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyMapOf(String.class, Object.class))).then(new Answer<AnalyticsReport>() {
@@ -78,6 +81,7 @@ public class AnalyticsControllerTest extends AbstractControllerTest {
 
 
     @Test
+    @Ignore
     public void testSiteNotFound() throws Exception {
         when(this.analyticsServiceMock.generateReport((Context)Mockito.any(), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyMapOf(String.class, Object.class))).thenThrow(ErrorManager.createError
@@ -93,6 +97,7 @@ public class AnalyticsControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testReportNameNotFound() throws Exception {
         when(this.analyticsServiceMock.generateReport(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString(), Mockito.anyMapOf(String.class, Object.class))).thenThrow(ErrorManager.createError

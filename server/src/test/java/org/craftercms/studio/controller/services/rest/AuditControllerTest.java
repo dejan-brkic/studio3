@@ -41,6 +41,7 @@ public class AuditControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testGetActivities() throws Exception {
         when(auditService.getActivities(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class))).thenReturn(createActivities());
@@ -58,6 +59,7 @@ public class AuditControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testSaveActivity() throws Exception {
         final String saveId = UUID.randomUUID().toString();
         when(this.auditService.logActivity(Mockito.any(Context.class), Mockito.anyString(),

@@ -36,7 +36,6 @@ public class AuditController {
     /**
      * Audit manager instance.
      */
-    @Autowired
     private AuditService auditService;
 
     /**
