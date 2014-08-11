@@ -21,9 +21,10 @@ import org.craftercms.studio.commons.exception.ErrorCode;
 
 /**
  * Mongo DB repository error codes.
+ *
  * @author Dejan Brkic
  */
-public class MongodbRepoErrorCode extends ErrorCode {
+public final class MongodbRepoErrorCode extends ErrorCode {
 
     /**
      * Module ID.

@@ -34,6 +34,7 @@ import org.craftercms.studio.commons.dto.ItemId;
 import org.craftercms.studio.commons.dto.LockHandle;
 import org.craftercms.studio.commons.exception.ErrorManager;
 import org.craftercms.studio.commons.exception.StudioException;
+import org.craftercms.studio.commons.util.StudioConstants;
 import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 import org.craftercms.studio.internal.content.ContentManager;
 import org.craftercms.studio.repo.content.PathService;
@@ -238,14 +239,14 @@ public class TemplateServiceImpl implements TemplateService {
         } else {
             String rootItemId = pathService.getItemIdByPath(context.getTicket(), site, repoRootPath);
             if (StringUtils.isEmpty(rootItemId)) {
-                int lastIndex = repoRootPath.lastIndexOf("/");
-                String rootParent = "/";
+                int lastIndex = repoRootPath.lastIndexOf(StudioConstants.PATH_SEPARATOR);
+                String rootParent = StudioConstants.PATH_SEPARATOR;
                 String folderName = repoRootPath;
                 if (lastIndex > 0) {
                     rootParent = repoRootPath.substring(0, lastIndex - 1);
                     folderName = repoRootPath.substring(lastIndex + 1);
                 } else {
-                    if (repoRootPath.startsWith("/")) {
+                    if (repoRootPath.startsWith(StudioConstants.PATH_SEPARATOR)) {
                         folderName = repoRootPath.substring(1);
                     }
                 }

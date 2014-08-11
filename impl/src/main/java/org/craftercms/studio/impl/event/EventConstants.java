@@ -19,14 +19,30 @@ package org.craftercms.studio.impl.event;
 
 /**
  * Events constants.
+ *
+ * @author Dejan Brkic
  */
 
-public class EventConstants {
+public final class EventConstants {
 
+    /**
+     * Repository reactor bean name.
+     */
     public static final String REPOSITORY_REACTOR = "@repositoryReactor";
 
+    /**
+     * Repository create event name.
+     */
     public static final String REPOSITORY_CREATE_EVENT = "repository.create";
+
+    /**
+     * Repository update event name.
+     */
     public static final String REPOSITORY_UPDATE_EVENT = "repository.update";
+
+    /**
+     * Repository delete event name.
+     */
     public static final String REPOSITORY_DELETE_EVENT = "repository.delete";
 
     private EventConstants() {}

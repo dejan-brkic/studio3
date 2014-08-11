@@ -33,7 +33,6 @@ import org.craftercms.studio.commons.dto.WorkflowTransition;
 import org.craftercms.studio.commons.exception.StudioException;
 import org.craftercms.studio.controller.services.rest.dto.WorkflowStartRequest;
 import org.craftercms.studio.controller.services.rest.dto.WorkflowTransitionRequest;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -95,7 +94,7 @@ public class WorkflowController {
     @RequestMapping(value = "/transition/{site}", method = RequestMethod.POST)
     public void transition(
             @PathVariable final String site,
-            @Valid @RequestBody WorkflowTransitionRequest requestBody,
+            @Valid @RequestBody final WorkflowTransitionRequest requestBody,
             final HttpServletRequest request,
             final HttpServletResponse response
     ) throws StudioException {
@@ -103,7 +102,7 @@ public class WorkflowController {
             requestBody.getParams());
     }
 
-    private Map<String, Object> parseTransitionRequestBody(String requestBody) {
+    private Map<String, Object> parseTransitionRequestBody(final String requestBody) {
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> map = null;
         try {

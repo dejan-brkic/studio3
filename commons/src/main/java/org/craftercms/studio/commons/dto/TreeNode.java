@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Tree node of type T
+ * Tree node of type T.
  * @param <T>
  */
 public class TreeNode<T extends Comparable<T>> {

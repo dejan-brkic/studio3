@@ -33,7 +33,7 @@ public class RepositoryEventBulkOpMessage {
         return site;
     }
 
-    public void setSite(String site) {
+    public void setSite(final String site) {
         this.site = site;
     }
 
@@ -41,7 +41,7 @@ public class RepositoryEventBulkOpMessage {
         return affectedPaths;
     }
 
-    public void setAffectedPaths(List<String> affectedPaths) {
+    public void setAffectedPaths(final List<String> affectedPaths) {
         this.affectedPaths = affectedPaths;
     }
 }

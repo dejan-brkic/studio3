@@ -37,7 +37,6 @@ import org.craftercms.studio.impl.exception.StudioImplErrorCode;
 import org.craftercms.studio.internal.content.ContentManager;
 import org.craftercms.studio.repo.content.ContentService;
 import org.craftercms.studio.repo.content.PathService;
-import org.springframework.beans.factory.annotation.Autowired;
 import reactor.core.Reactor;
 import reactor.event.Event;
 
@@ -151,7 +150,7 @@ public class ContentManagerImpl implements ContentManager {
         this.pathService = pathService;
     }
 
-    public void setRepositoryReactor(Reactor repositoryReactor) {
+    public void setRepositoryReactor(final Reactor repositoryReactor) {
         this.repositoryReactor = repositoryReactor;
     }
 }

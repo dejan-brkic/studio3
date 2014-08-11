@@ -22,7 +22,6 @@ import java.util.List;
 import org.craftercms.studio.api.lifecycle.Action;
 import org.craftercms.studio.api.lifecycle.LifecycleManager;
 import org.craftercms.studio.commons.exception.StudioException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
