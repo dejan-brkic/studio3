@@ -56,7 +56,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/api/1/dependency")
 public class DependencyController {
 
-    @Autowired
     private DependencyManager dependencyManager;
 
     @RequestMapping(value = "/dependent-on/{site}", method = RequestMethod.GET)

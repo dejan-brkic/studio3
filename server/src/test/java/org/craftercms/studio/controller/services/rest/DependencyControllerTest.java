@@ -23,6 +23,7 @@ import org.craftercms.studio.api.dependency.DependencyManager;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -62,6 +63,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testDependentOn() throws Exception {
         when(this.dependencyManagerMock.dependentOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateItemListMock());
@@ -74,6 +76,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testDependsOnMissingItemId() throws Exception {
         when(this.dependencyManagerMock.dependentOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateItemListMock());
@@ -86,6 +89,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testDependsOnMissingOperation() throws Exception {
         when(this.dependencyManagerMock.dependentOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateItemListMock());
@@ -98,6 +102,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testList() throws Exception {
         when(this.dependencyManagerMock.dependsOn((Context)Mockito.any(), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateItemListMock());
@@ -110,6 +115,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testListMissingItemId() throws Exception {
         when(this.dependencyManagerMock.dependsOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateItemListMock());
@@ -122,6 +128,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testListMissingOperation() throws Exception {
         when(this.dependencyManagerMock.dependsOn(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateItemListMock());
@@ -134,6 +141,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRefresh() throws Exception {
         when(this.dependencyManagerMock.refresh(Mockito.any(Context.class), Mockito.anyString())).thenReturn
             (generateItemListMock());
@@ -145,6 +153,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRefreshMissingItemId() throws Exception {
         when(this.dependencyManagerMock.refresh(Mockito.any(Context.class), Mockito.anyString())).thenReturn
             (generateItemListMock());
@@ -156,6 +165,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testAdd() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -177,6 +187,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testAddMissingItemId() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -198,6 +209,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testAddMissingOperation() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -218,6 +230,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testAddMissingDependencies() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -238,6 +251,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRemove() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -259,6 +273,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRemoveMissingItemId() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -280,6 +295,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRemoveMissingOperation() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -300,6 +316,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRemoveMissingDependencies() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -320,6 +337,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testUpdate() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -341,6 +359,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testUpdateMissingItemId() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -362,6 +381,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testUpdateMissingOperation() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -382,6 +402,7 @@ public class DependencyControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testUpdateMissingDependencies() throws Exception {
         doAnswer(new Answer<Void>() {
 

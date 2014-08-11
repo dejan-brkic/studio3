@@ -10,22 +10,6 @@
 
     <bean class="org.craftercms.studio.spring.configuration.EBusConfigTesting"/>
 
-    <bean id="versionManagerSUT" class="org.craftercms.studio.impl.version.VersionServiceImpl"/>
-
-    <bean id="dependencyMangerSUT" class="org.craftercms.studio.impl.dependency.DependencyManagerImpl"/>
-
-    <bean id="workflowManagerSUT" class="org.craftercms.studio.impl.workflow.WorkflowManagerImpl"/>
-
-    <bean id="deploymentManagerSUT" class="org.craftercms.studio.impl.deployment.DeploymentManagerImpl"/>
-
-    <bean id="lifecycleManagerSUT" class="org.craftercms.studio.impl.lifecycle.LifecycleManagerImpl"/>
-
-    <bean id="auditManagerSUT" class="org.craftercms.studio.impl.audit.AuditServiceImpl"/>
-
-    <bean id="formsManagerSUT" class="org.craftercms.studio.impl.forms.FormServiceImpl"/>
-
-    <bean id="blueprintsManagerSUT" class="org.craftercms.studio.impl.blueprints.BlueprintsManagerImpl"/>
-
     <bean id="assetServiceSUT" class="org.craftercms.studio.impl.content.AssetServiceImpl">
         <property name="repoRootPath" value="/static-assets"/>
     </bean>
@@ -42,10 +26,6 @@
 
     <bean id="contentManagerSUT" class="org.craftercms.studio.internal.content.impl.ContentManagerImpl" />
 
-<!--    <bean id="previewDeployerSUT" class="org.craftercms.studio.impl.deployment.PreviewDeployer">
-        <property name="enabled" value="true"/>
-        <property name="previewStoreRootPath" value="tests/preview-content"/>
-    </bean>-->
 
 
 

@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/api/1/lifecycle")
 public class LifecycleController {
 
-    @Autowired
+
     private LifecycleManager lifecycleManager;
 
     @RequestMapping(value = "/actions/{site}", method = RequestMethod.GET)

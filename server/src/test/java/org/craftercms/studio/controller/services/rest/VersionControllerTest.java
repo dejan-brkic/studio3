@@ -20,6 +20,7 @@ package org.craftercms.studio.controller.services.rest;
 import org.craftercms.studio.api.content.VersionService;
 import org.craftercms.studio.commons.dto.Context;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -59,6 +60,7 @@ public class VersionControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testGetContent() throws Exception {
         when(this.versionServiceMock.history(Mockito.any(Context.class), Mockito.anyString())).thenReturn
             (generateVersionTree());
@@ -70,6 +72,7 @@ public class VersionControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testGetContentMissingItemId() throws Exception {
         when(this.versionServiceMock.history(Mockito.any(Context.class), Mockito.anyString())).thenReturn
             (generateVersionTree());
@@ -81,6 +84,7 @@ public class VersionControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRevert() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -99,6 +103,7 @@ public class VersionControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRevertMissingItemId() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -117,6 +122,7 @@ public class VersionControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRevertMissingRevertVersion() throws Exception {
         doAnswer(new Answer<Void>() {
 

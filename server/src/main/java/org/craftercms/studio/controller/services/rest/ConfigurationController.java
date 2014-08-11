@@ -57,7 +57,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/api/1/config")
 public class ConfigurationController {
 
-    @Autowired
     private ConfigurationService configurationService;
 
     @RequestMapping(value = "/configuration/{site}", method = RequestMethod.GET)

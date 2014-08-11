@@ -56,7 +56,6 @@ public class WorkflowController {
     /**
      * Workflow Manager instance.
      */
-    @Autowired
     private WorkflowManager workflowManager;
 
     @RequestMapping(value = "/start/{site}", method = RequestMethod.POST)

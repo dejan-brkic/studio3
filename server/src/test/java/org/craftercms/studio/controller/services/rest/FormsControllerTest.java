@@ -25,6 +25,7 @@ import org.craftercms.studio.api.content.FormService;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Form;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -60,6 +61,7 @@ public class FormsControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testList() throws Exception {
         List<Form> formsList = generateFormDefinitionList();
         when(this.formServiceMock.list(Mockito.any(Context.class), Mockito.anyString(),
@@ -74,6 +76,7 @@ public class FormsControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testListMissingFilters() throws Exception {
         List<Form> formsList = generateFormDefinitionList();
         when(this.formServiceMock.list(Mockito.any(Context.class), Mockito.anyString(),
@@ -87,6 +90,7 @@ public class FormsControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testUpdate() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -105,6 +109,7 @@ public class FormsControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testUpdateMissingFormDefinition() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -123,6 +128,7 @@ public class FormsControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRemove() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -141,6 +147,7 @@ public class FormsControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRemoveMissingType() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -159,6 +166,7 @@ public class FormsControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testCopy() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -178,6 +186,7 @@ public class FormsControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testCopyMissingSrc() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -197,6 +206,7 @@ public class FormsControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testCopyMissingDst() throws Exception {
         doAnswer(new Answer<Void>() {
 

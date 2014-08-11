@@ -43,7 +43,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/api/1/forms")
 public class FormsController {
 
-    @Autowired
     private FormService formService;
 
     @RequestMapping(value = "/list/{site}", method = RequestMethod.GET)

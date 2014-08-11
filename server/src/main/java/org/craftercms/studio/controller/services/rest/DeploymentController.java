@@ -49,7 +49,6 @@ public class DeploymentController {
     /**
      * Deployment Manager.
      */
-    @Autowired
     private DeploymentManager deploymentManager;
 
     /**

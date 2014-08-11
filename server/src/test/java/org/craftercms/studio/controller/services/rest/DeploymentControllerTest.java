@@ -25,6 +25,7 @@ import org.craftercms.studio.api.deployment.DeploymentManager;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.DeploymentChannel;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -64,6 +65,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testHistory() throws Exception {
         when(this.deploymentManagerMock.history(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class))).thenReturn(generateDeploymentHistory());
@@ -75,6 +77,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testHistoryWithFilters() throws Exception {
         when(this.deploymentManagerMock.history(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyListOf(String.class))).thenReturn(generateDeploymentHistory());
@@ -87,6 +90,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testChannels() throws Exception {
         when(this.deploymentManagerMock.channels(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateChannelsList());
@@ -99,6 +103,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testChannelsMissingEnvironment() throws Exception {
         when(this.deploymentManagerMock.channels(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.anyString())).thenReturn(generateChannelsList());
@@ -111,6 +116,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testUpdateChannel() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -131,6 +137,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testUpdateChannelMissingRequestBody() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -150,6 +157,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRemoveChannel() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -170,6 +178,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testRemoveChannelMissingRequestBody() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -189,6 +198,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testDeploy() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -209,6 +219,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testDeployMissingItems() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -228,6 +239,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testStatus() throws Exception {
         when(this.deploymentManagerMock.status(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class))).thenReturn(RandomStringUtils.randomAlphanumeric(200));
@@ -241,6 +253,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testStatusMissingChannel() throws Exception {
         when(this.deploymentManagerMock.status(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class))).thenReturn(RandomStringUtils.randomAlphanumeric(200));
@@ -253,6 +266,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testVersion() throws Exception {
         when(this.deploymentManagerMock.version(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class))).thenReturn((long)(Math.random() * Long.MAX_VALUE));
@@ -266,6 +280,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testVersionMissingRequestBody() throws Exception {
         when(this.deploymentManagerMock.version(Mockito.any(Context.class), Mockito.anyString(),
             Mockito.any(DeploymentChannel.class))).thenReturn((long)(Math.random() * Long.MAX_VALUE));
@@ -278,6 +293,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testAbort() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -298,6 +314,7 @@ public class DeploymentControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testAbortMissingRequestBody() throws Exception {
         doAnswer(new Answer<Void>() {
 

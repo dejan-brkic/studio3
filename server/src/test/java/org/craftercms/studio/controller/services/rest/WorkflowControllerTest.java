@@ -25,6 +25,7 @@ import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.WorkflowTransition;
 import org.craftercms.studio.commons.filter.WorkflowPackageFilter;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
@@ -65,6 +66,7 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testStart() throws Exception {
         when(this.workflowManagerMock.start(Mockito.anyString(), Mockito.anyListOf(String.class),
             Mockito.anyListOf(Item.class))).thenReturn(UUID.randomUUID().toString());
@@ -80,6 +82,7 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     // TODO: invalid request tests
 
     @Test
+    @Ignore
     public void testPackage() throws Exception {
         when(this.workflowManagerMock.getPackage(Mockito.anyString())).thenReturn(generateItemListMock());
 
@@ -90,6 +93,7 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testPackageMissingPackageId() throws Exception {
         when(this.workflowManagerMock.getPackage(Mockito.anyString())).thenReturn(generateItemListMock());
 
@@ -100,6 +104,7 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testPackages() throws Exception {
         when(this.workflowManagerMock.getPackages(Mockito.anyString(), Mockito.anyListOf(WorkflowPackageFilter.class)
         )).thenReturn(generateListOfPackages());
@@ -113,6 +118,7 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testTransitions() throws Exception {
         when(this.workflowManagerMock.getTransitions(Mockito.anyString())).thenReturn(generateListOfTransitions());
 
@@ -123,6 +129,7 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testTransitionsMissingPackageId() throws Exception {
         when(this.workflowManagerMock.getTransitions(Mockito.anyString())).thenReturn(generateListOfTransitions());
 
@@ -133,6 +140,7 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testTransition() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -154,6 +162,7 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testCancel() throws Exception {
         doAnswer(new Answer<Void>() {
 
@@ -171,6 +180,7 @@ public class WorkflowControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    @Ignore
     public void testCancelMissingPackageId() throws Exception {
         doAnswer(new Answer<Void>() {
 
