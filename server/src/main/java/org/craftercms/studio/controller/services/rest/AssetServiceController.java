@@ -285,6 +285,45 @@ public class AssetServiceController {
     }
 
     /**
+     * Update asset with given id and file.
+     *
+     * @param site       site identifier
+     * @param itemId     asset item id
+     * @param content       asset content
+     * @param properties additional properties
+     * @return item representing asset
+     * @throws StudioException
+     */
+    @ApiOperation(value = "update asset", position = 5)
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "Success", response = Item.class),
+            @ApiResponse(code = 400, message = "Bad Request")})
+    @RequestMapping(
+            value = "/update/{site}",
+            params = {"item_id", "content"},
+            method = RequestMethod.POST
+    )
+    @ResponseBody
+    public Item update(
+            @ApiParam(name = "site", required = true, value = "String")
+            @PathVariable final String site,
+
+            @ApiParam(name = "item_id", required = true, value = "String")
+            @RequestParam(value = "item_id") final String itemId,
+
+            @ApiParam(name = "content", required = true, value = "String")
+            @RequestParam(value = "content") final String content,
+
+            @ApiParam(name = "properties", required = false, value = "Map<String, String>")
+            @RequestParam(value = "properties", required = false) final Map<String, String> properties
+    ) throws StudioException {
+
+        Context context = RestControllerUtils.createMockContext();
+        ItemId id = new ItemId(itemId);
+        return assetService.update(context, site, id, content, properties);
+    }
+
+    /**
      * Delete asset for given item id.
      *
      * @param site   site identifier

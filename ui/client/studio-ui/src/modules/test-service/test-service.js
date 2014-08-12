@@ -188,6 +188,13 @@ define(['require',
                                     }).then( function(template) {
                                         // $log.log('Template updated: ', template);
                                     });
+                                } else if (fileType === 'asset') {
+                                    serviceProvider.Asset.update({
+                                        item_id: itemId,
+                                        content: content
+                                    }).then( function(asset) {
+                                        // $log.log('Asset updated: ', template);
+                                    });
                                 }
                             }
                         } else {
