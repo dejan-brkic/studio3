@@ -29,6 +29,9 @@ import java.util.List;
 import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
+import org.craftercms.commons.ebus.annotations.EListener;
+import org.craftercms.commons.ebus.annotations.EventHandler;
+import org.craftercms.commons.ebus.annotations.EventSelectorType;
 import org.craftercms.studio.commons.dto.Context;
 import org.craftercms.studio.commons.dto.Item;
 import org.craftercms.studio.commons.dto.Tenant;
@@ -37,9 +40,7 @@ import org.craftercms.studio.impl.event.EventConstants;
 import org.craftercms.studio.impl.event.RepositoryEventBulkOpMessage;
 import org.craftercms.studio.impl.event.RepositoryEventMessage;
 import org.craftercms.studio.internal.content.ContentManager;
-import org.craftercms.commons.ebus.annotations.EListener;
-import org.craftercms.commons.ebus.annotations.EventHandler;
-import org.craftercms.commons.ebus.annotations.EventSelectorType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.event.Event;
@@ -172,7 +173,7 @@ public class PreviewDeployer {
         return previewStoreRootPath;
     }
 
-    public void setPreviewStoreRootPath(String previewStoreRootPath) {
+    public void setPreviewStoreRootPath(final String previewStoreRootPath) {
         this.previewStoreRootPath = previewStoreRootPath;
     }
 
