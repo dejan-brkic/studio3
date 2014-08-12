@@ -94,14 +94,29 @@ define(function(require) {
                 name: 'property: item_id',
                 type: 'string',
                 required: true
-            }, {
+            }];
+
+        if (asset.file) {
+            // Update new asset from file
+            assetProperties.push({
                 id: 'file',
                 name: 'property: file',
                 type: 'file',
                 required: true
-            }];
+            });
+            return this.updateFromFile(asset, assetProperties);
+        } else {
+            // Update new asset from inline content
+            assetProperties.push({
+                id: 'content',
+                name: 'property: content',
+                type: 'string',
+                required: true,
+                empty: false
+            });
 
-        return this.updateFromFile(asset, assetProperties);
+            return this.updateFromContent(asset, assetProperties);
+        }
     };
 
     return Asset;
