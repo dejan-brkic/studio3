@@ -42,13 +42,6 @@
 
         <dependency>
             <groupId>org.craftercms</groupId>
-            <artifactId>studio-mock</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.craftercms</groupId>
             <artifactId>studio-ui</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
