@@ -22,7 +22,7 @@
         <ehcache.version>2.6.6</ehcache.version>
         <freemarker.freemarker.version>2.3.19</freemarker.freemarker.version>
         <com.fasterxml.jackson.version>2.2.3</com.fasterxml.jackson.version>
-        <org.json.json.version>20090211</org.json.json.version>
+        <org.json.json.version>20180130</org.json.json.version>
         <jetty.port>9666</jetty.port>
         <test.base.url>http://localhost:${jetty.port}</test.base.url>
         <test.timeout>30</test.timeout>
@@ -264,7 +264,7 @@
                 <version>2.6</version>
                 <configuration>
                     <failIfNoTests>true</failIfNoTests>
-                    <testFailureIgnore></testFailureIgnore>
+                    <testFailureIgnore/>
                     <includes>
                         <include>
                             **/integration/**/*.java
